@@ -1,0 +1,12 @@
+<svg viewBox="0 0 700 100" xmlns="http://www.w3.org/2000/svg" role="img"
+     font-family="Barlow Condensed, Oswald, Roboto Condensed, Arial Narrow, sans-serif">
+<title>TheBullpenBet lockup (dark)</title>
+<g transform="translate(10, 25)">
+<ellipse cx="50" cy="32" rx="46" ry="10" fill="#243044" stroke="#5a6478" stroke-width="0.8"/>
+<path d="M 36 28 L 64 28 L 70 41 A 46 10 0 0 1 30 41 Z" fill="#3d4a5e"/>
+<rect x="36" y="24" width="28" height="4" fill="#f0f2f5"/>
+</g>
+<text x="126" y="68" font-size="52" font-weight="800" letter-spacing="0.5">
+<tspan fill="#f0f2f5">TheBullpen</tspan><tspan fill="#00c853">Bet</tspan>
+</text>
+</svg>

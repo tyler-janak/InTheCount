@@ -1,0 +1,2563 @@
+{
+  "500779": {
+    "age": 37,
+    "birth_date": "1989-01-24",
+    "name": "Jose Quintana"
+  },
+  "502671": {
+    "age": 38,
+    "birth_date": "1987-09-10",
+    "name": "Paul Goldschmidt"
+  },
+  "514888": {
+    "age": 36,
+    "birth_date": "1990-05-06",
+    "name": "Jose Altuve"
+  },
+  "518692": {
+    "age": 36,
+    "birth_date": "1989-09-12",
+    "name": "Freddie Freeman"
+  },
+  "518876": {
+    "age": 37,
+    "birth_date": "1988-10-14",
+    "name": "Merrill Kelly"
+  },
+  "519242": {
+    "age": 37,
+    "birth_date": "1989-03-30",
+    "name": "Chris Sale"
+  },
+  "521692": {
+    "age": 36,
+    "birth_date": "1990-05-10",
+    "name": "Salvador Perez"
+  },
+  "527048": {
+    "age": 35,
+    "birth_date": "1991-04-04",
+    "name": "Mart\u00edn P\u00e9rez"
+  },
+  "542303": {
+    "age": 35,
+    "birth_date": "1990-11-12",
+    "name": "Marcell Ozuna"
+  },
+  "543037": {
+    "age": 35,
+    "birth_date": "1990-09-08",
+    "name": "Gerrit Cole"
+  },
+  "543135": {
+    "age": 36,
+    "birth_date": "1990-02-13",
+    "name": "Nathan Eovaldi"
+  },
+  "543243": {
+    "age": 36,
+    "birth_date": "1989-11-07",
+    "name": "Sonny Gray"
+  },
+  "543309": {
+    "age": 36,
+    "birth_date": "1990-04-20",
+    "name": "Kyle Higashioka"
+  },
+  "543760": {
+    "age": 35,
+    "birth_date": "1990-09-17",
+    "name": "Marcus Semien"
+  },
+  "543807": {
+    "age": 36,
+    "birth_date": "1989-09-19",
+    "name": "George Springer"
+  },
+  "543877": {
+    "age": 35,
+    "birth_date": "1990-08-21",
+    "name": "Christian V\u00e1zquez"
+  },
+  "545121": {
+    "age": 34,
+    "birth_date": "1991-07-16",
+    "name": "Ildemaro Vargas"
+  },
+  "545341": {
+    "age": 34,
+    "birth_date": "1991-08-13",
+    "name": "Randal Grichuk"
+  },
+  "545361": {
+    "age": 34,
+    "birth_date": "1991-08-07",
+    "name": "Mike Trout"
+  },
+  "547179": {
+    "age": 34,
+    "birth_date": "1992-01-04",
+    "name": "Michael Lorenzen"
+  },
+  "547180": {
+    "age": 33,
+    "birth_date": "1992-10-16",
+    "name": "Bryce Harper"
+  },
+  "553993": {
+    "age": 34,
+    "birth_date": "1991-07-18",
+    "name": "Eugenio Su\u00e1rez"
+  },
+  "554430": {
+    "age": 36,
+    "birth_date": "1990-05-30",
+    "name": "Zack Wheeler"
+  },
+  "571448": {
+    "age": 35,
+    "birth_date": "1991-04-16",
+    "name": "Nolan Arenado"
+  },
+  "571510": {
+    "age": 35,
+    "birth_date": "1991-02-02",
+    "name": "Matthew Boyd"
+  },
+  "571578": {
+    "age": 36,
+    "birth_date": "1989-07-19",
+    "name": "Patrick Corbin"
+  },
+  "571927": {
+    "age": 35,
+    "birth_date": "1991-05-29",
+    "name": "Steven Matz"
+  },
+  "571945": {
+    "age": 37,
+    "birth_date": "1988-08-23",
+    "name": "Miles Mikolas"
+  },
+  "571970": {
+    "age": 35,
+    "birth_date": "1990-08-25",
+    "name": "Max Muncy"
+  },
+  "572233": {
+    "age": 35,
+    "birth_date": "1991-03-28",
+    "name": "Christian Walker"
+  },
+  "573262": {
+    "age": 35,
+    "birth_date": "1990-08-23",
+    "name": "Mike Yastrzemski"
+  },
+  "575929": {
+    "age": 34,
+    "birth_date": "1992-05-13",
+    "name": "Willson Contreras"
+  },
+  "579328": {
+    "age": 35,
+    "birth_date": "1991-06-17",
+    "name": "Yusei Kikuchi"
+  },
+  "592332": {
+    "age": 35,
+    "birth_date": "1991-01-06",
+    "name": "Kevin Gausman"
+  },
+  "592450": {
+    "age": 34,
+    "birth_date": "1992-04-26",
+    "name": "Aaron Judge"
+  },
+  "592518": {
+    "age": 33,
+    "birth_date": "1992-07-06",
+    "name": "Manny Machado"
+  },
+  "592626": {
+    "age": 34,
+    "birth_date": "1992-04-21",
+    "name": "Joc Pederson"
+  },
+  "592662": {
+    "age": 34,
+    "birth_date": "1991-10-01",
+    "name": "Robbie Ray"
+  },
+  "592663": {
+    "age": 35,
+    "birth_date": "1991-03-18",
+    "name": "J.T. Realmuto"
+  },
+  "592791": {
+    "age": 34,
+    "birth_date": "1991-11-18",
+    "name": "Jameson Taillon"
+  },
+  "592836": {
+    "age": 33,
+    "birth_date": "1992-08-13",
+    "name": "Taijuan Walker"
+  },
+  "592885": {
+    "age": 34,
+    "birth_date": "1991-12-05",
+    "name": "Christian Yelich"
+  },
+  "593428": {
+    "age": 33,
+    "birth_date": "1992-10-01",
+    "name": "Xander Bogaerts"
+  },
+  "593958": {
+    "age": 33,
+    "birth_date": "1993-04-07",
+    "name": "Eduardo Rodriguez"
+  },
+  "594798": {
+    "age": 38,
+    "birth_date": "1988-06-19",
+    "name": "Jacob deGrom"
+  },
+  "595978": {
+    "age": 33,
+    "birth_date": "1992-08-18",
+    "name": "Austin Hedges"
+  },
+  "596019": {
+    "age": 32,
+    "birth_date": "1993-11-14",
+    "name": "Francisco Lindor"
+  },
+  "596115": {
+    "age": 33,
+    "birth_date": "1992-11-15",
+    "name": "Trevor Story"
+  },
+  "596142": {
+    "age": 33,
+    "birth_date": "1992-12-02",
+    "name": "Gary S\u00e1nchez"
+  },
+  "601713": {
+    "age": 33,
+    "birth_date": "1993-02-14",
+    "name": "Nick Pivetta"
+  },
+  "605135": {
+    "age": 37,
+    "birth_date": "1989-02-22",
+    "name": "Chris Bassitt"
+  },
+  "605137": {
+    "age": 33,
+    "birth_date": "1992-08-14",
+    "name": "Josh Bell"
+  },
+  "605141": {
+    "age": 33,
+    "birth_date": "1992-10-07",
+    "name": "Mookie Betts"
+  },
+  "605170": {
+    "age": 32,
+    "birth_date": "1993-08-17",
+    "name": "Victor Caratini"
+  },
+  "605280": {
+    "age": 33,
+    "birth_date": "1993-03-27",
+    "name": "Clay Holmes"
+  },
+  "605288": {
+    "age": 33,
+    "birth_date": "1993-02-02",
+    "name": "Adrian Houser"
+  },
+  "605400": {
+    "age": 33,
+    "birth_date": "1993-06-04",
+    "name": "Aaron Nola"
+  },
+  "605488": {
+    "age": 33,
+    "birth_date": "1992-09-20",
+    "name": "Jeffrey Springs"
+  },
+  "605540": {
+    "age": 33,
+    "birth_date": "1993-02-10",
+    "name": "Brandon Woodruff"
+  },
+  "606192": {
+    "age": 33,
+    "birth_date": "1992-10-15",
+    "name": "Teoscar Hern\u00e1ndez"
+  },
+  "606466": {
+    "age": 32,
+    "birth_date": "1993-10-12",
+    "name": "Ketel Marte"
+  },
+  "607043": {
+    "age": 33,
+    "birth_date": "1993-03-27",
+    "name": "Brandon Nimmo"
+  },
+  "607067": {
+    "age": 35,
+    "birth_date": "1990-07-01",
+    "name": "Colin Rea"
+  },
+  "607074": {
+    "age": 33,
+    "birth_date": "1992-12-10",
+    "name": "Carlos Rod\u00f3n"
+  },
+  "607192": {
+    "age": 32,
+    "birth_date": "1993-08-23",
+    "name": "Tyler Glasnow"
+  },
+  "607200": {
+    "age": 33,
+    "birth_date": "1993-02-25",
+    "name": "Erick Fedde"
+  },
+  "607208": {
+    "age": 32,
+    "birth_date": "1993-06-30",
+    "name": "Trea Turner"
+  },
+  "607259": {
+    "age": 35,
+    "birth_date": "1990-08-05",
+    "name": "Nick Martinez"
+  },
+  "607536": {
+    "age": 33,
+    "birth_date": "1993-05-14",
+    "name": "Kyle Freeland"
+  },
+  "607625": {
+    "age": 36,
+    "birth_date": "1989-11-17",
+    "name": "Seth Lugo"
+  },
+  "608070": {
+    "age": 33,
+    "birth_date": "1992-09-17",
+    "name": "Jos\u00e9 Ram\u00edrez"
+  },
+  "608324": {
+    "age": 32,
+    "birth_date": "1994-03-30",
+    "name": "Alex Bregman"
+  },
+  "608331": {
+    "age": 32,
+    "birth_date": "1994-01-18",
+    "name": "Max Fried"
+  },
+  "608337": {
+    "age": 31,
+    "birth_date": "1994-07-14",
+    "name": "Lucas Giolito"
+  },
+  "608348": {
+    "age": 31,
+    "birth_date": "1994-07-14",
+    "name": "Carson Kelly"
+  },
+  "608369": {
+    "age": 32,
+    "birth_date": "1994-04-27",
+    "name": "Corey Seager"
+  },
+  "608372": {
+    "age": 36,
+    "birth_date": "1989-10-11",
+    "name": "Tomoyuki Sugano"
+  },
+  "608379": {
+    "age": 34,
+    "birth_date": "1991-07-01",
+    "name": "Michael Wacha"
+  },
+  "608566": {
+    "age": 31,
+    "birth_date": "1995-02-22",
+    "name": "Germ\u00e1n M\u00e1rquez"
+  },
+  "609280": {
+    "age": 31,
+    "birth_date": "1995-03-02",
+    "name": "Miguel Andujar"
+  },
+  "621020": {
+    "age": 32,
+    "birth_date": "1994-02-11",
+    "name": "Dansby Swanson"
+  },
+  "621043": {
+    "age": 31,
+    "birth_date": "1994-09-22",
+    "name": "Carlos Correa"
+  },
+  "621107": {
+    "age": 32,
+    "birth_date": "1994-04-08",
+    "name": "Zach Eflin"
+  },
+  "621111": {
+    "age": 31,
+    "birth_date": "1994-07-28",
+    "name": "Walker Buehler"
+  },
+  "621121": {
+    "age": 32,
+    "birth_date": "1993-10-02",
+    "name": "Lance McCullers Jr."
+  },
+  "621439": {
+    "age": 32,
+    "birth_date": "1993-12-18",
+    "name": "Byron Buxton"
+  },
+  "621493": {
+    "age": 32,
+    "birth_date": "1993-12-14",
+    "name": "Taylor Ward"
+  },
+  "621566": {
+    "age": 32,
+    "birth_date": "1994-03-29",
+    "name": "Matt Olson"
+  },
+  "622491": {
+    "age": 33,
+    "birth_date": "1992-12-12",
+    "name": "Luis Castillo"
+  },
+  "622663": {
+    "age": 32,
+    "birth_date": "1994-02-20",
+    "name": "Luis Severino"
+  },
+  "622761": {
+    "age": 31,
+    "birth_date": "1995-06-23",
+    "name": "Jorge Mateo"
+  },
+  "624133": {
+    "age": 30,
+    "birth_date": "1995-08-26",
+    "name": "Ranger Suarez"
+  },
+  "624413": {
+    "age": 31,
+    "birth_date": "1994-12-07",
+    "name": "Pete Alonso"
+  },
+  "624424": {
+    "age": 33,
+    "birth_date": "1993-03-01",
+    "name": "Michael Conforto"
+  },
+  "624585": {
+    "age": 34,
+    "birth_date": "1992-02-25",
+    "name": "Jorge Soler"
+  },
+  "624641": {
+    "age": 30,
+    "birth_date": "1996-03-06",
+    "name": "Edmundo Sosa"
+  },
+  "625643": {
+    "age": 32,
+    "birth_date": "1994-01-04",
+    "name": "Reynaldo L\u00f3pez"
+  },
+  "640455": {
+    "age": 34,
+    "birth_date": "1992-02-01",
+    "name": "Sean Manaea"
+  },
+  "641343": {
+    "age": 30,
+    "birth_date": "1995-10-06",
+    "name": "Jake Bauers"
+  },
+  "641355": {
+    "age": 30,
+    "birth_date": "1995-07-13",
+    "name": "Cody Bellinger"
+  },
+  "641487": {
+    "age": 31,
+    "birth_date": "1995-01-11",
+    "name": "J.P. Crawford"
+  },
+  "641680": {
+    "age": 31,
+    "birth_date": "1995-06-27",
+    "name": "Jonah Heim"
+  },
+  "641743": {
+    "age": 31,
+    "birth_date": "1995-03-21",
+    "name": "Anthony Kay"
+  },
+  "641778": {
+    "age": 31,
+    "birth_date": "1995-06-03",
+    "name": "Eric Lauer"
+  },
+  "641793": {
+    "age": 30,
+    "birth_date": "1995-10-05",
+    "name": "Zack Littell"
+  },
+  "641816": {
+    "age": 31,
+    "birth_date": "1994-09-29",
+    "name": "Tyler Mahle"
+  },
+  "641857": {
+    "age": 31,
+    "birth_date": "1994-12-14",
+    "name": "Ryan McMahon"
+  },
+  "641927": {
+    "age": 30,
+    "birth_date": "1995-07-12",
+    "name": "Bailey Ober"
+  },
+  "642086": {
+    "age": 31,
+    "birth_date": "1995-06-15",
+    "name": "Dominic Smith"
+  },
+  "642547": {
+    "age": 30,
+    "birth_date": "1996-06-04",
+    "name": "Freddy Peralta"
+  },
+  "642708": {
+    "age": 30,
+    "birth_date": "1995-11-20",
+    "name": "Amed Rosario"
+  },
+  "642715": {
+    "age": 30,
+    "birth_date": "1995-09-02",
+    "name": "Willy Adames"
+  },
+  "643217": {
+    "age": 31,
+    "birth_date": "1994-07-06",
+    "name": "Andrew Benintendi"
+  },
+  "643289": {
+    "age": 31,
+    "birth_date": "1994-07-19",
+    "name": "Mauricio Dub\u00f3n"
+  },
+  "643377": {
+    "age": 31,
+    "birth_date": "1994-11-22",
+    "name": "Griffin Jax"
+  },
+  "643396": {
+    "age": 31,
+    "birth_date": "1995-03-23",
+    "name": "Isiah Kiner-Falefa"
+  },
+  "643446": {
+    "age": 34,
+    "birth_date": "1992-04-08",
+    "name": "Jeff McNeil"
+  },
+  "645261": {
+    "age": 30,
+    "birth_date": "1995-09-07",
+    "name": "Sandy Alcantara"
+  },
+  "645277": {
+    "age": 29,
+    "birth_date": "1997-01-07",
+    "name": "Ozzie Albies"
+  },
+  "646240": {
+    "age": 29,
+    "birth_date": "1996-10-24",
+    "name": "Rafael Devers"
+  },
+  "647304": {
+    "age": 29,
+    "birth_date": "1997-06-22",
+    "name": "Josh Naylor"
+  },
+  "647336": {
+    "age": 28,
+    "birth_date": "1997-08-04",
+    "name": "Michael Soroka"
+  },
+  "650333": {
+    "age": 29,
+    "birth_date": "1997-04-09",
+    "name": "Luis Arraez"
+  },
+  "650402": {
+    "age": 29,
+    "birth_date": "1996-12-13",
+    "name": "Gleyber Torres"
+  },
+  "650489": {
+    "age": 29,
+    "birth_date": "1997-04-24",
+    "name": "Willi Castro"
+  },
+  "650490": {
+    "age": 34,
+    "birth_date": "1991-08-08",
+    "name": "Yandy D\u00edaz"
+  },
+  "650633": {
+    "age": 31,
+    "birth_date": "1995-05-25",
+    "name": "Michael King"
+  },
+  "650644": {
+    "age": 31,
+    "birth_date": "1995-06-12",
+    "name": "Aaron Civale"
+  },
+  "650859": {
+    "age": 29,
+    "birth_date": "1997-02-26",
+    "name": "Luis Rengifo"
+  },
+  "650911": {
+    "age": 29,
+    "birth_date": "1996-12-12",
+    "name": "Cristopher S\u00e1nchez"
+  },
+  "656288": {
+    "age": 30,
+    "birth_date": "1996-05-11",
+    "name": "Griffin Canning"
+  },
+  "656302": {
+    "age": 30,
+    "birth_date": "1995-12-28",
+    "name": "Dylan Cease"
+  },
+  "656305": {
+    "age": 33,
+    "birth_date": "1993-04-28",
+    "name": "Matt Chapman"
+  },
+  "656427": {
+    "age": 30,
+    "birth_date": "1995-10-15",
+    "name": "Jack Flaherty"
+  },
+  "656484": {
+    "age": 30,
+    "birth_date": "1996-03-22",
+    "name": "Tristan Gray"
+  },
+  "656492": {
+    "age": 30,
+    "birth_date": "1995-07-27",
+    "name": "Foster Griffin"
+  },
+  "656550": {
+    "age": 30,
+    "birth_date": "1996-03-22",
+    "name": "Grant Holmes"
+  },
+  "656555": {
+    "age": 33,
+    "birth_date": "1993-03-17",
+    "name": "Rhys Hoskins"
+  },
+  "656605": {
+    "age": 30,
+    "birth_date": "1996-04-04",
+    "name": "Mitch Keller"
+  },
+  "656716": {
+    "age": 31,
+    "birth_date": "1995-04-29",
+    "name": "Zach McKinstry"
+  },
+  "656775": {
+    "age": 31,
+    "birth_date": "1994-10-01",
+    "name": "Cedric Mullins"
+  },
+  "656811": {
+    "age": 32,
+    "birth_date": "1993-07-26",
+    "name": "Ryan O'Hearn"
+  },
+  "656849": {
+    "age": 30,
+    "birth_date": "1995-09-03",
+    "name": "David Peterson"
+  },
+  "656876": {
+    "age": 30,
+    "birth_date": "1995-07-27",
+    "name": "Drew Rasmussen"
+  },
+  "656941": {
+    "age": 33,
+    "birth_date": "1993-03-05",
+    "name": "Kyle Schwarber"
+  },
+  "657041": {
+    "age": 30,
+    "birth_date": "1995-08-23",
+    "name": "Lane Thomas"
+  },
+  "657136": {
+    "age": 30,
+    "birth_date": "1996-05-19",
+    "name": "Connor Wong"
+  },
+  "657277": {
+    "age": 29,
+    "birth_date": "1996-11-18",
+    "name": "Logan Webb"
+  },
+  "657656": {
+    "age": 31,
+    "birth_date": "1994-07-15",
+    "name": "Ram\u00f3n Laureano"
+  },
+  "657746": {
+    "age": 30,
+    "birth_date": "1996-06-05",
+    "name": "Joe Ryan"
+  },
+  "657757": {
+    "age": 30,
+    "birth_date": "1996-04-23",
+    "name": "Gavin Sheets"
+  },
+  "660271": {
+    "age": 31,
+    "birth_date": "1994-07-05",
+    "name": "Shohei Ohtani"
+  },
+  "660670": {
+    "age": 28,
+    "birth_date": "1997-12-18",
+    "name": "Ronald Acu\u00f1a Jr."
+  },
+  "660688": {
+    "age": 27,
+    "birth_date": "1998-07-20",
+    "name": "Keibert Ruiz"
+  },
+  "660821": {
+    "age": 28,
+    "birth_date": "1997-10-07",
+    "name": "Jes\u00fas S\u00e1nchez"
+  },
+  "661388": {
+    "age": 28,
+    "birth_date": "1997-12-24",
+    "name": "William Contreras"
+  },
+  "661563": {
+    "age": 28,
+    "birth_date": "1998-06-03",
+    "name": "Luis Gil"
+  },
+  "662139": {
+    "age": 29,
+    "birth_date": "1996-07-02",
+    "name": "Daulton Varsho"
+  },
+  "663372": {
+    "age": 29,
+    "birth_date": "1996-09-02",
+    "name": "Ryan Feltner"
+  },
+  "663436": {
+    "age": 29,
+    "birth_date": "1997-01-04",
+    "name": "Davis Martin"
+  },
+  "663460": {
+    "age": 28,
+    "birth_date": "1997-08-19",
+    "name": "Kris Bubic"
+  },
+  "663538": {
+    "age": 29,
+    "birth_date": "1997-05-13",
+    "name": "Nico Hoerner"
+  },
+  "663554": {
+    "age": 29,
+    "birth_date": "1997-05-01",
+    "name": "Casey Mize"
+  },
+  "663556": {
+    "age": 29,
+    "birth_date": "1997-04-28",
+    "name": "Shane McClanahan"
+  },
+  "663567": {
+    "age": 29,
+    "birth_date": "1997-04-18",
+    "name": "Peter Lambert"
+  },
+  "663568": {
+    "age": 29,
+    "birth_date": "1997-04-18",
+    "name": "Stephen Kolek"
+  },
+  "663586": {
+    "age": 29,
+    "birth_date": "1997-04-02",
+    "name": "Austin Riley"
+  },
+  "663616": {
+    "age": 29,
+    "birth_date": "1997-02-26",
+    "name": "Trevor Larnach"
+  },
+  "663623": {
+    "age": 29,
+    "birth_date": "1997-02-18",
+    "name": "Jake Irvin"
+  },
+  "663656": {
+    "age": 29,
+    "birth_date": "1997-01-17",
+    "name": "Kyle Tucker"
+  },
+  "663728": {
+    "age": 29,
+    "birth_date": "1996-11-26",
+    "name": "Cal Raleigh"
+  },
+  "663743": {
+    "age": 29,
+    "birth_date": "1996-11-11",
+    "name": "Nick Fortes"
+  },
+  "663757": {
+    "age": 29,
+    "birth_date": "1996-11-01",
+    "name": "Trent Grisham"
+  },
+  "663837": {
+    "age": 29,
+    "birth_date": "1996-09-16",
+    "name": "Matt Vierling"
+  },
+  "663886": {
+    "age": 29,
+    "birth_date": "1996-08-16",
+    "name": "Tyler Stephenson"
+  },
+  "663903": {
+    "age": 29,
+    "birth_date": "1996-08-04",
+    "name": "Brady Singer"
+  },
+  "663968": {
+    "age": 30,
+    "birth_date": "1996-03-08",
+    "name": "Jake Mangum"
+  },
+  "663969": {
+    "age": 28,
+    "birth_date": "1997-10-27",
+    "name": "Tyler Phillips"
+  },
+  "663978": {
+    "age": 30,
+    "birth_date": "1996-01-08",
+    "name": "Chris Paddack"
+  },
+  "663993": {
+    "age": 30,
+    "birth_date": "1995-07-07",
+    "name": "Nathaniel Lowe"
+  },
+  "664023": {
+    "age": 31,
+    "birth_date": "1994-08-12",
+    "name": "Ian Happ"
+  },
+  "664034": {
+    "age": 31,
+    "birth_date": "1994-07-13",
+    "name": "Ty France"
+  },
+  "664040": {
+    "age": 31,
+    "birth_date": "1994-07-06",
+    "name": "Brandon Lowe"
+  },
+  "664285": {
+    "age": 32,
+    "birth_date": "1993-11-19",
+    "name": "Framber Valdez"
+  },
+  "664728": {
+    "age": 29,
+    "birth_date": "1997-03-03",
+    "name": "Kyle Isbel"
+  },
+  "664761": {
+    "age": 29,
+    "birth_date": "1996-08-03",
+    "name": "Alec Bohm"
+  },
+  "664770": {
+    "age": 31,
+    "birth_date": "1994-07-12",
+    "name": "Nathan Lukes"
+  },
+  "664983": {
+    "age": 28,
+    "birth_date": "1997-07-30",
+    "name": "Jake McCarthy"
+  },
+  "665019": {
+    "age": 30,
+    "birth_date": "1996-05-15",
+    "name": "Kody Clemens"
+  },
+  "665152": {
+    "age": 30,
+    "birth_date": "1996-01-07",
+    "name": "Dean Kremer"
+  },
+  "665161": {
+    "age": 28,
+    "birth_date": "1997-09-22",
+    "name": "Jeremy Pe\u00f1a"
+  },
+  "665487": {
+    "age": 27,
+    "birth_date": "1999-01-02",
+    "name": "Fernando Tatis Jr."
+  },
+  "665489": {
+    "age": 27,
+    "birth_date": "1999-03-16",
+    "name": "Vladimir Guerrero Jr."
+  },
+  "665742": {
+    "age": 27,
+    "birth_date": "1998-10-25",
+    "name": "Juan Soto"
+  },
+  "665750": {
+    "age": 27,
+    "birth_date": "1998-09-08",
+    "name": "Leody Taveras"
+  },
+  "665795": {
+    "age": 28,
+    "birth_date": "1998-04-13",
+    "name": "Edward Cabrera"
+  },
+  "665804": {
+    "age": 27,
+    "birth_date": "1999-03-09",
+    "name": "Miguel Amaya"
+  },
+  "665833": {
+    "age": 27,
+    "birth_date": "1998-10-04",
+    "name": "Oneil Cruz"
+  },
+  "665862": {
+    "age": 28,
+    "birth_date": "1998-02-01",
+    "name": "Jazz Chisholm Jr."
+  },
+  "665871": {
+    "age": 28,
+    "birth_date": "1997-07-30",
+    "name": "Javier Assad"
+  },
+  "665926": {
+    "age": 27,
+    "birth_date": "1998-09-04",
+    "name": "Andr\u00e9s Gim\u00e9nez"
+  },
+  "666018": {
+    "age": 28,
+    "birth_date": "1998-05-23",
+    "name": "Jonathan Aranda"
+  },
+  "666023": {
+    "age": 31,
+    "birth_date": "1995-05-16",
+    "name": "Freddy Fermin"
+  },
+  "666126": {
+    "age": 28,
+    "birth_date": "1997-06-30",
+    "name": "Carlos Cortes"
+  },
+  "666142": {
+    "age": 28,
+    "birth_date": "1997-12-12",
+    "name": "Cole Ragans"
+  },
+  "666152": {
+    "age": 28,
+    "birth_date": "1997-09-29",
+    "name": "David Hamilton"
+  },
+  "666157": {
+    "age": 28,
+    "birth_date": "1998-02-05",
+    "name": "Nick Lodolo"
+  },
+  "666160": {
+    "age": 28,
+    "birth_date": "1998-05-13",
+    "name": "Mickey Moniak"
+  },
+  "666176": {
+    "age": 27,
+    "birth_date": "1999-04-08",
+    "name": "Jo Adell"
+  },
+  "666182": {
+    "age": 28,
+    "birth_date": "1998-03-05",
+    "name": "Bo Bichette"
+  },
+  "666200": {
+    "age": 28,
+    "birth_date": "1997-09-30",
+    "name": "Jes\u00fas Luzardo"
+  },
+  "666397": {
+    "age": 27,
+    "birth_date": "1999-04-30",
+    "name": "Edouard Julien"
+  },
+  "666969": {
+    "age": 33,
+    "birth_date": "1993-03-02",
+    "name": "Adolis Garc\u00eda"
+  },
+  "666971": {
+    "age": 32,
+    "birth_date": "1993-10-10",
+    "name": "Lourdes Gurriel Jr."
+  },
+  "667670": {
+    "age": 31,
+    "birth_date": "1994-11-01",
+    "name": "Brent Rooker"
+  },
+  "667755": {
+    "age": 27,
+    "birth_date": "1998-10-20",
+    "name": "Jos\u00e9 Soriano"
+  },
+  "668227": {
+    "age": 31,
+    "birth_date": "1995-02-28",
+    "name": "Randy Arozarena"
+  },
+  "668678": {
+    "age": 30,
+    "birth_date": "1995-08-03",
+    "name": "Zac Gallen"
+  },
+  "668709": {
+    "age": 28,
+    "birth_date": "1997-11-10",
+    "name": "JJ Bleday"
+  },
+  "668715": {
+    "age": 28,
+    "birth_date": "1997-12-07",
+    "name": "Spencer Steer"
+  },
+  "668723": {
+    "age": 27,
+    "birth_date": "1999-02-18",
+    "name": "Ryan Vilade"
+  },
+  "668804": {
+    "age": 31,
+    "birth_date": "1995-01-27",
+    "name": "Bryan Reynolds"
+  },
+  "668885": {
+    "age": 27,
+    "birth_date": "1999-03-23",
+    "name": "Austin Martin"
+  },
+  "668901": {
+    "age": 26,
+    "birth_date": "1999-12-11",
+    "name": "Mark Vientos"
+  },
+  "668904": {
+    "age": 27,
+    "birth_date": "1999-06-05",
+    "name": "Royce Lewis"
+  },
+  "668909": {
+    "age": 26,
+    "birth_date": "1999-07-26",
+    "name": "Gavin Williams"
+  },
+  "668930": {
+    "age": 26,
+    "birth_date": "1999-11-21",
+    "name": "Brice Turang"
+  },
+  "668939": {
+    "age": 28,
+    "birth_date": "1998-02-06",
+    "name": "Adley Rutschman"
+  },
+  "668952": {
+    "age": 28,
+    "birth_date": "1997-11-12",
+    "name": "Ryan Kreidler"
+  },
+  "669003": {
+    "age": 27,
+    "birth_date": "1998-09-04",
+    "name": "Garrett Mitchell"
+  },
+  "669016": {
+    "age": 28,
+    "birth_date": "1997-12-18",
+    "name": "Brandon Marsh"
+  },
+  "669022": {
+    "age": 27,
+    "birth_date": "1999-02-24",
+    "name": "MacKenzie Gore"
+  },
+  "669065": {
+    "age": 28,
+    "birth_date": "1998-01-02",
+    "name": "Kyle Stowers"
+  },
+  "669127": {
+    "age": 28,
+    "birth_date": "1997-11-18",
+    "name": "Shea Langeliers"
+  },
+  "669160": {
+    "age": 28,
+    "birth_date": "1997-09-06",
+    "name": "Dustin May"
+  },
+  "669194": {
+    "age": 28,
+    "birth_date": "1998-02-01",
+    "name": "Ryne Nelson"
+  },
+  "669224": {
+    "age": 26,
+    "birth_date": "1999-07-12",
+    "name": "Austin Wells"
+  },
+  "669236": {
+    "age": 26,
+    "birth_date": "2000-03-26",
+    "name": "Jeremiah Jackson"
+  },
+  "669257": {
+    "age": 31,
+    "birth_date": "1995-03-28",
+    "name": "Will Smith"
+  },
+  "669302": {
+    "age": 29,
+    "birth_date": "1997-05-05",
+    "name": "Logan Gilbert"
+  },
+  "669357": {
+    "age": 26,
+    "birth_date": "2000-05-10",
+    "name": "Nolan Gorman"
+  },
+  "669358": {
+    "age": 27,
+    "birth_date": "1999-06-17",
+    "name": "Shane Baz"
+  },
+  "669364": {
+    "age": 26,
+    "birth_date": "1999-08-09",
+    "name": "Xavier Edwards"
+  },
+  "669372": {
+    "age": 27,
+    "birth_date": "1999-05-20",
+    "name": "J.T. Ginn"
+  },
+  "669373": {
+    "age": 29,
+    "birth_date": "1996-11-20",
+    "name": "Tarik Skubal"
+  },
+  "669387": {
+    "age": 27,
+    "birth_date": "1999-02-19",
+    "name": "Carmen Mlodzinski"
+  },
+  "669394": {
+    "age": 30,
+    "birth_date": "1996-04-10",
+    "name": "Jake Burger"
+  },
+  "669432": {
+    "age": 28,
+    "birth_date": "1997-11-13",
+    "name": "Trevor Rogers"
+  },
+  "669461": {
+    "age": 26,
+    "birth_date": "1999-11-06",
+    "name": "Matthew Liberatore"
+  },
+  "669467": {
+    "age": 27,
+    "birth_date": "1998-09-18",
+    "name": "Andre Pallante"
+  },
+  "669477": {
+    "age": 27,
+    "birth_date": "1999-03-01",
+    "name": "Casey Schmitt"
+  },
+  "669707": {
+    "age": 28,
+    "birth_date": "1998-02-08",
+    "name": "Jared Triolo"
+  },
+  "669920": {
+    "age": 33,
+    "birth_date": "1993-03-01",
+    "name": "Jason Alexander"
+  },
+  "669923": {
+    "age": 28,
+    "birth_date": "1998-02-04",
+    "name": "George Kirby"
+  },
+  "669947": {
+    "age": 32,
+    "birth_date": "1994-04-06",
+    "name": "Jesse Scholtens"
+  },
+  "670042": {
+    "age": 31,
+    "birth_date": "1994-09-19",
+    "name": "Luke Raley"
+  },
+  "670541": {
+    "age": 29,
+    "birth_date": "1997-06-27",
+    "name": "Yordan Alvarez"
+  },
+  "670623": {
+    "age": 27,
+    "birth_date": "1999-02-18",
+    "name": "Isaac Paredes"
+  },
+  "670764": {
+    "age": 29,
+    "birth_date": "1996-07-10",
+    "name": "Taylor Walls"
+  },
+  "670770": {
+    "age": 30,
+    "birth_date": "1995-08-14",
+    "name": "TJ Friedl"
+  },
+  "671056": {
+    "age": 26,
+    "birth_date": "2000-06-01",
+    "name": "Iv\u00e1n Herrera"
+  },
+  "671096": {
+    "age": 27,
+    "birth_date": "1999-06-01",
+    "name": "Andrew Abbott"
+  },
+  "671212": {
+    "age": 26,
+    "birth_date": "1999-08-14",
+    "name": "Joe Boyle"
+  },
+  "671218": {
+    "age": 26,
+    "birth_date": "1999-09-07",
+    "name": "Heliot Ramos"
+  },
+  "671277": {
+    "age": 26,
+    "birth_date": "2000-05-16",
+    "name": "Luis Garc\u00eda Jr."
+  },
+  "671289": {
+    "age": 27,
+    "birth_date": "1999-05-21",
+    "name": "Tyler Freeman"
+  },
+  "671732": {
+    "age": 25,
+    "birth_date": "2000-07-10",
+    "name": "Lawrence Butler"
+  },
+  "671737": {
+    "age": 25,
+    "birth_date": "2001-03-20",
+    "name": "Taj Bradley"
+  },
+  "671739": {
+    "age": 25,
+    "birth_date": "2001-03-07",
+    "name": "Michael Harris II"
+  },
+  "671976": {
+    "age": 26,
+    "birth_date": "2000-02-29",
+    "name": "Tristan Peters"
+  },
+  "672282": {
+    "age": 26,
+    "birth_date": "1999-07-08",
+    "name": "Reid Detmers"
+  },
+  "672456": {
+    "age": 25,
+    "birth_date": "2000-07-06",
+    "name": "Keider Montero"
+  },
+  "672515": {
+    "age": 26,
+    "birth_date": "2000-02-14",
+    "name": "Gabriel Moreno"
+  },
+  "672580": {
+    "age": 26,
+    "birth_date": "2000-03-03",
+    "name": "Maikel Garcia"
+  },
+  "672640": {
+    "age": 27,
+    "birth_date": "1998-10-01",
+    "name": "Otto Lopez"
+  },
+  "672695": {
+    "age": 26,
+    "birth_date": "1999-10-22",
+    "name": "Geraldo Perdomo"
+  },
+  "672724": {
+    "age": 26,
+    "birth_date": "2000-06-15",
+    "name": "Oswald Peraza"
+  },
+  "672761": {
+    "age": 26,
+    "birth_date": "1999-10-30",
+    "name": "Wenceel P\u00e9rez"
+  },
+  "672960": {
+    "age": 29,
+    "birth_date": "1996-06-30",
+    "name": "Kazuma Okamoto"
+  },
+  "673237": {
+    "age": 27,
+    "birth_date": "1998-09-21",
+    "name": "Yainer Diaz"
+  },
+  "673540": {
+    "age": 33,
+    "birth_date": "1993-01-30",
+    "name": "Kodai Senga"
+  },
+  "673548": {
+    "age": 31,
+    "birth_date": "1994-08-18",
+    "name": "Seiya Suzuki"
+  },
+  "673962": {
+    "age": 28,
+    "birth_date": "1998-02-12",
+    "name": "Josh Jung"
+  },
+  "674841": {
+    "age": 27,
+    "birth_date": "1999-06-13",
+    "name": "Andrew Alvarez"
+  },
+  "675512": {
+    "age": 25,
+    "birth_date": "2000-12-03",
+    "name": "Troy Melton"
+  },
+  "675660": {
+    "age": 27,
+    "birth_date": "1999-01-07",
+    "name": "Shane Drohan"
+  },
+  "675911": {
+    "age": 27,
+    "birth_date": "1998-10-28",
+    "name": "Spencer Strider"
+  },
+  "676083": {
+    "age": 30,
+    "birth_date": "1996-01-15",
+    "name": "Janson Junk"
+  },
+  "676106": {
+    "age": 27,
+    "birth_date": "1999-05-31",
+    "name": "Emerson Hancock"
+  },
+  "676282": {
+    "age": 26,
+    "birth_date": "1999-12-18",
+    "name": "Joey Cantillo"
+  },
+  "676356": {
+    "age": 27,
+    "birth_date": "1998-07-10",
+    "name": "Jonny DeLuca"
+  },
+  "676391": {
+    "age": 30,
+    "birth_date": "1996-03-22",
+    "name": "Ernie Clement"
+  },
+  "676440": {
+    "age": 27,
+    "birth_date": "1999-03-05",
+    "name": "Tanner Bibee"
+  },
+  "676475": {
+    "age": 27,
+    "birth_date": "1998-11-25",
+    "name": "Alec Burleson"
+  },
+  "676609": {
+    "age": 29,
+    "birth_date": "1996-08-30",
+    "name": "Jos\u00e9 Caballero"
+  },
+  "676664": {
+    "age": 30,
+    "birth_date": "1996-02-19",
+    "name": "JP Sears"
+  },
+  "676917": {
+    "age": 27,
+    "birth_date": "1998-08-14",
+    "name": "Cade Cavalli"
+  },
+  "676962": {
+    "age": 26,
+    "birth_date": "1999-09-09",
+    "name": "Ben Brown"
+  },
+  "676974": {
+    "age": 27,
+    "birth_date": "1999-03-12",
+    "name": "Max Meyer"
+  },
+  "676979": {
+    "age": 27,
+    "birth_date": "1999-06-21",
+    "name": "Garrett Crochet"
+  },
+  "677587": {
+    "age": 25,
+    "birth_date": "2001-01-13",
+    "name": "Brayan Rocchio"
+  },
+  "677588": {
+    "age": 25,
+    "birth_date": "2001-03-20",
+    "name": "Jos\u00e9 Tena"
+  },
+  "677594": {
+    "age": 25,
+    "birth_date": "2000-12-29",
+    "name": "Julio Rodr\u00edguez"
+  },
+  "677649": {
+    "age": 27,
+    "birth_date": "1999-05-22",
+    "name": "Ezequiel Duran"
+  },
+  "677800": {
+    "age": 27,
+    "birth_date": "1999-06-24",
+    "name": "Wilyer Abreu"
+  },
+  "677942": {
+    "age": 27,
+    "birth_date": "1999-06-11",
+    "name": "Blaze Alexander"
+  },
+  "677944": {
+    "age": 27,
+    "birth_date": "1999-06-24",
+    "name": "Slade Cecconi"
+  },
+  "677951": {
+    "age": 26,
+    "birth_date": "2000-06-14",
+    "name": "Bobby Witt Jr."
+  },
+  "677952": {
+    "age": 26,
+    "birth_date": "1999-10-05",
+    "name": "Braxton Ashcraft"
+  },
+  "677958": {
+    "age": 26,
+    "birth_date": "1999-11-22",
+    "name": "Kumar Rocker"
+  },
+  "677960": {
+    "age": 26,
+    "birth_date": "1999-12-17",
+    "name": "Ryan Weathers"
+  },
+  "678022": {
+    "age": 26,
+    "birth_date": "1999-12-26",
+    "name": "Jack Perkins"
+  },
+  "678218": {
+    "age": 25,
+    "birth_date": "2000-10-02",
+    "name": "Brandon Valenzuela"
+  },
+  "678246": {
+    "age": 26,
+    "birth_date": "1999-11-17",
+    "name": "Miguel Vargas"
+  },
+  "678391": {
+    "age": 25,
+    "birth_date": "2001-03-09",
+    "name": "Jorbit Vivas"
+  },
+  "678394": {
+    "age": 27,
+    "birth_date": "1999-05-17",
+    "name": "Brayan Bello"
+  },
+  "678554": {
+    "age": 25,
+    "birth_date": "2000-10-26",
+    "name": "Curtis Mead"
+  },
+  "678662": {
+    "age": 24,
+    "birth_date": "2001-08-01",
+    "name": "Ezequiel Tovar"
+  },
+  "678882": {
+    "age": 25,
+    "birth_date": "2000-09-18",
+    "name": "Ceddanne Rafaela"
+  },
+  "678906": {
+    "age": 27,
+    "birth_date": "1998-12-01",
+    "name": "Kai-Wei Teng"
+  },
+  "679529": {
+    "age": 26,
+    "birth_date": "1999-08-26",
+    "name": "Spencer Torkelson"
+  },
+  "679845": {
+    "age": 27,
+    "birth_date": "1998-09-25",
+    "name": "Nick Loftin"
+  },
+  "679883": {
+    "age": 24,
+    "birth_date": "2001-08-21",
+    "name": "Luinder Avila"
+  },
+  "680570": {
+    "age": 26,
+    "birth_date": "1999-11-16",
+    "name": "Grayson Rodriguez"
+  },
+  "680573": {
+    "age": 25,
+    "birth_date": "2000-09-27",
+    "name": "Simeon Woods Richardson"
+  },
+  "680574": {
+    "age": 26,
+    "birth_date": "1999-08-06",
+    "name": "Matt McLain"
+  },
+  "680694": {
+    "age": 29,
+    "birth_date": "1996-09-12",
+    "name": "Kyle Bradish"
+  },
+  "680700": {
+    "age": 29,
+    "birth_date": "1997-05-16",
+    "name": "Richie Palacios"
+  },
+  "680732": {
+    "age": 26,
+    "birth_date": "1999-12-18",
+    "name": "Sean Burke"
+  },
+  "680736": {
+    "age": 25,
+    "birth_date": "2000-07-14",
+    "name": "Justin Wrobleski"
+  },
+  "680757": {
+    "age": 28,
+    "birth_date": "1997-09-05",
+    "name": "Steven Kwan"
+  },
+  "680776": {
+    "age": 29,
+    "birth_date": "1996-09-05",
+    "name": "Jarren Duran"
+  },
+  "680777": {
+    "age": 29,
+    "birth_date": "1997-06-03",
+    "name": "Ryan Jeffers"
+  },
+  "680779": {
+    "age": 26,
+    "birth_date": "1999-09-21",
+    "name": "Henry Davis"
+  },
+  "680869": {
+    "age": 26,
+    "birth_date": "1999-10-19",
+    "name": "Zack Gelof"
+  },
+  "681035": {
+    "age": 27,
+    "birth_date": "1999-06-15",
+    "name": "Christian Scott"
+  },
+  "681082": {
+    "age": 28,
+    "birth_date": "1997-10-06",
+    "name": "Bryson Stott"
+  },
+  "681190": {
+    "age": 27,
+    "birth_date": "1998-11-03",
+    "name": "Randy V\u00e1squez"
+  },
+  "681198": {
+    "age": 26,
+    "birth_date": "2000-05-17",
+    "name": "TJ Rumfield"
+  },
+  "681293": {
+    "age": 26,
+    "birth_date": "2000-01-02",
+    "name": "Spencer Arrighetti"
+  },
+  "681297": {
+    "age": 26,
+    "birth_date": "2000-03-20",
+    "name": "Colton Cowser"
+  },
+  "681347": {
+    "age": 26,
+    "birth_date": "1999-11-08",
+    "name": "Mike Burrows"
+  },
+  "681351": {
+    "age": 26,
+    "birth_date": "2000-02-09",
+    "name": "Logan O'Hoppe"
+  },
+  "681393": {
+    "age": 26,
+    "birth_date": "2000-06-08",
+    "name": "Connor Norby"
+  },
+  "681481": {
+    "age": 28,
+    "birth_date": "1997-09-02",
+    "name": "Kerry Carpenter"
+  },
+  "681517": {
+    "age": 29,
+    "birth_date": "1997-06-04",
+    "name": "Kyle Leahy"
+  },
+  "681624": {
+    "age": 25,
+    "birth_date": "2000-12-08",
+    "name": "Andy Pages"
+  },
+  "681715": {
+    "age": 26,
+    "birth_date": "1999-12-16",
+    "name": "Heriberto Hern\u00e1ndez"
+  },
+  "682052": {
+    "age": 28,
+    "birth_date": "1998-03-11",
+    "name": "Jacob Lopez"
+  },
+  "682177": {
+    "age": 29,
+    "birth_date": "1997-01-23",
+    "name": "Daniel Schneemann"
+  },
+  "682243": {
+    "age": 27,
+    "birth_date": "1998-08-23",
+    "name": "Bryce Miller"
+  },
+  "682626": {
+    "age": 24,
+    "birth_date": "2001-11-19",
+    "name": "Francisco Alvarez"
+  },
+  "682657": {
+    "age": 24,
+    "birth_date": "2002-01-27",
+    "name": "Angel Mart\u00ednez"
+  },
+  "682663": {
+    "age": 24,
+    "birth_date": "2001-09-10",
+    "name": "Agust\u00edn Ram\u00edrez"
+  },
+  "682818": {
+    "age": 24,
+    "birth_date": "2002-05-07",
+    "name": "Yohendrick Pi\u00f1ango"
+  },
+  "682829": {
+    "age": 24,
+    "birth_date": "2002-01-11",
+    "name": "Elly De La Cruz"
+  },
+  "682848": {
+    "age": 26,
+    "birth_date": "2000-05-26",
+    "name": "Endy Rodr\u00edguez"
+  },
+  "682928": {
+    "age": 25,
+    "birth_date": "2000-10-03",
+    "name": "CJ Abrams"
+  },
+  "682985": {
+    "age": 25,
+    "birth_date": "2000-09-28",
+    "name": "Riley Greene"
+  },
+  "682998": {
+    "age": 25,
+    "birth_date": "2000-08-21",
+    "name": "Corbin Carroll"
+  },
+  "683002": {
+    "age": 24,
+    "birth_date": "2001-06-29",
+    "name": "Gunnar Henderson"
+  },
+  "683003": {
+    "age": 24,
+    "birth_date": "2001-08-06",
+    "name": "Jared Jones"
+  },
+  "683004": {
+    "age": 26,
+    "birth_date": "2000-04-21",
+    "name": "Jack Leiter"
+  },
+  "683011": {
+    "age": 25,
+    "birth_date": "2001-04-28",
+    "name": "Anthony Volpe"
+  },
+  "683083": {
+    "age": 25,
+    "birth_date": "2000-08-18",
+    "name": "Nasim Nu\u00f1ez"
+  },
+  "683146": {
+    "age": 26,
+    "birth_date": "1999-11-13",
+    "name": "Brett Baty"
+  },
+  "683155": {
+    "age": 24,
+    "birth_date": "2001-10-08",
+    "name": "Joey Estes"
+  },
+  "683357": {
+    "age": 23,
+    "birth_date": "2002-07-08",
+    "name": "Owen Caissie"
+  },
+  "683734": {
+    "age": 28,
+    "birth_date": "1998-04-03",
+    "name": "Andrew Vaughn"
+  },
+  "683737": {
+    "age": 28,
+    "birth_date": "1997-11-09",
+    "name": "Michael Busch"
+  },
+  "683953": {
+    "age": 23,
+    "birth_date": "2002-08-28",
+    "name": "Travis Bazzana"
+  },
+  "684007": {
+    "age": 32,
+    "birth_date": "1993-09-01",
+    "name": "Shota Imanaga"
+  },
+  "685133": {
+    "age": 26,
+    "birth_date": "2000-04-21",
+    "name": "Wade Meckler"
+  },
+  "685299": {
+    "age": 28,
+    "birth_date": "1997-10-26",
+    "name": "Tanner Gordon"
+  },
+  "686217": {
+    "age": 26,
+    "birth_date": "2000-04-19",
+    "name": "Sal Frelick"
+  },
+  "686218": {
+    "age": 26,
+    "birth_date": "1999-11-15",
+    "name": "Emmet Sheehan"
+  },
+  "686469": {
+    "age": 28,
+    "birth_date": "1997-10-10",
+    "name": "Vinnie Pasquantino"
+  },
+  "686527": {
+    "age": 28,
+    "birth_date": "1997-08-16",
+    "name": "Dominic Canzone"
+  },
+  "686555": {
+    "age": 28,
+    "birth_date": "1997-07-22",
+    "name": "Isaac Collins"
+  },
+  "686611": {
+    "age": 24,
+    "birth_date": "2002-02-26",
+    "name": "Dylan Crews"
+  },
+  "686613": {
+    "age": 27,
+    "birth_date": "1998-08-29",
+    "name": "Hunter Brown"
+  },
+  "686681": {
+    "age": 28,
+    "birth_date": "1998-03-22",
+    "name": "Michael Massey"
+  },
+  "686780": {
+    "age": 27,
+    "birth_date": "1998-09-17",
+    "name": "Pedro Pag\u00e9s"
+  },
+  "686790": {
+    "age": 25,
+    "birth_date": "2001-02-26",
+    "name": "Trevor McDonald"
+  },
+  "686797": {
+    "age": 25,
+    "birth_date": "2001-02-14",
+    "name": "Brooks Lee"
+  },
+  "686799": {
+    "age": 25,
+    "birth_date": "2000-12-22",
+    "name": "Jack Kochanowicz"
+  },
+  "686948": {
+    "age": 25,
+    "birth_date": "2001-03-28",
+    "name": "Drake Baldwin"
+  },
+  "687064": {
+    "age": 27,
+    "birth_date": "1998-08-19",
+    "name": "Brandon Young"
+  },
+  "687075": {
+    "age": 25,
+    "birth_date": "2000-09-17",
+    "name": "Brandon Sproat"
+  },
+  "687093": {
+    "age": 25,
+    "birth_date": "2001-01-05",
+    "name": "Vaughn Grissom"
+  },
+  "687221": {
+    "age": 25,
+    "birth_date": "2001-02-21",
+    "name": "Dalton Rushing"
+  },
+  "687263": {
+    "age": 25,
+    "birth_date": "2001-01-31",
+    "name": "Zach Neto"
+  },
+  "687363": {
+    "age": 25,
+    "birth_date": "2001-02-12",
+    "name": "Victor Scott II"
+  },
+  "687401": {
+    "age": 27,
+    "birth_date": "1998-07-14",
+    "name": "Joey Ortiz"
+  },
+  "687462": {
+    "age": 28,
+    "birth_date": "1997-11-14",
+    "name": "Spencer Horwitz"
+  },
+  "687473": {
+    "age": 27,
+    "birth_date": "1999-03-11",
+    "name": "Ryan Gusto"
+  },
+  "687551": {
+    "age": 25,
+    "birth_date": "2000-09-27",
+    "name": "Drew Gilbert"
+  },
+  "687562": {
+    "age": 25,
+    "birth_date": "2000-12-02",
+    "name": "Jake Bennett"
+  },
+  "687570": {
+    "age": 25,
+    "birth_date": "2001-01-10",
+    "name": "Connor Prielipp"
+  },
+  "687859": {
+    "age": 29,
+    "birth_date": "1997-06-22",
+    "name": "Troy Johnston"
+  },
+  "688107": {
+    "age": 27,
+    "birth_date": "1999-05-31",
+    "name": "Robert Gasser"
+  },
+  "689414": {
+    "age": 27,
+    "birth_date": "1999-06-02",
+    "name": "Liam Hicks"
+  },
+  "689818": {
+    "age": 25,
+    "birth_date": "2001-02-21",
+    "name": "David Sandlin"
+  },
+  "690928": {
+    "age": 26,
+    "birth_date": "1999-08-30",
+    "name": "Hunter Dobbins"
+  },
+  "690953": {
+    "age": 24,
+    "birth_date": "2001-08-18",
+    "name": "Mick Abel"
+  },
+  "690976": {
+    "age": 24,
+    "birth_date": "2001-08-24",
+    "name": "Alex Freeland"
+  },
+  "690986": {
+    "age": 24,
+    "birth_date": "2001-08-12",
+    "name": "Kyle Harrison"
+  },
+  "690990": {
+    "age": 24,
+    "birth_date": "2001-08-20",
+    "name": "Cade Horton"
+  },
+  "690993": {
+    "age": 24,
+    "birth_date": "2001-08-14",
+    "name": "Colt Keith"
+  },
+  "690997": {
+    "age": 24,
+    "birth_date": "2001-07-24",
+    "name": "Nolan McLean"
+  },
+  "691016": {
+    "age": 24,
+    "birth_date": "2001-11-24",
+    "name": "Tyler Soderstrom"
+  },
+  "691023": {
+    "age": 24,
+    "birth_date": "2002-05-22",
+    "name": "Jordan Walker"
+  },
+  "691026": {
+    "age": 24,
+    "birth_date": "2002-03-21",
+    "name": "Masyn Winn"
+  },
+  "691406": {
+    "age": 22,
+    "birth_date": "2003-07-05",
+    "name": "Junior Caminero"
+  },
+  "691587": {
+    "age": 23,
+    "birth_date": "2003-04-15",
+    "name": "Eury P\u00e9rez"
+  },
+  "691594": {
+    "age": 23,
+    "birth_date": "2002-09-03",
+    "name": "Javier Sanoja"
+  },
+  "691718": {
+    "age": 24,
+    "birth_date": "2002-03-25",
+    "name": "Pete Crow-Armstrong"
+  },
+  "691720": {
+    "age": 23,
+    "birth_date": "2002-07-26",
+    "name": "Kyle Karros"
+  },
+  "691723": {
+    "age": 24,
+    "birth_date": "2001-12-10",
+    "name": "Coby Mayo"
+  },
+  "691725": {
+    "age": 23,
+    "birth_date": "2003-04-10",
+    "name": "Andrew Painter"
+  },
+  "691777": {
+    "age": 23,
+    "birth_date": "2002-08-25",
+    "name": "Max Muncy"
+  },
+  "691781": {
+    "age": 23,
+    "birth_date": "2003-06-04",
+    "name": "Brady House"
+  },
+  "691785": {
+    "age": 23,
+    "birth_date": "2002-12-12",
+    "name": "Marcelo Mayer"
+  },
+  "691788": {
+    "age": 23,
+    "birth_date": "2002-12-27",
+    "name": "Joe Mack"
+  },
+  "691951": {
+    "age": 24,
+    "birth_date": "2001-09-19",
+    "name": "Sam Aldegheri"
+  },
+  "693304": {
+    "age": 27,
+    "birth_date": "1999-05-27",
+    "name": "Nick Gonzales"
+  },
+  "693307": {
+    "age": 27,
+    "birth_date": "1998-09-17",
+    "name": "Dillon Dingler"
+  },
+  "693433": {
+    "age": 26,
+    "birth_date": "2000-01-30",
+    "name": "Bryan Woo"
+  },
+  "693645": {
+    "age": 25,
+    "birth_date": "2001-02-05",
+    "name": "Cam Schlittler"
+  },
+  "693821": {
+    "age": 27,
+    "birth_date": "1999-05-19",
+    "name": "Bryce Elder"
+  },
+  "694192": {
+    "age": 22,
+    "birth_date": "2004-03-11",
+    "name": "Jackson Chourio"
+  },
+  "694208": {
+    "age": 22,
+    "birth_date": "2003-11-08",
+    "name": "Mois\u00e9s Ballesteros"
+  },
+  "694212": {
+    "age": 21,
+    "birth_date": "2004-08-13",
+    "name": "Samuel Basallo"
+  },
+  "694249": {
+    "age": 24,
+    "birth_date": "2002-05-08",
+    "name": "Cole Carrigg"
+  },
+  "694297": {
+    "age": 27,
+    "birth_date": "1998-10-15",
+    "name": "Brandon Pfaadt"
+  },
+  "694346": {
+    "age": 24,
+    "birth_date": "2002-05-18",
+    "name": "Trey Gibson"
+  },
+  "694362": {
+    "age": 27,
+    "birth_date": "1998-09-05",
+    "name": "Blake Dunn"
+  },
+  "694384": {
+    "age": 24,
+    "birth_date": "2002-02-14",
+    "name": "Nolan Schanuel"
+  },
+  "694477": {
+    "age": 27,
+    "birth_date": "1998-08-14",
+    "name": "Chad Patrick"
+  },
+  "694497": {
+    "age": 23,
+    "birth_date": "2002-08-29",
+    "name": "Evan Carter"
+  },
+  "694671": {
+    "age": 24,
+    "birth_date": "2001-11-15",
+    "name": "Wyatt Langford"
+  },
+  "694728": {
+    "age": 24,
+    "birth_date": "2002-03-16",
+    "name": "Brice Matthews"
+  },
+  "694738": {
+    "age": 27,
+    "birth_date": "1998-09-10",
+    "name": "Landen Roupp"
+  },
+  "694819": {
+    "age": 24,
+    "birth_date": "2002-04-03",
+    "name": "Jacob Misiorowski"
+  },
+  "694973": {
+    "age": 24,
+    "birth_date": "2002-05-29",
+    "name": "Paul Skenes"
+  },
+  "695076": {
+    "age": 24,
+    "birth_date": "2002-03-08",
+    "name": "Rhett Lowder"
+  },
+  "695505": {
+    "age": 23,
+    "birth_date": "2003-01-16",
+    "name": "Chase Burns"
+  },
+  "695506": {
+    "age": 23,
+    "birth_date": "2003-02-09",
+    "name": "Jac Caglianone"
+  },
+  "695578": {
+    "age": 23,
+    "birth_date": "2002-09-17",
+    "name": "James Wood"
+  },
+  "695600": {
+    "age": 22,
+    "birth_date": "2003-07-03",
+    "name": "Carter Jensen"
+  },
+  "695611": {
+    "age": 23,
+    "birth_date": "2003-04-12",
+    "name": "Gage Jump"
+  },
+  "695657": {
+    "age": 24,
+    "birth_date": "2002-02-27",
+    "name": "Colson Montgomery"
+  },
+  "695684": {
+    "age": 22,
+    "birth_date": "2003-08-18",
+    "name": "Elmer Rodr\u00edguez"
+  },
+  "695734": {
+    "age": 23,
+    "birth_date": "2002-11-30",
+    "name": "Daylen Lile"
+  },
+  "696030": {
+    "age": 23,
+    "birth_date": "2002-10-10",
+    "name": "Alejandro Osuna"
+  },
+  "696100": {
+    "age": 26,
+    "birth_date": "1999-10-08",
+    "name": "Hunter Goodman"
+  },
+  "696149": {
+    "age": 23,
+    "birth_date": "2002-09-14",
+    "name": "Bubba Chandler"
+  },
+  "696270": {
+    "age": 23,
+    "birth_date": "2002-08-05",
+    "name": "Ryan Johnson"
+  },
+  "696285": {
+    "age": 26,
+    "birth_date": "1999-07-27",
+    "name": "Jacob Young"
+  },
+  "699912": {
+    "age": 22,
+    "birth_date": "2003-09-22",
+    "name": "Jose Fernandez"
+  },
+  "700241": {
+    "age": 25,
+    "birth_date": "2000-07-08",
+    "name": "Michael McGreevy"
+  },
+  "700249": {
+    "age": 26,
+    "birth_date": "2000-04-12",
+    "name": "Cade Povich"
+  },
+  "700250": {
+    "age": 27,
+    "birth_date": "1999-02-22",
+    "name": "Ben Rice"
+  },
+  "700712": {
+    "age": 22,
+    "birth_date": "2004-01-25",
+    "name": "Walbert Ure\u00f1a"
+  },
+  "700932": {
+    "age": 25,
+    "birth_date": "2000-07-18",
+    "name": "Kyle Manzardo"
+  },
+  "701358": {
+    "age": 23,
+    "birth_date": "2003-02-22",
+    "name": "Cam Smith"
+  },
+  "701398": {
+    "age": 22,
+    "birth_date": "2003-12-07",
+    "name": "Sal Stewart"
+  },
+  "701538": {
+    "age": 23,
+    "birth_date": "2003-04-19",
+    "name": "Jackson Merrill"
+  },
+  "701542": {
+    "age": 27,
+    "birth_date": "1999-06-16",
+    "name": "Will Warren"
+  },
+  "701656": {
+    "age": 24,
+    "birth_date": "2002-03-02",
+    "name": "Logan Henderson"
+  },
+  "701675": {
+    "age": 25,
+    "birth_date": "2000-07-12",
+    "name": "Nathan Church"
+  },
+  "701762": {
+    "age": 23,
+    "birth_date": "2003-03-12",
+    "name": "Nick Kurtz"
+  },
+  "701807": {
+    "age": 23,
+    "birth_date": "2003-01-20",
+    "name": "Carson Benge"
+  },
+  "702056": {
+    "age": 22,
+    "birth_date": "2003-07-28",
+    "name": "Trey Yesavage"
+  },
+  "702070": {
+    "age": 26,
+    "birth_date": "1999-07-17",
+    "name": "Noah Cameron"
+  },
+  "702222": {
+    "age": 22,
+    "birth_date": "2004-01-13",
+    "name": "Justin Crawford"
+  },
+  "702273": {
+    "age": 22,
+    "birth_date": "2003-08-05",
+    "name": "Noah Schultz"
+  },
+  "702275": {
+    "age": 23,
+    "birth_date": "2003-06-26",
+    "name": "JR Ritchie"
+  },
+  "702284": {
+    "age": 22,
+    "birth_date": "2003-07-29",
+    "name": "Cole Young"
+  },
+  "702332": {
+    "age": 26,
+    "birth_date": "2000-02-22",
+    "name": "Caleb Durbin"
+  },
+  "702474": {
+    "age": 25,
+    "birth_date": "2000-07-27",
+    "name": "Mike Paredes"
+  },
+  "702616": {
+    "age": 22,
+    "birth_date": "2003-12-04",
+    "name": "Jackson Holliday"
+  },
+  "703607": {
+    "age": 22,
+    "birth_date": "2003-08-04",
+    "name": "Henry Bolte"
+  },
+  "703615": {
+    "age": 24,
+    "birth_date": "2002-05-30",
+    "name": "Jose Cabrera"
+  },
+  "800048": {
+    "age": 25,
+    "birth_date": "2000-10-26",
+    "name": "Parker Messick"
+  },
+  "800050": {
+    "age": 24,
+    "birth_date": "2001-10-08",
+    "name": "Chase DeLauter"
+  },
+  "801139": {
+    "age": 23,
+    "birth_date": "2002-11-01",
+    "name": "Payton Tolle"
+  },
+  "801403": {
+    "age": 24,
+    "birth_date": "2001-10-26",
+    "name": "Chase Dollander"
+  },
+  "802139": {
+    "age": 23,
+    "birth_date": "2002-09-10",
+    "name": "JJ Wetherholt"
+  },
+  "802415": {
+    "age": 25,
+    "birth_date": "2000-11-18",
+    "name": "Chandler Simpson"
+  },
+  "803011": {
+    "age": 23,
+    "birth_date": "2003-02-06",
+    "name": "Sam Antonacci"
+  },
+  "804267": {
+    "age": 24,
+    "birth_date": "2002-01-17",
+    "name": "Zach Thornton"
+  },
+  "804606": {
+    "age": 20,
+    "birth_date": "2006-04-24",
+    "name": "Konnor Griffin"
+  },
+  "805300": {
+    "age": 25,
+    "birth_date": "2001-06-28",
+    "name": "Jakob Marsee"
+  },
+  "805367": {
+    "age": 24,
+    "birth_date": "2001-07-23",
+    "name": "Chase Meidroth"
+  },
+  "805673": {
+    "age": 26,
+    "birth_date": "2000-05-22",
+    "name": "Zebby Matthews"
+  },
+  "805779": {
+    "age": 24,
+    "birth_date": "2002-03-30",
+    "name": "Jacob Wilson"
+  },
+  "805808": {
+    "age": 21,
+    "birth_date": "2004-08-18",
+    "name": "Kevin McGonigle"
+  },
+  "805811": {
+    "age": 21,
+    "birth_date": "2004-10-20",
+    "name": "Bryce Eldridge"
+  },
+  "805999": {
+    "age": 21,
+    "birth_date": "2004-08-10",
+    "name": "A.J. Ewing"
+  },
+  "806068": {
+    "age": 20,
+    "birth_date": "2005-07-20",
+    "name": "Colt Emerson"
+  },
+  "807712": {
+    "age": 23,
+    "birth_date": "2002-08-15",
+    "name": "Luke Keaschall"
+  },
+  "807713": {
+    "age": 24,
+    "birth_date": "2001-11-06",
+    "name": "Matt Shaw"
+  },
+  "807743": {
+    "age": 23,
+    "birth_date": "2002-07-22",
+    "name": "Sean Sullivan"
+  },
+  "807799": {
+    "age": 32,
+    "birth_date": "1993-07-15",
+    "name": "Masataka Yoshida"
+  },
+  "808959": {
+    "age": 26,
+    "birth_date": "2000-02-02",
+    "name": "Munetaka Murakami"
+  },
+  "808963": {
+    "age": 24,
+    "birth_date": "2001-11-03",
+    "name": "Roki Sasaki"
+  },
+  "808967": {
+    "age": 27,
+    "birth_date": "1998-08-17",
+    "name": "Yoshinobu Yamamoto"
+  },
+  "808982": {
+    "age": 27,
+    "birth_date": "1998-08-20",
+    "name": "Jung Hoo Lee"
+  },
+  "810938": {
+    "age": 25,
+    "birth_date": "2000-11-05",
+    "name": "Ben Williamson"
+  },
+  "813349": {
+    "age": 24,
+    "birth_date": "2002-04-03",
+    "name": "Connelly Early"
+  },
+  "837227": {
+    "age": 28,
+    "birth_date": "1998-05-09",
+    "name": "Tatsuya Imai"
+  },
+  "__updated__": "2026-07-06"
+}

@@ -1,0 +1,7 @@
+<svg viewBox="0 0 100 50" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>TheBullpenBet mark (light)</title>
+<desc>Mound with landing patch, light variant.</desc>
+<ellipse cx="50" cy="32" rx="46" ry="10" fill="#e2e8f0" stroke="#475569" stroke-width="0.8"/>
+<path d="M 36 28 L 64 28 L 70 41 A 46 10 0 0 1 30 41 Z" fill="#cbd5e0"/>
+<rect x="36" y="24" width="28" height="4" fill="#0f1923"/>
+</svg>
