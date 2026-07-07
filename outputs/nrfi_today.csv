@@ -1,16 +1,2 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold
-2026-06-28,824744,NYY,BOS,NYY,BOS,New York Yankees,Boston Red Sox,Carlos Rodón,Sonny Gray,0.526,0.474,NRFI,YES,0.5
-2026-06-28,824821,WSH,BAL,WSH,BAL,Washington Nationals,Baltimore Orioles,Zack Littell,Kyle Bradish,0.5228,0.4772,NRFI,YES,0.5
-2026-06-28,824256,HOU,DET,HOU,DET,Houston Astros,Detroit Tigers,Hunter Brown,Jack Flaherty,0.52,0.48,NRFI,YES,0.5
-2026-06-28,824580,KC,CWS,KC,CWS,Kansas City Royals,Chicago White Sox,Luinder Avila,Anthony Kay,0.5029,0.4971,NRFI,YES,0.5
-2026-06-28,823204,ATL,SF,ATL,SF,Atlanta Braves,San Francisco Giants,Chris Sale,Robbie Ray,0.5007,0.4993,NRFI,YES,0.5
-2026-06-28,822795,TEX,TOR,TEX,TOR,Texas Rangers,Toronto Blue Jays,Kumar Rocker,Shane Bieber,0.4967,0.5033,YRFI,NO,0.5
-2026-06-28,823362,CIN,PIT,CIN,PIT,Cincinnati Reds,Pittsburgh Pirates,Brady Singer,Mitch Keller,0.4919,0.5081,YRFI,NO,0.5
-2026-06-28,822959,AZ,TB,AZ,TB,Arizona Diamondbacks,Tampa Bay Rays,Merrill Kelly,Drew Rasmussen,0.487,0.513,YRFI,NO,0.5
-2026-06-28,824011,ATH,LAA,ATH,LAA,Athletics,Los Angeles Angels,Aaron Civale,Sam Aldegheri,0.4787,0.5213,YRFI,NO,0.5
-2026-06-28,823037,MIA,STL,MIA,STL,Miami Marlins,St. Louis Cardinals,Tyler Phillips,Kyle Leahy,0.4733,0.5267,YRFI,NO,0.5
-2026-06-28,823608,PHI,NYM,PHI,NYM,Philadelphia Phillies,New York Mets,Jesús Luzardo,Cionel Pérez,0.4711,0.5289,YRFI,NO,0.5
-2026-06-28,823281,LAD,SD,LAD,SD,Los Angeles Dodgers,San Diego Padres,Emmet Sheehan,Michael King,0.469,0.531,YRFI,NO,0.5
-2026-06-28,824422,SEA,CLE,SEA,CLE,Seattle Mariners,Cleveland Guardians,Emerson Hancock,Gavin Williams,0.4487,0.5513,YRFI,NO,0.5
-2026-06-28,823769,CHC,MIL,CHC,MIL,Chicago Cubs,Milwaukee Brewers,Ryan Rolison,Brandon Woodruff,0.4382,0.5618,YRFI,NO,0.5
-2026-06-28,823686,COL,MIN,COL,MIN,Colorado Rockies,Minnesota Twins,Ryan Feltner,Connor Prielipp,0.3798,0.6202,YRFI,NO,0.5
+2026-07-06,,,,,,,,,,,,,,
