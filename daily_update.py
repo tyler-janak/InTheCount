@@ -277,16 +277,55 @@ def main():
         print(f"⚠️  NRFI backfill failed: {e}")
 
     # 5) Generate TODAY's NRFI predictions and append to the picks log.
+    #
+    # DEFENCE IN DEPTH so `outputs/nrfi_today.csv` can never get frozen on
+    # a stale date (the "NRFI stuck on June 28" bug we chased for days):
+    #   (a) nrfi_today.run_nrfi writes a dated stub on every early exit.
+    #   (b) If run_nrfi throws mid-execution we catch it here and write
+    #       the stub from this scope so the file still gets a fresh date.
+    #   (c) The stub is written FIRST, before we try predictions, so even
+    #       if the whole Python process dies partway through, the file is
+    #       already dated for today.
+    print("\n── Running today's NRFI predictions ────────────────────────")
+
+    def _force_write_nrfi_stub(day: str, note: str = "") -> None:
+        """Overwrite outputs/nrfi_today.csv with a single stub row carrying
+        today's date. Safe to call any number of times. Never raises."""
+        try:
+            from pathlib import Path as _P
+            import pandas as _pdd
+            _cols = ["game_date","gamePk","away_team","home_team","team_a","team_b",
+                     "away_full","home_full","away_sp","home_sp",
+                     "nrfi_prob","yrfi_prob","pick","lean","threshold"]
+            _row = {c: None for c in _cols}
+            _row["game_date"] = day
+            _target = _P("outputs") / "nrfi_today.csv"
+            _target.parent.mkdir(parents=True, exist_ok=True)
+            _pdd.DataFrame([_row]).to_csv(_target, index=False)
+            print(f"  [nrfi_today] stub written for {day}"
+                  + (f" — {note}" if note else ""))
+        except Exception as _stub_err:
+            print(f"  [nrfi_today] CRITICAL: could not write stub: {_stub_err}")
+
+    # (c) Guarantee the file has today's date before we do anything else.
+    _force_write_nrfi_stub(today, note="pre-run guard")
+
+    # (b) Real attempt. Any failure at all → we already have the stub above.
     try:
         from nrfi_today import run_nrfi
         from backfill_nrfi import append_nrfi_picks
-        print("\n── Running today's NRFI predictions ────────────────────────")
         nrfi_results = run_nrfi(today)
         if nrfi_results is not None and not nrfi_results.empty:
             append_nrfi_picks(nrfi_results, NRFI_PICKS_FILE)
             print(f"  Appended {len(nrfi_results)} NRFI row(s) to {NRFI_PICKS_FILE}")
+        else:
+            print("  run_nrfi returned no rows — stub from pre-run guard is what will be served")
     except Exception as e:
+        # run_nrfi may have partially written before crashing. Overwrite it
+        # with a clean stub so downstream consumers see today's date even
+        # if the CSV was left half-written.
         print(f"⚠️  Today's NRFI predictions failed: {e}")
+        _force_write_nrfi_stub(today, note=f"post-crash rewrite: {type(e).__name__}: {e}")
 
     # 6) Grade every NRFI pick in the log against the MLB Stats API linescore
     #    and rebuild 2026_nrfi_accuracy.csv.
