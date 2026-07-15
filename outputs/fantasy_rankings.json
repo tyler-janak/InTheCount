@@ -1,5 +1,5 @@
 {
-  "as_of": "2026-07-13",
+  "as_of": "2026-07-15",
   "season_games": 162,
   "scoring": {
     "type": "yahoo_points_v1",
@@ -28,6 +28,7 @@
     "note": "Yahoo-style points. SB / W / SV not tracked in the accuracy log yet. Risers/fallers use last 7d per-game points vs season-to-date (min 4 recent / 15 season games). Dynasty applies an age-curve multiplier; players without an age default to 1.0x."
   },
   "team_games_played": {
+    "AL": 1,
     "ATH": 96,
     "ATL": 95,
     "AZ": 96,
@@ -46,6 +47,7 @@
     "MIA": 96,
     "MIL": 96,
     "MIN": 96,
+    "NL": 1,
     "NYM": 97,
     "NYY": 96,
     "PHI": 95,
@@ -60,6 +62,330 @@
     "WSH": 96
   },
   "hitters": [
+    {
+      "mlb_id": 670541,
+      "name": "Yordan Alvarez",
+      "team": "AL",
+      "games_played": 97,
+      "games_remaining": 161.0,
+      "ros_h": 185.9,
+      "ros_2b": 28.2,
+      "ros_3b": 0.0,
+      "ros_hr": 51.5,
+      "ros_r": 109.5,
+      "ros_rbi": 116.2,
+      "ros_bb": 104.6,
+      "ros_k": 119.5,
+      "ros_pa": 700.4,
+      "points": 639.0,
+      "rank": 1
+    },
+    {
+      "mlb_id": 700250,
+      "name": "Ben Rice",
+      "team": "AL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 172.1,
+      "ros_2b": 27.8,
+      "ros_3b": 5.6,
+      "ros_hr": 51.8,
+      "ros_r": 114.7,
+      "ros_rbi": 124.0,
+      "ros_bb": 87.0,
+      "ros_k": 166.6,
+      "ros_pa": 712.5,
+      "points": 608.8,
+      "rank": 2
+    },
+    {
+      "mlb_id": 665742,
+      "name": "Juan Soto",
+      "team": "NL",
+      "games_played": 79,
+      "games_remaining": 161.0,
+      "ros_h": 165.1,
+      "ros_2b": 16.3,
+      "ros_3b": 4.1,
+      "ros_hr": 42.8,
+      "ros_r": 89.7,
+      "ros_rbi": 103.9,
+      "ros_bb": 112.1,
+      "ros_k": 89.7,
+      "ros_pa": 684.8,
+      "points": 578.8,
+      "rank": 3
+    },
+    {
+      "mlb_id": 691406,
+      "name": "Junior Caminero",
+      "team": "AL",
+      "games_played": 93,
+      "games_remaining": 161.0,
+      "ros_h": 169.7,
+      "ros_2b": 24.2,
+      "ros_3b": 0.0,
+      "ros_hr": 48.5,
+      "ros_r": 103.9,
+      "ros_rbi": 102.1,
+      "ros_bb": 90.0,
+      "ros_k": 126.4,
+      "ros_pa": 699.4,
+      "points": 572.2,
+      "rank": 4
+    },
+    {
+      "mlb_id": 545361,
+      "name": "Mike Trout",
+      "team": "AL",
+      "games_played": 79,
+      "games_remaining": 161.0,
+      "ros_h": 136.5,
+      "ros_2b": 26.5,
+      "ros_3b": 0.0,
+      "ros_hr": 36.7,
+      "ros_r": 118.2,
+      "ros_rbi": 79.5,
+      "ros_bb": 136.5,
+      "ros_k": 179.3,
+      "ros_pa": 727.6,
+      "points": 517.6,
+      "rank": 5
+    },
+    {
+      "mlb_id": 656941,
+      "name": "Kyle Schwarber",
+      "team": "NL",
+      "games_played": 91,
+      "games_remaining": 161.0,
+      "ros_h": 157.5,
+      "ros_2b": 15.9,
+      "ros_3b": 1.8,
+      "ros_hr": 56.6,
+      "ros_r": 97.3,
+      "ros_rbi": 104.4,
+      "ros_bb": 95.5,
+      "ros_k": 254.8,
+      "ros_pa": 716.5,
+      "points": 516.6,
+      "rank": 6
+    },
+    {
+      "mlb_id": 682928,
+      "name": "CJ Abrams",
+      "team": "NL",
+      "games_played": 91,
+      "games_remaining": 161.0,
+      "ros_h": 168.1,
+      "ros_2b": 30.1,
+      "ros_3b": 3.5,
+      "ros_hr": 35.4,
+      "ros_r": 99.1,
+      "ros_rbi": 116.8,
+      "ros_bb": 60.2,
+      "ros_k": 146.8,
+      "ros_pa": 691.8,
+      "points": 514.0,
+      "rank": 7
+    },
+    {
+      "mlb_id": 518692,
+      "name": "Freddie Freeman",
+      "team": "NL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 173.0,
+      "ros_2b": 37.7,
+      "ros_3b": 1.7,
+      "ros_hr": 25.7,
+      "ros_r": 85.6,
+      "ros_rbi": 82.2,
+      "ros_bb": 80.5,
+      "ros_k": 111.3,
+      "ros_pa": 693.7,
+      "points": 483.9,
+      "rank": 8
+    },
+    {
+      "mlb_id": 681624,
+      "name": "Andy Pages",
+      "team": "NL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 167.9,
+      "ros_2b": 36.0,
+      "ros_3b": 1.7,
+      "ros_hr": 27.4,
+      "ros_r": 95.9,
+      "ros_rbi": 107.9,
+      "ros_bb": 58.2,
+      "ros_k": 137.0,
+      "ros_pa": 695.4,
+      "points": 483.0,
+      "rank": 9
+    },
+    {
+      "mlb_id": 686948,
+      "name": "Drake Baldwin",
+      "team": "NL",
+      "games_played": 72,
+      "games_remaining": 161.0,
+      "ros_h": 158.8,
+      "ros_2b": 13.4,
+      "ros_3b": 0.0,
+      "ros_hr": 33.5,
+      "ros_r": 109.6,
+      "ros_rbi": 102.9,
+      "ros_bb": 71.6,
+      "ros_k": 158.8,
+      "ros_pa": 711.1,
+      "points": 477.4,
+      "rank": 10
+    },
+    {
+      "mlb_id": 669127,
+      "name": "Shea Langeliers",
+      "team": "AL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 168.4,
+      "ros_2b": 29.6,
+      "ros_3b": 0.0,
+      "ros_hr": 38.9,
+      "ros_r": 98.1,
+      "ros_rbi": 85.1,
+      "ros_bb": 57.4,
+      "ros_k": 157.3,
+      "ros_pa": 718.0,
+      "points": 476.5,
+      "rank": 11
+    },
+    {
+      "mlb_id": 645277,
+      "name": "Ozzie Albies",
+      "team": "NL",
+      "games_played": 96,
+      "games_remaining": 161.0,
+      "ros_h": 164.4,
+      "ros_2b": 35.2,
+      "ros_3b": 0.0,
+      "ros_hr": 23.5,
+      "ros_r": 102.3,
+      "ros_rbi": 85.5,
+      "ros_bb": 48.6,
+      "ros_k": 92.2,
+      "ros_pa": 691.0,
+      "points": 460.4,
+      "rank": 12
+    },
+    {
+      "mlb_id": 677951,
+      "name": "Bobby Witt Jr.",
+      "team": "AL",
+      "games_played": 92,
+      "games_remaining": 161.0,
+      "ros_h": 180.2,
+      "ros_2b": 38.5,
+      "ros_3b": 1.8,
+      "ros_hr": 22.8,
+      "ros_r": 91.0,
+      "ros_rbi": 68.2,
+      "ros_bb": 70.0,
+      "ros_k": 120.8,
+      "ros_pa": 708.8,
+      "points": 459.4,
+      "rank": 13
+    },
+    {
+      "mlb_id": 641355,
+      "name": "Cody Bellinger",
+      "team": "AL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 150.7,
+      "ros_2b": 32.5,
+      "ros_3b": 5.1,
+      "ros_hr": 18.8,
+      "ros_r": 83.9,
+      "ros_rbi": 87.4,
+      "ros_bb": 87.4,
+      "ros_k": 102.8,
+      "ros_pa": 692.0,
+      "points": 457.3,
+      "rank": 14
+    },
+    {
+      "mlb_id": 571970,
+      "name": "Max Muncy",
+      "team": "NL",
+      "games_played": 82,
+      "games_remaining": 161.0,
+      "ros_h": 143.3,
+      "ros_2b": 25.5,
+      "ros_3b": 2.0,
+      "ros_hr": 33.4,
+      "ros_r": 104.1,
+      "ros_rbi": 76.6,
+      "ros_bb": 76.6,
+      "ros_k": 147.3,
+      "ros_pa": 644.0,
+      "points": 456.5,
+      "rank": 15
+    },
+    {
+      "mlb_id": 682985,
+      "name": "Riley Greene",
+      "team": "AL",
+      "games_played": 95,
+      "games_remaining": 161.0,
+      "ros_h": 167.8,
+      "ros_2b": 32.2,
+      "ros_3b": 1.7,
+      "ros_hr": 22.0,
+      "ros_r": 81.3,
+      "ros_rbi": 76.3,
+      "ros_bb": 86.4,
+      "ros_k": 186.4,
+      "ros_pa": 679.6,
+      "points": 420.3,
+      "rank": 16
+    },
+    {
+      "mlb_id": 669016,
+      "name": "Brandon Marsh",
+      "team": "NL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 183.2,
+      "ros_2b": 27.8,
+      "ros_3b": 3.7,
+      "ros_hr": 25.9,
+      "ros_r": 90.7,
+      "ros_rbi": 79.6,
+      "ros_bb": 31.5,
+      "ros_k": 175.8,
+      "ros_pa": 651.4,
+      "points": 409.9,
+      "rank": 17
+    },
+    {
+      "mlb_id": 676391,
+      "name": "Ernie Clement",
+      "team": "AL",
+      "games_played": 90,
+      "games_remaining": 161.0,
+      "ros_h": 187.8,
+      "ros_2b": 41.1,
+      "ros_3b": 1.8,
+      "ros_hr": 14.3,
+      "ros_r": 75.1,
+      "ros_rbi": 57.2,
+      "ros_bb": 23.3,
+      "ros_k": 62.6,
+      "ros_pa": 663.7,
+      "points": 399.8,
+      "rank": 18
+    },
     {
       "mlb_id": 695578,
       "name": "James Wood",
@@ -76,43 +402,7 @@
       "ros_k": 87.3,
       "ros_pa": 309.4,
       "points": 259.5,
-      "rank": 1
-    },
-    {
-      "mlb_id": 691406,
-      "name": "Junior Caminero",
-      "team": "TB",
-      "games_played": 92,
-      "games_remaining": 70.0,
-      "ros_h": 74.6,
-      "ros_2b": 10.7,
-      "ros_3b": 0.0,
-      "ros_hr": 21.3,
-      "ros_r": 45.7,
-      "ros_rbi": 44.9,
-      "ros_bb": 39.6,
-      "ros_k": 55.5,
-      "ros_pa": 305.9,
-      "points": 251.5,
-      "rank": 2
-    },
-    {
-      "mlb_id": 670541,
-      "name": "Yordan Alvarez",
-      "team": "HOU",
-      "games_played": 96,
-      "games_remaining": 62.7,
-      "ros_h": 72.5,
-      "ros_2b": 11.1,
-      "ros_3b": 0.0,
-      "ros_hr": 20.2,
-      "ros_r": 42.4,
-      "ros_rbi": 45.7,
-      "ros_bb": 41.1,
-      "ros_k": 47.0,
-      "ros_pa": 274.3,
-      "points": 250.1,
-      "rank": 3
+      "rank": 19
     },
     {
       "mlb_id": 678246,
@@ -130,25 +420,7 @@
       "ros_k": 47.0,
       "ros_pa": 287.9,
       "points": 225.3,
-      "rank": 4
-    },
-    {
-      "mlb_id": 700250,
-      "name": "Ben Rice",
-      "team": "NYY",
-      "games_played": 86,
-      "games_remaining": 59.1,
-      "ros_h": 63.2,
-      "ros_2b": 10.3,
-      "ros_3b": 2.1,
-      "ros_hr": 19.2,
-      "ros_r": 42.6,
-      "ros_rbi": 45.4,
-      "ros_bb": 32.3,
-      "ros_k": 61.2,
-      "ros_pa": 263.3,
-      "points": 225.2,
-      "rank": 5
+      "rank": 20
     },
     {
       "mlb_id": 621566,
@@ -166,7 +438,7 @@
       "ros_k": 69.8,
       "ros_pa": 293.4,
       "points": 219.0,
-      "rank": 6
+      "rank": 21
     },
     {
       "mlb_id": 691023,
@@ -184,7 +456,7 @@
       "ros_k": 67.7,
       "ros_pa": 277.2,
       "points": 218.6,
-      "rank": 7
+      "rank": 22
     },
     {
       "mlb_id": 650490,
@@ -202,7 +474,7 @@
       "ros_k": 41.1,
       "ros_pa": 296.0,
       "points": 212.3,
-      "rank": 8
+      "rank": 23
     },
     {
       "mlb_id": 691718,
@@ -220,7 +492,7 @@
       "ros_k": 73.8,
       "ros_pa": 293.7,
       "points": 210.5,
-      "rank": 9
+      "rank": 24
     },
     {
       "mlb_id": 701762,
@@ -238,7 +510,7 @@
       "ros_k": 89.4,
       "ros_pa": 282.6,
       "points": 209.0,
-      "rank": 10
+      "rank": 25
     },
     {
       "mlb_id": 668804,
@@ -256,7 +528,7 @@
       "ros_k": 64.2,
       "ros_pa": 288.5,
       "points": 208.4,
-      "rank": 11
+      "rank": 26
     },
     {
       "mlb_id": 666018,
@@ -274,7 +546,7 @@
       "ros_k": 62.4,
       "ros_pa": 297.5,
       "points": 207.7,
-      "rank": 12
+      "rank": 27
     },
     {
       "mlb_id": 701398,
@@ -292,7 +564,7 @@
       "ros_k": 62.2,
       "ros_pa": 296.6,
       "points": 207.6,
-      "rank": 13
+      "rank": 28
     },
     {
       "mlb_id": 547180,
@@ -310,25 +582,7 @@
       "ros_k": 57.8,
       "ros_pa": 281.4,
       "points": 206.6,
-      "rank": 14
-    },
-    {
-      "mlb_id": 656941,
-      "name": "Kyle Schwarber",
-      "team": "PHI",
-      "games_played": 90,
-      "games_remaining": 63.5,
-      "ros_h": 62.8,
-      "ros_2b": 6.3,
-      "ros_3b": 0.7,
-      "ros_hr": 22.6,
-      "ros_r": 38.8,
-      "ros_rbi": 41.6,
-      "ros_bb": 38.1,
-      "ros_k": 100.9,
-      "ros_pa": 284.2,
-      "points": 206.3,
-      "rank": 15
+      "rank": 29
     },
     {
       "mlb_id": 668930,
@@ -346,7 +600,7 @@
       "ros_k": 70.8,
       "ros_pa": 286.0,
       "points": 202.5,
-      "rank": 16
+      "rank": 30
     },
     {
       "mlb_id": 676475,
@@ -364,25 +618,7 @@
       "ros_k": 40.9,
       "ros_pa": 275.1,
       "points": 201.0,
-      "rank": 17
-    },
-    {
-      "mlb_id": 682928,
-      "name": "CJ Abrams",
-      "team": "WSH",
-      "games_played": 90,
-      "games_remaining": 61.9,
-      "ros_h": 65.3,
-      "ros_2b": 11.7,
-      "ros_3b": 1.4,
-      "ros_hr": 13.8,
-      "ros_r": 38.5,
-      "ros_rbi": 45.4,
-      "ros_bb": 23.4,
-      "ros_k": 55.7,
-      "ros_pa": 267.4,
-      "points": 200.4,
-      "rank": 18
+      "rank": 31
     },
     {
       "mlb_id": 624413,
@@ -400,7 +636,7 @@
       "ros_k": 69.7,
       "ros_pa": 280.8,
       "points": 196.3,
-      "rank": 19
+      "rank": 32
     },
     {
       "mlb_id": 660271,
@@ -418,7 +654,7 @@
       "ros_k": 55.7,
       "ros_pa": 246.1,
       "points": 196.3,
-      "rank": 20
+      "rank": 33
     },
     {
       "mlb_id": 672640,
@@ -436,7 +672,7 @@
       "ros_k": 39.2,
       "ros_pa": 277.1,
       "points": 195.6,
-      "rank": 21
+      "rank": 34
     },
     {
       "mlb_id": 664040,
@@ -454,61 +690,7 @@
       "ros_k": 73.3,
       "ros_pa": 275.1,
       "points": 195.4,
-      "rank": 22
-    },
-    {
-      "mlb_id": 681624,
-      "name": "Andy Pages",
-      "team": "LAD",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 67.4,
-      "ros_2b": 14.4,
-      "ros_3b": 0.7,
-      "ros_hr": 11.0,
-      "ros_r": 38.5,
-      "ros_rbi": 43.3,
-      "ros_bb": 23.4,
-      "ros_k": 54.3,
-      "ros_pa": 277.8,
-      "points": 194.2,
-      "rank": 23
-    },
-    {
-      "mlb_id": 518692,
-      "name": "Freddie Freeman",
-      "team": "LAD",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 69.4,
-      "ros_2b": 15.1,
-      "ros_3b": 0.7,
-      "ros_hr": 10.3,
-      "ros_r": 34.4,
-      "ros_rbi": 33.0,
-      "ros_bb": 31.6,
-      "ros_k": 44.0,
-      "ros_pa": 277.1,
-      "points": 193.9,
-      "rank": 24
-    },
-    {
-      "mlb_id": 645277,
-      "name": "Ozzie Albies",
-      "team": "ATL",
-      "games_played": 95,
-      "games_remaining": 67.0,
-      "ros_h": 69.1,
-      "ros_2b": 14.8,
-      "ros_3b": 0.0,
-      "ros_hr": 9.9,
-      "ros_r": 43.0,
-      "ros_rbi": 36.0,
-      "ros_bb": 20.5,
-      "ros_k": 38.8,
-      "ros_pa": 289.2,
-      "points": 193.6,
-      "rank": 25
+      "rank": 35
     },
     {
       "mlb_id": 575929,
@@ -526,7 +708,7 @@
       "ros_k": 65.1,
       "ros_pa": 263.3,
       "points": 192.4,
-      "rank": 26
+      "rank": 36
     },
     {
       "mlb_id": 646240,
@@ -544,7 +726,7 @@
       "ros_k": 81.4,
       "ros_pa": 298.3,
       "points": 191.4,
-      "rank": 27
+      "rank": 37
     },
     {
       "mlb_id": 650333,
@@ -562,25 +744,7 @@
       "ros_k": 12.2,
       "ros_pa": 293.7,
       "points": 191.0,
-      "rank": 28
-    },
-    {
-      "mlb_id": 665742,
-      "name": "Juan Soto",
-      "team": "NYM",
-      "games_played": 78,
-      "games_remaining": 52.3,
-      "ros_h": 53.6,
-      "ros_2b": 5.4,
-      "ros_3b": 1.3,
-      "ros_hr": 14.1,
-      "ros_r": 29.5,
-      "ros_rbi": 34.2,
-      "ros_bb": 36.9,
-      "ros_k": 28.8,
-      "ros_pa": 223.8,
-      "points": 190.0,
-      "rank": 29
+      "rank": 38
     },
     {
       "mlb_id": 606466,
@@ -598,7 +762,7 @@
       "ros_k": 39.9,
       "ros_pa": 277.1,
       "points": 189.1,
-      "rank": 30
+      "rank": 39
     },
     {
       "mlb_id": 805808,
@@ -616,7 +780,7 @@
       "ros_k": 38.5,
       "ros_pa": 283.2,
       "points": 186.3,
-      "rank": 31
+      "rank": 40
     },
     {
       "mlb_id": 682998,
@@ -634,25 +798,7 @@
       "ros_k": 62.6,
       "ros_pa": 273.6,
       "points": 182.5,
-      "rank": 32
-    },
-    {
-      "mlb_id": 641355,
-      "name": "Cody Bellinger",
-      "team": "NYY",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 59.8,
-      "ros_2b": 13.1,
-      "ros_3b": 2.1,
-      "ros_hr": 7.6,
-      "ros_r": 33.7,
-      "ros_rbi": 33.7,
-      "ros_bb": 35.1,
-      "ros_k": 41.2,
-      "ros_pa": 275.7,
-      "points": 181.5,
-      "rank": 33
+      "rank": 41
     },
     {
       "mlb_id": 641343,
@@ -670,7 +816,7 @@
       "ros_k": 57.7,
       "ros_pa": 228.9,
       "points": 180.8,
-      "rank": 34
+      "rank": 42
     },
     {
       "mlb_id": 669364,
@@ -688,7 +834,7 @@
       "ros_k": 32.3,
       "ros_pa": 277.1,
       "points": 179.8,
-      "rank": 35
+      "rank": 43
     },
     {
       "mlb_id": 696100,
@@ -706,7 +852,7 @@
       "ros_k": 77.7,
       "ros_pa": 248.9,
       "points": 179.8,
-      "rank": 36
+      "rank": 44
     },
     {
       "mlb_id": 669477,
@@ -724,7 +870,7 @@
       "ros_k": 50.2,
       "ros_pa": 268.6,
       "points": 178.0,
-      "rank": 37
+      "rank": 45
     },
     {
       "mlb_id": 671056,
@@ -742,7 +888,7 @@
       "ros_k": 48.0,
       "ros_pa": 298.3,
       "points": 177.7,
-      "rank": 38
+      "rank": 46
     },
     {
       "mlb_id": 592518,
@@ -760,7 +906,7 @@
       "ros_k": 62.2,
       "ros_pa": 279.2,
       "points": 176.5,
-      "rank": 39
+      "rank": 47
     },
     {
       "mlb_id": 693307,
@@ -778,43 +924,7 @@
       "ros_k": 51.6,
       "ros_pa": 243.4,
       "points": 175.7,
-      "rank": 40
-    },
-    {
-      "mlb_id": 669127,
-      "name": "Shea Langeliers",
-      "team": "ATH",
-      "games_played": 86,
-      "games_remaining": 59.1,
-      "ros_h": 61.9,
-      "ros_2b": 11.0,
-      "ros_3b": 0.0,
-      "ros_hr": 14.4,
-      "ros_r": 35.8,
-      "ros_rbi": 31.6,
-      "ros_bb": 20.6,
-      "ros_k": 58.4,
-      "ros_pa": 265.4,
-      "points": 175.0,
-      "rank": 41
-    },
-    {
-      "mlb_id": 677951,
-      "name": "Bobby Witt Jr.",
-      "team": "KC",
-      "games_played": 91,
-      "games_remaining": 61.0,
-      "ros_h": 69.0,
-      "ros_2b": 14.7,
-      "ros_3b": 0.7,
-      "ros_hr": 8.7,
-      "ros_r": 34.2,
-      "ros_rbi": 26.1,
-      "ros_bb": 26.1,
-      "ros_k": 46.2,
-      "ros_pa": 270.1,
-      "points": 174.6,
-      "rank": 42
+      "rank": 48
     },
     {
       "mlb_id": 689414,
@@ -832,7 +942,7 @@
       "ros_k": 19.2,
       "ros_pa": 223.4,
       "points": 174.6,
-      "rank": 43
+      "rank": 49
     },
     {
       "mlb_id": 656811,
@@ -850,7 +960,7 @@
       "ros_k": 46.5,
       "ros_pa": 227.1,
       "points": 173.5,
-      "rank": 44
+      "rank": 50
     },
     {
       "mlb_id": 621439,
@@ -868,7 +978,7 @@
       "ros_k": 56.4,
       "ros_pa": 226.2,
       "points": 173.2,
-      "rank": 45
+      "rank": 51
     },
     {
       "mlb_id": 687263,
@@ -886,7 +996,7 @@
       "ros_k": 88.5,
       "ros_pa": 282.8,
       "points": 172.9,
-      "rank": 46
+      "rank": 52
     },
     {
       "mlb_id": 683737,
@@ -904,7 +1014,7 @@
       "ros_k": 65.1,
       "ros_pa": 298.8,
       "points": 172.2,
-      "rank": 47
+      "rank": 53
     },
     {
       "mlb_id": 677800,
@@ -922,25 +1032,7 @@
       "ros_k": 59.3,
       "ros_pa": 289.4,
       "points": 171.4,
-      "rank": 48
-    },
-    {
-      "mlb_id": 682985,
-      "name": "Riley Greene",
-      "team": "DET",
-      "games_played": 94,
-      "games_remaining": 64.6,
-      "ros_h": 68.1,
-      "ros_2b": 13.1,
-      "ros_3b": 0.7,
-      "ros_hr": 8.9,
-      "ros_r": 33.0,
-      "ros_rbi": 30.9,
-      "ros_bb": 35.1,
-      "ros_k": 74.2,
-      "ros_pa": 274.3,
-      "points": 171.2,
-      "rank": 49
+      "rank": 54
     },
     {
       "mlb_id": 802139,
@@ -958,7 +1050,7 @@
       "ros_k": 44.4,
       "ros_pa": 285.6,
       "points": 171.0,
-      "rank": 50
+      "rank": 55
     },
     {
       "mlb_id": 681198,
@@ -976,7 +1068,7 @@
       "ros_k": 35.1,
       "ros_pa": 252.3,
       "points": 170.8,
-      "rank": 51
+      "rank": 56
     },
     {
       "mlb_id": 621020,
@@ -994,25 +1086,7 @@
       "ros_k": 60.8,
       "ros_pa": 256.8,
       "points": 170.7,
-      "rank": 52
-    },
-    {
-      "mlb_id": 545361,
-      "name": "Mike Trout",
-      "team": "LAA",
-      "games_played": 78,
-      "games_remaining": 52.3,
-      "ros_h": 44.9,
-      "ros_2b": 8.7,
-      "ros_3b": 0.0,
-      "ros_hr": 12.1,
-      "ros_r": 38.9,
-      "ros_rbi": 26.1,
-      "ros_bb": 44.9,
-      "ros_k": 58.3,
-      "ros_pa": 237.2,
-      "points": 170.5,
-      "rank": 53
+      "rank": 57
     },
     {
       "mlb_id": 672960,
@@ -1030,7 +1104,7 @@
       "ros_k": 81.1,
       "ros_pa": 262.6,
       "points": 170.5,
-      "rank": 54
+      "rank": 58
     },
     {
       "mlb_id": 572233,
@@ -1048,7 +1122,7 @@
       "ros_k": 58.8,
       "ros_pa": 259.9,
       "points": 170.4,
-      "rank": 55
+      "rank": 59
     },
     {
       "mlb_id": 671277,
@@ -1066,7 +1140,7 @@
       "ros_k": 30.3,
       "ros_pa": 196.6,
       "points": 167.8,
-      "rank": 56
+      "rank": 60
     },
     {
       "mlb_id": 608324,
@@ -1084,7 +1158,7 @@
       "ros_k": 47.0,
       "ros_pa": 306.7,
       "points": 167.5,
-      "rank": 57
+      "rank": 61
     },
     {
       "mlb_id": 664023,
@@ -1102,7 +1176,7 @@
       "ros_k": 89.0,
       "ros_pa": 280.7,
       "points": 167.5,
-      "rank": 58
+      "rank": 62
     },
     {
       "mlb_id": 661388,
@@ -1120,7 +1194,7 @@
       "ros_k": 35.8,
       "ros_pa": 261.2,
       "points": 167.1,
-      "rank": 59
+      "rank": 63
     },
     {
       "mlb_id": 668227,
@@ -1138,7 +1212,7 @@
       "ros_k": 54.9,
       "ros_pa": 254.0,
       "points": 166.9,
-      "rank": 60
+      "rank": 64
     },
     {
       "mlb_id": 643289,
@@ -1156,7 +1230,7 @@
       "ros_k": 37.4,
       "ros_pa": 260.9,
       "points": 164.0,
-      "rank": 61
+      "rank": 65
     },
     {
       "mlb_id": 683002,
@@ -1174,7 +1248,7 @@
       "ros_k": 66.3,
       "ros_pa": 294.2,
       "points": 162.5,
-      "rank": 62
+      "rank": 66
     },
     {
       "mlb_id": 695657,
@@ -1192,7 +1266,7 @@
       "ros_k": 85.4,
       "ros_pa": 267.7,
       "points": 161.3,
-      "rank": 63
+      "rank": 67
     },
     {
       "mlb_id": 691016,
@@ -1210,7 +1284,7 @@
       "ros_k": 41.9,
       "ros_pa": 235.1,
       "points": 161.2,
-      "rank": 64
+      "rank": 68
     },
     {
       "mlb_id": 605137,
@@ -1228,7 +1302,7 @@
       "ros_k": 55.0,
       "ros_pa": 248.9,
       "points": 160.9,
-      "rank": 65
+      "rank": 69
     },
     {
       "mlb_id": 621493,
@@ -1246,25 +1320,7 @@
       "ros_k": 61.0,
       "ros_pa": 294.2,
       "points": 160.5,
-      "rank": 66
-    },
-    {
-      "mlb_id": 571970,
-      "name": "Max Muncy",
-      "team": "LAD",
-      "games_played": 81,
-      "games_remaining": 55.7,
-      "ros_h": 50.2,
-      "ros_2b": 8.9,
-      "ros_3b": 0.7,
-      "ros_hr": 11.7,
-      "ros_r": 36.4,
-      "ros_rbi": 26.8,
-      "ros_bb": 26.8,
-      "ros_k": 51.6,
-      "ros_pa": 224.1,
-      "points": 159.8,
-      "rank": 67
+      "rank": 70
     },
     {
       "mlb_id": 808982,
@@ -1282,7 +1338,7 @@
       "ros_k": 24.3,
       "ros_pa": 248.8,
       "points": 159.0,
-      "rank": 68
+      "rank": 71
     },
     {
       "mlb_id": 673548,
@@ -1300,7 +1356,7 @@
       "ros_k": 60.0,
       "ros_pa": 235.8,
       "points": 158.8,
-      "rank": 69
+      "rank": 72
     },
     {
       "mlb_id": 665489,
@@ -1318,7 +1374,7 @@
       "ros_k": 34.4,
       "ros_pa": 265.4,
       "points": 157.4,
-      "rank": 70
+      "rank": 73
     },
     {
       "mlb_id": 673962,
@@ -1336,25 +1392,7 @@
       "ros_k": 46.8,
       "ros_pa": 257.8,
       "points": 157.4,
-      "rank": 71
-    },
-    {
-      "mlb_id": 669016,
-      "name": "Brandon Marsh",
-      "team": "PHI",
-      "games_played": 86,
-      "games_remaining": 60.7,
-      "ros_h": 69.8,
-      "ros_2b": 10.6,
-      "ros_3b": 1.4,
-      "ros_hr": 9.9,
-      "ros_r": 34.6,
-      "ros_rbi": 30.3,
-      "ros_bb": 12.0,
-      "ros_k": 65.6,
-      "ros_pa": 246.8,
-      "points": 156.9,
-      "rank": 72
+      "rank": 74
     },
     {
       "mlb_id": 642715,
@@ -1372,7 +1410,7 @@
       "ros_k": 76.1,
       "ros_pa": 280.8,
       "points": 156.7,
-      "rank": 73
+      "rank": 75
     },
     {
       "mlb_id": 671739,
@@ -1390,7 +1428,7 @@
       "ros_k": 50.8,
       "ros_pa": 244.0,
       "points": 156.6,
-      "rank": 74
+      "rank": 76
     },
     {
       "mlb_id": 682829,
@@ -1408,7 +1446,7 @@
       "ros_k": 69.4,
       "ros_pa": 243.1,
       "points": 156.3,
-      "rank": 75
+      "rank": 77
     },
     {
       "mlb_id": 663656,
@@ -1426,7 +1464,7 @@
       "ros_k": 50.9,
       "ros_pa": 255.8,
       "points": 156.1,
-      "rank": 76
+      "rank": 78
     },
     {
       "mlb_id": 672695,
@@ -1444,7 +1482,7 @@
       "ros_k": 32.3,
       "ros_pa": 267.4,
       "points": 155.0,
-      "rank": 77
+      "rank": 79
     },
     {
       "mlb_id": 695734,
@@ -1462,7 +1500,7 @@
       "ros_k": 47.4,
       "ros_pa": 272.2,
       "points": 155.0,
-      "rank": 78
+      "rank": 80
     },
     {
       "mlb_id": 686797,
@@ -1480,7 +1518,7 @@
       "ros_k": 41.2,
       "ros_pa": 251.6,
       "points": 154.0,
-      "rank": 79
+      "rank": 81
     },
     {
       "mlb_id": 666182,
@@ -1498,25 +1536,7 @@
       "ros_k": 48.9,
       "ros_pa": 275.4,
       "points": 153.8,
-      "rank": 80
-    },
-    {
-      "mlb_id": 676391,
-      "name": "Ernie Clement",
-      "team": "TOR",
-      "games_played": 89,
-      "games_remaining": 61.2,
-      "ros_h": 72.2,
-      "ros_2b": 15.8,
-      "ros_3b": 0.7,
-      "ros_hr": 5.5,
-      "ros_r": 28.9,
-      "ros_rbi": 22.0,
-      "ros_bb": 8.9,
-      "ros_k": 24.1,
-      "ros_pa": 253.7,
-      "points": 153.7,
-      "rank": 81
+      "rank": 82
     },
     {
       "mlb_id": 693304,
@@ -1534,7 +1554,7 @@
       "ros_k": 43.0,
       "ros_pa": 251.8,
       "points": 153.4,
-      "rank": 82
+      "rank": 83
     },
     {
       "mlb_id": 663538,
@@ -1552,7 +1572,7 @@
       "ros_k": 23.9,
       "ros_pa": 296.6,
       "points": 152.3,
-      "rank": 83
+      "rank": 84
     },
     {
       "mlb_id": 670623,
@@ -1570,7 +1590,7 @@
       "ros_k": 39.2,
       "ros_pa": 248.8,
       "points": 152.2,
-      "rank": 84
+      "rank": 85
     },
     {
       "mlb_id": 665487,
@@ -1588,7 +1608,7 @@
       "ros_k": 59.3,
       "ros_pa": 293.7,
       "points": 151.9,
-      "rank": 85
+      "rank": 86
     },
     {
       "mlb_id": 664983,
@@ -1606,24 +1626,6 @@
       "ros_k": 35.8,
       "ros_pa": 204.2,
       "points": 151.2,
-      "rank": 86
-    },
-    {
-      "mlb_id": 686948,
-      "name": "Drake Baldwin",
-      "team": "ATL",
-      "games_played": 71,
-      "games_remaining": 50.1,
-      "ros_h": 50.1,
-      "ros_2b": 4.2,
-      "ros_3b": 0.0,
-      "ros_hr": 10.6,
-      "ros_r": 34.6,
-      "ros_rbi": 32.4,
-      "ros_bb": 22.6,
-      "ros_k": 49.4,
-      "ros_pa": 223.6,
-      "points": 150.9,
       "rank": 87
     },
     {
@@ -2833,24 +2835,6 @@
       "rank": 154
     },
     {
-      "mlb_id": 624585,
-      "name": "Jorge Soler",
-      "team": "LAA",
-      "games_played": 73,
-      "games_remaining": 48.9,
-      "ros_h": 38.9,
-      "ros_2b": 8.7,
-      "ros_3b": 0.7,
-      "ros_hr": 7.4,
-      "ros_r": 22.1,
-      "ros_rbi": 28.1,
-      "ros_bb": 20.8,
-      "ros_k": 64.3,
-      "ros_pa": 207.1,
-      "points": 109.9,
-      "rank": 155
-    },
-    {
       "mlb_id": 521692,
       "name": "Salvador Perez",
       "team": "KC",
@@ -2865,6 +2849,24 @@
       "ros_bb": 8.7,
       "ros_k": 50.9,
       "ros_pa": 250.6,
+      "points": 109.2,
+      "rank": 155
+    },
+    {
+      "mlb_id": 624585,
+      "name": "Jorge Soler",
+      "team": "LAA",
+      "games_played": 73,
+      "games_remaining": 48.9,
+      "ros_h": 38.2,
+      "ros_2b": 8.7,
+      "ros_3b": 0.7,
+      "ros_hr": 7.4,
+      "ros_r": 22.1,
+      "ros_rbi": 28.1,
+      "ros_bb": 20.8,
+      "ros_k": 64.3,
+      "ros_pa": 207.1,
       "points": 109.2,
       "rank": 156
     },
@@ -5101,6 +5103,24 @@
       "rank": 280
     },
     {
+      "mlb_id": 668952,
+      "name": "Ryan Kreidler",
+      "team": "MIN",
+      "games_played": 36,
+      "games_remaining": 24.8,
+      "ros_h": 19.9,
+      "ros_2b": 2.1,
+      "ros_3b": 1.4,
+      "ros_hr": 2.8,
+      "ros_r": 11.7,
+      "ros_rbi": 13.8,
+      "ros_bb": 7.6,
+      "ros_k": 18.6,
+      "ros_pa": 87.3,
+      "points": 56.7,
+      "rank": 281
+    },
+    {
       "mlb_id": 665804,
       "name": "Miguel Amaya",
       "team": "CHC",
@@ -5116,24 +5136,6 @@
       "ros_k": 26.0,
       "ros_pa": 109.2,
       "points": 56.4,
-      "rank": 281
-    },
-    {
-      "mlb_id": 668952,
-      "name": "Ryan Kreidler",
-      "team": "MIN",
-      "games_played": 36,
-      "games_remaining": 24.8,
-      "ros_h": 19.2,
-      "ros_2b": 2.1,
-      "ros_3b": 1.4,
-      "ros_hr": 2.8,
-      "ros_r": 11.7,
-      "ros_rbi": 13.8,
-      "ros_bb": 7.6,
-      "ros_k": 18.6,
-      "ros_pa": 87.3,
-      "points": 56.0,
       "rank": 282
     },
     {
@@ -9709,6 +9711,24 @@
       "rank": 536
     },
     {
+      "mlb_id": 668942,
+      "name": "Josh Rojas",
+      "team": "KC",
+      "games_played": 7,
+      "games_remaining": 4.7,
+      "ros_h": 2.7,
+      "ros_2b": 0.7,
+      "ros_3b": 0.0,
+      "ros_hr": 0.0,
+      "ros_r": 1.3,
+      "ros_rbi": 0.7,
+      "ros_bb": 0.0,
+      "ros_k": 3.4,
+      "ros_pa": 18.1,
+      "points": 3.7,
+      "rank": 537
+    },
+    {
       "mlb_id": 682634,
       "name": "Kevin Alc\u00e1ntara",
       "team": "CHC",
@@ -9724,7 +9744,7 @@
       "ros_k": 1.4,
       "ros_pa": 7.2,
       "points": 3.6,
-      "rank": 537
+      "rank": 538
     },
     {
       "mlb_id": 571657,
@@ -9742,7 +9762,7 @@
       "ros_k": 0.0,
       "ros_pa": 10.1,
       "points": 3.4,
-      "rank": 538
+      "rank": 539
     },
     {
       "mlb_id": 663584,
@@ -9760,7 +9780,7 @@
       "ros_k": 2.7,
       "ros_pa": 10.1,
       "points": 3.4,
-      "rank": 539
+      "rank": 540
     },
     {
       "mlb_id": 680718,
@@ -9778,7 +9798,7 @@
       "ros_k": 4.1,
       "ros_pa": 15.8,
       "points": 3.4,
-      "rank": 540
+      "rank": 541
     },
     {
       "mlb_id": 691620,
@@ -9796,7 +9816,7 @@
       "ros_k": 0.0,
       "ros_pa": 6.6,
       "points": 3.3,
-      "rank": 541
+      "rank": 542
     },
     {
       "mlb_id": 666464,
@@ -9813,24 +9833,6 @@
       "ros_bb": 0.0,
       "ros_k": 4.6,
       "ros_pa": 21.3,
-      "points": 3.0,
-      "rank": 542
-    },
-    {
-      "mlb_id": 668942,
-      "name": "Josh Rojas",
-      "team": "KC",
-      "games_played": 7,
-      "games_remaining": 4.7,
-      "ros_h": 2.0,
-      "ros_2b": 0.7,
-      "ros_3b": 0.0,
-      "ros_hr": 0.0,
-      "ros_r": 1.3,
-      "ros_rbi": 0.7,
-      "ros_bb": 0.0,
-      "ros_k": 3.4,
-      "ros_pa": 18.1,
       "points": 3.0,
       "rank": 543
     },
@@ -10665,6 +10667,34 @@
   ],
   "pitchers": [
     {
+      "mlb_id": 656302,
+      "name": "Dylan Cease",
+      "team": "AL",
+      "starts_made": 18,
+      "starts_remaining": 161.0,
+      "ros_ip": 888.5,
+      "ros_k": 1350.6,
+      "ros_bb": 402.5,
+      "ros_h": 599.3,
+      "ros_er": 250.4,
+      "points": 3264.7,
+      "rank": 1
+    },
+    {
+      "mlb_id": 650911,
+      "name": "Cristopher S\u00e1nchez",
+      "team": "NL",
+      "starts_made": 21,
+      "starts_remaining": 161.0,
+      "ros_ip": 983.9,
+      "ros_k": 1119.3,
+      "ros_bb": 207.0,
+      "ros_h": 989.0,
+      "ros_er": 306.7,
+      "points": 3166.3,
+      "rank": 2
+    },
+    {
       "mlb_id": 694819,
       "name": "Jacob Misiorowski",
       "team": "MIL",
@@ -10676,21 +10706,7 @@
       "ros_h": 39.2,
       "ros_er": 13.8,
       "points": 301.1,
-      "rank": 1
-    },
-    {
-      "mlb_id": 650911,
-      "name": "Cristopher S\u00e1nchez",
-      "team": "PHI",
-      "starts_made": 20,
-      "starts_remaining": 14.1,
-      "ros_ip": 89.8,
-      "ros_k": 101.6,
-      "ros_bb": 17.6,
-      "ros_h": 88.9,
-      "ros_er": 26.1,
-      "points": 291.6,
-      "rank": 2
+      "rank": 3
     },
     {
       "mlb_id": 693645,
@@ -10704,7 +10720,7 @@
       "ros_h": 59.8,
       "ros_er": 18.6,
       "points": 281.9,
-      "rank": 3
+      "rank": 4
     },
     {
       "mlb_id": 677952,
@@ -10718,7 +10734,7 @@
       "ros_h": 69.8,
       "ros_er": 31.0,
       "points": 254.6,
-      "rank": 4
+      "rank": 5
     },
     {
       "mlb_id": 657746,
@@ -10732,20 +10748,6 @@
       "ros_h": 62.6,
       "ros_er": 24.1,
       "points": 251.6,
-      "rank": 5
-    },
-    {
-      "mlb_id": 656302,
-      "name": "Dylan Cease",
-      "team": "TOR",
-      "starts_made": 17,
-      "starts_remaining": 11.7,
-      "ros_ip": 67.6,
-      "ros_k": 101.7,
-      "ros_bb": 30.2,
-      "ros_h": 46.1,
-      "ros_er": 19.2,
-      "points": 247.2,
       "rank": 6
     },
     {
@@ -11239,20 +11241,6 @@
       "rank": 41
     },
     {
-      "mlb_id": 669358,
-      "name": "Shane Baz",
-      "team": "BAL",
-      "starts_made": 19,
-      "starts_remaining": 12.7,
-      "ros_ip": 74.8,
-      "ros_k": 66.3,
-      "ros_bb": 28.1,
-      "ros_h": 75.1,
-      "ros_er": 34.2,
-      "points": 205.1,
-      "rank": 42
-    },
-    {
       "mlb_id": 677960,
       "name": "Ryan Weathers",
       "team": "NYY",
@@ -11264,6 +11252,20 @@
       "ros_h": 64.6,
       "ros_er": 30.9,
       "points": 204.5,
+      "rank": 42
+    },
+    {
+      "mlb_id": 669358,
+      "name": "Shane Baz",
+      "team": "BAL",
+      "starts_made": 19,
+      "starts_remaining": 12.7,
+      "ros_ip": 74.8,
+      "ros_k": 66.3,
+      "ros_bb": 28.1,
+      "ros_h": 75.7,
+      "ros_er": 34.8,
+      "points": 204.0,
       "rank": 43
     },
     {
@@ -13878,125 +13880,202 @@
     "hitters": {
       "risers": [
         {
+          "mlb_id": 694374,
+          "name": "Tim Tawa",
+          "team": "AZ",
+          "season_games": 23,
+          "recent_games": 4,
+          "season_pts_per_game": 2.22,
+          "recent_pts_per_game": 6.0,
+          "delta": 3.78,
+          "rank": 1
+        },
+        {
           "mlb_id": 695578,
           "name": "James Wood",
           "team": "WSH",
           "season_games": 96,
-          "recent_games": 6,
+          "recent_games": 4,
           "season_pts_per_game": 3.93,
-          "recent_pts_per_game": 8.67,
-          "delta": 4.73,
-          "rank": 1
-        },
-        {
-          "mlb_id": 655316,
-          "name": "Andruw Monasterio",
-          "team": "BOS",
-          "season_games": 36,
-          "recent_games": 4,
-          "season_pts_per_game": 2.31,
-          "recent_pts_per_game": 5.5,
-          "delta": 3.19,
+          "recent_pts_per_game": 7.38,
+          "delta": 3.44,
           "rank": 2
-        },
-        {
-          "mlb_id": 700250,
-          "name": "Ben Rice",
-          "team": "NYY",
-          "season_games": 86,
-          "recent_games": 7,
-          "season_pts_per_game": 3.81,
-          "recent_pts_per_game": 6.64,
-          "delta": 2.83,
-          "rank": 3
-        },
-        {
-          "mlb_id": 673237,
-          "name": "Yainer Diaz",
-          "team": "HOU",
-          "season_games": 42,
-          "recent_games": 4,
-          "season_pts_per_game": 2.35,
-          "recent_pts_per_game": 5.12,
-          "delta": 2.78,
-          "rank": 4
-        },
-        {
-          "mlb_id": 573262,
-          "name": "Mike Yastrzemski",
-          "team": "ATL",
-          "season_games": 62,
-          "recent_games": 5,
-          "season_pts_per_game": 1.81,
-          "recent_pts_per_game": 4.3,
-          "delta": 2.49,
-          "rank": 5
         },
         {
           "mlb_id": 672960,
           "name": "Kazuma Okamoto",
           "team": "TOR",
           "season_games": 92,
-          "recent_games": 6,
+          "recent_games": 4,
           "season_pts_per_game": 2.7,
-          "recent_pts_per_game": 5.17,
-          "delta": 2.47,
-          "rank": 6
-        },
-        {
-          "mlb_id": 694374,
-          "name": "Tim Tawa",
-          "team": "AZ",
-          "season_games": 23,
-          "recent_games": 5,
-          "season_pts_per_game": 2.22,
-          "recent_pts_per_game": 4.6,
-          "delta": 2.38,
-          "rank": 7
+          "recent_pts_per_game": 5.88,
+          "delta": 3.18,
+          "rank": 3
         },
         {
           "mlb_id": 663968,
           "name": "Jake Mangum",
           "team": "PIT",
           "season_games": 54,
-          "recent_games": 5,
+          "recent_games": 4,
           "season_pts_per_game": 2.33,
-          "recent_pts_per_game": 4.7,
-          "delta": 2.37,
-          "rank": 8
+          "recent_pts_per_game": 5.12,
+          "delta": 2.79,
+          "rank": 4
         },
         {
-          "mlb_id": 656811,
-          "name": "Ryan O'Hearn",
-          "team": "PIT",
-          "season_games": 74,
-          "recent_games": 6,
-          "season_pts_per_game": 3.32,
-          "recent_pts_per_game": 5.5,
-          "delta": 2.18,
-          "rank": 9
+          "mlb_id": 592663,
+          "name": "J.T. Realmuto",
+          "team": "PHI",
+          "season_games": 67,
+          "recent_games": 4,
+          "season_pts_per_game": 1.96,
+          "recent_pts_per_game": 4.62,
+          "delta": 2.66,
+          "rank": 5
+        },
+        {
+          "mlb_id": 665489,
+          "name": "Vladimir Guerrero Jr.",
+          "team": "TOR",
+          "season_games": 90,
+          "recent_games": 4,
+          "season_pts_per_game": 2.54,
+          "recent_pts_per_game": 5.12,
+          "delta": 2.58,
+          "rank": 6
         },
         {
           "mlb_id": 699013,
           "name": "Esmerlyn Valdez",
           "team": "PIT",
           "season_games": 24,
-          "recent_games": 6,
+          "recent_games": 5,
           "season_pts_per_game": 4.02,
-          "recent_pts_per_game": 6.17,
-          "delta": 2.15,
+          "recent_pts_per_game": 6.5,
+          "delta": 2.48,
+          "rank": 7
+        },
+        {
+          "mlb_id": 571448,
+          "name": "Nolan Arenado",
+          "team": "AZ",
+          "season_games": 88,
+          "recent_games": 5,
+          "season_pts_per_game": 2.32,
+          "recent_pts_per_game": 4.7,
+          "delta": 2.38,
+          "rank": 8
+        },
+        {
+          "mlb_id": 677587,
+          "name": "Brayan Rocchio",
+          "team": "CLE",
+          "season_games": 92,
+          "recent_games": 5,
+          "season_pts_per_game": 2.34,
+          "recent_pts_per_game": 4.7,
+          "delta": 2.36,
+          "rank": 9
+        },
+        {
+          "mlb_id": 666018,
+          "name": "Jonathan Aranda",
+          "team": "TB",
+          "season_games": 88,
+          "recent_games": 5,
+          "season_pts_per_game": 3.1,
+          "recent_pts_per_game": 5.4,
+          "delta": 2.3,
           "rank": 10
         },
         {
-          "mlb_id": 683748,
-          "name": "Victor Mesa Jr.",
-          "team": "TB",
-          "season_games": 24,
+          "mlb_id": 669224,
+          "name": "Austin Wells",
+          "team": "NYY",
+          "season_games": 60,
           "recent_games": 4,
-          "season_pts_per_game": 2.4,
-          "recent_pts_per_game": 4.5,
-          "delta": 2.1,
+          "season_pts_per_game": 1.22,
+          "recent_pts_per_game": 3.5,
+          "delta": 2.28,
           "rank": 11
+        },
+        {
+          "mlb_id": 668930,
+          "name": "Brice Turang",
+          "team": "MIL",
+          "season_games": 91,
+          "recent_games": 4,
+          "season_pts_per_game": 3.24,
+          "recent_pts_per_game": 5.5,
+          "delta": 2.26,
+          "rank": 12
+        },
+        {
+          "mlb_id": 682829,
+          "name": "Elly De La Cruz",
+          "team": "CIN",
+          "season_games": 75,
+          "recent_games": 5,
+          "season_pts_per_game": 2.88,
+          "recent_pts_per_game": 5.1,
+          "delta": 2.22,
+          "rank": 13
+        },
+        {
+          "mlb_id": 800050,
+          "name": "Chase DeLauter",
+          "team": "CLE",
+          "season_games": 76,
+          "recent_games": 5,
+          "season_pts_per_game": 2.9,
+          "recent_pts_per_game": 5.1,
+          "delta": 2.2,
+          "rank": 14
+        },
+        {
+          "mlb_id": 668904,
+          "name": "Royce Lewis",
+          "team": "MIN",
+          "season_games": 62,
+          "recent_games": 5,
+          "season_pts_per_game": 2.23,
+          "recent_pts_per_game": 4.4,
+          "delta": 2.17,
+          "rank": 15
+        },
+        {
+          "mlb_id": 673548,
+          "name": "Seiya Suzuki",
+          "team": "CHC",
+          "season_games": 74,
+          "recent_games": 5,
+          "season_pts_per_game": 2.97,
+          "recent_pts_per_game": 5.1,
+          "delta": 2.13,
+          "rank": 16
+        },
+        {
+          "mlb_id": 668709,
+          "name": "JJ Bleday",
+          "team": "CIN",
+          "season_games": 65,
+          "recent_games": 5,
+          "season_pts_per_game": 3.2,
+          "recent_pts_per_game": 5.3,
+          "delta": 2.1,
+          "rank": 17
+        },
+        {
+          "mlb_id": 694384,
+          "name": "Nolan Schanuel",
+          "team": "LAA",
+          "season_games": 74,
+          "recent_games": 4,
+          "season_pts_per_game": 2.46,
+          "recent_pts_per_game": 4.5,
+          "delta": 2.04,
+          "rank": 18
         },
         {
           "mlb_id": 687093,
@@ -14007,83 +14086,6 @@
           "season_pts_per_game": 2.72,
           "recent_pts_per_game": 4.75,
           "delta": 2.03,
-          "rank": 12
-        },
-        {
-          "mlb_id": 800050,
-          "name": "Chase DeLauter",
-          "team": "CLE",
-          "season_games": 76,
-          "recent_games": 6,
-          "season_pts_per_game": 2.9,
-          "recent_pts_per_game": 4.92,
-          "delta": 2.02,
-          "rank": 13
-        },
-        {
-          "mlb_id": 657041,
-          "name": "Lane Thomas",
-          "team": "KC",
-          "season_games": 58,
-          "recent_games": 7,
-          "season_pts_per_game": 2.25,
-          "recent_pts_per_game": 4.21,
-          "delta": 1.96,
-          "rank": 14
-        },
-        {
-          "mlb_id": 608324,
-          "name": "Alex Bregman",
-          "team": "CHC",
-          "season_games": 92,
-          "recent_games": 6,
-          "season_pts_per_game": 2.52,
-          "recent_pts_per_game": 4.42,
-          "delta": 1.9,
-          "rank": 15
-        },
-        {
-          "mlb_id": 694728,
-          "name": "Brice Matthews",
-          "team": "HOU",
-          "season_games": 53,
-          "recent_games": 4,
-          "season_pts_per_game": 1.5,
-          "recent_pts_per_game": 3.38,
-          "delta": 1.88,
-          "rank": 16
-        },
-        {
-          "mlb_id": 679845,
-          "name": "Nick Loftin",
-          "team": "KC",
-          "season_games": 48,
-          "recent_games": 6,
-          "season_pts_per_game": 2.34,
-          "recent_pts_per_game": 4.17,
-          "delta": 1.82,
-          "rank": 17
-        },
-        {
-          "mlb_id": 680779,
-          "name": "Henry Davis",
-          "team": "PIT",
-          "season_games": 50,
-          "recent_games": 4,
-          "season_pts_per_game": 2.01,
-          "recent_pts_per_game": 3.75,
-          "delta": 1.74,
-          "rank": 18
-        },
-        {
-          "mlb_id": 678554,
-          "name": "Curtis Mead",
-          "team": "WSH",
-          "season_games": 55,
-          "recent_games": 5,
-          "season_pts_per_game": 3.09,
-          "recent_pts_per_game": 4.8,
-          "delta": 1.71,
           "rank": 19
         },
         {
@@ -14091,342 +14093,342 @@
           "name": "Ezequiel Duran",
           "team": "TEX",
           "season_games": 80,
-          "recent_games": 6,
+          "recent_games": 5,
           "season_pts_per_game": 2.48,
-          "recent_pts_per_game": 4.17,
-          "delta": 1.69,
+          "recent_pts_per_game": 4.4,
+          "delta": 1.92,
           "rank": 20
         },
         {
-          "mlb_id": 571448,
-          "name": "Nolan Arenado",
-          "team": "AZ",
-          "season_games": 88,
-          "recent_games": 7,
-          "season_pts_per_game": 2.32,
-          "recent_pts_per_game": 4.0,
-          "delta": 1.68,
+          "mlb_id": 608324,
+          "name": "Alex Bregman",
+          "team": "CHC",
+          "season_games": 92,
+          "recent_games": 5,
+          "season_pts_per_game": 2.52,
+          "recent_pts_per_game": 4.3,
+          "delta": 1.78,
           "rank": 21
         },
         {
-          "mlb_id": 806198,
-          "name": "Cooper Pratt",
-          "team": "MIL",
-          "season_games": 23,
-          "recent_games": 7,
-          "season_pts_per_game": 2.0,
-          "recent_pts_per_game": 3.64,
-          "delta": 1.64,
+          "mlb_id": 700250,
+          "name": "Ben Rice",
+          "team": "AL",
+          "season_games": 87,
+          "recent_games": 6,
+          "season_pts_per_game": 3.78,
+          "recent_pts_per_game": 5.5,
+          "delta": 1.72,
           "rank": 22
         },
         {
-          "mlb_id": 660271,
-          "name": "Shohei Ohtani",
-          "team": "LAD",
-          "season_games": 77,
-          "recent_games": 6,
-          "season_pts_per_game": 3.71,
-          "recent_pts_per_game": 5.33,
-          "delta": 1.63,
+          "mlb_id": 666176,
+          "name": "Jo Adell",
+          "team": "LAA",
+          "season_games": 94,
+          "recent_games": 4,
+          "season_pts_per_game": 2.2,
+          "recent_pts_per_game": 3.88,
+          "delta": 1.68,
           "rank": 23
         },
         {
-          "mlb_id": 664034,
-          "name": "Ty France",
-          "team": "SD",
-          "season_games": 54,
-          "recent_games": 4,
-          "season_pts_per_game": 2.52,
-          "recent_pts_per_game": 4.12,
-          "delta": 1.61,
+          "mlb_id": 607043,
+          "name": "Brandon Nimmo",
+          "team": "TEX",
+          "season_games": 89,
+          "recent_games": 5,
+          "season_pts_per_game": 2.34,
+          "recent_pts_per_game": 3.8,
+          "delta": 1.46,
           "rank": 24
         },
         {
-          "mlb_id": 677587,
-          "name": "Brayan Rocchio",
-          "team": "CLE",
-          "season_games": 92,
-          "recent_games": 6,
-          "season_pts_per_game": 2.34,
-          "recent_pts_per_game": 3.92,
-          "delta": 1.57,
+          "mlb_id": 669477,
+          "name": "Casey Schmitt",
+          "team": "SF",
+          "season_games": 82,
+          "recent_games": 5,
+          "season_pts_per_game": 2.85,
+          "recent_pts_per_game": 4.3,
+          "delta": 1.45,
           "rank": 25
         }
       ],
       "fallers": [
         {
-          "mlb_id": 693307,
-          "name": "Dillon Dingler",
-          "team": "DET",
-          "season_games": 82,
+          "mlb_id": 694249,
+          "name": "Cole Carrigg",
+          "team": "COL",
+          "season_games": 27,
           "recent_games": 4,
-          "season_pts_per_game": 3.12,
-          "recent_pts_per_game": 0.12,
-          "delta": -2.99,
+          "season_pts_per_game": 3.54,
+          "recent_pts_per_game": 0.0,
+          "delta": -3.54,
           "rank": 1
-        },
-        {
-          "mlb_id": 666160,
-          "name": "Mickey Moniak",
-          "team": "COL",
-          "season_games": 49,
-          "recent_games": 5,
-          "season_pts_per_game": 3.41,
-          "recent_pts_per_game": 0.8,
-          "delta": -2.61,
-          "rank": 2
-        },
-        {
-          "mlb_id": 502671,
-          "name": "Paul Goldschmidt",
-          "team": "NYY",
-          "season_games": 57,
-          "recent_games": 5,
-          "season_pts_per_game": 2.98,
-          "recent_pts_per_game": 0.4,
-          "delta": -2.58,
-          "rank": 3
-        },
-        {
-          "mlb_id": 641680,
-          "name": "Jonah Heim",
-          "team": "ATH",
-          "season_games": 42,
-          "recent_games": 5,
-          "season_pts_per_game": 2.55,
-          "recent_pts_per_game": 0.0,
-          "delta": -2.55,
-          "rank": 4
-        },
-        {
-          "mlb_id": 681481,
-          "name": "Kerry Carpenter",
-          "team": "DET",
-          "season_games": 57,
-          "recent_games": 4,
-          "season_pts_per_game": 2.16,
-          "recent_pts_per_game": -0.38,
-          "delta": -2.53,
-          "rank": 5
-        },
-        {
-          "mlb_id": 642708,
-          "name": "Amed Rosario",
-          "team": "NYY",
-          "season_games": 41,
-          "recent_games": 4,
-          "season_pts_per_game": 2.35,
-          "recent_pts_per_game": -0.12,
-          "delta": -2.48,
-          "rank": 6
-        },
-        {
-          "mlb_id": 687859,
-          "name": "Troy Johnston",
-          "team": "COL",
-          "season_games": 74,
-          "recent_games": 4,
-          "season_pts_per_game": 2.39,
-          "recent_pts_per_game": 0.0,
-          "delta": -2.39,
-          "rank": 7
-        },
-        {
-          "mlb_id": 808982,
-          "name": "Jung Hoo Lee",
-          "team": "SF",
-          "season_games": 79,
-          "recent_games": 6,
-          "season_pts_per_game": 2.65,
-          "recent_pts_per_game": 0.33,
-          "delta": -2.31,
-          "rank": 8
         },
         {
           "mlb_id": 606466,
           "name": "Ketel Marte",
           "team": "AZ",
           "season_games": 90,
-          "recent_games": 7,
+          "recent_games": 5,
           "season_pts_per_game": 3.06,
-          "recent_pts_per_game": 0.79,
-          "delta": -2.27,
-          "rank": 9
+          "recent_pts_per_game": -0.1,
+          "delta": -3.16,
+          "rank": 2
         },
         {
-          "mlb_id": 701675,
-          "name": "Nathan Church",
-          "team": "STL",
-          "season_games": 66,
-          "recent_games": 6,
-          "season_pts_per_game": 1.95,
+          "mlb_id": 641680,
+          "name": "Jonah Heim",
+          "team": "ATH",
+          "season_games": 42,
+          "recent_games": 4,
+          "season_pts_per_game": 2.55,
           "recent_pts_per_game": -0.25,
-          "delta": -2.2,
-          "rank": 10
+          "delta": -2.8,
+          "rank": 3
+        },
+        {
+          "mlb_id": 666160,
+          "name": "Mickey Moniak",
+          "team": "COL",
+          "season_games": 49,
+          "recent_games": 4,
+          "season_pts_per_game": 3.41,
+          "recent_pts_per_game": 0.62,
+          "delta": -2.78,
+          "rank": 4
         },
         {
           "mlb_id": 606192,
           "name": "Teoscar Hern\u00e1ndez",
           "team": "LAD",
           "season_games": 62,
-          "recent_games": 5,
+          "recent_games": 4,
           "season_pts_per_game": 2.35,
-          "recent_pts_per_game": 0.2,
-          "delta": -2.15,
-          "rank": 11
+          "recent_pts_per_game": -0.38,
+          "delta": -2.73,
+          "rank": 5
         },
         {
-          "mlb_id": 545341,
-          "name": "Randal Grichuk",
-          "team": "CWS",
-          "season_games": 32,
+          "mlb_id": 808982,
+          "name": "Jung Hoo Lee",
+          "team": "SF",
+          "season_games": 79,
           "recent_games": 4,
-          "season_pts_per_game": 2.14,
+          "season_pts_per_game": 2.65,
           "recent_pts_per_game": 0.0,
-          "delta": -2.14,
-          "rank": 12
+          "delta": -2.65,
+          "rank": 6
         },
         {
-          "mlb_id": 661388,
-          "name": "William Contreras",
-          "team": "MIL",
-          "season_games": 85,
-          "recent_games": 6,
-          "season_pts_per_game": 2.86,
-          "recent_pts_per_game": 0.83,
-          "delta": -2.03,
-          "rank": 13
-        },
-        {
-          "mlb_id": 695657,
-          "name": "Colson Montgomery",
-          "team": "CWS",
-          "season_games": 87,
-          "recent_games": 6,
-          "season_pts_per_game": 2.56,
-          "recent_pts_per_game": 0.58,
-          "delta": -1.98,
-          "rank": 14
-        },
-        {
-          "mlb_id": 669127,
-          "name": "Shea Langeliers",
-          "team": "ATH",
-          "season_games": 86,
-          "recent_games": 6,
-          "season_pts_per_game": 2.96,
-          "recent_pts_per_game": 1.0,
-          "delta": -1.96,
-          "rank": 15
-        },
-        {
-          "mlb_id": 518692,
-          "name": "Freddie Freeman",
-          "team": "LAD",
-          "season_games": 93,
-          "recent_games": 6,
-          "season_pts_per_game": 3.03,
-          "recent_pts_per_game": 1.08,
-          "delta": -1.95,
-          "rank": 16
-        },
-        {
-          "mlb_id": 695734,
-          "name": "Daylen Lile",
-          "team": "WSH",
-          "season_games": 92,
-          "recent_games": 5,
-          "season_pts_per_game": 2.45,
-          "recent_pts_per_game": 0.5,
-          "delta": -1.95,
-          "rank": 17
-        },
-        {
-          "mlb_id": 663494,
-          "name": "Bryan Torres",
-          "team": "STL",
-          "season_games": 19,
+          "mlb_id": 571970,
+          "name": "Max Muncy",
+          "team": "NL",
+          "season_games": 82,
           "recent_games": 4,
-          "season_pts_per_game": 1.95,
-          "recent_pts_per_game": 0.12,
-          "delta": -1.82,
-          "rank": 18
-        },
-        {
-          "mlb_id": 682998,
-          "name": "Corbin Carroll",
-          "team": "AZ",
-          "season_games": 93,
-          "recent_games": 7,
-          "season_pts_per_game": 2.85,
-          "recent_pts_per_game": 1.07,
-          "delta": -1.78,
-          "rank": 19
+          "season_pts_per_game": 2.84,
+          "recent_pts_per_game": 0.5,
+          "delta": -2.34,
+          "rank": 7
         },
         {
           "mlb_id": 695600,
           "name": "Carter Jensen",
           "team": "KC",
           "season_games": 82,
-          "recent_games": 5,
+          "recent_games": 4,
           "season_pts_per_game": 2.43,
+          "recent_pts_per_game": 0.12,
+          "delta": -2.3,
+          "rank": 8
+        },
+        {
+          "mlb_id": 664040,
+          "name": "Brandon Lowe",
+          "team": "PIT",
+          "season_games": 85,
+          "recent_games": 5,
+          "season_pts_per_game": 3.26,
+          "recent_pts_per_game": 1.0,
+          "delta": -2.26,
+          "rank": 9
+        },
+        {
+          "mlb_id": 703607,
+          "name": "Henry Bolte",
+          "team": "ATH",
+          "season_games": 48,
+          "recent_games": 5,
+          "season_pts_per_game": 1.66,
+          "recent_pts_per_game": -0.5,
+          "delta": -2.16,
+          "rank": 10
+        },
+        {
+          "mlb_id": 518692,
+          "name": "Freddie Freeman",
+          "team": "NL",
+          "season_games": 94,
+          "recent_games": 5,
+          "season_pts_per_game": 3.01,
+          "recent_pts_per_game": 0.9,
+          "delta": -2.11,
+          "rank": 11
+        },
+        {
+          "mlb_id": 671739,
+          "name": "Michael Harris II",
+          "team": "ATL",
+          "season_games": 82,
+          "recent_games": 5,
+          "season_pts_per_game": 2.71,
+          "recent_pts_per_game": 0.6,
+          "delta": -2.11,
+          "rank": 12
+        },
+        {
+          "mlb_id": 671056,
+          "name": "Iv\u00e1n Herrera",
+          "team": "STL",
+          "season_games": 95,
+          "recent_games": 5,
+          "season_pts_per_game": 2.65,
           "recent_pts_per_game": 0.7,
-          "delta": -1.73,
+          "delta": -1.95,
+          "rank": 13
+        },
+        {
+          "mlb_id": 682998,
+          "name": "Corbin Carroll",
+          "team": "AZ",
+          "season_games": 93,
+          "recent_games": 5,
+          "season_pts_per_game": 2.85,
+          "recent_pts_per_game": 0.9,
+          "delta": -1.95,
+          "rank": 14
+        },
+        {
+          "mlb_id": 656811,
+          "name": "Ryan O'Hearn",
+          "team": "PIT",
+          "season_games": 74,
+          "recent_games": 5,
+          "season_pts_per_game": 3.32,
+          "recent_pts_per_game": 1.4,
+          "delta": -1.92,
+          "rank": 15
+        },
+        {
+          "mlb_id": 670042,
+          "name": "Luke Raley",
+          "team": "SEA",
+          "season_games": 66,
+          "recent_games": 4,
+          "season_pts_per_game": 2.03,
+          "recent_pts_per_game": 0.12,
+          "delta": -1.91,
+          "rank": 16
+        },
+        {
+          "mlb_id": 656941,
+          "name": "Kyle Schwarber",
+          "team": "NL",
+          "season_games": 91,
+          "recent_games": 6,
+          "season_pts_per_game": 3.21,
+          "recent_pts_per_game": 1.33,
+          "delta": -1.88,
+          "rank": 17
+        },
+        {
+          "mlb_id": 671218,
+          "name": "Heliot Ramos",
+          "team": "SF",
+          "season_games": 53,
+          "recent_games": 5,
+          "season_pts_per_game": 2.58,
+          "recent_pts_per_game": 0.7,
+          "delta": -1.88,
+          "rank": 18
+        },
+        {
+          "mlb_id": 572233,
+          "name": "Christian Walker",
+          "team": "HOU",
+          "season_games": 95,
+          "recent_games": 4,
+          "season_pts_per_game": 2.75,
+          "recent_pts_per_game": 0.88,
+          "delta": -1.87,
+          "rank": 19
+        },
+        {
+          "mlb_id": 621566,
+          "name": "Matt Olson",
+          "team": "ATL",
+          "season_games": 95,
+          "recent_games": 5,
+          "season_pts_per_game": 3.27,
+          "recent_pts_per_game": 1.4,
+          "delta": -1.87,
           "rank": 20
         },
         {
-          "mlb_id": 547180,
-          "name": "Bryce Harper",
-          "team": "PHI",
-          "season_games": 94,
-          "recent_games": 7,
-          "season_pts_per_game": 3.12,
-          "recent_pts_per_game": 1.43,
-          "delta": -1.69,
+          "mlb_id": 695657,
+          "name": "Colson Montgomery",
+          "team": "CWS",
+          "season_games": 87,
+          "recent_games": 5,
+          "season_pts_per_game": 2.56,
+          "recent_pts_per_game": 0.7,
+          "delta": -1.86,
           "rank": 21
         },
         {
-          "mlb_id": 802139,
-          "name": "JJ Wetherholt",
-          "team": "STL",
-          "season_games": 88,
-          "recent_games": 7,
-          "season_pts_per_game": 2.76,
-          "recent_pts_per_game": 1.07,
-          "delta": -1.68,
-          "rank": 22
-        },
-        {
-          "mlb_id": 571970,
-          "name": "Max Muncy",
-          "team": "LAD",
-          "season_games": 81,
+          "mlb_id": 621020,
+          "name": "Dansby Swanson",
+          "team": "CHC",
+          "season_games": 90,
           "recent_games": 5,
-          "season_pts_per_game": 2.87,
-          "recent_pts_per_game": 1.2,
-          "delta": -1.67,
-          "rank": 23
+          "season_pts_per_game": 2.62,
+          "recent_pts_per_game": 0.8,
+          "delta": -1.82,
+          "rank": 22
         },
         {
           "mlb_id": 663538,
           "name": "Nico Hoerner",
           "team": "CHC",
           "season_games": 91,
-          "recent_games": 6,
+          "recent_games": 5,
           "season_pts_per_game": 2.31,
-          "recent_pts_per_game": 0.67,
-          "delta": -1.65,
+          "recent_pts_per_game": 0.5,
+          "delta": -1.81,
+          "rank": 23
+        },
+        {
+          "mlb_id": 681351,
+          "name": "Logan O'Hoppe",
+          "team": "LAA",
+          "season_games": 60,
+          "recent_games": 4,
+          "season_pts_per_game": 1.55,
+          "recent_pts_per_game": -0.25,
+          "delta": -1.8,
           "rank": 24
         },
         {
-          "mlb_id": 686611,
-          "name": "Dylan Crews",
-          "team": "WSH",
-          "season_games": 43,
+          "mlb_id": 664761,
+          "name": "Alec Bohm",
+          "team": "PHI",
+          "season_games": 88,
           "recent_games": 5,
-          "season_pts_per_game": 2.15,
-          "recent_pts_per_game": 0.5,
-          "delta": -1.65,
+          "season_pts_per_game": 2.09,
+          "recent_pts_per_game": 0.3,
+          "delta": -1.79,
           "rank": 25
         }
       ]
@@ -14434,257 +14436,15 @@
     "pitchers": {
       "risers": [
         {
-          "mlb_id": 554430,
-          "name": "Zack Wheeler",
-          "team": "PHI",
-          "season_starts": 15,
+          "mlb_id": 656302,
+          "name": "Dylan Cease",
+          "team": "AL",
+          "season_starts": 18,
           "recent_starts": 2,
-          "season_pts_per_start": 18.8,
-          "recent_pts_per_start": 27.0,
-          "delta": 8.2,
+          "season_pts_per_start": 17.17,
+          "recent_pts_per_start": 18.0,
+          "delta": 0.83,
           "rank": 1
-        },
-        {
-          "mlb_id": 671737,
-          "name": "Taj Bradley",
-          "team": "MIN",
-          "season_starts": 17,
-          "recent_starts": 2,
-          "season_pts_per_start": 14.24,
-          "recent_pts_per_start": 22.0,
-          "delta": 7.76,
-          "rank": 2
-        },
-        {
-          "mlb_id": 571510,
-          "name": "Matthew Boyd",
-          "team": "CHC",
-          "season_starts": 9,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.44,
-          "recent_pts_per_start": 15.5,
-          "delta": 4.06,
-          "rank": 3
-        },
-        {
-          "mlb_id": 693645,
-          "name": "Cam Schlittler",
-          "team": "NYY",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 17.7,
-          "recent_pts_per_start": 21.5,
-          "delta": 3.8,
-          "rank": 4
-        },
-        {
-          "mlb_id": 675660,
-          "name": "Shane Drohan",
-          "team": "MIL",
-          "season_starts": 7,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.29,
-          "recent_pts_per_start": 14.0,
-          "delta": 3.71,
-          "rank": 5
-        },
-        {
-          "mlb_id": 547179,
-          "name": "Michael Lorenzen",
-          "team": "COL",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 5.84,
-          "recent_pts_per_start": 9.5,
-          "delta": 3.66,
-          "rank": 6
-        },
-        {
-          "mlb_id": 702070,
-          "name": "Noah Cameron",
-          "team": "KC",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.56,
-          "recent_pts_per_start": 14.0,
-          "delta": 3.44,
-          "rank": 7
-        },
-        {
-          "mlb_id": 801139,
-          "name": "Payton Tolle",
-          "team": "BOS",
-          "season_starts": 13,
-          "recent_starts": 2,
-          "season_pts_per_start": 14.23,
-          "recent_pts_per_start": 17.0,
-          "delta": 2.77,
-          "rank": 8
-        },
-        {
-          "mlb_id": 694297,
-          "name": "Brandon Pfaadt",
-          "team": "AZ",
-          "season_starts": 5,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.8,
-          "recent_pts_per_start": 13.5,
-          "delta": 2.7,
-          "rank": 9
-        },
-        {
-          "mlb_id": 676282,
-          "name": "Joey Cantillo",
-          "team": "CLE",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.35,
-          "recent_pts_per_start": 14.0,
-          "delta": 2.65,
-          "rank": 10
-        },
-        {
-          "mlb_id": 625643,
-          "name": "Reynaldo L\u00f3pez",
-          "team": "ATL",
-          "season_starts": 8,
-          "recent_starts": 2,
-          "season_pts_per_start": 9.0,
-          "recent_pts_per_start": 11.0,
-          "delta": 2.0,
-          "rank": 11
-        },
-        {
-          "mlb_id": 607536,
-          "name": "Kyle Freeland",
-          "team": "COL",
-          "season_starts": 16,
-          "recent_starts": 2,
-          "season_pts_per_start": 7.75,
-          "recent_pts_per_start": 9.5,
-          "delta": 1.75,
-          "rank": 12
-        },
-        {
-          "mlb_id": 669160,
-          "name": "Dustin May",
-          "team": "STL",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.33,
-          "recent_pts_per_start": 12.5,
-          "delta": 1.17,
-          "rank": 13
-        },
-        {
-          "mlb_id": 608566,
-          "name": "Germ\u00e1n M\u00e1rquez",
-          "team": "SD",
-          "season_starts": 8,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.0,
-          "recent_pts_per_start": 9.0,
-          "delta": 1.0,
-          "rank": 14
-        },
-        {
-          "mlb_id": 671096,
-          "name": "Andrew Abbott",
-          "team": "CIN",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.1,
-          "recent_pts_per_start": 11.0,
-          "delta": 0.9,
-          "rank": 15
-        },
-        {
-          "mlb_id": 702273,
-          "name": "Noah Schultz",
-          "team": "CWS",
-          "season_starts": 10,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.3,
-          "recent_pts_per_start": 9.0,
-          "delta": 0.7,
-          "rank": 16
-        },
-        {
-          "mlb_id": 669358,
-          "name": "Shane Baz",
-          "team": "BAL",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 12.05,
-          "recent_pts_per_start": 12.0,
-          "delta": -0.05,
-          "rank": 17
-        },
-        {
-          "mlb_id": 592332,
-          "name": "Kevin Gausman",
-          "team": "TOR",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 13.1,
-          "recent_pts_per_start": 13.0,
-          "delta": -0.1,
-          "rank": 18
-        },
-        {
-          "mlb_id": 694973,
-          "name": "Paul Skenes",
-          "team": "PIT",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 14.11,
-          "recent_pts_per_start": 14.0,
-          "delta": -0.11,
-          "rank": 19
-        },
-        {
-          "mlb_id": 642547,
-          "name": "Freddy Peralta",
-          "team": "NYM",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.65,
-          "recent_pts_per_start": 10.5,
-          "delta": -0.15,
-          "rank": 20
-        },
-        {
-          "mlb_id": 669373,
-          "name": "Tarik Skubal",
-          "team": "DET",
-          "season_starts": 13,
-          "recent_starts": 2,
-          "season_pts_per_start": 16.77,
-          "recent_pts_per_start": 14.5,
-          "delta": -2.27,
-          "rank": 21
-        },
-        {
-          "mlb_id": 667755,
-          "name": "Jos\u00e9 Soriano",
-          "team": "LAA",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 13.1,
-          "recent_pts_per_start": 10.5,
-          "delta": -2.6,
-          "rank": 22
-        },
-        {
-          "mlb_id": 688107,
-          "name": "Robert Gasser",
-          "team": "MIL",
-          "season_starts": 7,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.14,
-          "recent_pts_per_start": 8.5,
-          "delta": -2.64,
-          "rank": 23
         },
         {
           "mlb_id": 669022,
@@ -14695,86 +14455,31 @@
           "season_pts_per_start": 12.05,
           "recent_pts_per_start": 8.5,
           "delta": -3.55,
-          "rank": 24
+          "rank": 2
         },
         {
-          "mlb_id": 686790,
-          "name": "Trevor McDonald",
-          "team": "SF",
-          "season_starts": 11,
+          "mlb_id": 650911,
+          "name": "Cristopher S\u00e1nchez",
+          "team": "NL",
+          "season_starts": 21,
           "recent_starts": 2,
-          "season_pts_per_start": 8.27,
-          "recent_pts_per_start": 3.5,
-          "delta": -4.77,
-          "rank": 25
+          "season_pts_per_start": 15.95,
+          "recent_pts_per_start": 6.0,
+          "delta": -9.95,
+          "rank": 3
         }
       ],
       "fallers": [
         {
           "mlb_id": 650911,
           "name": "Cristopher S\u00e1nchez",
-          "team": "PHI",
-          "season_starts": 20,
+          "team": "NL",
+          "season_starts": 21,
           "recent_starts": 2,
-          "season_pts_per_start": 16.9,
-          "recent_pts_per_start": 2.0,
-          "delta": -14.9,
+          "season_pts_per_start": 15.95,
+          "recent_pts_per_start": 6.0,
+          "delta": -9.95,
           "rank": 1
-        },
-        {
-          "mlb_id": 621111,
-          "name": "Walker Buehler",
-          "team": "SD",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.72,
-          "recent_pts_per_start": 0.0,
-          "delta": -8.72,
-          "rank": 2
-        },
-        {
-          "mlb_id": 701542,
-          "name": "Will Warren",
-          "team": "NYY",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.21,
-          "recent_pts_per_start": 5.0,
-          "delta": -6.21,
-          "rank": 3
-        },
-        {
-          "mlb_id": 669372,
-          "name": "J.T. Ginn",
-          "team": "ATH",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 12.11,
-          "recent_pts_per_start": 6.5,
-          "delta": -5.61,
-          "rank": 4
-        },
-        {
-          "mlb_id": 607625,
-          "name": "Seth Lugo",
-          "team": "KC",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.37,
-          "recent_pts_per_start": 5.0,
-          "delta": -5.37,
-          "rank": 5
-        },
-        {
-          "mlb_id": 686790,
-          "name": "Trevor McDonald",
-          "team": "SF",
-          "season_starts": 11,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.27,
-          "recent_pts_per_start": 3.5,
-          "delta": -4.77,
-          "rank": 6
         },
         {
           "mlb_id": 669022,
@@ -14785,210 +14490,375 @@
           "season_pts_per_start": 12.05,
           "recent_pts_per_start": 8.5,
           "delta": -3.55,
-          "rank": 7
+          "rank": 2
         },
         {
-          "mlb_id": 688107,
-          "name": "Robert Gasser",
-          "team": "MIL",
-          "season_starts": 7,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.14,
-          "recent_pts_per_start": 8.5,
-          "delta": -2.64,
-          "rank": 8
-        },
-        {
-          "mlb_id": 667755,
-          "name": "Jos\u00e9 Soriano",
-          "team": "LAA",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 13.1,
-          "recent_pts_per_start": 10.5,
-          "delta": -2.6,
-          "rank": 9
-        },
-        {
-          "mlb_id": 669373,
-          "name": "Tarik Skubal",
-          "team": "DET",
-          "season_starts": 13,
-          "recent_starts": 2,
-          "season_pts_per_start": 16.77,
-          "recent_pts_per_start": 14.5,
-          "delta": -2.27,
-          "rank": 10
-        },
-        {
-          "mlb_id": 642547,
-          "name": "Freddy Peralta",
-          "team": "NYM",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.65,
-          "recent_pts_per_start": 10.5,
-          "delta": -0.15,
-          "rank": 11
-        },
-        {
-          "mlb_id": 694973,
-          "name": "Paul Skenes",
-          "team": "PIT",
+          "mlb_id": 656302,
+          "name": "Dylan Cease",
+          "team": "AL",
           "season_starts": 18,
           "recent_starts": 2,
-          "season_pts_per_start": 14.11,
-          "recent_pts_per_start": 14.0,
-          "delta": -0.11,
-          "rank": 12
-        },
-        {
-          "mlb_id": 592332,
-          "name": "Kevin Gausman",
-          "team": "TOR",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 13.1,
-          "recent_pts_per_start": 13.0,
-          "delta": -0.1,
-          "rank": 13
-        },
-        {
-          "mlb_id": 669358,
-          "name": "Shane Baz",
-          "team": "BAL",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 12.05,
-          "recent_pts_per_start": 12.0,
-          "delta": -0.05,
-          "rank": 14
-        },
-        {
-          "mlb_id": 702273,
-          "name": "Noah Schultz",
-          "team": "CWS",
-          "season_starts": 10,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.3,
-          "recent_pts_per_start": 9.0,
-          "delta": 0.7,
-          "rank": 15
-        },
-        {
-          "mlb_id": 671096,
-          "name": "Andrew Abbott",
-          "team": "CIN",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.1,
-          "recent_pts_per_start": 11.0,
-          "delta": 0.9,
-          "rank": 16
-        },
-        {
-          "mlb_id": 608566,
-          "name": "Germ\u00e1n M\u00e1rquez",
-          "team": "SD",
-          "season_starts": 8,
-          "recent_starts": 2,
-          "season_pts_per_start": 8.0,
-          "recent_pts_per_start": 9.0,
-          "delta": 1.0,
-          "rank": 17
-        },
-        {
-          "mlb_id": 669160,
-          "name": "Dustin May",
-          "team": "STL",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.33,
-          "recent_pts_per_start": 12.5,
-          "delta": 1.17,
-          "rank": 18
-        },
-        {
-          "mlb_id": 607536,
-          "name": "Kyle Freeland",
-          "team": "COL",
-          "season_starts": 16,
-          "recent_starts": 2,
-          "season_pts_per_start": 7.75,
-          "recent_pts_per_start": 9.5,
-          "delta": 1.75,
-          "rank": 19
-        },
-        {
-          "mlb_id": 625643,
-          "name": "Reynaldo L\u00f3pez",
-          "team": "ATL",
-          "season_starts": 8,
-          "recent_starts": 2,
-          "season_pts_per_start": 9.0,
-          "recent_pts_per_start": 11.0,
-          "delta": 2.0,
-          "rank": 20
-        },
-        {
-          "mlb_id": 676282,
-          "name": "Joey Cantillo",
-          "team": "CLE",
-          "season_starts": 20,
-          "recent_starts": 2,
-          "season_pts_per_start": 11.35,
-          "recent_pts_per_start": 14.0,
-          "delta": 2.65,
-          "rank": 21
-        },
-        {
-          "mlb_id": 694297,
-          "name": "Brandon Pfaadt",
-          "team": "AZ",
-          "season_starts": 5,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.8,
-          "recent_pts_per_start": 13.5,
-          "delta": 2.7,
-          "rank": 22
-        },
-        {
-          "mlb_id": 801139,
-          "name": "Payton Tolle",
-          "team": "BOS",
-          "season_starts": 13,
-          "recent_starts": 2,
-          "season_pts_per_start": 14.23,
-          "recent_pts_per_start": 17.0,
-          "delta": 2.77,
-          "rank": 23
-        },
-        {
-          "mlb_id": 702070,
-          "name": "Noah Cameron",
-          "team": "KC",
-          "season_starts": 18,
-          "recent_starts": 2,
-          "season_pts_per_start": 10.56,
-          "recent_pts_per_start": 14.0,
-          "delta": 3.44,
-          "rank": 24
-        },
-        {
-          "mlb_id": 547179,
-          "name": "Michael Lorenzen",
-          "team": "COL",
-          "season_starts": 19,
-          "recent_starts": 2,
-          "season_pts_per_start": 5.84,
-          "recent_pts_per_start": 9.5,
-          "delta": 3.66,
-          "rank": 25
+          "season_pts_per_start": 17.17,
+          "recent_pts_per_start": 18.0,
+          "delta": 0.83,
+          "rank": 3
         }
       ]
     }
   },
   "dynasty_hitters": [
+    {
+      "mlb_id": 691406,
+      "name": "Junior Caminero",
+      "team": "AL",
+      "games_played": 93,
+      "games_remaining": 161.0,
+      "ros_h": 169.7,
+      "ros_2b": 24.2,
+      "ros_3b": 0.0,
+      "ros_hr": 48.5,
+      "ros_r": 103.9,
+      "ros_rbi": 102.1,
+      "ros_bb": 90.0,
+      "ros_k": 126.4,
+      "ros_pa": 699.4,
+      "points": 572.2,
+      "rank": 4,
+      "age": 22,
+      "age_multiplier": 1.5,
+      "dynasty_score": 858.3,
+      "dynasty_rank": 1
+    },
+    {
+      "mlb_id": 700250,
+      "name": "Ben Rice",
+      "team": "AL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 172.1,
+      "ros_2b": 27.8,
+      "ros_3b": 5.6,
+      "ros_hr": 51.8,
+      "ros_r": 114.7,
+      "ros_rbi": 124.0,
+      "ros_bb": 87.0,
+      "ros_k": 166.6,
+      "ros_pa": 712.5,
+      "points": 608.8,
+      "rank": 2,
+      "age": 27,
+      "age_multiplier": 1.2,
+      "dynasty_score": 730.6,
+      "dynasty_rank": 2
+    },
+    {
+      "mlb_id": 665742,
+      "name": "Juan Soto",
+      "team": "NL",
+      "games_played": 79,
+      "games_remaining": 161.0,
+      "ros_h": 165.1,
+      "ros_2b": 16.3,
+      "ros_3b": 4.1,
+      "ros_hr": 42.8,
+      "ros_r": 89.7,
+      "ros_rbi": 103.9,
+      "ros_bb": 112.1,
+      "ros_k": 89.7,
+      "ros_pa": 684.8,
+      "points": 578.8,
+      "rank": 3,
+      "age": 27,
+      "age_multiplier": 1.2,
+      "dynasty_score": 694.6,
+      "dynasty_rank": 3
+    },
+    {
+      "mlb_id": 682928,
+      "name": "CJ Abrams",
+      "team": "NL",
+      "games_played": 91,
+      "games_remaining": 161.0,
+      "ros_h": 168.1,
+      "ros_2b": 30.1,
+      "ros_3b": 3.5,
+      "ros_hr": 35.4,
+      "ros_r": 99.1,
+      "ros_rbi": 116.8,
+      "ros_bb": 60.2,
+      "ros_k": 146.8,
+      "ros_pa": 691.8,
+      "points": 514.0,
+      "rank": 7,
+      "age": 25,
+      "age_multiplier": 1.35,
+      "dynasty_score": 693.9,
+      "dynasty_rank": 4
+    },
+    {
+      "mlb_id": 670541,
+      "name": "Yordan Alvarez",
+      "team": "AL",
+      "games_played": 97,
+      "games_remaining": 161.0,
+      "ros_h": 185.9,
+      "ros_2b": 28.2,
+      "ros_3b": 0.0,
+      "ros_hr": 51.5,
+      "ros_r": 109.5,
+      "ros_rbi": 116.2,
+      "ros_bb": 104.6,
+      "ros_k": 119.5,
+      "ros_pa": 700.4,
+      "points": 639.0,
+      "rank": 1,
+      "age": 29,
+      "age_multiplier": 1.05,
+      "dynasty_score": 671.0,
+      "dynasty_rank": 5
+    },
+    {
+      "mlb_id": 681624,
+      "name": "Andy Pages",
+      "team": "NL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 167.9,
+      "ros_2b": 36.0,
+      "ros_3b": 1.7,
+      "ros_hr": 27.4,
+      "ros_r": 95.9,
+      "ros_rbi": 107.9,
+      "ros_bb": 58.2,
+      "ros_k": 137.0,
+      "ros_pa": 695.4,
+      "points": 483.0,
+      "rank": 9,
+      "age": 25,
+      "age_multiplier": 1.35,
+      "dynasty_score": 652.1,
+      "dynasty_rank": 6
+    },
+    {
+      "mlb_id": 686948,
+      "name": "Drake Baldwin",
+      "team": "NL",
+      "games_played": 72,
+      "games_remaining": 161.0,
+      "ros_h": 158.8,
+      "ros_2b": 13.4,
+      "ros_3b": 0.0,
+      "ros_hr": 33.5,
+      "ros_r": 109.6,
+      "ros_rbi": 102.9,
+      "ros_bb": 71.6,
+      "ros_k": 158.8,
+      "ros_pa": 711.1,
+      "points": 477.4,
+      "rank": 10,
+      "age": 25,
+      "age_multiplier": 1.35,
+      "dynasty_score": 644.5,
+      "dynasty_rank": 7
+    },
+    {
+      "mlb_id": 669127,
+      "name": "Shea Langeliers",
+      "team": "AL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 168.4,
+      "ros_2b": 29.6,
+      "ros_3b": 0.0,
+      "ros_hr": 38.9,
+      "ros_r": 98.1,
+      "ros_rbi": 85.1,
+      "ros_bb": 57.4,
+      "ros_k": 157.3,
+      "ros_pa": 718.0,
+      "points": 476.5,
+      "rank": 11,
+      "age": 28,
+      "age_multiplier": 1.2,
+      "dynasty_score": 571.8,
+      "dynasty_rank": 8
+    },
+    {
+      "mlb_id": 682985,
+      "name": "Riley Greene",
+      "team": "AL",
+      "games_played": 95,
+      "games_remaining": 161.0,
+      "ros_h": 167.8,
+      "ros_2b": 32.2,
+      "ros_3b": 1.7,
+      "ros_hr": 22.0,
+      "ros_r": 81.3,
+      "ros_rbi": 76.3,
+      "ros_bb": 86.4,
+      "ros_k": 186.4,
+      "ros_pa": 679.6,
+      "points": 420.3,
+      "rank": 16,
+      "age": 25,
+      "age_multiplier": 1.35,
+      "dynasty_score": 567.4,
+      "dynasty_rank": 9
+    },
+    {
+      "mlb_id": 677951,
+      "name": "Bobby Witt Jr.",
+      "team": "AL",
+      "games_played": 92,
+      "games_remaining": 161.0,
+      "ros_h": 180.2,
+      "ros_2b": 38.5,
+      "ros_3b": 1.8,
+      "ros_hr": 22.8,
+      "ros_r": 91.0,
+      "ros_rbi": 68.2,
+      "ros_bb": 70.0,
+      "ros_k": 120.8,
+      "ros_pa": 708.8,
+      "points": 459.4,
+      "rank": 13,
+      "age": 26,
+      "age_multiplier": 1.2,
+      "dynasty_score": 551.3,
+      "dynasty_rank": 10
+    },
+    {
+      "mlb_id": 669016,
+      "name": "Brandon Marsh",
+      "team": "NL",
+      "games_played": 87,
+      "games_remaining": 161.0,
+      "ros_h": 183.2,
+      "ros_2b": 27.8,
+      "ros_3b": 3.7,
+      "ros_hr": 25.9,
+      "ros_r": 90.7,
+      "ros_rbi": 79.6,
+      "ros_bb": 31.5,
+      "ros_k": 175.8,
+      "ros_pa": 651.4,
+      "points": 409.9,
+      "rank": 17,
+      "age": 28,
+      "age_multiplier": 1.2,
+      "dynasty_score": 491.9,
+      "dynasty_rank": 11
+    },
+    {
+      "mlb_id": 645277,
+      "name": "Ozzie Albies",
+      "team": "NL",
+      "games_played": 96,
+      "games_remaining": 161.0,
+      "ros_h": 164.4,
+      "ros_2b": 35.2,
+      "ros_3b": 0.0,
+      "ros_hr": 23.5,
+      "ros_r": 102.3,
+      "ros_rbi": 85.5,
+      "ros_bb": 48.6,
+      "ros_k": 92.2,
+      "ros_pa": 691.0,
+      "points": 460.4,
+      "rank": 12,
+      "age": 29,
+      "age_multiplier": 1.05,
+      "dynasty_score": 483.4,
+      "dynasty_rank": 12
+    },
+    {
+      "mlb_id": 641355,
+      "name": "Cody Bellinger",
+      "team": "AL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 150.7,
+      "ros_2b": 32.5,
+      "ros_3b": 5.1,
+      "ros_hr": 18.8,
+      "ros_r": 83.9,
+      "ros_rbi": 87.4,
+      "ros_bb": 87.4,
+      "ros_k": 102.8,
+      "ros_pa": 692.0,
+      "points": 457.3,
+      "rank": 14,
+      "age": 30,
+      "age_multiplier": 1.05,
+      "dynasty_score": 480.2,
+      "dynasty_rank": 13
+    },
+    {
+      "mlb_id": 676391,
+      "name": "Ernie Clement",
+      "team": "AL",
+      "games_played": 90,
+      "games_remaining": 161.0,
+      "ros_h": 187.8,
+      "ros_2b": 41.1,
+      "ros_3b": 1.8,
+      "ros_hr": 14.3,
+      "ros_r": 75.1,
+      "ros_rbi": 57.2,
+      "ros_bb": 23.3,
+      "ros_k": 62.6,
+      "ros_pa": 663.7,
+      "points": 399.8,
+      "rank": 18,
+      "age": 30,
+      "age_multiplier": 1.05,
+      "dynasty_score": 419.8,
+      "dynasty_rank": 14
+    },
+    {
+      "mlb_id": 545361,
+      "name": "Mike Trout",
+      "team": "AL",
+      "games_played": 79,
+      "games_remaining": 161.0,
+      "ros_h": 136.5,
+      "ros_2b": 26.5,
+      "ros_3b": 0.0,
+      "ros_hr": 36.7,
+      "ros_r": 118.2,
+      "ros_rbi": 79.5,
+      "ros_bb": 136.5,
+      "ros_k": 179.3,
+      "ros_pa": 727.6,
+      "points": 517.6,
+      "rank": 5,
+      "age": 34,
+      "age_multiplier": 0.8,
+      "dynasty_score": 414.1,
+      "dynasty_rank": 15
+    },
+    {
+      "mlb_id": 656941,
+      "name": "Kyle Schwarber",
+      "team": "NL",
+      "games_played": 91,
+      "games_remaining": 161.0,
+      "ros_h": 157.5,
+      "ros_2b": 15.9,
+      "ros_3b": 1.8,
+      "ros_hr": 56.6,
+      "ros_r": 97.3,
+      "ros_rbi": 104.4,
+      "ros_bb": 95.5,
+      "ros_k": 254.8,
+      "ros_pa": 716.5,
+      "points": 516.6,
+      "rank": 6,
+      "age": 33,
+      "age_multiplier": 0.8,
+      "dynasty_score": 413.3,
+      "dynasty_rank": 16
+    },
     {
       "mlb_id": 695578,
       "name": "James Wood",
@@ -15005,33 +14875,33 @@
       "ros_k": 87.3,
       "ros_pa": 309.4,
       "points": 259.5,
-      "rank": 1,
+      "rank": 19,
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 389.2,
-      "dynasty_rank": 1
+      "dynasty_rank": 17
     },
     {
-      "mlb_id": 691406,
-      "name": "Junior Caminero",
-      "team": "TB",
-      "games_played": 92,
-      "games_remaining": 70.0,
-      "ros_h": 74.6,
-      "ros_2b": 10.7,
-      "ros_3b": 0.0,
-      "ros_hr": 21.3,
-      "ros_r": 45.7,
-      "ros_rbi": 44.9,
-      "ros_bb": 39.6,
-      "ros_k": 55.5,
-      "ros_pa": 305.9,
-      "points": 251.5,
-      "rank": 2,
-      "age": 22,
-      "age_multiplier": 1.5,
-      "dynasty_score": 377.2,
-      "dynasty_rank": 2
+      "mlb_id": 518692,
+      "name": "Freddie Freeman",
+      "team": "NL",
+      "games_played": 94,
+      "games_remaining": 161.0,
+      "ros_h": 173.0,
+      "ros_2b": 37.7,
+      "ros_3b": 1.7,
+      "ros_hr": 25.7,
+      "ros_r": 85.6,
+      "ros_rbi": 82.2,
+      "ros_bb": 80.5,
+      "ros_k": 111.3,
+      "ros_pa": 693.7,
+      "points": 483.9,
+      "rank": 8,
+      "age": 36,
+      "age_multiplier": 0.65,
+      "dynasty_score": 314.5,
+      "dynasty_rank": 18
     },
     {
       "mlb_id": 701762,
@@ -15049,11 +14919,11 @@
       "ros_k": 89.4,
       "ros_pa": 282.6,
       "points": 209.0,
-      "rank": 10,
+      "rank": 25,
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 313.5,
-      "dynasty_rank": 3
+      "dynasty_rank": 19
     },
     {
       "mlb_id": 701398,
@@ -15071,11 +14941,33 @@
       "ros_k": 62.2,
       "ros_pa": 296.6,
       "points": 207.6,
-      "rank": 13,
+      "rank": 28,
       "age": 22,
       "age_multiplier": 1.5,
       "dynasty_score": 311.4,
-      "dynasty_rank": 4
+      "dynasty_rank": 20
+    },
+    {
+      "mlb_id": 571970,
+      "name": "Max Muncy",
+      "team": "NL",
+      "games_played": 82,
+      "games_remaining": 161.0,
+      "ros_h": 143.3,
+      "ros_2b": 25.5,
+      "ros_3b": 2.0,
+      "ros_hr": 33.4,
+      "ros_r": 104.1,
+      "ros_rbi": 76.6,
+      "ros_bb": 76.6,
+      "ros_k": 147.3,
+      "ros_pa": 644.0,
+      "points": 456.5,
+      "rank": 15,
+      "age": 35,
+      "age_multiplier": 0.65,
+      "dynasty_score": 296.7,
+      "dynasty_rank": 21
     },
     {
       "mlb_id": 691023,
@@ -15093,11 +14985,11 @@
       "ros_k": 67.7,
       "ros_pa": 277.2,
       "points": 218.6,
-      "rank": 7,
+      "rank": 22,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 295.1,
-      "dynasty_rank": 5
+      "dynasty_rank": 22
     },
     {
       "mlb_id": 691718,
@@ -15115,11 +15007,11 @@
       "ros_k": 73.8,
       "ros_pa": 293.7,
       "points": 210.5,
-      "rank": 9,
+      "rank": 24,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 284.2,
-      "dynasty_rank": 6
+      "dynasty_rank": 23
     },
     {
       "mlb_id": 805808,
@@ -15137,33 +15029,11 @@
       "ros_k": 38.5,
       "ros_pa": 283.2,
       "points": 186.3,
-      "rank": 31,
+      "rank": 40,
       "age": 21,
       "age_multiplier": 1.5,
       "dynasty_score": 279.5,
-      "dynasty_rank": 7
-    },
-    {
-      "mlb_id": 682928,
-      "name": "CJ Abrams",
-      "team": "WSH",
-      "games_played": 90,
-      "games_remaining": 61.9,
-      "ros_h": 65.3,
-      "ros_2b": 11.7,
-      "ros_3b": 1.4,
-      "ros_hr": 13.8,
-      "ros_r": 38.5,
-      "ros_rbi": 45.4,
-      "ros_bb": 23.4,
-      "ros_k": 55.7,
-      "ros_pa": 267.4,
-      "points": 200.4,
-      "rank": 18,
-      "age": 25,
-      "age_multiplier": 1.35,
-      "dynasty_score": 270.5,
-      "dynasty_rank": 8
+      "dynasty_rank": 24
     },
     {
       "mlb_id": 678246,
@@ -15181,77 +15051,11 @@
       "ros_k": 47.0,
       "ros_pa": 287.9,
       "points": 225.3,
-      "rank": 4,
+      "rank": 20,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 270.4,
-      "dynasty_rank": 9
-    },
-    {
-      "mlb_id": 700250,
-      "name": "Ben Rice",
-      "team": "NYY",
-      "games_played": 86,
-      "games_remaining": 59.1,
-      "ros_h": 63.2,
-      "ros_2b": 10.3,
-      "ros_3b": 2.1,
-      "ros_hr": 19.2,
-      "ros_r": 42.6,
-      "ros_rbi": 45.4,
-      "ros_bb": 32.3,
-      "ros_k": 61.2,
-      "ros_pa": 263.3,
-      "points": 225.2,
-      "rank": 5,
-      "age": 27,
-      "age_multiplier": 1.2,
-      "dynasty_score": 270.2,
-      "dynasty_rank": 10
-    },
-    {
-      "mlb_id": 670541,
-      "name": "Yordan Alvarez",
-      "team": "HOU",
-      "games_played": 96,
-      "games_remaining": 62.7,
-      "ros_h": 72.5,
-      "ros_2b": 11.1,
-      "ros_3b": 0.0,
-      "ros_hr": 20.2,
-      "ros_r": 42.4,
-      "ros_rbi": 45.7,
-      "ros_bb": 41.1,
-      "ros_k": 47.0,
-      "ros_pa": 274.3,
-      "points": 250.1,
-      "rank": 3,
-      "age": 29,
-      "age_multiplier": 1.05,
-      "dynasty_score": 262.6,
-      "dynasty_rank": 11
-    },
-    {
-      "mlb_id": 681624,
-      "name": "Andy Pages",
-      "team": "LAD",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 67.4,
-      "ros_2b": 14.4,
-      "ros_3b": 0.7,
-      "ros_hr": 11.0,
-      "ros_r": 38.5,
-      "ros_rbi": 43.3,
-      "ros_bb": 23.4,
-      "ros_k": 54.3,
-      "ros_pa": 277.8,
-      "points": 194.2,
-      "rank": 23,
-      "age": 25,
-      "age_multiplier": 1.35,
-      "dynasty_score": 262.2,
-      "dynasty_rank": 12
+      "dynasty_rank": 25
     },
     {
       "mlb_id": 802139,
@@ -15269,11 +15073,11 @@
       "ros_k": 44.4,
       "ros_pa": 285.6,
       "points": 171.0,
-      "rank": 50,
+      "rank": 55,
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 256.5,
-      "dynasty_rank": 13
+      "dynasty_rank": 26
     },
     {
       "mlb_id": 666018,
@@ -15291,11 +15095,11 @@
       "ros_k": 62.4,
       "ros_pa": 297.5,
       "points": 207.7,
-      "rank": 12,
+      "rank": 27,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 249.2,
-      "dynasty_rank": 14
+      "dynasty_rank": 27
     },
     {
       "mlb_id": 682998,
@@ -15313,11 +15117,11 @@
       "ros_k": 62.6,
       "ros_pa": 273.6,
       "points": 182.5,
-      "rank": 32,
+      "rank": 41,
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 246.4,
-      "dynasty_rank": 15
+      "dynasty_rank": 28
     },
     {
       "mlb_id": 668930,
@@ -15335,11 +15139,11 @@
       "ros_k": 70.8,
       "ros_pa": 286.0,
       "points": 202.5,
-      "rank": 16,
+      "rank": 30,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 243.0,
-      "dynasty_rank": 16
+      "dynasty_rank": 29
     },
     {
       "mlb_id": 676475,
@@ -15357,11 +15161,11 @@
       "ros_k": 40.9,
       "ros_pa": 275.1,
       "points": 201.0,
-      "rank": 17,
+      "rank": 31,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 241.2,
-      "dynasty_rank": 17
+      "dynasty_rank": 30
     },
     {
       "mlb_id": 672640,
@@ -15379,11 +15183,11 @@
       "ros_k": 39.2,
       "ros_pa": 277.1,
       "points": 195.6,
-      "rank": 21,
+      "rank": 34,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 234.7,
-      "dynasty_rank": 18
+      "dynasty_rank": 31
     },
     {
       "mlb_id": 687263,
@@ -15401,11 +15205,11 @@
       "ros_k": 88.5,
       "ros_pa": 282.8,
       "points": 172.9,
-      "rank": 46,
+      "rank": 52,
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 233.4,
-      "dynasty_rank": 19
+      "dynasty_rank": 32
     },
     {
       "mlb_id": 695734,
@@ -15423,55 +15227,11 @@
       "ros_k": 47.4,
       "ros_pa": 272.2,
       "points": 155.0,
-      "rank": 78,
+      "rank": 80,
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 232.5,
-      "dynasty_rank": 20
-    },
-    {
-      "mlb_id": 682985,
-      "name": "Riley Greene",
-      "team": "DET",
-      "games_played": 94,
-      "games_remaining": 64.6,
-      "ros_h": 68.1,
-      "ros_2b": 13.1,
-      "ros_3b": 0.7,
-      "ros_hr": 8.9,
-      "ros_r": 33.0,
-      "ros_rbi": 30.9,
-      "ros_bb": 35.1,
-      "ros_k": 74.2,
-      "ros_pa": 274.3,
-      "points": 171.2,
-      "rank": 49,
-      "age": 25,
-      "age_multiplier": 1.35,
-      "dynasty_score": 231.1,
-      "dynasty_rank": 21
-    },
-    {
-      "mlb_id": 665742,
-      "name": "Juan Soto",
-      "team": "NYM",
-      "games_played": 78,
-      "games_remaining": 52.3,
-      "ros_h": 53.6,
-      "ros_2b": 5.4,
-      "ros_3b": 1.3,
-      "ros_hr": 14.1,
-      "ros_r": 29.5,
-      "ros_rbi": 34.2,
-      "ros_bb": 36.9,
-      "ros_k": 28.8,
-      "ros_pa": 223.8,
-      "points": 190.0,
-      "rank": 29,
-      "age": 27,
-      "age_multiplier": 1.2,
-      "dynasty_score": 228.0,
-      "dynasty_rank": 22
+      "dynasty_rank": 33
     },
     {
       "mlb_id": 701807,
@@ -15493,7 +15253,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 220.2,
-      "dynasty_rank": 23
+      "dynasty_rank": 34
     },
     {
       "mlb_id": 683002,
@@ -15511,11 +15271,11 @@
       "ros_k": 66.3,
       "ros_pa": 294.2,
       "points": 162.5,
-      "rank": 62,
+      "rank": 66,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 219.4,
-      "dynasty_rank": 24
+      "dynasty_rank": 35
     },
     {
       "mlb_id": 695657,
@@ -15533,11 +15293,11 @@
       "ros_k": 85.4,
       "ros_pa": 267.7,
       "points": 161.3,
-      "rank": 63,
+      "rank": 67,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 217.8,
-      "dynasty_rank": 25
+      "dynasty_rank": 36
     },
     {
       "mlb_id": 691016,
@@ -15555,11 +15315,11 @@
       "ros_k": 41.9,
       "ros_pa": 235.1,
       "points": 161.2,
-      "rank": 64,
+      "rank": 68,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 217.6,
-      "dynasty_rank": 26
+      "dynasty_rank": 37
     },
     {
       "mlb_id": 702284,
@@ -15581,7 +15341,7 @@
       "age": 22,
       "age_multiplier": 1.5,
       "dynasty_score": 216.1,
-      "dynasty_rank": 27
+      "dynasty_rank": 38
     },
     {
       "mlb_id": 669364,
@@ -15599,11 +15359,11 @@
       "ros_k": 32.3,
       "ros_pa": 277.1,
       "points": 179.8,
-      "rank": 35,
+      "rank": 43,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 215.8,
-      "dynasty_rank": 28
+      "dynasty_rank": 39
     },
     {
       "mlb_id": 696100,
@@ -15621,11 +15381,11 @@
       "ros_k": 77.7,
       "ros_pa": 248.9,
       "points": 179.8,
-      "rank": 36,
+      "rank": 44,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 215.8,
-      "dynasty_rank": 29
+      "dynasty_rank": 40
     },
     {
       "mlb_id": 669477,
@@ -15643,11 +15403,11 @@
       "ros_k": 50.2,
       "ros_pa": 268.6,
       "points": 178.0,
-      "rank": 37,
+      "rank": 45,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 213.6,
-      "dynasty_rank": 30
+      "dynasty_rank": 41
     },
     {
       "mlb_id": 671056,
@@ -15665,11 +15425,11 @@
       "ros_k": 48.0,
       "ros_pa": 298.3,
       "points": 177.7,
-      "rank": 38,
+      "rank": 46,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 213.2,
-      "dynasty_rank": 31
+      "dynasty_rank": 42
     },
     {
       "mlb_id": 671739,
@@ -15687,11 +15447,11 @@
       "ros_k": 50.8,
       "ros_pa": 244.0,
       "points": 156.6,
-      "rank": 74,
+      "rank": 76,
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 211.4,
-      "dynasty_rank": 32
+      "dynasty_rank": 43
     },
     {
       "mlb_id": 682829,
@@ -15709,11 +15469,11 @@
       "ros_k": 69.4,
       "ros_pa": 243.1,
       "points": 156.3,
-      "rank": 75,
+      "rank": 77,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 211.0,
-      "dynasty_rank": 33
+      "dynasty_rank": 44
     },
     {
       "mlb_id": 693307,
@@ -15731,55 +15491,11 @@
       "ros_k": 51.6,
       "ros_pa": 243.4,
       "points": 175.7,
-      "rank": 40,
+      "rank": 48,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 210.8,
-      "dynasty_rank": 34
-    },
-    {
-      "mlb_id": 669127,
-      "name": "Shea Langeliers",
-      "team": "ATH",
-      "games_played": 86,
-      "games_remaining": 59.1,
-      "ros_h": 61.9,
-      "ros_2b": 11.0,
-      "ros_3b": 0.0,
-      "ros_hr": 14.4,
-      "ros_r": 35.8,
-      "ros_rbi": 31.6,
-      "ros_bb": 20.6,
-      "ros_k": 58.4,
-      "ros_pa": 265.4,
-      "points": 175.0,
-      "rank": 41,
-      "age": 28,
-      "age_multiplier": 1.2,
-      "dynasty_score": 210.0,
-      "dynasty_rank": 35
-    },
-    {
-      "mlb_id": 677951,
-      "name": "Bobby Witt Jr.",
-      "team": "KC",
-      "games_played": 91,
-      "games_remaining": 61.0,
-      "ros_h": 69.0,
-      "ros_2b": 14.7,
-      "ros_3b": 0.7,
-      "ros_hr": 8.7,
-      "ros_r": 34.2,
-      "ros_rbi": 26.1,
-      "ros_bb": 26.1,
-      "ros_k": 46.2,
-      "ros_pa": 270.1,
-      "points": 174.6,
-      "rank": 42,
-      "age": 26,
-      "age_multiplier": 1.2,
-      "dynasty_score": 209.5,
-      "dynasty_rank": 36
+      "dynasty_rank": 45
     },
     {
       "mlb_id": 689414,
@@ -15797,11 +15513,11 @@
       "ros_k": 19.2,
       "ros_pa": 223.4,
       "points": 174.6,
-      "rank": 43,
+      "rank": 49,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 209.5,
-      "dynasty_rank": 37
+      "dynasty_rank": 46
     },
     {
       "mlb_id": 621566,
@@ -15819,11 +15535,11 @@
       "ros_k": 69.8,
       "ros_pa": 293.4,
       "points": 219.0,
-      "rank": 6,
+      "rank": 21,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 208.0,
-      "dynasty_rank": 38
+      "dynasty_rank": 47
     },
     {
       "mlb_id": 686797,
@@ -15841,11 +15557,11 @@
       "ros_k": 41.2,
       "ros_pa": 251.6,
       "points": 154.0,
-      "rank": 79,
+      "rank": 81,
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 207.9,
-      "dynasty_rank": 39
+      "dynasty_rank": 48
     },
     {
       "mlb_id": 683737,
@@ -15863,11 +15579,11 @@
       "ros_k": 65.1,
       "ros_pa": 298.8,
       "points": 172.2,
-      "rank": 47,
+      "rank": 53,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 206.6,
-      "dynasty_rank": 40
+      "dynasty_rank": 49
     },
     {
       "mlb_id": 677800,
@@ -15885,11 +15601,11 @@
       "ros_k": 59.3,
       "ros_pa": 289.4,
       "points": 171.4,
-      "rank": 48,
+      "rank": 54,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 205.7,
-      "dynasty_rank": 41
+      "dynasty_rank": 50
     },
     {
       "mlb_id": 691720,
@@ -15911,7 +15627,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 205.2,
-      "dynasty_rank": 42
+      "dynasty_rank": 51
     },
     {
       "mlb_id": 681198,
@@ -15929,55 +15645,11 @@
       "ros_k": 35.1,
       "ros_pa": 252.3,
       "points": 170.8,
-      "rank": 51,
+      "rank": 56,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 205.0,
-      "dynasty_rank": 43
-    },
-    {
-      "mlb_id": 686948,
-      "name": "Drake Baldwin",
-      "team": "ATL",
-      "games_played": 71,
-      "games_remaining": 50.1,
-      "ros_h": 50.1,
-      "ros_2b": 4.2,
-      "ros_3b": 0.0,
-      "ros_hr": 10.6,
-      "ros_r": 34.6,
-      "ros_rbi": 32.4,
-      "ros_bb": 22.6,
-      "ros_k": 49.4,
-      "ros_pa": 223.6,
-      "points": 150.9,
-      "rank": 87,
-      "age": 25,
-      "age_multiplier": 1.35,
-      "dynasty_score": 203.7,
-      "dynasty_rank": 44
-    },
-    {
-      "mlb_id": 645277,
-      "name": "Ozzie Albies",
-      "team": "ATL",
-      "games_played": 95,
-      "games_remaining": 67.0,
-      "ros_h": 69.1,
-      "ros_2b": 14.8,
-      "ros_3b": 0.0,
-      "ros_hr": 9.9,
-      "ros_r": 43.0,
-      "ros_rbi": 36.0,
-      "ros_bb": 20.5,
-      "ros_k": 38.8,
-      "ros_pa": 289.2,
-      "points": 193.6,
-      "rank": 25,
-      "age": 29,
-      "age_multiplier": 1.05,
-      "dynasty_score": 203.3,
-      "dynasty_rank": 45
+      "dynasty_rank": 52
     },
     {
       "mlb_id": 671277,
@@ -15995,11 +15667,11 @@
       "ros_k": 30.3,
       "ros_pa": 196.6,
       "points": 167.8,
-      "rank": 56,
+      "rank": 60,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 201.4,
-      "dynasty_rank": 46
+      "dynasty_rank": 53
     },
     {
       "mlb_id": 646240,
@@ -16017,11 +15689,11 @@
       "ros_k": 81.4,
       "ros_pa": 298.3,
       "points": 191.4,
-      "rank": 27,
+      "rank": 37,
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 201.0,
-      "dynasty_rank": 47
+      "dynasty_rank": 54
     },
     {
       "mlb_id": 650333,
@@ -16039,11 +15711,11 @@
       "ros_k": 12.2,
       "ros_pa": 293.7,
       "points": 191.0,
-      "rank": 28,
+      "rank": 38,
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 200.6,
-      "dynasty_rank": 48
+      "dynasty_rank": 55
     },
     {
       "mlb_id": 661388,
@@ -16061,11 +15733,11 @@
       "ros_k": 35.8,
       "ros_pa": 261.2,
       "points": 167.1,
-      "rank": 59,
+      "rank": 63,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 200.5,
-      "dynasty_rank": 49
+      "dynasty_rank": 56
     },
     {
       "mlb_id": 677594,
@@ -16087,7 +15759,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 200.3,
-      "dynasty_rank": 50
+      "dynasty_rank": 57
     },
     {
       "mlb_id": 695600,
@@ -16109,7 +15781,7 @@
       "age": 22,
       "age_multiplier": 1.5,
       "dynasty_score": 200.1,
-      "dynasty_rank": 51
+      "dynasty_rank": 58
     },
     {
       "mlb_id": 800050,
@@ -16131,7 +15803,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 199.5,
-      "dynasty_rank": 52
+      "dynasty_rank": 59
     },
     {
       "mlb_id": 805367,
@@ -16153,7 +15825,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 198.3,
-      "dynasty_rank": 53
+      "dynasty_rank": 60
     },
     {
       "mlb_id": 668804,
@@ -16171,11 +15843,11 @@
       "ros_k": 64.2,
       "ros_pa": 288.5,
       "points": 208.4,
-      "rank": 11,
+      "rank": 26,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 198.0,
-      "dynasty_rank": 54
+      "dynasty_rank": 61
     },
     {
       "mlb_id": 694192,
@@ -16197,7 +15869,7 @@
       "age": 22,
       "age_multiplier": 1.5,
       "dynasty_score": 195.5,
-      "dynasty_rank": 55
+      "dynasty_rank": 62
     },
     {
       "mlb_id": 701538,
@@ -16219,7 +15891,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 195.3,
-      "dynasty_rank": 56
+      "dynasty_rank": 63
     },
     {
       "mlb_id": 677587,
@@ -16241,7 +15913,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 194.9,
-      "dynasty_rank": 57
+      "dynasty_rank": 64
     },
     {
       "mlb_id": 695506,
@@ -16263,7 +15935,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 194.5,
-      "dynasty_rank": 58
+      "dynasty_rank": 65
     },
     {
       "mlb_id": 678882,
@@ -16285,7 +15957,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 193.9,
-      "dynasty_rank": 59
+      "dynasty_rank": 66
     },
     {
       "mlb_id": 807712,
@@ -16307,7 +15979,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 191.2,
-      "dynasty_rank": 60
+      "dynasty_rank": 67
     },
     {
       "mlb_id": 808982,
@@ -16325,33 +15997,11 @@
       "ros_k": 24.3,
       "ros_pa": 248.8,
       "points": 159.0,
-      "rank": 68,
+      "rank": 71,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 190.8,
-      "dynasty_rank": 61
-    },
-    {
-      "mlb_id": 641355,
-      "name": "Cody Bellinger",
-      "team": "NYY",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 59.8,
-      "ros_2b": 13.1,
-      "ros_3b": 2.1,
-      "ros_hr": 7.6,
-      "ros_r": 33.7,
-      "ros_rbi": 33.7,
-      "ros_bb": 35.1,
-      "ros_k": 41.2,
-      "ros_pa": 275.7,
-      "points": 181.5,
-      "rank": 33,
-      "age": 30,
-      "age_multiplier": 1.05,
-      "dynasty_score": 190.6,
-      "dynasty_rank": 62
+      "dynasty_rank": 68
     },
     {
       "mlb_id": 641343,
@@ -16369,11 +16019,11 @@
       "ros_k": 57.7,
       "ros_pa": 228.9,
       "points": 180.8,
-      "rank": 34,
+      "rank": 42,
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 189.8,
-      "dynasty_rank": 63
+      "dynasty_rank": 69
     },
     {
       "mlb_id": 665489,
@@ -16391,11 +16041,11 @@
       "ros_k": 34.4,
       "ros_pa": 265.4,
       "points": 157.4,
-      "rank": 70,
+      "rank": 73,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 188.9,
-      "dynasty_rank": 64
+      "dynasty_rank": 70
     },
     {
       "mlb_id": 673962,
@@ -16413,33 +16063,11 @@
       "ros_k": 46.8,
       "ros_pa": 257.8,
       "points": 157.4,
-      "rank": 71,
+      "rank": 74,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 188.9,
-      "dynasty_rank": 65
-    },
-    {
-      "mlb_id": 669016,
-      "name": "Brandon Marsh",
-      "team": "PHI",
-      "games_played": 86,
-      "games_remaining": 60.7,
-      "ros_h": 69.8,
-      "ros_2b": 10.6,
-      "ros_3b": 1.4,
-      "ros_hr": 9.9,
-      "ros_r": 34.6,
-      "ros_rbi": 30.3,
-      "ros_bb": 12.0,
-      "ros_k": 65.6,
-      "ros_pa": 246.8,
-      "points": 156.9,
-      "rank": 72,
-      "age": 28,
-      "age_multiplier": 1.2,
-      "dynasty_score": 188.3,
-      "dynasty_rank": 66
+      "dynasty_rank": 71
     },
     {
       "mlb_id": 803011,
@@ -16461,7 +16089,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 187.2,
-      "dynasty_rank": 67
+      "dynasty_rank": 72
     },
     {
       "mlb_id": 624413,
@@ -16479,11 +16107,11 @@
       "ros_k": 69.7,
       "ros_pa": 280.8,
       "points": 196.3,
-      "rank": 19,
+      "rank": 32,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 186.5,
-      "dynasty_rank": 68
+      "dynasty_rank": 73
     },
     {
       "mlb_id": 660271,
@@ -16501,11 +16129,11 @@
       "ros_k": 55.7,
       "ros_pa": 246.1,
       "points": 196.3,
-      "rank": 20,
+      "rank": 33,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 186.5,
-      "dynasty_rank": 69
+      "dynasty_rank": 74
     },
     {
       "mlb_id": 672695,
@@ -16523,11 +16151,11 @@
       "ros_k": 32.3,
       "ros_pa": 267.4,
       "points": 155.0,
-      "rank": 77,
+      "rank": 79,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 186.0,
-      "dynasty_rank": 70
+      "dynasty_rank": 75
     },
     {
       "mlb_id": 664040,
@@ -16545,11 +16173,11 @@
       "ros_k": 73.3,
       "ros_pa": 275.1,
       "points": 195.4,
-      "rank": 22,
+      "rank": 35,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 185.6,
-      "dynasty_rank": 71
+      "dynasty_rank": 76
     },
     {
       "mlb_id": 694212,
@@ -16571,7 +16199,7 @@
       "age": 21,
       "age_multiplier": 1.5,
       "dynasty_score": 185.4,
-      "dynasty_rank": 72
+      "dynasty_rank": 77
     },
     {
       "mlb_id": 666182,
@@ -16589,11 +16217,11 @@
       "ros_k": 48.9,
       "ros_pa": 275.4,
       "points": 153.8,
-      "rank": 80,
+      "rank": 82,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 184.6,
-      "dynasty_rank": 73
+      "dynasty_rank": 78
     },
     {
       "mlb_id": 693304,
@@ -16611,11 +16239,11 @@
       "ros_k": 43.0,
       "ros_pa": 251.8,
       "points": 153.4,
-      "rank": 82,
+      "rank": 83,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 184.1,
-      "dynasty_rank": 74
+      "dynasty_rank": 79
     },
     {
       "mlb_id": 670623,
@@ -16633,11 +16261,11 @@
       "ros_k": 39.2,
       "ros_pa": 248.8,
       "points": 152.2,
-      "rank": 84,
+      "rank": 85,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 182.6,
-      "dynasty_rank": 75
+      "dynasty_rank": 80
     },
     {
       "mlb_id": 665487,
@@ -16655,11 +16283,11 @@
       "ros_k": 59.3,
       "ros_pa": 293.7,
       "points": 151.9,
-      "rank": 85,
+      "rank": 86,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 182.3,
-      "dynasty_rank": 76
+      "dynasty_rank": 81
     },
     {
       "mlb_id": 664983,
@@ -16677,11 +16305,11 @@
       "ros_k": 35.8,
       "ros_pa": 204.2,
       "points": 151.2,
-      "rank": 86,
+      "rank": 87,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 181.4,
-      "dynasty_rank": 77
+      "dynasty_rank": 82
     },
     {
       "mlb_id": 668709,
@@ -16703,7 +16331,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 180.6,
-      "dynasty_rank": 78
+      "dynasty_rank": 83
     },
     {
       "mlb_id": 606466,
@@ -16721,11 +16349,11 @@
       "ros_k": 39.9,
       "ros_pa": 277.1,
       "points": 189.1,
-      "rank": 30,
+      "rank": 39,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 179.6,
-      "dynasty_rank": 79
+      "dynasty_rank": 84
     },
     {
       "mlb_id": 672960,
@@ -16743,11 +16371,11 @@
       "ros_k": 81.1,
       "ros_pa": 262.6,
       "points": 170.5,
-      "rank": 54,
+      "rank": 58,
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 179.0,
-      "dynasty_rank": 80
+      "dynasty_rank": 85
     },
     {
       "mlb_id": 668715,
@@ -16769,7 +16397,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 178.4,
-      "dynasty_rank": 81
+      "dynasty_rank": 86
     },
     {
       "mlb_id": 808959,
@@ -16791,7 +16419,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 176.6,
-      "dynasty_rank": 82
+      "dynasty_rank": 87
     },
     {
       "mlb_id": 701358,
@@ -16813,7 +16441,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 169.9,
-      "dynasty_rank": 83
+      "dynasty_rank": 88
     },
     {
       "mlb_id": 650490,
@@ -16831,11 +16459,11 @@
       "ros_k": 41.1,
       "ros_pa": 296.0,
       "points": 212.3,
-      "rank": 8,
+      "rank": 23,
       "age": 34,
       "age_multiplier": 0.8,
       "dynasty_score": 169.8,
-      "dynasty_rank": 84
+      "dynasty_rank": 89
     },
     {
       "mlb_id": 691026,
@@ -16857,7 +16485,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 168.1,
-      "dynasty_rank": 85
+      "dynasty_rank": 90
     },
     {
       "mlb_id": 666176,
@@ -16879,7 +16507,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 166.1,
-      "dynasty_rank": 86
+      "dynasty_rank": 91
     },
     {
       "mlb_id": 681082,
@@ -16901,7 +16529,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 165.5,
-      "dynasty_rank": 87
+      "dynasty_rank": 92
     },
     {
       "mlb_id": 547180,
@@ -16919,33 +16547,11 @@
       "ros_k": 57.8,
       "ros_pa": 281.4,
       "points": 206.6,
-      "rank": 14,
+      "rank": 29,
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 165.3,
-      "dynasty_rank": 88
-    },
-    {
-      "mlb_id": 656941,
-      "name": "Kyle Schwarber",
-      "team": "PHI",
-      "games_played": 90,
-      "games_remaining": 63.5,
-      "ros_h": 62.8,
-      "ros_2b": 6.3,
-      "ros_3b": 0.7,
-      "ros_hr": 22.6,
-      "ros_r": 38.8,
-      "ros_rbi": 41.6,
-      "ros_bb": 38.1,
-      "ros_k": 100.9,
-      "ros_pa": 284.2,
-      "points": 206.3,
-      "rank": 15,
-      "age": 33,
-      "age_multiplier": 0.8,
-      "dynasty_score": 165.0,
-      "dynasty_rank": 89
+      "dynasty_rank": 93
     },
     {
       "mlb_id": 656811,
@@ -16963,11 +16569,11 @@
       "ros_k": 46.5,
       "ros_pa": 227.1,
       "points": 173.5,
-      "rank": 44,
+      "rank": 50,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 164.8,
-      "dynasty_rank": 90
+      "dynasty_rank": 94
     },
     {
       "mlb_id": 694384,
@@ -16989,7 +16595,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 164.7,
-      "dynasty_rank": 91
+      "dynasty_rank": 95
     },
     {
       "mlb_id": 621439,
@@ -17007,11 +16613,11 @@
       "ros_k": 56.4,
       "ros_pa": 226.2,
       "points": 173.2,
-      "rank": 45,
+      "rank": 51,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 164.5,
-      "dynasty_rank": 92
+      "dynasty_rank": 96
     },
     {
       "mlb_id": 642715,
@@ -17029,11 +16635,11 @@
       "ros_k": 76.1,
       "ros_pa": 280.8,
       "points": 156.7,
-      "rank": 73,
+      "rank": 75,
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 164.5,
-      "dynasty_rank": 93
+      "dynasty_rank": 97
     },
     {
       "mlb_id": 663656,
@@ -17051,11 +16657,11 @@
       "ros_k": 50.9,
       "ros_pa": 255.8,
       "points": 156.1,
-      "rank": 76,
+      "rank": 78,
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 163.9,
-      "dynasty_rank": 94
+      "dynasty_rank": 98
     },
     {
       "mlb_id": 677649,
@@ -17077,7 +16683,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 163.8,
-      "dynasty_rank": 95
+      "dynasty_rank": 99
     },
     {
       "mlb_id": 702332,
@@ -17099,7 +16705,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 163.2,
-      "dynasty_rank": 96
+      "dynasty_rank": 100
     },
     {
       "mlb_id": 621020,
@@ -17117,33 +16723,11 @@
       "ros_k": 60.8,
       "ros_pa": 256.8,
       "points": 170.7,
-      "rank": 52,
+      "rank": 57,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 162.2,
-      "dynasty_rank": 97
-    },
-    {
-      "mlb_id": 676391,
-      "name": "Ernie Clement",
-      "team": "TOR",
-      "games_played": 89,
-      "games_remaining": 61.2,
-      "ros_h": 72.2,
-      "ros_2b": 15.8,
-      "ros_3b": 0.7,
-      "ros_hr": 5.5,
-      "ros_r": 28.9,
-      "ros_rbi": 22.0,
-      "ros_bb": 8.9,
-      "ros_k": 24.1,
-      "ros_pa": 253.7,
-      "points": 153.7,
-      "rank": 81,
-      "age": 30,
-      "age_multiplier": 1.05,
-      "dynasty_score": 161.4,
-      "dynasty_rank": 98
+      "dynasty_rank": 101
     },
     {
       "mlb_id": 663538,
@@ -17161,11 +16745,11 @@
       "ros_k": 23.9,
       "ros_pa": 296.6,
       "points": 152.3,
-      "rank": 83,
+      "rank": 84,
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 159.9,
-      "dynasty_rank": 99
+      "dynasty_rank": 102
     },
     {
       "mlb_id": 608324,
@@ -17183,11 +16767,11 @@
       "ros_k": 47.0,
       "ros_pa": 306.7,
       "points": 167.5,
-      "rank": 57,
+      "rank": 61,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 159.1,
-      "dynasty_rank": 100
+      "dynasty_rank": 103
     },
     {
       "mlb_id": 664023,
@@ -17205,11 +16789,11 @@
       "ros_k": 89.0,
       "ros_pa": 280.7,
       "points": 167.5,
-      "rank": 58,
+      "rank": 62,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 159.1,
-      "dynasty_rank": 101
+      "dynasty_rank": 104
     },
     {
       "mlb_id": 687462,
@@ -17231,7 +16815,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 159.1,
-      "dynasty_rank": 102
+      "dynasty_rank": 105
     },
     {
       "mlb_id": 669003,
@@ -17253,7 +16837,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 158.8,
-      "dynasty_rank": 103
+      "dynasty_rank": 106
     },
     {
       "mlb_id": 668227,
@@ -17271,11 +16855,11 @@
       "ros_k": 54.9,
       "ros_pa": 254.0,
       "points": 166.9,
-      "rank": 60,
+      "rank": 64,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 158.6,
-      "dynasty_rank": 104
+      "dynasty_rank": 107
     },
     {
       "mlb_id": 805300,
@@ -17297,7 +16881,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 158.2,
-      "dynasty_rank": 105
+      "dynasty_rank": 108
     },
     {
       "mlb_id": 665862,
@@ -17319,7 +16903,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 158.0,
-      "dynasty_rank": 106
+      "dynasty_rank": 109
     },
     {
       "mlb_id": 678554,
@@ -17341,7 +16925,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 157.8,
-      "dynasty_rank": 107
+      "dynasty_rank": 110
     },
     {
       "mlb_id": 802415,
@@ -17363,7 +16947,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 157.1,
-      "dynasty_rank": 108
+      "dynasty_rank": 111
     },
     {
       "mlb_id": 643289,
@@ -17381,11 +16965,11 @@
       "ros_k": 37.4,
       "ros_pa": 260.9,
       "points": 164.0,
-      "rank": 61,
+      "rank": 65,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 155.8,
-      "dynasty_rank": 109
+      "dynasty_rank": 112
     },
     {
       "mlb_id": 665019,
@@ -17407,7 +16991,7 @@
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 155.2,
-      "dynasty_rank": 110
+      "dynasty_rank": 113
     },
     {
       "mlb_id": 665833,
@@ -17429,7 +17013,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 154.9,
-      "dynasty_rank": 111
+      "dynasty_rank": 114
     },
     {
       "mlb_id": 683953,
@@ -17451,7 +17035,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 154.4,
-      "dynasty_rank": 112
+      "dynasty_rank": 115
     },
     {
       "mlb_id": 575929,
@@ -17469,11 +17053,11 @@
       "ros_k": 65.1,
       "ros_pa": 263.3,
       "points": 192.4,
-      "rank": 26,
+      "rank": 36,
       "age": 34,
       "age_multiplier": 0.8,
       "dynasty_score": 153.9,
-      "dynasty_rank": 113
+      "dynasty_rank": 116
     },
     {
       "mlb_id": 679529,
@@ -17495,7 +17079,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 153.8,
-      "dynasty_rank": 114
+      "dynasty_rank": 117
     },
     {
       "mlb_id": 621493,
@@ -17513,11 +17097,11 @@
       "ros_k": 61.0,
       "ros_pa": 294.2,
       "points": 160.5,
-      "rank": 66,
+      "rank": 70,
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 152.5,
-      "dynasty_rank": 115
+      "dynasty_rank": 118
     },
     {
       "mlb_id": 805811,
@@ -17539,7 +17123,7 @@
       "age": 21,
       "age_multiplier": 1.5,
       "dynasty_score": 151.2,
-      "dynasty_rank": 116
+      "dynasty_rank": 119
     },
     {
       "mlb_id": 673548,
@@ -17557,11 +17141,11 @@
       "ros_k": 60.0,
       "ros_pa": 235.8,
       "points": 158.8,
-      "rank": 69,
+      "rank": 72,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 150.9,
-      "dynasty_rank": 117
+      "dynasty_rank": 120
     },
     {
       "mlb_id": 669065,
@@ -17583,7 +17167,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 150.1,
-      "dynasty_rank": 118
+      "dynasty_rank": 121
     },
     {
       "mlb_id": 686527,
@@ -17605,7 +17189,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 149.5,
-      "dynasty_rank": 119
+      "dynasty_rank": 122
     },
     {
       "mlb_id": 669394,
@@ -17627,7 +17211,7 @@
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 148.4,
-      "dynasty_rank": 120
+      "dynasty_rank": 123
     },
     {
       "mlb_id": 668939,
@@ -17649,7 +17233,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 147.6,
-      "dynasty_rank": 121
+      "dynasty_rank": 124
     },
     {
       "mlb_id": 671976,
@@ -17671,7 +17255,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 144.5,
-      "dynasty_rank": 122
+      "dynasty_rank": 125
     },
     {
       "mlb_id": 683357,
@@ -17693,7 +17277,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 142.8,
-      "dynasty_rank": 123
+      "dynasty_rank": 126
     },
     {
       "mlb_id": 647304,
@@ -17715,7 +17299,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 141.8,
-      "dynasty_rank": 124
+      "dynasty_rank": 127
     },
     {
       "mlb_id": 592518,
@@ -17733,11 +17317,11 @@
       "ros_k": 62.2,
       "ros_pa": 279.2,
       "points": 176.5,
-      "rank": 39,
+      "rank": 47,
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 141.2,
-      "dynasty_rank": 125
+      "dynasty_rank": 128
     },
     {
       "mlb_id": 804606,
@@ -17759,7 +17343,7 @@
       "age": 20,
       "age_multiplier": 1.5,
       "dynasty_score": 140.7,
-      "dynasty_rank": 126
+      "dynasty_rank": 129
     },
     {
       "mlb_id": 672515,
@@ -17781,7 +17365,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 140.6,
-      "dynasty_rank": 127
+      "dynasty_rank": 130
     },
     {
       "mlb_id": 663757,
@@ -17803,7 +17387,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 139.3,
-      "dynasty_rank": 128
+      "dynasty_rank": 131
     },
     {
       "mlb_id": 666160,
@@ -17825,29 +17409,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 137.8,
-      "dynasty_rank": 129
-    },
-    {
-      "mlb_id": 545361,
-      "name": "Mike Trout",
-      "team": "LAA",
-      "games_played": 78,
-      "games_remaining": 52.3,
-      "ros_h": 44.9,
-      "ros_2b": 8.7,
-      "ros_3b": 0.0,
-      "ros_hr": 12.1,
-      "ros_r": 38.9,
-      "ros_rbi": 26.1,
-      "ros_bb": 44.9,
-      "ros_k": 58.3,
-      "ros_pa": 237.2,
-      "points": 170.5,
-      "rank": 53,
-      "age": 34,
-      "age_multiplier": 0.8,
-      "dynasty_score": 136.4,
-      "dynasty_rank": 130
+      "dynasty_rank": 132
     },
     {
       "mlb_id": 664761,
@@ -17869,7 +17431,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 135.9,
-      "dynasty_rank": 131
+      "dynasty_rank": 133
     },
     {
       "mlb_id": 691594,
@@ -17891,7 +17453,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 135.6,
-      "dynasty_rank": 132
+      "dynasty_rank": 134
     },
     {
       "mlb_id": 663616,
@@ -17913,7 +17475,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 135.3,
-      "dynasty_rank": 133
+      "dynasty_rank": 135
     },
     {
       "mlb_id": 607208,
@@ -17935,7 +17497,7 @@
       "age": 32,
       "age_multiplier": 0.95,
       "dynasty_score": 134.0,
-      "dynasty_rank": 134
+      "dynasty_rank": 136
     },
     {
       "mlb_id": 686217,
@@ -17957,7 +17519,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 132.8,
-      "dynasty_rank": 135
+      "dynasty_rank": 137
     },
     {
       "mlb_id": 680776,
@@ -17979,7 +17541,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 132.5,
-      "dynasty_rank": 136
+      "dynasty_rank": 138
     },
     {
       "mlb_id": 657757,
@@ -18001,7 +17563,7 @@
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 132.2,
-      "dynasty_rank": 137
+      "dynasty_rank": 139
     },
     {
       "mlb_id": 702222,
@@ -18023,7 +17585,7 @@
       "age": 22,
       "age_multiplier": 1.5,
       "dynasty_score": 131.7,
-      "dynasty_rank": 138
+      "dynasty_rank": 140
     },
     {
       "mlb_id": 680869,
@@ -18045,7 +17607,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 130.8,
-      "dynasty_rank": 139
+      "dynasty_rank": 141
     },
     {
       "mlb_id": 678662,
@@ -18067,7 +17629,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 130.8,
-      "dynasty_rank": 140
+      "dynasty_rank": 142
     },
     {
       "mlb_id": 605137,
@@ -18085,11 +17647,11 @@
       "ros_k": 55.0,
       "ros_pa": 248.9,
       "points": 160.9,
-      "rank": 65,
+      "rank": 69,
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 128.7,
-      "dynasty_rank": 141
+      "dynasty_rank": 143
     },
     {
       "mlb_id": 682657,
@@ -18111,7 +17673,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 128.5,
-      "dynasty_rank": 142
+      "dynasty_rank": 144
     },
     {
       "mlb_id": 672580,
@@ -18133,7 +17695,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 128.3,
-      "dynasty_rank": 143
+      "dynasty_rank": 145
     },
     {
       "mlb_id": 687859,
@@ -18155,7 +17717,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 127.4,
-      "dynasty_rank": 144
+      "dynasty_rank": 146
     },
     {
       "mlb_id": 686555,
@@ -18177,7 +17739,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 126.2,
-      "dynasty_rank": 145
+      "dynasty_rank": 147
     },
     {
       "mlb_id": 683083,
@@ -18199,29 +17761,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 126.2,
-      "dynasty_rank": 146
-    },
-    {
-      "mlb_id": 518692,
-      "name": "Freddie Freeman",
-      "team": "LAD",
-      "games_played": 93,
-      "games_remaining": 63.9,
-      "ros_h": 69.4,
-      "ros_2b": 15.1,
-      "ros_3b": 0.7,
-      "ros_hr": 10.3,
-      "ros_r": 34.4,
-      "ros_rbi": 33.0,
-      "ros_bb": 31.6,
-      "ros_k": 44.0,
-      "ros_pa": 277.1,
-      "points": 193.9,
-      "rank": 24,
-      "age": 36,
-      "age_multiplier": 0.65,
-      "dynasty_score": 126.0,
-      "dynasty_rank": 147
+      "dynasty_rank": 148
     },
     {
       "mlb_id": 686469,
@@ -18243,7 +17783,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 125.9,
-      "dynasty_rank": 148
+      "dynasty_rank": 149
     },
     {
       "mlb_id": 687221,
@@ -18265,7 +17805,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 125.3,
-      "dynasty_rank": 149
+      "dynasty_rank": 150
     },
     {
       "mlb_id": 805779,
@@ -18287,7 +17827,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 124.9,
-      "dynasty_rank": 150
+      "dynasty_rank": 151
     },
     {
       "mlb_id": 663586,
@@ -18309,7 +17849,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 124.7,
-      "dynasty_rank": 151
+      "dynasty_rank": 152
     },
     {
       "mlb_id": 671218,
@@ -18331,7 +17871,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 124.7,
-      "dynasty_rank": 152
+      "dynasty_rank": 153
     },
     {
       "mlb_id": 665926,
@@ -18353,7 +17893,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 123.7,
-      "dynasty_rank": 153
+      "dynasty_rank": 154
     },
     {
       "mlb_id": 805999,
@@ -18375,7 +17915,7 @@
       "age": 21,
       "age_multiplier": 1.5,
       "dynasty_score": 123.6,
-      "dynasty_rank": 154
+      "dynasty_rank": 155
     },
     {
       "mlb_id": 696285,
@@ -18397,7 +17937,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 123.4,
-      "dynasty_rank": 155
+      "dynasty_rank": 156
     },
     {
       "mlb_id": 680757,
@@ -18419,7 +17959,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 123.0,
-      "dynasty_rank": 156
+      "dynasty_rank": 157
     },
     {
       "mlb_id": 690993,
@@ -18441,7 +17981,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 122.6,
-      "dynasty_rank": 157
+      "dynasty_rank": 158
     },
     {
       "mlb_id": 650489,
@@ -18463,7 +18003,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 122.3,
-      "dynasty_rank": 158
+      "dynasty_rank": 159
     },
     {
       "mlb_id": 701675,
@@ -18485,7 +18025,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 122.3,
-      "dynasty_rank": 159
+      "dynasty_rank": 160
     },
     {
       "mlb_id": 660670,
@@ -18507,7 +18047,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 121.9,
-      "dynasty_rank": 160
+      "dynasty_rank": 161
     },
     {
       "mlb_id": 660688,
@@ -18529,7 +18069,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 121.3,
-      "dynasty_rank": 161
+      "dynasty_rank": 162
     },
     {
       "mlb_id": 694497,
@@ -18551,7 +18091,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 121.2,
-      "dynasty_rank": 162
+      "dynasty_rank": 163
     },
     {
       "mlb_id": 665750,
@@ -18573,7 +18113,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 120.6,
-      "dynasty_rank": 163
+      "dynasty_rank": 164
     },
     {
       "mlb_id": 680574,
@@ -18595,7 +18135,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 120.2,
-      "dynasty_rank": 164
+      "dynasty_rank": 165
     },
     {
       "mlb_id": 694671,
@@ -18617,7 +18157,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 118.4,
-      "dynasty_rank": 165
+      "dynasty_rank": 166
     },
     {
       "mlb_id": 686681,
@@ -18639,7 +18179,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 117.8,
-      "dynasty_rank": 166
+      "dynasty_rank": 167
     },
     {
       "mlb_id": 676609,
@@ -18661,7 +18201,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 115.5,
-      "dynasty_rank": 167
+      "dynasty_rank": 168
     },
     {
       "mlb_id": 643217,
@@ -18683,7 +18223,7 @@
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 115.1,
-      "dynasty_rank": 168
+      "dynasty_rank": 169
     },
     {
       "mlb_id": 607043,
@@ -18705,7 +18245,7 @@
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 114.6,
-      "dynasty_rank": 169
+      "dynasty_rank": 170
     },
     {
       "mlb_id": 662139,
@@ -18727,7 +18267,7 @@
       "age": 29,
       "age_multiplier": 1.05,
       "dynasty_score": 114.5,
-      "dynasty_rank": 170
+      "dynasty_rank": 171
     },
     {
       "mlb_id": 641487,
@@ -18749,7 +18289,7 @@
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 114.3,
-      "dynasty_rank": 171
+      "dynasty_rank": 172
     },
     {
       "mlb_id": 668904,
@@ -18771,7 +18311,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 114.2,
-      "dynasty_rank": 172
+      "dynasty_rank": 173
     },
     {
       "mlb_id": 656305,
@@ -18793,7 +18333,7 @@
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 113.2,
-      "dynasty_rank": 173
+      "dynasty_rank": 174
     },
     {
       "mlb_id": 687093,
@@ -18815,7 +18355,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 113.1,
-      "dynasty_rank": 174
+      "dynasty_rank": 175
     },
     {
       "mlb_id": 677942,
@@ -18837,7 +18377,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 112.2,
-      "dynasty_rank": 175
+      "dynasty_rank": 176
     },
     {
       "mlb_id": 683146,
@@ -18859,7 +18399,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 111.0,
-      "dynasty_rank": 176
+      "dynasty_rank": 177
     },
     {
       "mlb_id": 572233,
@@ -18877,11 +18417,11 @@
       "ros_k": 58.8,
       "ros_pa": 259.9,
       "points": 170.4,
-      "rank": 55,
+      "rank": 59,
       "age": 35,
       "age_multiplier": 0.65,
       "dynasty_score": 110.8,
-      "dynasty_rank": 177
+      "dynasty_rank": 178
     },
     {
       "mlb_id": 691723,
@@ -18903,7 +18443,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 110.8,
-      "dynasty_rank": 178
+      "dynasty_rank": 179
     },
     {
       "mlb_id": 592450,
@@ -18925,7 +18465,7 @@
       "age": 34,
       "age_multiplier": 0.8,
       "dynasty_score": 110.6,
-      "dynasty_rank": 179
+      "dynasty_rank": 180
     },
     {
       "mlb_id": 608070,
@@ -18947,7 +18487,7 @@
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 110.4,
-      "dynasty_rank": 180
+      "dynasty_rank": 181
     },
     {
       "mlb_id": 700932,
@@ -18969,7 +18509,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 108.1,
-      "dynasty_rank": 181
+      "dynasty_rank": 182
     },
     {
       "mlb_id": 666126,
@@ -18991,7 +18531,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 107.3,
-      "dynasty_rank": 182
+      "dynasty_rank": 183
     },
     {
       "mlb_id": 665161,
@@ -19013,7 +18553,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 106.9,
-      "dynasty_rank": 183
+      "dynasty_rank": 184
     },
     {
       "mlb_id": 656775,
@@ -19035,7 +18575,7 @@
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 105.5,
-      "dynasty_rank": 184
+      "dynasty_rank": 185
     },
     {
       "mlb_id": 671732,
@@ -19057,28 +18597,6 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 104.4,
-      "dynasty_rank": 185
-    },
-    {
-      "mlb_id": 571970,
-      "name": "Max Muncy",
-      "team": "LAD",
-      "games_played": 81,
-      "games_remaining": 55.7,
-      "ros_h": 50.2,
-      "ros_2b": 8.9,
-      "ros_3b": 0.7,
-      "ros_hr": 11.7,
-      "ros_r": 36.4,
-      "ros_rbi": 26.8,
-      "ros_bb": 26.8,
-      "ros_k": 51.6,
-      "ros_pa": 224.1,
-      "points": 159.8,
-      "rank": 67,
-      "age": 35,
-      "age_multiplier": 0.65,
-      "dynasty_score": 103.9,
       "dynasty_rank": 186
     },
     {
@@ -19879,7 +19397,7 @@
       "team": "LAA",
       "games_played": 73,
       "games_remaining": 48.9,
-      "ros_h": 38.9,
+      "ros_h": 38.2,
       "ros_2b": 8.7,
       "ros_3b": 0.7,
       "ros_hr": 7.4,
@@ -19888,11 +19406,11 @@
       "ros_bb": 20.8,
       "ros_k": 64.3,
       "ros_pa": 207.1,
-      "points": 109.9,
-      "rank": 155,
+      "points": 109.2,
+      "rank": 156,
       "age": 34,
       "age_multiplier": 0.8,
-      "dynasty_score": 87.9,
+      "dynasty_score": 87.4,
       "dynasty_rank": 223
     },
     {
@@ -20637,7 +20155,7 @@
       "ros_k": 50.9,
       "ros_pa": 250.6,
       "points": 109.2,
-      "rank": 156,
+      "rank": 155,
       "age": 36,
       "age_multiplier": 0.65,
       "dynasty_score": 71.0,
@@ -20908,6 +20426,28 @@
       "dynasty_rank": 269
     },
     {
+      "mlb_id": 668952,
+      "name": "Ryan Kreidler",
+      "team": "MIN",
+      "games_played": 36,
+      "games_remaining": 24.8,
+      "ros_h": 19.9,
+      "ros_2b": 2.1,
+      "ros_3b": 1.4,
+      "ros_hr": 2.8,
+      "ros_r": 11.7,
+      "ros_rbi": 13.8,
+      "ros_bb": 7.6,
+      "ros_k": 18.6,
+      "ros_pa": 87.3,
+      "points": 56.7,
+      "rank": 281,
+      "age": 28,
+      "age_multiplier": 1.2,
+      "dynasty_score": 68.0,
+      "dynasty_rank": 270
+    },
+    {
       "mlb_id": 665804,
       "name": "Miguel Amaya",
       "team": "CHC",
@@ -20923,32 +20463,10 @@
       "ros_k": 26.0,
       "ros_pa": 109.2,
       "points": 56.4,
-      "rank": 281,
+      "rank": 282,
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 67.7,
-      "dynasty_rank": 270
-    },
-    {
-      "mlb_id": 668952,
-      "name": "Ryan Kreidler",
-      "team": "MIN",
-      "games_played": 36,
-      "games_remaining": 24.8,
-      "ros_h": 19.2,
-      "ros_2b": 2.1,
-      "ros_3b": 1.4,
-      "ros_hr": 2.8,
-      "ros_r": 11.7,
-      "ros_rbi": 13.8,
-      "ros_bb": 7.6,
-      "ros_k": 18.6,
-      "ros_pa": 87.3,
-      "points": 56.0,
-      "rank": 282,
-      "age": 28,
-      "age_multiplier": 1.2,
-      "dynasty_score": 67.2,
       "dynasty_rank": 271
     },
     {
@@ -21592,6 +21110,42 @@
   ],
   "dynasty_pitchers": [
     {
+      "mlb_id": 656302,
+      "name": "Dylan Cease",
+      "team": "AL",
+      "starts_made": 18,
+      "starts_remaining": 161.0,
+      "ros_ip": 888.5,
+      "ros_k": 1350.6,
+      "ros_bb": 402.5,
+      "ros_h": 599.3,
+      "ros_er": 250.4,
+      "points": 3264.7,
+      "rank": 1,
+      "age": 30,
+      "age_multiplier": 1.05,
+      "dynasty_score": 3427.9,
+      "dynasty_rank": 1
+    },
+    {
+      "mlb_id": 650911,
+      "name": "Cristopher S\u00e1nchez",
+      "team": "NL",
+      "starts_made": 21,
+      "starts_remaining": 161.0,
+      "ros_ip": 983.9,
+      "ros_k": 1119.3,
+      "ros_bb": 207.0,
+      "ros_h": 989.0,
+      "ros_er": 306.7,
+      "points": 3166.3,
+      "rank": 2,
+      "age": 29,
+      "age_multiplier": 1.05,
+      "dynasty_score": 3324.6,
+      "dynasty_rank": 2
+    },
+    {
       "mlb_id": 694819,
       "name": "Jacob Misiorowski",
       "team": "MIL",
@@ -21603,11 +21157,11 @@
       "ros_h": 39.2,
       "ros_er": 13.8,
       "points": 301.1,
-      "rank": 1,
+      "rank": 3,
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 406.5,
-      "dynasty_rank": 1
+      "dynasty_rank": 3
     },
     {
       "mlb_id": 693645,
@@ -21621,11 +21175,11 @@
       "ros_h": 59.8,
       "ros_er": 18.6,
       "points": 281.9,
-      "rank": 3,
+      "rank": 4,
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 380.6,
-      "dynasty_rank": 2
+      "dynasty_rank": 4
     },
     {
       "mlb_id": 695505,
@@ -21643,7 +21197,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 346.2,
-      "dynasty_rank": 3
+      "dynasty_rank": 5
     },
     {
       "mlb_id": 800048,
@@ -21661,7 +21215,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 318.5,
-      "dynasty_rank": 4
+      "dynasty_rank": 6
     },
     {
       "mlb_id": 690997,
@@ -21679,25 +21233,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 312.1,
-      "dynasty_rank": 5
-    },
-    {
-      "mlb_id": 650911,
-      "name": "Cristopher S\u00e1nchez",
-      "team": "PHI",
-      "starts_made": 20,
-      "starts_remaining": 14.1,
-      "ros_ip": 89.8,
-      "ros_k": 101.6,
-      "ros_bb": 17.6,
-      "ros_h": 88.9,
-      "ros_er": 26.1,
-      "points": 291.6,
-      "rank": 2,
-      "age": 29,
-      "age_multiplier": 1.05,
-      "dynasty_score": 306.2,
-      "dynasty_rank": 6
+      "dynasty_rank": 7
     },
     {
       "mlb_id": 677952,
@@ -21711,11 +21247,11 @@
       "ros_h": 69.8,
       "ros_er": 31.0,
       "points": 254.6,
-      "rank": 4,
+      "rank": 5,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 305.5,
-      "dynasty_rank": 7
+      "dynasty_rank": 8
     },
     {
       "mlb_id": 808967,
@@ -21733,7 +21269,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 290.8,
-      "dynasty_rank": 8
+      "dynasty_rank": 9
     },
     {
       "mlb_id": 668909,
@@ -21751,7 +21287,7 @@
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 290.3,
-      "dynasty_rank": 9
+      "dynasty_rank": 10
     },
     {
       "mlb_id": 694973,
@@ -21769,7 +21305,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 290.0,
-      "dynasty_rank": 10
+      "dynasty_rank": 11
     },
     {
       "mlb_id": 676974,
@@ -21787,7 +21323,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 287.9,
-      "dynasty_rank": 11
+      "dynasty_rank": 12
     },
     {
       "mlb_id": 671737,
@@ -21805,7 +21341,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 279.9,
-      "dynasty_rank": 12
+      "dynasty_rank": 13
     },
     {
       "mlb_id": 666200,
@@ -21823,7 +21359,7 @@
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 278.0,
-      "dynasty_rank": 13
+      "dynasty_rank": 14
     },
     {
       "mlb_id": 691587,
@@ -21841,7 +21377,7 @@
       "age": 23,
       "age_multiplier": 1.5,
       "dynasty_score": 275.4,
-      "dynasty_rank": 14
+      "dynasty_rank": 15
     },
     {
       "mlb_id": 813349,
@@ -21859,7 +21395,7 @@
       "age": 24,
       "age_multiplier": 1.35,
       "dynasty_score": 269.1,
-      "dynasty_rank": 15
+      "dynasty_rank": 16
     },
     {
       "mlb_id": 667755,
@@ -21877,7 +21413,7 @@
       "age": 27,
       "age_multiplier": 1.2,
       "dynasty_score": 268.2,
-      "dynasty_rank": 16
+      "dynasty_rank": 17
     },
     {
       "mlb_id": 700241,
@@ -21895,7 +21431,7 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 267.6,
-      "dynasty_rank": 17
+      "dynasty_rank": 18
     },
     {
       "mlb_id": 657746,
@@ -21909,11 +21445,11 @@
       "ros_h": 62.6,
       "ros_er": 24.1,
       "points": 251.6,
-      "rank": 5,
+      "rank": 6,
       "age": 30,
       "age_multiplier": 1.05,
       "dynasty_score": 264.2,
-      "dynasty_rank": 18
+      "dynasty_rank": 19
     },
     {
       "mlb_id": 680736,
@@ -21931,24 +21467,6 @@
       "age": 25,
       "age_multiplier": 1.35,
       "dynasty_score": 264.1,
-      "dynasty_rank": 19
-    },
-    {
-      "mlb_id": 656302,
-      "name": "Dylan Cease",
-      "team": "TOR",
-      "starts_made": 17,
-      "starts_remaining": 11.7,
-      "ros_ip": 67.6,
-      "ros_k": 101.7,
-      "ros_bb": 30.2,
-      "ros_h": 46.1,
-      "ros_er": 19.2,
-      "points": 247.2,
-      "rank": 6,
-      "age": 30,
-      "age_multiplier": 1.05,
-      "dynasty_score": 259.6,
       "dynasty_rank": 20
     },
     {
@@ -22132,24 +21650,6 @@
       "dynasty_rank": 30
     },
     {
-      "mlb_id": 669358,
-      "name": "Shane Baz",
-      "team": "BAL",
-      "starts_made": 19,
-      "starts_remaining": 12.7,
-      "ros_ip": 74.8,
-      "ros_k": 66.3,
-      "ros_bb": 28.1,
-      "ros_h": 75.1,
-      "ros_er": 34.2,
-      "points": 205.1,
-      "rank": 42,
-      "age": 27,
-      "age_multiplier": 1.2,
-      "dynasty_score": 246.1,
-      "dynasty_rank": 31
-    },
-    {
       "mlb_id": 677960,
       "name": "Ryan Weathers",
       "team": "NYY",
@@ -22161,10 +21661,28 @@
       "ros_h": 64.6,
       "ros_er": 30.9,
       "points": 204.5,
-      "rank": 43,
+      "rank": 42,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 245.4,
+      "dynasty_rank": 31
+    },
+    {
+      "mlb_id": 669358,
+      "name": "Shane Baz",
+      "team": "BAL",
+      "starts_made": 19,
+      "starts_remaining": 12.7,
+      "ros_ip": 74.8,
+      "ros_k": 66.3,
+      "ros_bb": 28.1,
+      "ros_h": 75.7,
+      "ros_er": 34.8,
+      "points": 204.0,
+      "rank": 43,
+      "age": 27,
+      "age_multiplier": 1.2,
+      "dynasty_score": 244.8,
       "dynasty_rank": 32
     },
     {
