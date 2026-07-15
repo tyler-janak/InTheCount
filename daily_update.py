@@ -85,10 +85,7 @@ import sys
 # path that script actually writes to and set it here — the candidates
 # below are guesses, and the loop picks the first that exists.
 PITCH_CACHE_CANDIDATES = [
-    "data/statcast_2026.csv",
-    "data/statcast_2026_pitches.csv",
-    "data/pitch_data_2026.csv",
-    "data/2026_pitch_data.csv",
+    "pitch_data_2026.csv",
 ]
 
 
