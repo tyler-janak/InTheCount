@@ -9,7 +9,8 @@ and it will:
     1. Backfill any missing game-pick rows for completed dates.
     2. Run today's game model (predictions + EV + bet log).
     3. Re-grade the season pick log against final scores.
-    4. Backfill any missing NRFI predictions for past dates.
+    4. Rebuild the NRFI feature table, then backfill any missing NRFI
+       predictions for past dates.
     5. Generate today's NRFI predictions and append to the picks log.
     6. Grade past NRFI picks against MLB first-inning linescores.
     7. Backfill any missing dated player-projection snapshots from past
@@ -22,6 +23,12 @@ and it will:
        today's projection (post-hoc fix for the systematic PA / IP
        under-projection observed in the 2025-data-only era).
 
+NOTE: player-model retraining has been removed from the daily flow. The
+models in models/*.pkl are trained offline via hitterspitchers_train.py
+and only refreshed when you run that manually. Daily runs score off the
+committed pickles with freshly-rebuilt rolling features, which is where
+the day-to-day signal actually lives.
+
 Steps 0, 4–6, and 7–9 are wrapped in their own try/except so a failure in
 any sub-pipeline never blocks the others.  The data refresh is also
 non-blocking — if pybaseball is unavailable or the network is flaky, the
@@ -32,6 +39,7 @@ Outputs touched (must be committed by the cron workflow):
     - data/pitcher_game_data.csv
     - data/team_batting_hand_context.csv
     - data/team_pitching_hand_context.csv
+    - data/nrfi_game_data.csv
     - 2026_picks_accuracy.csv
     - 2026_player_accuracy.csv
     - 2026_nrfi_picks.csv
@@ -52,7 +60,6 @@ os.environ.setdefault("PYTHONWARNINGS", "ignore")
 import warnings
 warnings.filterwarnings("ignore")
 
-import pickle
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -69,83 +76,53 @@ PICKS_FILE       = "2026_picks_accuracy.csv"
 PLAYER_ACC_FILE  = "2026_player_accuracy.csv"
 NRFI_PICKS_FILE  = "2026_nrfi_picks.csv"
 NRFI_ACC_FILE    = "2026_nrfi_accuracy.csv"
-MODELS_DIR       = Path("models")
 
 
-def _load_preset_params(prefix: str, targets: list[str]) -> dict:
-    """Read previously-tuned XGB hyperparameters out of existing model pickles.
+import subprocess
+import sys
 
-    Lets the daily refit reuse the expensive hyperparameter search from an
-    earlier offline `hitterspitchers_train.py` run instead of re-searching on
-    every cron tick — we refit on fresh data + recalibrate, but keep the tuned
-    depth / n_estimators / regularisation. Returns {target: params}.
+# Pitch-level Statcast cache maintained by refresh_2026_data. Check what
+# path that script actually writes to and set it here — the candidates
+# below are guesses, and the loop picks the first that exists.
+PITCH_CACHE_CANDIDATES = [
+    "data/statcast_2026.csv",
+    "data/statcast_2026_pitches.csv",
+    "data/pitch_data_2026.csv",
+    "data/2026_pitch_data.csv",
+]
+
+
+def _rebuild_nrfi_features() -> None:
+    """Rebuild data/nrfi_game_data.csv by running nrfi_data.py as a
+    subprocess (it's a CLI script with a required --input arg, so we
+    shell out rather than import it).
+
+    Must run AFTER step 0 (so the pitch cache and pitcher_game_data.csv
+    are current) and BEFORE the NRFI backfill/today steps. Without this,
+    run_nrfi() either stub-bails at its existence check or scores off a
+    table frozen at the last manual nrfi_data.py run.
     """
-    out: dict[str, dict] = {}
-    for t in targets:
-        p = MODELS_DIR / f"{prefix}_{t}.pkl"
-        if not p.exists():
-            continue
-        try:
-            with open(p, "rb") as fh:
-                bundle = pickle.load(fh)
-            bp = bundle.get("best_params") if isinstance(bundle, dict) else None
-            if bp:
-                out[t] = bp
-        except Exception:
-            continue
-    return out
+    pitch_csv = next((p for p in PITCH_CACHE_CANDIDATES if Path(p).exists()), None)
+    if pitch_csv is None:
+        raise FileNotFoundError(
+            "no pitch-level Statcast cache found — checked: "
+            + ", ".join(PITCH_CACHE_CANDIDATES)
+            + " (update PITCH_CACHE_CANDIDATES to match refresh_2026_data's output)"
+        )
 
-
-def _retrain_player_models(tune: bool) -> None:
-    """Retrain the player model stack on the freshly-refreshed feature tables.
-
-    Calibration is always on (it's cheap and removes systematic bias). Tuning
-    reuses persisted hyperparameters when available; a full randomized search
-    only runs when `tune=True` AND no preset exists for a target. The two-stage
-    pitcher, xHits, and team-PA hitter models are refit on all rows so today's
-    projection AND the past-date backfill score off current-data models.
-    """
-    import pandas as pd
-    import hitterspitchers_train as hpt
-
-    MODELS_DIR.mkdir(exist_ok=True)
-    pitcher_df = pd.read_csv("data/pitcher_game_data.csv", low_memory=False)
-    hitter_df  = pd.read_csv("data/hitter_game_data.csv",  low_memory=False)
-
-    hpt.validate_pitcher_training_data(pitcher_df)
-
-    pitcher_presets = _load_preset_params("pitcher", hpt.PITCHER_TARGETS)
-    hitter_presets  = _load_preset_params("hitter",  hpt.HITTER_TARGETS)
-
-    hpt.train_pitcher_models(pitcher_df, MODELS_DIR, tune=tune, calibrate=True,
-                             preset_params=pitcher_presets)
-    hpt.train_hitter_models(hitter_df, MODELS_DIR, tune=tune, calibrate=True,
-                            preset_params=hitter_presets)
-
-    # Advanced decomposition stack (two-stage per-9 / xHits / team-PA). These
-    # are NOT used by run_projections anymore — the direct counting-stat models
-    # above score better overall, so USE_DECOMPOSITION_MODELS is False in
-    # hitterspitchers_today.py. We skip retraining them by default to save cron
-    # time; set BULLPEN_TRAIN_DECOMP=1 to keep them fresh (e.g. if you flip the
-    # projection flag back on).
-    if os.environ.get("BULLPEN_TRAIN_DECOMP", "0") == "1":
-        try:
-            from train_pitcher_two_stage import train_two_stage
-            train_two_stage(eval_holdout=0.0)
-        except Exception as e:
-            print(f"⚠️  two-stage pitcher retrain failed: {e}")
-        try:
-            from train_pitcher_xhits import train_xhits
-            train_xhits(eval_holdout=0.0)
-        except Exception as e:
-            print(f"⚠️  xHits retrain failed: {e}")
-        try:
-            from train_hitter_team_pa import train_team_pa, train_rate_models
-            train_team_pa(eval_holdout=0.0)
-            train_rate_models(eval_holdout=0.0)
-        except Exception as e:
-            print(f"⚠️  team-PA retrain failed: {e}")
-
+    result = subprocess.run(
+        [sys.executable, "nrfi_data.py", "--input", pitch_csv],
+        capture_output=True,
+        text=True,
+        timeout=1800,   # 30 min ceiling so a hang can't stall the whole cron run
+    )
+    # Surface the script's own progress output in the cron log
+    if result.stdout:
+        print(result.stdout)
+    if result.returncode != 0:
+        raise RuntimeError(
+            f"nrfi_data.py exited with code {result.returncode}:\n{result.stderr}"
+        )
 
 def main():
     today = datetime.now(ET).strftime("%Y-%m-%d")
@@ -180,8 +157,7 @@ def main():
         print(f"⚠️  team-feature enrichment failed: {e}")
 
     # 0b) Add batter-level lineup aggregations to pitcher_game_data.csv
-    # (lineup_k_rate / lineup_bb_rate / lineup_avg_ev / …). The two-stage
-    # pitcher model trains on these, so they must be present before retrain.
+    # (lineup_k_rate / lineup_bb_rate / lineup_avg_ev / …).
     try:
         from enrich_lineup_features import enrich as _enrich_lineup_features
         _enrich_lineup_features()
@@ -197,32 +173,9 @@ def main():
     except Exception as e:
         print(f"⚠️  true-talent enrichment failed: {e}")
 
-    # 0c) RETRAIN the player models on the freshly-refreshed data so that both
-    # today's projection (step 8) and the past-date backfill (step 7) score
-    # off current-data, tuned + calibrated models. By default this runs only on
-    # the early-morning (3 AM ET) cron tick so the midday/evening lineup-update
-    # ticks stay fast; override with BULLPEN_RETRAIN=force / skip. A full
-    # hyperparameter search runs only when BULLPEN_TUNE=1 (otherwise the refit
-    # reuses the hyperparameters tuned in the last offline run).
-    retrain_mode = os.environ.get("BULLPEN_RETRAIN", "auto").lower()
-    do_retrain = (
-        retrain_mode == "force"
-        or (retrain_mode == "auto" and datetime.now(ET).hour < 9)
-    )
-    if retrain_mode == "skip":
-        do_retrain = False
-    if do_retrain:
-        tune = os.environ.get("BULLPEN_TUNE", "0") == "1"
-        try:
-            print(f"\n── Retraining player models (tune={'ON' if tune else 'reuse-preset'}, "
-                  f"calibrate=ON) ───")
-            _retrain_player_models(tune=tune)
-        except Exception as e:
-            # Non-blocking — if retrain fails we fall back to the committed
-            # pickles and projections still run.
-            print(f"⚠️  player model retrain failed (using existing models): {e}")
-    else:
-        print("   (skipping model retrain this tick — set BULLPEN_RETRAIN=force to override)")
+    # NOTE: model retraining removed. Models are trained offline via
+    # hitterspitchers_train.py and committed as pickles; the daily run
+    # only rebuilds features and scores.
 
     # ── GAME PIPELINE ────────────────────────────────────────────────────
     # 1) Backfill any missing completed dates through yesterday.
@@ -237,8 +190,7 @@ def main():
     # 2) Run today's slate and save today's picks / outputs.
     # Env var ODDS_API_KEY wins so you can rotate without code changes;
     # the hardcoded value is the fallback for routine local runs.
-    import os as _os
-    odds_key = _os.environ.get("ODDS_API_KEY") or "68e6ecc1ec696c25142abba270265126"
+    odds_key = os.environ.get("ODDS_API_KEY") or "68e6ecc1ec696c25142abba270265126"
     run(
         date=today,
         odds_api_key=odds_key,
@@ -258,10 +210,19 @@ def main():
     )
 
     # ── NRFI PIPELINE ────────────────────────────────────────────────────
-    # 4) Backfill any past dates not yet in the NRFI picks log.  run_nrfi()
-    #    already filters features to < target_date, so this is safe for any
-    #    historical date once nrfi_game_data.csv and pitcher_game_data.csv
-    #    have been built.
+    # 4a) Rebuild the NRFI feature table from fresh data. nrfi_data.py is
+    #     a CLI script, so we run it as a subprocess with the pitch cache
+    #     as --input. This was the missing link: nothing in the daily flow
+    #     ever built nrfi_game_data.csv, so run_nrfi() stub-bailed (or
+    #     scored off a frozen table) and the picks log never grew.
+    try:
+        print("\n── Rebuilding NRFI feature table ───────────────────────────")
+        _rebuild_nrfi_features()
+    except Exception as e:
+        print(f"⚠️  NRFI feature rebuild failed: {e}")
+    # 4b) Backfill any past dates not yet in the NRFI picks log. run_nrfi()
+    #     already filters features to < target_date, so this is safe for any
+    #     historical date once nrfi_game_data.csv exists.
     try:
         from backfill_nrfi import backfill_nrfi
         print("\n── Backfilling past NRFI predictions ───────────────────────")
@@ -277,6 +238,8 @@ def main():
         print(f"⚠️  NRFI backfill failed: {e}")
 
     # 5) Generate TODAY's NRFI predictions and append to the picks log.
+    #    An empty result now logs loudly instead of silently no-opping —
+    #    a stub-bail upstream used to look identical to an off-day here.
     try:
         from nrfi_today import run_nrfi
         from backfill_nrfi import append_nrfi_picks
@@ -285,6 +248,10 @@ def main():
         if nrfi_results is not None and not nrfi_results.empty:
             append_nrfi_picks(nrfi_results, NRFI_PICKS_FILE)
             print(f"  Appended {len(nrfi_results)} NRFI row(s) to {NRFI_PICKS_FILE}")
+        else:
+            print(f"⚠️  run_nrfi returned no rows for {today} — "
+                  f"nothing appended to {NRFI_PICKS_FILE} "
+                  f"(check for a stub-bail reason above)")
     except Exception as e:
         print(f"⚠️  Today's NRFI predictions failed: {e}")
 
