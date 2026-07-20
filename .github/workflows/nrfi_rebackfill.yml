@@ -1,0 +1,62 @@
+name: NRFI full re-backfill
+on: workflow_dispatch
+
+jobs:
+  rebackfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Archive old picks log
+        run: |
+          if [ -f 2026_nrfi_picks.csv ]; then
+            cp 2026_nrfi_picks.csv 2026_nrfi_picks_v1_archive.csv
+          fi
+          if [ -f 2026_nrfi_accuracy.csv ]; then
+            cp 2026_nrfi_accuracy.csv 2026_nrfi_accuracy_v1_archive.csv
+          fi
+          rm -f 2026_nrfi_picks.csv 2026_nrfi_accuracy.csv
+
+      - name: Re-backfill entire season with PASS-band model
+        run: |
+          python - << 'EOF'
+          from backfill_nrfi import backfill_nrfi
+          backfill_nrfi(
+              start="2026-03-25",
+              end=None,            # auto = yesterday ET
+              picks_file="2026_nrfi_picks.csv",
+              force=True,
+              sleep_seconds=0.4,
+              verbose=True,
+          )
+          EOF
+
+      - name: Grade the regenerated picks
+        run: |
+          python - << 'EOF'
+          from nrfi_grade import grade_nrfi_picks
+          grade_nrfi_picks(
+              picks_file="2026_nrfi_picks.csv",
+              output_file="2026_nrfi_accuracy.csv",
+          )
+          EOF
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git pull
+          git add 2026_nrfi_picks.csv 2026_nrfi_accuracy.csv \
+                  2026_nrfi_picks_v1_archive.csv 2026_nrfi_accuracy_v1_archive.csv
+          git commit -m "Full NRFI re-backfill with PASS-band model" || echo "no changes"
+          git push
