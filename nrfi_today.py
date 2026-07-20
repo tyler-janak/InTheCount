@@ -44,6 +44,20 @@ ROLLING_WINDOWS      = [5, 10]
 ROLLING_WINDOWS_FULL = [5, 10]
 ROLLING_STD_WINDOW   = 10   # window used for the *_std features
 
+# ── Pick discipline ───────────────────────────────────────────────────────────
+# Only make a NRFI/YRFI call when the model's probability is at least
+# PASS_MARGIN away from its trained threshold; otherwise PASS. With a weak-
+# signal market (AUC ~0.60) most games are coin flips — forcing a pick on
+# every game just reproduces the always-YRFI baseline. nrfi_grade.py already
+# understands PASS rows (lean="PASS") and excludes them from accuracy.
+PASS_MARGIN = 0.04
+
+# Don't trust predictions built on mostly-missing features. If fewer than
+# MIN_FEATURE_COVERAGE of the model's features were found for a game, PASS
+# regardless of probability — the number is a guess routed through XGBoost's
+# missing-value branches, not a real opinion.
+MIN_FEATURE_COVERAGE = 0.50
+
 # Rolling columns to pull from pitcher_game_data.csv for full-game features
 PITCHER_GAME_STAT_COLS = [
     "K_rate_last5",  "K_rate_last10",  "K_rate_std",
@@ -573,6 +587,7 @@ OUTPUT_COLS = [
     "game_date", "gamePk", "away_team", "home_team", "team_a", "team_b",
     "away_full", "home_full", "away_sp", "home_sp",
     "nrfi_prob", "yrfi_prob", "pick", "lean", "threshold",
+    "pass_margin", "feature_coverage", "features_found", "features_total",
 ]
 
 
@@ -676,6 +691,12 @@ def run_nrfi(target_date: str | None = None) -> pd.DataFrame:
 
         feat_row = build_game_feature_row(game, nrfi_df, pitcher_game_df, target_ts, features)
 
+        # How many of the model's features did we actually find? Predictions
+        # made off mostly-missing inputs are XGBoost default-branch guesses,
+        # not real opinions — track it and gate the pick on it.
+        n_found = int(feat_row[features].notna().sum())
+        coverage = n_found / len(features) if features else 0.0
+
         X = pd.DataFrame([feat_row[features].to_dict()])
         try:
             nrfi_prob = float(pipeline.predict_proba(X)[0, 1])
@@ -684,24 +705,39 @@ def run_nrfi(target_date: str | None = None) -> pd.DataFrame:
             nrfi_prob = np.nan
 
         yrfi_prob = 1.0 - nrfi_prob if pd.notna(nrfi_prob) else np.nan
-        nrfi_pick = "NRFI" if (pd.notna(nrfi_prob) and nrfi_prob >= threshold) else "YRFI"
+
+        # PASS-band pick logic: only call NRFI/YRFI when the probability
+        # clears the trained threshold by PASS_MARGIN AND the feature row
+        # was reasonably complete. Everything else is a PASS (no edge).
+        if pd.isna(nrfi_prob) or coverage < MIN_FEATURE_COVERAGE:
+            nrfi_pick, lean = "PASS", "PASS"
+        elif nrfi_prob >= threshold + PASS_MARGIN:
+            nrfi_pick, lean = "NRFI", "YES"
+        elif nrfi_prob <= threshold - PASS_MARGIN:
+            nrfi_pick, lean = "YRFI", "NO"
+        else:
+            nrfi_pick, lean = "PASS", "PASS"
 
         out_row = {
-            "game_date":     target_date,
-            "gamePk":        game.get("gamePk"),
-            "away_team":     game["away_team"],
-            "home_team":     game["home_team"],
-            "team_a":        game["away_team"],   # alias for nrfi_grade.py
-            "team_b":        game["home_team"],   # alias for nrfi_grade.py
-            "away_full":     game.get("away_full"),
-            "home_full":     game.get("home_full"),
-            "away_sp":       game.get("away_sp_name") or "TBD",
-            "home_sp":       game.get("home_sp_name") or "TBD",
-            "nrfi_prob":     round(nrfi_prob, 4) if pd.notna(nrfi_prob) else None,
-            "yrfi_prob":     round(yrfi_prob, 4) if pd.notna(yrfi_prob) else None,
-            "pick":          nrfi_pick,
-            "lean":          "YES" if nrfi_pick == "NRFI" else "NO",  # for nrfi_grade.py
-            "threshold":     threshold,
+            "game_date":        target_date,
+            "gamePk":           game.get("gamePk"),
+            "away_team":        game["away_team"],
+            "home_team":        game["home_team"],
+            "team_a":           game["away_team"],   # alias for nrfi_grade.py
+            "team_b":           game["home_team"],   # alias for nrfi_grade.py
+            "away_full":        game.get("away_full"),
+            "home_full":        game.get("home_full"),
+            "away_sp":          game.get("away_sp_name") or "TBD",
+            "home_sp":          game.get("home_sp_name") or "TBD",
+            "nrfi_prob":        round(nrfi_prob, 4) if pd.notna(nrfi_prob) else None,
+            "yrfi_prob":        round(yrfi_prob, 4) if pd.notna(yrfi_prob) else None,
+            "pick":             nrfi_pick,
+            "lean":             lean,                # YES / NO / PASS for nrfi_grade.py
+            "threshold":        threshold,
+            "pass_margin":      PASS_MARGIN,
+            "feature_coverage": round(coverage, 3),  # fraction of model features found
+            "features_found":   n_found,
+            "features_total":   len(features),
         }
         rows.append(out_row)
 
@@ -716,9 +752,20 @@ def run_nrfi(target_date: str | None = None) -> pd.DataFrame:
     _write_status(target_date, "ok", games=len(results))
     print(f"\nSaved: {out_path}  ({len(results)} games)")
 
+    n_nrfi = int((results["pick"] == "NRFI").sum())
+    n_yrfi = int((results["pick"] == "YRFI").sum())
+    n_pass = int((results["pick"] == "PASS").sum())
+    avg_cov = results["feature_coverage"].mean()
+    print(f"  Picks: {n_nrfi} NRFI | {n_yrfi} YRFI | {n_pass} PASS "
+          f"(band ±{PASS_MARGIN:.2f} around {threshold:.2f}) | "
+          f"avg feature coverage {avg_cov:.0%}")
+    if avg_cov < 0.75:
+        print("  ⚠️  average feature coverage is low — lookups are missing data; "
+              "the probabilities lean on XGBoost's missing-value defaults")
+
     print("\n── NRFI Predictions ─────────────────────────────────────────────")
     print(results[["away_team", "home_team", "away_sp", "home_sp",
-                   "nrfi_prob", "pick"]].to_string(index=False))
+                   "nrfi_prob", "pick", "feature_coverage"]].to_string(index=False))
 
     return results
 
