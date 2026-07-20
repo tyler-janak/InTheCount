@@ -49,6 +49,7 @@ Outputs touched (must be committed by the cron workflow):
     - outputs/hitterspitchers_today.csv
     - outputs/hitterspitchers_<date>.csv  (one per past date)
     - outputs/nrfi_today.csv
+    - outputs/nrfi_status.json
 """
 
 import os
@@ -63,6 +64,8 @@ warnings.filterwarnings("ignore")
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
+
+import pandas as pd
 
 from daily_mlb_model_runner import backfill_season, grade_saved_picks, run
 
@@ -81,11 +84,17 @@ NRFI_ACC_FILE    = "2026_nrfi_accuracy.csv"
 import subprocess
 import sys
 
-# Pitch-level Statcast cache maintained by refresh_2026_data. Check what
-# path that script actually writes to and set it here — the candidates
-# below are guesses, and the loop picks the first that exists.
+# Pitch-level Statcast cache maintained by refresh_2026_data. The loop
+# picks the first path that exists — if none match, _rebuild_nrfi_features
+# raises loudly with the full list so the mismatch shows up in the cron
+# log instead of silently freezing nrfi_game_data.csv. If your
+# refresh_2026_data writes somewhere else, add that path FIRST.
 PITCH_CACHE_CANDIDATES = [
     "pitch_data_2026.csv",
+    "data/pitch_data_2026.csv",
+    "data/statcast_2026.csv",
+    "statcast_2026.csv",
+    "data/pitch_cache_2026.csv",
 ]
 
 
@@ -106,6 +115,7 @@ def _rebuild_nrfi_features() -> None:
             + ", ".join(PITCH_CACHE_CANDIDATES)
             + " (update PITCH_CACHE_CANDIDATES to match refresh_2026_data's output)"
         )
+    print(f"   using pitch cache: {pitch_csv}")
 
     result = subprocess.run(
         [sys.executable, "nrfi_data.py", "--input", pitch_csv],
@@ -120,6 +130,39 @@ def _rebuild_nrfi_features() -> None:
         raise RuntimeError(
             f"nrfi_data.py exited with code {result.returncode}:\n{result.stderr}"
         )
+
+    # Freshness check: confirm the rebuild actually advanced the table.
+    # A "successful" run that leaves the last game_date days behind means
+    # the pitch cache itself is stale (step 0 failed or wrote elsewhere).
+    _verify_nrfi_table_freshness()
+
+
+def _verify_nrfi_table_freshness(max_staleness_days: int = 2) -> None:
+    """Print the last game_date in data/nrfi_game_data.csv and warn loudly
+    if it lags today by more than max_staleness_days. Non-fatal — the
+    pipeline continues, but the cron log makes the problem obvious."""
+    path = Path("data/nrfi_game_data.csv")
+    if not path.exists():
+        print("⚠️  nrfi_game_data.csv still missing after rebuild")
+        return
+    try:
+        dates = pd.read_csv(path, usecols=["game_date"], low_memory=False)
+        last_dt = pd.to_datetime(dates["game_date"], errors="coerce").max()
+        today_et = pd.Timestamp(datetime.now(ET).strftime("%Y-%m-%d"))
+        if pd.isna(last_dt):
+            print("⚠️  nrfi_game_data.csv has no parseable game_date values")
+            return
+        staleness = (today_et - last_dt).days
+        print(f"   nrfi_game_data.csv last game_date: {last_dt.date()} "
+              f"({staleness} day(s) behind today ET)")
+        if staleness > max_staleness_days:
+            print(f"⚠️  NRFI feature table is STALE (> {max_staleness_days} days) — "
+                  f"the pitch cache used for the rebuild is likely not being "
+                  f"refreshed by step 0. Check refresh_2026_data's output path "
+                  f"vs PITCH_CACHE_CANDIDATES.")
+    except Exception as e:
+        print(f"⚠️  could not verify NRFI table freshness: {e}")
+
 
 def main():
     today = datetime.now(ET).strftime("%Y-%m-%d")
@@ -211,7 +254,8 @@ def main():
     #     a CLI script, so we run it as a subprocess with the pitch cache
     #     as --input. This was the missing link: nothing in the daily flow
     #     ever built nrfi_game_data.csv, so run_nrfi() stub-bailed (or
-    #     scored off a frozen table) and the picks log never grew.
+    #     scored off a frozen table) and the picks log never grew. The
+    #     rebuild now also verifies the table's last game_date advanced.
     try:
         print("\n── Rebuilding NRFI feature table ───────────────────────────")
         _rebuild_nrfi_features()
@@ -237,6 +281,9 @@ def main():
     # 5) Generate TODAY's NRFI predictions and append to the picks log.
     #    An empty result now logs loudly instead of silently no-opping —
     #    a stub-bail upstream used to look identical to an off-day here.
+    #    (nrfi_today.py now writes a header-only CSV + nrfi_status.json on
+    #    a bail, so the site shows "no predictions" instead of a phantom
+    #    "No Team vs No Team" card.)
     try:
         from nrfi_today import run_nrfi
         from backfill_nrfi import append_nrfi_picks
@@ -391,4 +438,5 @@ def main():
 
 
 if __name__ == "__main__":
+    main()
     main()
