@@ -1507,7 +1507,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-20,824654,DET,CHC,DET,CHC,Detroit Tigers,Chicago Cubs,Jack Flaherty,Jameson Taillon,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-20,823436,LAD,PHI,LAD,PHI,Los Angeles Dodgers,Philadelphia Phillies,Emmet Sheehan,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-20,824167,MIA,HOU,MIA,HOU,Miami Marlins,Houston Astros,Janson Junk,Ronel Blanco,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Scheduled
-2026-07-20,824410,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Joe Ryan,Tanner Bibee,0.27,0.73,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-07-20,824410,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Joe Ryan,Tanner Bibee,0.27,0.73,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-07-20,823762,NYM,MIL,NYM,MIL,New York Mets,Milwaukee Brewers,Freddy Peralta,Jacob Misiorowski,0.4549,0.5451,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Scheduled
 2026-07-20,823522,PIT,NYY,PIT,NYY,Pittsburgh Pirates,New York Yankees,Braxton Ashcraft,Ryan Weathers,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-20,824898,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,JP Sears,Bryce Elder,0.3595,0.6405,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
