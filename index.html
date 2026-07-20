@@ -2786,6 +2786,8 @@ function renderPropsAccuracyView() {
    consistent. Each NRFI card shows the two starters, a NRFI probability
    bar, and the model's lean.
 */
+function leanLabel(l) { return l === 'YES' ? 'NRFI' : (l === 'NO' ? 'YRFI' : 'PASS'); }
+
 function renderNrfiTab() {
   const grid  = document.getElementById('nrfiGrid');
   const stat  = document.getElementById('nrfiStatGrid');
@@ -2807,8 +2809,8 @@ function renderNrfiTab() {
 
   stat.innerHTML = `
     ${statCard('Today\'s Games', games.length, "on today's slate")}
-    ${statCard('Lean YES', yes, '≥55% NRFI probability', yes ? 'green' : '')}
-    ${statCard('Lean NO', no, '≤45% run in 1st', no ? 'red' : '')}
+    ${statCard('Lean NRFI', yes, 'model expects no run in 1st', yes ? 'green' : '')}
+    ${statCard('Lean YRFI', no, 'model expects a run in 1st', no ? 'red' : '')}
     ${statCard('Avg P(NRFI)', `${(avgP*100).toFixed(0)}%`, 'across slate')}
   `;
 
@@ -2837,7 +2839,7 @@ function nrfiCard(g) {
   const badgeCls = lean === 'YES' ? 'badge-value' : (lean === 'NO' ? 'badge-value' : 'badge-pass');
   const isValue  = lean !== 'PASS';
   const leanTextCls = lean === 'YES' ? 'positive' : (lean === 'NO' ? 'negative' : '');
-  const badgeText   = lean === 'YES' ? 'Lean YES' : (lean === 'NO' ? 'Lean NO' : 'Pass');
+  const badgeText   = lean === 'YES' ? 'Lean NRFI' : (lean === 'NO' ? 'Lean YRFI' : 'Pass');
   const time = g.time || '';
   const awaySP = (g.side_a && g.side_a.pitcher_name) || 'TBD';
   const homeSP = (g.side_b && g.side_b.pitcher_name) || 'TBD';
@@ -2871,7 +2873,7 @@ function nrfiCard(g) {
         </div>
         <div class="pick-side right">
           <div class="pick-label">Model Lean</div>
-          <div class="ev-value ${leanTextCls}">${lean}</div>
+          <div class="ev-value ${leanTextCls}">${leanLabel(lean)}</div>
         </div>
       </div>
     </div>`;
@@ -2887,10 +2889,10 @@ function renderNrfiAccuracyView() {
   const a = state.nrfiAccuracy;
 
   if (!a || !a.available || !a.total_graded) {
-    if (stat) stat.innerHTML = `${statCard('Picks logged','0','—')}${statCard('Graded','0','—')}${statCard('YES accuracy','—','—')}${statCard('NO accuracy','—','—')}`;
+    if (stat) stat.innerHTML = `${statCard('Picks logged','0','—')}${statCard('Graded','0','—')}${statCard('NRFI accuracy','—','—')}${statCard('YRFI accuracy','—','—')}`;
     if (sub) sub.textContent = "Once I've leaned on a few NRFI picks and the games complete, accuracy will appear here.";
     if (body) body.innerHTML = `<div class="empty-state">No graded NRFI picks yet — the daily pipeline grades a 1st-inning result for each picked game right after it ends.</div>`;
-    if (tbody) tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:2rem;">No graded NRFI picks yet.</td></tr>`;
+    if (tbody) tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem;">No graded NRFI picks yet.</td></tr>`;
     return;
   }
 
@@ -2902,7 +2904,7 @@ function renderNrfiAccuracyView() {
     ${statCard('Actual NRFI rate', a.actual_nrfi_rate != null ? a.actual_nrfi_rate.toFixed(1) + '%' : '—', 'across graded games')}
   `;
   if (sub) sub.textContent =
-    `${a.yes_picks} YES picks (${a.yes_acc != null ? a.yes_acc.toFixed(1)+'%' : '—'} hit) · ${a.no_picks} NO picks (${a.no_acc != null ? a.no_acc.toFixed(1)+'%' : '—'} hit) · league NRFI ≈ ${a.actual_nrfi_rate != null ? a.actual_nrfi_rate.toFixed(1) + '%' : '—'}`;
+    `${a.yes_picks} NRFI picks (${a.yes_acc != null ? a.yes_acc.toFixed(1)+'%' : '—'} hit) · ${a.no_picks} YRFI picks (${a.no_acc != null ? a.no_acc.toFixed(1)+'%' : '—'} hit) · league NRFI ≈ ${a.actual_nrfi_rate != null ? a.actual_nrfi_rate.toFixed(1) + '%' : '—'}`;
 
   const yesCls = (a.yes_acc != null && a.yes_acc >= 55) ? 'good' : (a.yes_acc != null && a.yes_acc < 50 ? 'bad' : 'warn');
   const noCls  = (a.no_acc  != null && a.no_acc  >= 55) ? 'good' : (a.no_acc  != null && a.no_acc  < 50 ? 'bad' : 'warn');
@@ -2910,16 +2912,16 @@ function renderNrfiAccuracyView() {
     <div class="interpret-grid" style="margin-top:0.4rem;">
       <div class="interpret-row ${yesCls}" style="grid-template-columns:1.8fr 1fr 1fr;">
         <div>
-          <div class="interpret-stat">Lean YES</div>
-          <div class="interpret-note" style="margin-top:0.2rem;">When I predicted NRFI would happen.</div>
+          <div class="interpret-stat">Lean NRFI</div>
+          <div class="interpret-note" style="margin-top:0.2rem;">When I predicted no run in the 1st.</div>
         </div>
         <div class="interpret-cell ${yesCls}"><span class="label">Hit rate</span><span class="val">${a.yes_acc != null ? a.yes_acc.toFixed(1)+'%' : '—'}</span></div>
         <div class="interpret-cell"><span class="label">Sample</span><span class="val">${a.yes_correct}/${a.yes_picks}</span></div>
       </div>
       <div class="interpret-row ${noCls}" style="grid-template-columns:1.8fr 1fr 1fr;">
         <div>
-          <div class="interpret-stat">Lean NO</div>
-          <div class="interpret-note" style="margin-top:0.2rem;">When I predicted YRFI (a run scored).</div>
+          <div class="interpret-stat">Lean YRFI</div>
+          <div class="interpret-note" style="margin-top:0.2rem;">When I predicted a run would score in the 1st.</div>
         </div>
         <div class="interpret-cell ${noCls}"><span class="label">Hit rate</span><span class="val">${a.no_acc != null ? a.no_acc.toFixed(1)+'%' : '—'}</span></div>
         <div class="interpret-cell"><span class="label">Sample</span><span class="val">${a.no_correct}/${a.no_picks}</span></div>
@@ -2934,14 +2936,13 @@ function renderNrfiAccuracyView() {
       return `<tr>
         <td>${r.date || ''}</td>
         <td>${r.team_a} vs ${r.team_b}</td>
-        <td>${r.lean}</td>
-        <td>${(r.p_nrfi*100).toFixed(0)}%</td>
+        <td>${leanLabel(r.lean)}</td>
         <td>${r.away_runs_1st != null ? r.away_runs_1st : '—'}</td>
         <td>${r.home_runs_1st != null ? r.home_runs_1st : '—'}</td>
         <td>${nrfi}</td>
         <td class="${checkColor}" style="text-align:center;font-weight:700;">${sym}</td>
       </tr>`;
-    }).join('') || `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:2rem;">No graded picks.</td></tr>`;
+    }).join('') || `<tr><td colspan="7" style="text-align:center;color:var(--text-muted);padding:2rem;">No graded picks.</td></tr>`;
   }
 }
 
