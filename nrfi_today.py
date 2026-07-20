@@ -50,7 +50,7 @@ ROLLING_STD_WINDOW   = 10   # window used for the *_std features
 # signal market (AUC ~0.60) most games are coin flips — forcing a pick on
 # every game just reproduces the always-YRFI baseline. nrfi_grade.py already
 # understands PASS rows (lean="PASS") and excludes them from accuracy.
-PASS_MARGIN = 0.04
+PASS_MARGIN = 0.03
 
 # Don't trust predictions built on mostly-missing features. If fewer than
 # MIN_FEATURE_COVERAGE of the model's features were found for a game, PASS
