@@ -1522,11 +1522,11 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-21,824652,DET,CHC,DET,CHC,Detroit Tigers,Chicago Cubs,Framber Valdez,David Peterson,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-07-21,823437,LAD,PHI,LAD,PHI,Los Angeles Dodgers,Philadelphia Phillies,Justin Wrobleski,Zack Wheeler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Delayed Start
 2026-07-21,824165,MIA,HOU,MIA,HOU,Miami Marlins,Houston Astros,Tyler Phillips,Tatsuya Imai,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-07-21,824409,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Kendry Rojas,Parker Messick,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Warmup
-2026-07-21,823760,NYM,MIL,NYM,MIL,New York Mets,Milwaukee Brewers,Zac Thornton,Brandon Sproat,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-21,824409,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Kendry Rojas,Parker Messick,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,0.0,1.0,False,True,In Progress
+2026-07-21,823760,NYM,MIL,NYM,MIL,New York Mets,Milwaukee Brewers,Zac Thornton,Brandon Sproat,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
 2026-07-21,823519,PIT,NYY,PIT,NYY,Pittsburgh Pirates,New York Yankees,Bubba Chandler,Will Warren,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Postponed
-2026-07-21,824895,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,Walker Buehler,Reynaldo López,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-07-21,824085,SF,KC,SF,KC,San Francisco Giants,Kansas City Royals,Tyler Mahle,Luinder Avila,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-21,824895,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,Walker Buehler,Reynaldo López,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,In Progress
+2026-07-21,824085,SF,KC,SF,KC,San Francisco Giants,Kansas City Royals,Tyler Mahle,Luinder Avila,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
 2026-07-21,824005,STL,LAA,STL,LAA,St. Louis Cardinals,Los Angeles Angels,Matthew Liberatore,Walbert Ureña,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-07-21,822787,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Drew Rasmussen,Kevin Gausman,0.4924,0.5076,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-21,822787,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Drew Rasmussen,Kevin Gausman,0.4924,0.5076,PASS,PASS,0.47,0.03,1.0,77,77,,,,,In Progress
 2026-07-21,824329,WSH,COL,WSH,COL,Washington Nationals,Colorado Rockies,Carson Palmquist,Michael Lorenzen,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
