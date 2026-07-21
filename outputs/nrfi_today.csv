@@ -1,16 +1,16 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
-2026-07-20,822874,CWS,TEX,CWS,TEX,Chicago White Sox,Texas Rangers,Erick Fedde,Jacob deGrom,0.5024,0.4976,NRFI,YES,0.47,0.03,1.0,77,77
-2026-07-20,824006,STL,LAA,STL,LAA,St. Louis Cardinals,Los Angeles Angels,Kyle Leahy,José Soriano,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
-2026-07-20,824167,MIA,HOU,MIA,HOU,Miami Marlins,Houston Astros,Janson Junk,Ronel Blanco,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77
-2026-07-20,822788,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Nick Martinez,Dylan Cease,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,824654,DET,CHC,DET,CHC,Detroit Tigers,Chicago Cubs,Jack Flaherty,Jameson Taillon,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,824328,WSH,COL,WSH,COL,Washington Nationals,Colorado Rockies,Andrew Alvarez,Kyle Freeland,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,823762,NYM,MIL,NYM,MIL,New York Mets,Milwaukee Brewers,Freddy Peralta,Jacob Misiorowski,0.4549,0.5451,PASS,PASS,0.47,0.03,0.883,68,77
-2026-07-20,823112,CIN,SEA,CIN,SEA,Cincinnati Reds,Seattle Mariners,Andrew Abbott,George Kirby,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,823436,LAD,PHI,LAD,PHI,Los Angeles Dodgers,Philadelphia Phillies,Emmet Sheehan,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,824736,BAL,BOS,BAL,BOS,Baltimore Orioles,Boston Red Sox,Shane Baz,Payton Tolle,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,824087,SF,KC,SF,KC,San Francisco Giants,Kansas City Royals,Trevor McDonald,Michael Wacha,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,825058,ATH,AZ,ATH,AZ,Athletics,Arizona Diamondbacks,Jeffrey Springs,Mitch Bratt,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-20,824898,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,JP Sears,Bryce Elder,0.3595,0.6405,YRFI,NO,0.47,0.03,1.0,77,77
-2026-07-20,823522,PIT,NYY,PIT,NYY,Pittsburgh Pirates,New York Yankees,Braxton Ashcraft,Ryan Weathers,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77
-2026-07-20,824410,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Joe Ryan,Tanner Bibee,0.27,0.73,YRFI,NO,0.47,0.03,1.0,77,77
+2026-07-21,824005,STL,LAA,STL,LAA,St. Louis Cardinals,Los Angeles Angels,Matthew Liberatore,Walbert Ureña,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
+2026-07-21,822787,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Drew Rasmussen,Kevin Gausman,0.4924,0.5076,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824165,MIA,HOU,MIA,HOU,Miami Marlins,Houston Astros,Tyler Phillips,Tatsuya Imai,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,825056,ATH,AZ,ATH,AZ,Athletics,Arizona Diamondbacks,Jack Perkins,Kohl Drake,0.4677,0.5323,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-21,823114,CIN,SEA,CIN,SEA,Cincinnati Reds,Seattle Mariners,Chase Burns,Luis Castillo,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824652,DET,CHC,DET,CHC,Detroit Tigers,Chicago Cubs,Framber Valdez,David Peterson,0.4631,0.5369,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824895,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,Walker Buehler,Reynaldo López,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,822871,CWS,TEX,CWS,TEX,Chicago White Sox,Texas Rangers,Noah Schultz,Kumar Rocker,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,823760,NYM,MIL,NYM,MIL,New York Mets,Milwaukee Brewers,Zac Thornton,Brandon Sproat,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824329,WSH,COL,WSH,COL,Washington Nationals,Colorado Rockies,Miles Mikolas,Michael Lorenzen,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824735,BAL,BOS,BAL,BOS,Baltimore Orioles,Boston Red Sox,Kyle Bradish,Ranger Suarez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,824085,SF,KC,SF,KC,San Francisco Giants,Kansas City Royals,Tyler Mahle,Luinder Avila,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-21,823437,LAD,PHI,LAD,PHI,Los Angeles Dodgers,Philadelphia Phillies,Justin Wrobleski,Zack Wheeler,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77
+2026-07-21,823519,PIT,NYY,PIT,NYY,Pittsburgh Pirates,New York Yankees,Bubba Chandler,Will Warren,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77
+2026-07-21,824409,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Kendry Rojas,Parker Messick,0.27,0.73,YRFI,NO,0.47,0.03,1.0,77,77

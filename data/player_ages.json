@@ -1379,6 +1379,11 @@
     "birth_date": "2000-02-29",
     "name": "Tristan Peters"
   },
+  "672275": {
+    "age": 27,
+    "birth_date": "1999-05-29",
+    "name": "Patrick Bailey"
+  },
   "672282": {
     "age": 26,
     "birth_date": "1999-07-08",
@@ -1888,6 +1893,11 @@
     "age": 28,
     "birth_date": "1997-11-09",
     "name": "Michael Busch"
+  },
+  "683748": {
+    "age": 24,
+    "birth_date": "2001-09-08",
+    "name": "Victor Mesa Jr."
   },
   "683953": {
     "age": 23,
@@ -2614,5 +2624,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-07-19"
+  "__updated__": "2026-07-21"
 }
