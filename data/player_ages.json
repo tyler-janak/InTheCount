@@ -484,6 +484,11 @@
     "birth_date": "1994-01-04",
     "name": "Reynaldo L\u00f3pez"
   },
+  "630105": {
+    "age": 32,
+    "birth_date": "1994-01-21",
+    "name": "Jake Cronenworth"
+  },
   "640455": {
     "age": 34,
     "birth_date": "1992-02-01",
@@ -2624,5 +2629,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-07-21"
+  "__updated__": "2026-07-22"
 }
