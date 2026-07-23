@@ -1546,7 +1546,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-22,822784,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Griffin Jax,Braydon Fisher,0.5153,0.4847,NRFI,YES,0.47,0.03,1.0,77,77,1.0,0.0,False,False,Final
 2026-07-22,824327,WSH,COL,WSH,COL,Washington Nationals,Colorado Rockies,Cade Cavalli,Gabriel Hughes,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-07-23,823042,AZ,STL,AZ,STL,Arizona Diamondbacks,St. Louis Cardinals,Brandon Pfaadt,Michael McGreevy,0.4924,0.5076,PASS,PASS,0.47,0.03,1.0,77,77,2.0,0.0,False,,In Progress
-2026-07-23,824247,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Randy Dobnak,Troy Melton,0.4818,0.5182,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Warmup
+2026-07-23,824247,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Randy Dobnak,Troy Melton,0.4818,0.5182,PASS,PASS,0.47,0.03,0.883,68,77,0.0,0.0,True,,In Progress
 2026-07-23,824406,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Taj Bradley,Gavin Williams,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-07-23,824893,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,Kyle Hart,Chris Sale,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77,0.0,0.0,True,True,Final
 2026-07-23,822785,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Casey Legumina,Shane Bieber,0.4674,0.5326,PASS,PASS,0.47,0.03,0.883,68,77,1.0,0.0,False,,Final
