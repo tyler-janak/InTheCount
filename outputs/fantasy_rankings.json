@@ -14122,7 +14122,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.91,
       "proj_hits": 0.99,
       "proj_hr": 0.17,
@@ -14140,7 +14140,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.74,
       "proj_hits": 0.89,
       "proj_hr": 0.23,
@@ -14176,7 +14176,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.92,
       "proj_hr": 0.12,
@@ -14212,7 +14212,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.78,
       "proj_hits": 0.95,
       "proj_hr": 0.19,
@@ -14230,7 +14230,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.9,
       "proj_hr": 0.24,
@@ -14428,7 +14428,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.74,
       "proj_hits": 0.76,
       "proj_hr": 0.14,
@@ -14517,8 +14517,8 @@
       "name": "Vinnie Pasquantino",
       "team": "KC",
       "opponent": "DET",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 3,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.97,
       "proj_hits": 0.72,
       "proj_hr": 0.06,
@@ -14550,21 +14550,21 @@
       "rank": 24
     },
     {
-      "name": "Jac Caglianone",
+      "name": "Michael Massey",
       "team": "KC",
       "opponent": "DET",
-      "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.97,
-      "proj_hits": 0.78,
-      "proj_hr": 0.06,
-      "proj_runs": 0.45,
-      "proj_rbi": 0.34,
-      "proj_tb": 1.17,
-      "proj_walks": 0.56,
-      "proj_strikeouts": 1.83,
+      "lineup_spot": 5,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.66,
+      "proj_hits": 0.75,
+      "proj_hr": 0.04,
+      "proj_runs": 0.39,
+      "proj_rbi": 0.31,
+      "proj_tb": 1.08,
+      "proj_walks": 0.37,
+      "proj_strikeouts": 1.16,
       "confidence": "high",
-      "points": 1.6,
+      "points": 1.57,
       "rank": 25
     },
     {
@@ -14572,7 +14572,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.41,
       "proj_hits": 0.53,
       "proj_hr": 0.08,
@@ -14590,7 +14590,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.13,
       "proj_hits": 0.53,
       "proj_hr": 0.14,
@@ -14602,24 +14602,6 @@
       "confidence": "high",
       "points": 1.53,
       "rank": 27
-    },
-    {
-      "name": "Michael Massey",
-      "team": "KC",
-      "opponent": "DET",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.66,
-      "proj_hits": 0.75,
-      "proj_hr": 0.04,
-      "proj_runs": 0.34,
-      "proj_rbi": 0.31,
-      "proj_tb": 1.08,
-      "proj_walks": 0.37,
-      "proj_strikeouts": 1.16,
-      "confidence": "high",
-      "points": 1.52,
-      "rank": 28
     },
     {
       "name": "Yandy D\u00edaz",
@@ -14637,7 +14619,7 @@
       "proj_strikeouts": 0.73,
       "confidence": "high",
       "points": 1.51,
-      "rank": 29
+      "rank": 28
     },
     {
       "name": "Vladimir Guerrero Jr.",
@@ -14653,6 +14635,24 @@
       "proj_tb": 0.91,
       "proj_walks": 0.22,
       "proj_strikeouts": 0.48,
+      "confidence": "high",
+      "points": 1.49,
+      "rank": 29
+    },
+    {
+      "name": "Isaac Collins",
+      "team": "KC",
+      "opponent": "DET",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.93,
+      "proj_hits": 0.69,
+      "proj_hr": 0.04,
+      "proj_runs": 0.35,
+      "proj_rbi": 0.29,
+      "proj_tb": 1.04,
+      "proj_walks": 0.51,
+      "proj_strikeouts": 1.4,
       "confidence": "high",
       "points": 1.49,
       "rank": 30
@@ -14680,7 +14680,7 @@
       "team": "KC",
       "opponent": "DET",
       "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.38,
       "proj_hits": 0.74,
       "proj_hr": 0.06,
@@ -14698,7 +14698,7 @@
       "team": "DET",
       "opponent": "KC",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.97,
       "proj_hits": 0.47,
       "proj_hr": 0.1,
@@ -14784,24 +14784,6 @@
       "rank": 37
     },
     {
-      "name": "Isaac Collins",
-      "team": "KC",
-      "opponent": "DET",
-      "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.93,
-      "proj_hits": 0.69,
-      "proj_hr": 0.04,
-      "proj_runs": 0.35,
-      "proj_rbi": 0.25,
-      "proj_tb": 1.04,
-      "proj_walks": 0.51,
-      "proj_strikeouts": 1.4,
-      "confidence": "high",
-      "points": 1.45,
-      "rank": 38
-    },
-    {
       "name": "Mike Yastrzemski",
       "team": "ATL",
       "opponent": "SD",
@@ -14817,7 +14799,7 @@
       "proj_strikeouts": 0.88,
       "confidence": "high",
       "points": 1.41,
-      "rank": 39
+      "rank": 38
     },
     {
       "name": "Petey Halpin",
@@ -14835,14 +14817,14 @@
       "proj_strikeouts": 0.81,
       "confidence": "high",
       "points": 1.41,
-      "rank": 40
+      "rank": 39
     },
     {
       "name": "Carter Jensen",
       "team": "KC",
       "opponent": "DET",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.17,
       "proj_hits": 0.7,
       "proj_hr": 0.07,
@@ -14853,7 +14835,7 @@
       "proj_strikeouts": 1.85,
       "confidence": "high",
       "points": 1.41,
-      "rank": 41
+      "rank": 40
     },
     {
       "name": "George Springer",
@@ -14871,7 +14853,7 @@
       "proj_strikeouts": 0.66,
       "confidence": "high",
       "points": 1.37,
-      "rank": 42
+      "rank": 41
     },
     {
       "name": "Kazuma Okamoto",
@@ -14889,7 +14871,7 @@
       "proj_strikeouts": 0.94,
       "confidence": "high",
       "points": 1.36,
-      "rank": 43
+      "rank": 42
     },
     {
       "name": "Ryan Jeffers",
@@ -14907,7 +14889,7 @@
       "proj_strikeouts": 1.27,
       "confidence": "high",
       "points": 1.35,
-      "rank": 44
+      "rank": 43
     },
     {
       "name": "Jonny DeLuca",
@@ -14925,7 +14907,7 @@
       "proj_strikeouts": 0.97,
       "confidence": "high",
       "points": 1.35,
-      "rank": 45
+      "rank": 44
     },
     {
       "name": "Jonathan Aranda",
@@ -14943,7 +14925,7 @@
       "proj_strikeouts": 1.21,
       "confidence": "high",
       "points": 1.32,
-      "rank": 46
+      "rank": 45
     },
     {
       "name": "Dominic Smith",
@@ -14961,7 +14943,7 @@
       "proj_strikeouts": 0.46,
       "confidence": "high",
       "points": 1.31,
-      "rank": 47
+      "rank": 46
     },
     {
       "name": "Ben Williamson",
@@ -14979,7 +14961,7 @@
       "proj_strikeouts": 0.81,
       "confidence": "high",
       "points": 1.25,
-      "rank": 48
+      "rank": 47
     },
     {
       "name": "Royce Lewis",
@@ -14997,14 +14979,14 @@
       "proj_strikeouts": 1.7,
       "confidence": "high",
       "points": 1.24,
-      "rank": 49
+      "rank": 48
     },
     {
       "name": "Lane Thomas",
       "team": "KC",
       "opponent": "DET",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.74,
       "proj_hits": 0.51,
       "proj_hr": 0.04,
@@ -15015,7 +14997,7 @@
       "proj_strikeouts": 1.42,
       "confidence": "high",
       "points": 1.22,
-      "rank": 50
+      "rank": 49
     },
     {
       "name": "Josh Bell",
@@ -15033,7 +15015,7 @@
       "proj_strikeouts": 1.55,
       "confidence": "high",
       "points": 1.16,
-      "rank": 51
+      "rank": 50
     },
     {
       "name": "Luke Keaschall",
@@ -15051,7 +15033,7 @@
       "proj_strikeouts": 0.85,
       "confidence": "high",
       "points": 1.12,
-      "rank": 52
+      "rank": 51
     },
     {
       "name": "Victor Mesa Jr.",
@@ -15069,14 +15051,14 @@
       "proj_strikeouts": 1.17,
       "confidence": "high",
       "points": 1.12,
-      "rank": 53
+      "rank": 52
     },
     {
       "name": "Nick Loftin",
       "team": "KC",
       "opponent": "DET",
-      "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 8,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.41,
       "proj_hits": 0.57,
       "proj_hr": 0.02,
@@ -15087,7 +15069,7 @@
       "proj_strikeouts": 0.83,
       "confidence": "high",
       "points": 1.09,
-      "rank": 54
+      "rank": 53
     },
     {
       "name": "Richie Palacios",
@@ -15105,7 +15087,7 @@
       "proj_strikeouts": 0.72,
       "confidence": "high",
       "points": 0.94,
-      "rank": 55
+      "rank": 54
     },
     {
       "name": "Fernando Tatis Jr.",
@@ -15123,7 +15105,7 @@
       "proj_strikeouts": 1.06,
       "confidence": "high",
       "points": 0.91,
-      "rank": 56
+      "rank": 55
     },
     {
       "name": "Manny Machado",
@@ -15141,25 +15123,7 @@
       "proj_strikeouts": 1.26,
       "confidence": "high",
       "points": 0.9,
-      "rank": 57
-    },
-    {
-      "name": "Tyler Tolbert",
-      "team": "KC",
-      "opponent": "DET",
-      "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 2.94,
-      "proj_hits": 0.47,
-      "proj_hr": 0.01,
-      "proj_runs": 0.22,
-      "proj_rbi": 0.16,
-      "proj_tb": 0.66,
-      "proj_walks": 0.29,
-      "proj_strikeouts": 0.99,
-      "confidence": "high",
-      "points": 0.84,
-      "rank": 58
+      "rank": 56
     },
     {
       "name": "Xander Bogaerts",
@@ -15177,7 +15141,7 @@
       "proj_strikeouts": 0.96,
       "confidence": "high",
       "points": 0.82,
-      "rank": 59
+      "rank": 57
     },
     {
       "name": "Ty France",
@@ -15195,7 +15159,7 @@
       "proj_strikeouts": 1.09,
       "confidence": "high",
       "points": 0.8,
-      "rank": 60
+      "rank": 58
     },
     {
       "name": "Ryan Kreidler",
@@ -15213,7 +15177,7 @@
       "proj_strikeouts": 1.22,
       "confidence": "high",
       "points": 0.77,
-      "rank": 61
+      "rank": 59
     },
     {
       "name": "Hunter Feduccia",
@@ -15231,7 +15195,7 @@
       "proj_strikeouts": 1.08,
       "confidence": "high",
       "points": 0.77,
-      "rank": 62
+      "rank": 60
     },
     {
       "name": "Davis Schneider",
@@ -15249,7 +15213,7 @@
       "proj_strikeouts": 0.7,
       "confidence": "high",
       "points": 0.74,
-      "rank": 63
+      "rank": 61
     },
     {
       "name": "Luis Rengifo",
@@ -15267,7 +15231,7 @@
       "proj_strikeouts": 0.63,
       "confidence": "high",
       "points": 0.71,
-      "rank": 64
+      "rank": 62
     },
     {
       "name": "Yohendrick Pi\u00f1ango",
@@ -15285,7 +15249,25 @@
       "proj_strikeouts": 0.64,
       "confidence": "high",
       "points": 0.71,
-      "rank": 65
+      "rank": 63
+    },
+    {
+      "name": "Josh Rojas",
+      "team": "KC",
+      "opponent": "DET",
+      "lineup_spot": 7,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.82,
+      "proj_hits": 0.44,
+      "proj_hr": 0.01,
+      "proj_runs": 0.21,
+      "proj_rbi": 0.15,
+      "proj_tb": 0.58,
+      "proj_walks": 0.27,
+      "proj_strikeouts": 1.16,
+      "confidence": "high",
+      "points": 0.63,
+      "rank": 64
     },
     {
       "name": "Luis Ur\u00edas",
@@ -15303,7 +15285,7 @@
       "proj_strikeouts": 0.56,
       "confidence": "high",
       "points": 0.61,
-      "rank": 66
+      "rank": 65
     },
     {
       "name": "Jake Cronenworth",
@@ -15321,7 +15303,7 @@
       "proj_strikeouts": 1.03,
       "confidence": "high",
       "points": 0.46,
-      "rank": 67
+      "rank": 66
     },
     {
       "name": "Gavin Sheets",
@@ -15339,7 +15321,7 @@
       "proj_strikeouts": 0.89,
       "confidence": "high",
       "points": 0.41,
-      "rank": 68
+      "rank": 67
     },
     {
       "name": "Myles Straw",
@@ -15355,6 +15337,24 @@
       "proj_tb": 0.31,
       "proj_walks": 0.07,
       "proj_strikeouts": 0.43,
+      "confidence": "high",
+      "points": 0.36,
+      "rank": 68
+    },
+    {
+      "name": "Andrew Velazquez",
+      "team": "KC",
+      "opponent": "DET",
+      "lineup_spot": 9,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.27,
+      "proj_hits": 0.22,
+      "proj_hr": 0.02,
+      "proj_runs": 0.13,
+      "proj_rbi": 0.08,
+      "proj_tb": 0.36,
+      "proj_walks": 0.27,
+      "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 0.36,
       "rank": 69
