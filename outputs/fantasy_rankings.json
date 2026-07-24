@@ -477,24 +477,6 @@
       "rank": 23
     },
     {
-      "mlb_id": 681624,
-      "name": "Andy Pages",
-      "team": "LAD",
-      "games_played": 100,
-      "games_remaining": 58.8,
-      "ros_h": 61.2,
-      "ros_2b": 12.9,
-      "ros_3b": 0.6,
-      "ros_hr": 9.4,
-      "ros_r": 34.7,
-      "ros_rbi": 38.2,
-      "ros_bb": 20.6,
-      "ros_k": 52.4,
-      "ros_pa": 254.7,
-      "points": 170.9,
-      "rank": 24
-    },
-    {
       "mlb_id": 696100,
       "name": "Hunter Goodman",
       "team": "COL",
@@ -510,7 +492,7 @@
       "ros_k": 71.2,
       "ros_pa": 225.3,
       "points": 170.3,
-      "rank": 25
+      "rank": 24
     },
     {
       "mlb_id": 666018,
@@ -528,7 +510,7 @@
       "ros_k": 58.3,
       "ros_pa": 262.3,
       "points": 169.9,
-      "rank": 26
+      "rank": 25
     },
     {
       "mlb_id": 664040,
@@ -545,6 +527,24 @@
       "ros_bb": 23.0,
       "ros_k": 67.6,
       "ros_pa": 248.2,
+      "points": 169.7,
+      "rank": 26
+    },
+    {
+      "mlb_id": 681624,
+      "name": "Andy Pages",
+      "team": "LAD",
+      "games_played": 100,
+      "games_remaining": 58.8,
+      "ros_h": 60.6,
+      "ros_2b": 12.9,
+      "ros_3b": 0.6,
+      "ros_hr": 9.4,
+      "ros_r": 34.7,
+      "ros_rbi": 37.6,
+      "ros_bb": 20.6,
+      "ros_k": 52.4,
+      "ros_pa": 254.7,
       "points": 169.7,
       "rank": 27
     },
@@ -693,24 +693,6 @@
       "rank": 35
     },
     {
-      "mlb_id": 677800,
-      "name": "Wilyer Abreu",
-      "team": "BOS",
-      "games_played": 99,
-      "games_remaining": 59.8,
-      "ros_h": 59.8,
-      "ros_2b": 12.7,
-      "ros_3b": 1.8,
-      "ros_hr": 9.1,
-      "ros_r": 31.4,
-      "ros_rbi": 30.2,
-      "ros_bb": 24.8,
-      "ros_k": 52.5,
-      "ros_pa": 259.1,
-      "points": 163.4,
-      "rank": 36
-    },
-    {
       "mlb_id": 592518,
       "name": "Manny Machado",
       "team": "SD",
@@ -726,6 +708,24 @@
       "ros_k": 55.6,
       "ros_pa": 252.5,
       "points": 163.1,
+      "rank": 36
+    },
+    {
+      "mlb_id": 677800,
+      "name": "Wilyer Abreu",
+      "team": "BOS",
+      "games_played": 99,
+      "games_remaining": 59.8,
+      "ros_h": 59.2,
+      "ros_2b": 12.7,
+      "ros_3b": 1.8,
+      "ros_hr": 9.1,
+      "ros_r": 31.4,
+      "ros_rbi": 30.2,
+      "ros_bb": 24.8,
+      "ros_k": 52.5,
+      "ros_pa": 259.1,
+      "points": 162.8,
       "rank": 37
     },
     {
@@ -1737,6 +1737,24 @@
       "rank": 93
     },
     {
+      "mlb_id": 702284,
+      "name": "Cole Young",
+      "team": "SEA",
+      "games_played": 103,
+      "games_remaining": 59.0,
+      "ros_h": 53.3,
+      "ros_2b": 8.0,
+      "ros_3b": 0.6,
+      "ros_hr": 7.4,
+      "ros_r": 27.5,
+      "ros_rbi": 27.5,
+      "ros_bb": 14.9,
+      "ros_k": 41.8,
+      "ros_pa": 233.7,
+      "points": 133.8,
+      "rank": 94
+    },
+    {
       "mlb_id": 607043,
       "name": "Brandon Nimmo",
       "team": "TEX",
@@ -1752,24 +1770,6 @@
       "ros_k": 51.8,
       "ros_pa": 240.0,
       "points": 133.5,
-      "rank": 94
-    },
-    {
-      "mlb_id": 702284,
-      "name": "Cole Young",
-      "team": "SEA",
-      "games_played": 103,
-      "games_remaining": 59.0,
-      "ros_h": 52.7,
-      "ros_2b": 8.0,
-      "ros_3b": 0.6,
-      "ros_hr": 7.4,
-      "ros_r": 27.5,
-      "ros_rbi": 27.5,
-      "ros_bb": 14.9,
-      "ros_k": 41.8,
-      "ros_pa": 233.7,
-      "points": 133.2,
       "rank": 95
     },
     {
@@ -10834,8 +10834,8 @@
       "ros_k": 92.4,
       "ros_bb": 16.3,
       "ros_h": 82.1,
-      "ros_er": 26.0,
-      "points": 259.4,
+      "ros_er": 25.4,
+      "points": 260.0,
       "rank": 2
     },
     {
@@ -11295,9 +11295,9 @@
       "ros_ip": 68.1,
       "ros_k": 57.5,
       "ros_bb": 34.0,
-      "ros_h": 57.5,
+      "ros_h": 58.1,
       "ros_er": 26.8,
-      "points": 189.4,
+      "points": 189.1,
       "rank": 35
     },
     {
@@ -11365,9 +11365,9 @@
       "ros_ip": 67.4,
       "ros_k": 60.1,
       "ros_bb": 24.1,
-      "ros_h": 68.7,
-      "ros_er": 30.9,
-      "points": 185.0,
+      "ros_h": 68.2,
+      "ros_er": 30.4,
+      "points": 185.9,
       "rank": 40
     },
     {
@@ -14482,7 +14482,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.21,
       "proj_hits": 1.06,
       "proj_hr": 0.26,
@@ -14680,7 +14680,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.21,
       "proj_hits": 0.98,
       "proj_hr": 0.33,
@@ -14734,7 +14734,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.29,
       "proj_hits": 1.0,
       "proj_hr": 0.26,
@@ -14932,7 +14932,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.97,
       "proj_hits": 0.87,
       "proj_hr": 0.29,
@@ -15184,7 +15184,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.38,
       "proj_hits": 1.01,
       "proj_hr": 0.23,
@@ -15202,7 +15202,7 @@
       "team": "MIL",
       "opponent": "COL",
       "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.82,
       "proj_hits": 0.82,
       "proj_hr": 0.32,
@@ -16479,8 +16479,8 @@
       "name": "Joey Ortiz",
       "team": "MIL",
       "opponent": "COL",
-      "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 8,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.52,
       "proj_hits": 0.74,
       "proj_hr": 0.15,
@@ -16602,42 +16602,6 @@
       "rank": 138
     },
     {
-      "name": "Andrew Vaughn",
-      "team": "MIL",
-      "opponent": "COL",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 2.94,
-      "proj_hits": 0.69,
-      "proj_hr": 0.13,
-      "proj_runs": 0.31,
-      "proj_rbi": 0.36,
-      "proj_tb": 1.22,
-      "proj_walks": 0.05,
-      "proj_strikeouts": 0.3,
-      "confidence": "high",
-      "points": 1.79,
-      "rank": 139
-    },
-    {
-      "name": "Cooper Pratt",
-      "team": "MIL",
-      "opponent": "COL",
-      "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.75,
-      "proj_hits": 0.83,
-      "proj_hr": 0.12,
-      "proj_runs": 0.36,
-      "proj_rbi": 0.35,
-      "proj_tb": 1.24,
-      "proj_walks": 0.09,
-      "proj_strikeouts": 0.5,
-      "confidence": "high",
-      "points": 1.79,
-      "rank": 140
-    },
-    {
       "name": "Jasson Dom\u00ednguez",
       "team": "NYY",
       "opponent": "PHI",
@@ -16653,7 +16617,7 @@
       "proj_strikeouts": 1.3,
       "confidence": "high",
       "points": 1.79,
-      "rank": 141
+      "rank": 139
     },
     {
       "name": "J.T. Realmuto",
@@ -16671,7 +16635,7 @@
       "proj_strikeouts": 0.88,
       "confidence": "high",
       "points": 1.79,
-      "rank": 142
+      "rank": 140
     },
     {
       "name": "Marcell Ozuna",
@@ -16689,7 +16653,7 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 1.77,
-      "rank": 143
+      "rank": 141
     },
     {
       "name": "Munetaka Murakami",
@@ -16707,7 +16671,7 @@
       "proj_strikeouts": 1.93,
       "confidence": "high",
       "points": 1.77,
-      "rank": 144
+      "rank": 142
     },
     {
       "name": "Nathan Church",
@@ -16725,7 +16689,7 @@
       "proj_strikeouts": 0.46,
       "confidence": "high",
       "points": 1.77,
-      "rank": 145
+      "rank": 143
     },
     {
       "name": "Vinnie Pasquantino",
@@ -16743,7 +16707,7 @@
       "proj_strikeouts": 1.22,
       "confidence": "high",
       "points": 1.76,
-      "rank": 146
+      "rank": 144
     },
     {
       "name": "Nathaniel Lowe",
@@ -16761,7 +16725,7 @@
       "proj_strikeouts": 1.07,
       "confidence": "high",
       "points": 1.76,
-      "rank": 147
+      "rank": 145
     },
     {
       "name": "Luis Ur\u00edas",
@@ -16779,7 +16743,7 @@
       "proj_strikeouts": 0.73,
       "confidence": "high",
       "points": 1.74,
-      "rank": 148
+      "rank": 146
     },
     {
       "name": "Spencer Torkelson",
@@ -16797,7 +16761,7 @@
       "proj_strikeouts": 1.03,
       "confidence": "medium",
       "points": 1.71,
-      "rank": 149
+      "rank": 147
     },
     {
       "name": "Cody Bellinger",
@@ -16815,7 +16779,7 @@
       "proj_strikeouts": 1.03,
       "confidence": "high",
       "points": 1.71,
-      "rank": 150
+      "rank": 148
     },
     {
       "name": "Masataka Yoshida",
@@ -16833,7 +16797,7 @@
       "proj_strikeouts": 0.86,
       "confidence": "high",
       "points": 1.68,
-      "rank": 151
+      "rank": 149
     },
     {
       "name": "Jared Triolo",
@@ -16851,7 +16815,7 @@
       "proj_strikeouts": 0.77,
       "confidence": "high",
       "points": 1.67,
-      "rank": 152
+      "rank": 150
     },
     {
       "name": "Luis Robert Jr.",
@@ -16869,7 +16833,7 @@
       "proj_strikeouts": 1.0,
       "confidence": "high",
       "points": 1.67,
-      "rank": 153
+      "rank": 151
     },
     {
       "name": "Marcus Semien",
@@ -16887,7 +16851,7 @@
       "proj_strikeouts": 1.1,
       "confidence": "high",
       "points": 1.67,
-      "rank": 154
+      "rank": 152
     },
     {
       "name": "Edwin Arroyo",
@@ -16905,7 +16869,7 @@
       "proj_strikeouts": 0.78,
       "confidence": "high",
       "points": 1.67,
-      "rank": 155
+      "rank": 153
     },
     {
       "name": "Tyler Stephenson",
@@ -16923,7 +16887,7 @@
       "proj_strikeouts": 1.14,
       "confidence": "high",
       "points": 1.66,
-      "rank": 156
+      "rank": 154
     },
     {
       "name": "Henry Davis",
@@ -16941,7 +16905,7 @@
       "proj_strikeouts": 0.88,
       "confidence": "high",
       "points": 1.64,
-      "rank": 157
+      "rank": 155
     },
     {
       "name": "Jackson Holliday",
@@ -16959,7 +16923,7 @@
       "proj_strikeouts": 0.79,
       "confidence": "high",
       "points": 1.64,
-      "rank": 158
+      "rank": 156
     },
     {
       "name": "Jake Mangum",
@@ -16977,7 +16941,7 @@
       "proj_strikeouts": 0.65,
       "confidence": "high",
       "points": 1.62,
-      "rank": 159
+      "rank": 157
     },
     {
       "name": "Jeremy Pe\u00f1a",
@@ -16995,7 +16959,7 @@
       "proj_strikeouts": 0.76,
       "confidence": "high",
       "points": 1.61,
-      "rank": 160
+      "rank": 158
     },
     {
       "name": "Mitch Garver",
@@ -17013,7 +16977,7 @@
       "proj_strikeouts": 1.35,
       "confidence": "high",
       "points": 1.61,
-      "rank": 161
+      "rank": 159
     },
     {
       "name": "Mike Trout",
@@ -17031,7 +16995,7 @@
       "proj_strikeouts": 1.05,
       "confidence": "high",
       "points": 1.6,
-      "rank": 162
+      "rank": 160
     },
     {
       "name": "Francisco Alvarez",
@@ -17049,7 +17013,7 @@
       "proj_strikeouts": 1.27,
       "confidence": "high",
       "points": 1.59,
-      "rank": 163
+      "rank": 161
     },
     {
       "name": "Matt Vierling",
@@ -17067,7 +17031,7 @@
       "proj_strikeouts": 0.59,
       "confidence": "medium",
       "points": 1.56,
-      "rank": 164
+      "rank": 162
     },
     {
       "name": "Sam Antonacci",
@@ -17085,7 +17049,7 @@
       "proj_strikeouts": 0.77,
       "confidence": "high",
       "points": 1.56,
-      "rank": 165
+      "rank": 163
     },
     {
       "name": "Kody Clemens",
@@ -17103,7 +17067,7 @@
       "proj_strikeouts": 1.38,
       "confidence": "high",
       "points": 1.56,
-      "rank": 166
+      "rank": 164
     },
     {
       "name": "Justin Crawford",
@@ -17121,7 +17085,7 @@
       "proj_strikeouts": 0.76,
       "confidence": "high",
       "points": 1.55,
-      "rank": 167
+      "rank": 165
     },
     {
       "name": "Austin Riley",
@@ -17139,7 +17103,7 @@
       "proj_strikeouts": 1.54,
       "confidence": "high",
       "points": 1.54,
-      "rank": 168
+      "rank": 166
     },
     {
       "name": "Jimmy Crooks",
@@ -17157,7 +17121,7 @@
       "proj_strikeouts": 0.78,
       "confidence": "high",
       "points": 1.54,
-      "rank": 169
+      "rank": 167
     },
     {
       "name": "Miguel Vargas",
@@ -17175,7 +17139,7 @@
       "proj_strikeouts": 1.09,
       "confidence": "high",
       "points": 1.53,
-      "rank": 170
+      "rank": 168
     },
     {
       "name": "Jake McCarthy",
@@ -17193,7 +17157,7 @@
       "proj_strikeouts": 1.08,
       "confidence": "high",
       "points": 1.51,
-      "rank": 171
+      "rank": 169
     },
     {
       "name": "Ben Williamson",
@@ -17211,7 +17175,7 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 1.5,
-      "rank": 172
+      "rank": 170
     },
     {
       "name": "Braden Montgomery",
@@ -17229,7 +17193,7 @@
       "proj_strikeouts": 1.02,
       "confidence": "high",
       "points": 1.5,
-      "rank": 173
+      "rank": 171
     },
     {
       "name": "Paul Goldschmidt",
@@ -17247,7 +17211,7 @@
       "proj_strikeouts": 1.31,
       "confidence": "high",
       "points": 1.49,
-      "rank": 174
+      "rank": 172
     },
     {
       "name": "Jorge Soler",
@@ -17265,7 +17229,7 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 1.47,
-      "rank": 175
+      "rank": 173
     },
     {
       "name": "Jim Jarvis",
@@ -17283,7 +17247,7 @@
       "proj_strikeouts": 0.87,
       "confidence": "high",
       "points": 1.44,
-      "rank": 176
+      "rank": 174
     },
     {
       "name": "A.J. Ewing",
@@ -17301,7 +17265,7 @@
       "proj_strikeouts": 1.21,
       "confidence": "high",
       "points": 1.44,
-      "rank": 177
+      "rank": 175
     },
     {
       "name": "Jose Altuve",
@@ -17319,7 +17283,7 @@
       "proj_strikeouts": 1.06,
       "confidence": "high",
       "points": 1.43,
-      "rank": 178
+      "rank": 176
     },
     {
       "name": "Petey Halpin",
@@ -17337,7 +17301,7 @@
       "proj_strikeouts": 0.61,
       "confidence": "high",
       "points": 1.41,
-      "rank": 179
+      "rank": 177
     },
     {
       "name": "Daniel Susac",
@@ -17355,7 +17319,7 @@
       "proj_strikeouts": 0.64,
       "confidence": "high",
       "points": 1.41,
-      "rank": 180
+      "rank": 178
     },
     {
       "name": "Yainer Diaz",
@@ -17373,7 +17337,7 @@
       "proj_strikeouts": 0.74,
       "confidence": "high",
       "points": 1.39,
-      "rank": 181
+      "rank": 179
     },
     {
       "name": "Jazz Chisholm Jr.",
@@ -17391,7 +17355,7 @@
       "proj_strikeouts": 1.79,
       "confidence": "high",
       "points": 1.37,
-      "rank": 182
+      "rank": 180
     },
     {
       "name": "Brooks Lee",
@@ -17409,7 +17373,7 @@
       "proj_strikeouts": 1.0,
       "confidence": "high",
       "points": 1.36,
-      "rank": 183
+      "rank": 181
     },
     {
       "name": "Dane Myers",
@@ -17427,7 +17391,7 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 1.36,
-      "rank": 184
+      "rank": 182
     },
     {
       "name": "Zach Neto",
@@ -17445,7 +17409,25 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 1.34,
-      "rank": 185
+      "rank": 183
+    },
+    {
+      "name": "David Hamilton",
+      "team": "MIL",
+      "opponent": "COL",
+      "lineup_spot": 9,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.82,
+      "proj_hits": 0.58,
+      "proj_hr": 0.11,
+      "proj_runs": 0.27,
+      "proj_rbi": 0.27,
+      "proj_tb": 1.02,
+      "proj_walks": 0.05,
+      "proj_strikeouts": 0.58,
+      "confidence": "high",
+      "points": 1.32,
+      "rank": 184
     },
     {
       "name": "Hunter Goodman",
@@ -17463,7 +17445,7 @@
       "proj_strikeouts": 1.81,
       "confidence": "high",
       "points": 1.3,
-      "rank": 186
+      "rank": 185
     },
     {
       "name": "Byron Buxton",
@@ -17481,7 +17463,7 @@
       "proj_strikeouts": 1.31,
       "confidence": "high",
       "points": 1.3,
-      "rank": 187
+      "rank": 186
     },
     {
       "name": "Connor Wong",
@@ -17499,7 +17481,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 1.29,
-      "rank": 188
+      "rank": 187
     },
     {
       "name": "Lucas Spence",
@@ -17517,7 +17499,7 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 1.29,
-      "rank": 189
+      "rank": 188
     },
     {
       "name": "Ryan Vilade",
@@ -17535,7 +17517,7 @@
       "proj_strikeouts": 1.05,
       "confidence": "high",
       "points": 1.27,
-      "rank": 190
+      "rank": 189
     },
     {
       "name": "Josh Bell",
@@ -17553,7 +17535,7 @@
       "proj_strikeouts": 1.29,
       "confidence": "high",
       "points": 1.27,
-      "rank": 191
+      "rank": 190
     },
     {
       "name": "Ezequiel Tovar",
@@ -17571,7 +17553,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 1.26,
-      "rank": 192
+      "rank": 191
     },
     {
       "name": "Victor Robles",
@@ -17589,7 +17571,7 @@
       "proj_strikeouts": 0.69,
       "confidence": "high",
       "points": 1.26,
-      "rank": 193
+      "rank": 192
     },
     {
       "name": "Luke Keaschall",
@@ -17607,7 +17589,7 @@
       "proj_strikeouts": 0.66,
       "confidence": "high",
       "points": 1.25,
-      "rank": 194
+      "rank": 193
     },
     {
       "name": "Ryan Jeffers",
@@ -17625,7 +17607,7 @@
       "proj_strikeouts": 0.78,
       "confidence": "high",
       "points": 1.24,
-      "rank": 195
+      "rank": 194
     },
     {
       "name": "Cole Carrigg",
@@ -17643,7 +17625,7 @@
       "proj_strikeouts": 1.25,
       "confidence": "high",
       "points": 1.21,
-      "rank": 196
+      "rank": 195
     },
     {
       "name": "Carter Jensen",
@@ -17661,7 +17643,7 @@
       "proj_strikeouts": 1.79,
       "confidence": "high",
       "points": 1.21,
-      "rank": 197
+      "rank": 196
     },
     {
       "name": "Jac Caglianone",
@@ -17679,7 +17661,7 @@
       "proj_strikeouts": 1.78,
       "confidence": "high",
       "points": 1.21,
-      "rank": 198
+      "rank": 197
     },
     {
       "name": "Royce Lewis",
@@ -17697,7 +17679,7 @@
       "proj_strikeouts": 1.32,
       "confidence": "high",
       "points": 1.21,
-      "rank": 199
+      "rank": 198
     },
     {
       "name": "Kyle Karros",
@@ -17715,7 +17697,7 @@
       "proj_strikeouts": 1.29,
       "confidence": "high",
       "points": 1.2,
-      "rank": 200
+      "rank": 199
     },
     {
       "name": "Gabriel Rincones Jr.",
@@ -17733,7 +17715,7 @@
       "proj_strikeouts": 0.91,
       "confidence": "high",
       "points": 1.2,
-      "rank": 201
+      "rank": 200
     },
     {
       "name": "Jo Adell",
@@ -17751,7 +17733,7 @@
       "proj_strikeouts": 0.78,
       "confidence": "high",
       "points": 1.2,
-      "rank": 202
+      "rank": 201
     },
     {
       "name": "Trevor Larnach",
@@ -17769,7 +17751,7 @@
       "proj_strikeouts": 1.02,
       "confidence": "high",
       "points": 1.19,
-      "rank": 203
+      "rank": 202
     },
     {
       "name": "Vaughn Grissom",
@@ -17787,7 +17769,7 @@
       "proj_strikeouts": 0.6,
       "confidence": "high",
       "points": 1.18,
-      "rank": 204
+      "rank": 203
     },
     {
       "name": "Christian Walker",
@@ -17805,7 +17787,7 @@
       "proj_strikeouts": 0.97,
       "confidence": "high",
       "points": 1.17,
-      "rank": 205
+      "rank": 204
     },
     {
       "name": "Salvador Perez",
@@ -17823,7 +17805,7 @@
       "proj_strikeouts": 1.36,
       "confidence": "high",
       "points": 1.14,
-      "rank": 206
+      "rank": 205
     },
     {
       "name": "Zach McKinstry",
@@ -17841,7 +17823,7 @@
       "proj_strikeouts": 0.57,
       "confidence": "medium",
       "points": 1.14,
-      "rank": 207
+      "rank": 206
     },
     {
       "name": "Jared Young",
@@ -17859,7 +17841,7 @@
       "proj_strikeouts": 0.81,
       "confidence": "high",
       "points": 1.14,
-      "rank": 208
+      "rank": 207
     },
     {
       "name": "Troy Johnston",
@@ -17877,7 +17859,7 @@
       "proj_strikeouts": 1.01,
       "confidence": "high",
       "points": 1.13,
-      "rank": 209
+      "rank": 208
     },
     {
       "name": "LaMonte Wade Jr.",
@@ -17895,7 +17877,7 @@
       "proj_strikeouts": 0.82,
       "confidence": "high",
       "points": 1.13,
-      "rank": 210
+      "rank": 209
     },
     {
       "name": "Nolan Schanuel",
@@ -17913,7 +17895,7 @@
       "proj_strikeouts": 0.54,
       "confidence": "high",
       "points": 1.13,
-      "rank": 211
+      "rank": 210
     },
     {
       "name": "Nick Loftin",
@@ -17931,7 +17913,7 @@
       "proj_strikeouts": 0.74,
       "confidence": "high",
       "points": 1.1,
-      "rank": 212
+      "rank": 211
     },
     {
       "name": "Tsung-Che Cheng",
@@ -17949,7 +17931,7 @@
       "proj_strikeouts": 1.23,
       "confidence": "high",
       "points": 1.1,
-      "rank": 213
+      "rank": 212
     },
     {
       "name": "Colson Montgomery",
@@ -17967,7 +17949,7 @@
       "proj_strikeouts": 1.73,
       "confidence": "high",
       "points": 1.09,
-      "rank": 214
+      "rank": 213
     },
     {
       "name": "Chase Meidroth",
@@ -17985,7 +17967,7 @@
       "proj_strikeouts": 1.15,
       "confidence": "high",
       "points": 1.09,
-      "rank": 215
+      "rank": 214
     },
     {
       "name": "Logan O'Hoppe",
@@ -18003,7 +17985,7 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 1.08,
-      "rank": 216
+      "rank": 215
     },
     {
       "name": "Willi Castro",
@@ -18021,7 +18003,7 @@
       "proj_strikeouts": 1.63,
       "confidence": "high",
       "points": 1.04,
-      "rank": 217
+      "rank": 216
     },
     {
       "name": "Andrew Benintendi",
@@ -18039,6 +18021,24 @@
       "proj_strikeouts": 1.1,
       "confidence": "high",
       "points": 1.04,
+      "rank": 217
+    },
+    {
+      "name": "Luis Lara",
+      "team": "MIL",
+      "opponent": "COL",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.41,
+      "proj_hits": 0.43,
+      "proj_hr": 0.1,
+      "proj_runs": 0.21,
+      "proj_rbi": 0.24,
+      "proj_tb": 0.78,
+      "proj_walks": 0.07,
+      "proj_strikeouts": 0.54,
+      "confidence": "high",
+      "points": 1.03,
       "rank": 218
     },
     {
@@ -19194,17 +19194,6 @@
           "rank": 18
         },
         {
-          "mlb_id": 677800,
-          "name": "Wilyer Abreu",
-          "team": "BOS",
-          "season_games": 99,
-          "recent_games": 7,
-          "season_pts_per_game": 2.73,
-          "recent_pts_per_game": 4.79,
-          "delta": 2.05,
-          "rank": 19
-        },
-        {
           "mlb_id": 690984,
           "name": "Petey Halpin",
           "team": "CLE",
@@ -19213,7 +19202,7 @@
           "season_pts_per_game": 1.57,
           "recent_pts_per_game": 3.58,
           "delta": 2.01,
-          "rank": 20
+          "rank": 19
         },
         {
           "mlb_id": 673548,
@@ -19224,6 +19213,17 @@
           "season_pts_per_game": 3.12,
           "recent_pts_per_game": 5.08,
           "delta": 1.96,
+          "rank": 20
+        },
+        {
+          "mlb_id": 677800,
+          "name": "Wilyer Abreu",
+          "team": "BOS",
+          "season_games": 99,
+          "recent_games": 7,
+          "season_pts_per_game": 2.72,
+          "recent_pts_per_game": 4.64,
+          "delta": 1.92,
           "rank": 21
         },
         {
@@ -19504,6 +19504,17 @@
           "rank": 21
         },
         {
+          "mlb_id": 681624,
+          "name": "Andy Pages",
+          "team": "LAD",
+          "season_games": 100,
+          "recent_games": 6,
+          "season_pts_per_game": 2.88,
+          "recent_pts_per_game": 1.08,
+          "delta": -1.8,
+          "rank": 22
+        },
+        {
           "mlb_id": 805300,
           "name": "Jakob Marsee",
           "team": "MIA",
@@ -19512,7 +19523,7 @@
           "season_pts_per_game": 1.86,
           "recent_pts_per_game": 0.12,
           "delta": -1.73,
-          "rank": 22
+          "rank": 23
         },
         {
           "mlb_id": 624585,
@@ -19523,7 +19534,7 @@
           "season_pts_per_game": 2.12,
           "recent_pts_per_game": 0.4,
           "delta": -1.72,
-          "rank": 23
+          "rank": 24
         },
         {
           "mlb_id": 661388,
@@ -19534,17 +19545,6 @@
           "season_pts_per_game": 2.76,
           "recent_pts_per_game": 1.1,
           "delta": -1.66,
-          "rank": 24
-        },
-        {
-          "mlb_id": 650333,
-          "name": "Luis Arraez",
-          "team": "SF",
-          "season_games": 91,
-          "recent_games": 5,
-          "season_pts_per_game": 2.82,
-          "recent_pts_per_game": 1.2,
-          "delta": -1.62,
           "rank": 25
         }
       ]
@@ -20355,20 +20355,20 @@
       "team": "LAD",
       "games_played": 100,
       "games_remaining": 58.8,
-      "ros_h": 61.2,
+      "ros_h": 60.6,
       "ros_2b": 12.9,
       "ros_3b": 0.6,
       "ros_hr": 9.4,
       "ros_r": 34.7,
-      "ros_rbi": 38.2,
+      "ros_rbi": 37.6,
       "ros_bb": 20.6,
       "ros_k": 52.4,
       "ros_pa": 254.7,
-      "points": 170.9,
-      "rank": 24,
+      "points": 169.7,
+      "rank": 27,
       "age": 25,
       "age_multiplier": 1.35,
-      "dynasty_score": 230.7,
+      "dynasty_score": 229.1,
       "dynasty_rank": 13
     },
     {
@@ -20585,7 +20585,7 @@
       "ros_k": 71.2,
       "ros_pa": 225.3,
       "points": 170.3,
-      "rank": 25,
+      "rank": 24,
       "age": 26,
       "age_multiplier": 1.2,
       "dynasty_score": 204.4,
@@ -20607,7 +20607,7 @@
       "ros_k": 58.3,
       "ros_pa": 262.3,
       "points": 169.9,
-      "rank": 26,
+      "rank": 25,
       "age": 28,
       "age_multiplier": 1.2,
       "dynasty_score": 203.9,
@@ -20685,7 +20685,7 @@
       "team": "SEA",
       "games_played": 103,
       "games_remaining": 59.0,
-      "ros_h": 52.7,
+      "ros_h": 53.3,
       "ros_2b": 8.0,
       "ros_3b": 0.6,
       "ros_hr": 7.4,
@@ -20694,11 +20694,11 @@
       "ros_bb": 14.9,
       "ros_k": 41.8,
       "ros_pa": 233.7,
-      "points": 133.2,
-      "rank": 95,
+      "points": 133.8,
+      "rank": 94,
       "age": 22,
       "age_multiplier": 1.5,
-      "dynasty_score": 199.8,
+      "dynasty_score": 200.7,
       "dynasty_rank": 28
     },
     {
@@ -20795,7 +20795,7 @@
       "team": "BOS",
       "games_played": 99,
       "games_remaining": 59.8,
-      "ros_h": 59.8,
+      "ros_h": 59.2,
       "ros_2b": 12.7,
       "ros_3b": 1.8,
       "ros_hr": 9.1,
@@ -20804,11 +20804,11 @@
       "ros_bb": 24.8,
       "ros_k": 52.5,
       "ros_pa": 259.1,
-      "points": 163.4,
-      "rank": 36,
+      "points": 162.8,
+      "rank": 37,
       "age": 27,
       "age_multiplier": 1.2,
-      "dynasty_score": 196.1,
+      "dynasty_score": 195.4,
       "dynasty_rank": 33
     },
     {
@@ -21795,7 +21795,7 @@
       "ros_k": 67.6,
       "ros_pa": 248.2,
       "points": 169.7,
-      "rank": 27,
+      "rank": 26,
       "age": 31,
       "age_multiplier": 0.95,
       "dynasty_score": 161.2,
@@ -22763,7 +22763,7 @@
       "ros_k": 55.6,
       "ros_pa": 252.5,
       "points": 163.1,
-      "rank": 37,
+      "rank": 36,
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 130.5,
@@ -23687,7 +23687,7 @@
       "ros_k": 51.8,
       "ros_pa": 240.0,
       "points": 133.5,
-      "rank": 94,
+      "rank": 95,
       "age": 33,
       "age_multiplier": 0.8,
       "dynasty_score": 106.8,
@@ -26805,12 +26805,12 @@
       "ros_k": 92.4,
       "ros_bb": 16.3,
       "ros_h": 82.1,
-      "ros_er": 26.0,
-      "points": 259.4,
+      "ros_er": 25.4,
+      "points": 260.0,
       "rank": 2,
       "age": 29,
       "age_multiplier": 1.05,
-      "dynasty_score": 272.4,
+      "dynasty_score": 273.0,
       "dynasty_rank": 7
     },
     {
@@ -27182,13 +27182,13 @@
       "ros_ip": 67.4,
       "ros_k": 60.1,
       "ros_bb": 24.1,
-      "ros_h": 68.7,
-      "ros_er": 30.9,
-      "points": 185.0,
+      "ros_h": 68.2,
+      "ros_er": 30.4,
+      "points": 185.9,
       "rank": 40,
       "age": 27,
       "age_multiplier": 1.2,
-      "dynasty_score": 222.0,
+      "dynasty_score": 223.1,
       "dynasty_rank": 28
     },
     {
@@ -28064,13 +28064,13 @@
       "ros_ip": 68.1,
       "ros_k": 57.5,
       "ros_bb": 34.0,
-      "ros_h": 57.5,
+      "ros_h": 58.1,
       "ros_er": 26.8,
-      "points": 189.4,
+      "points": 189.1,
       "rank": 35,
       "age": 34,
       "age_multiplier": 0.8,
-      "dynasty_score": 151.5,
+      "dynasty_score": 151.3,
       "dynasty_rank": 77
     },
     {
