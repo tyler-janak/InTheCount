@@ -16984,7 +16984,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.83,
       "proj_hits": 0.38,
       "proj_hr": 0.19,
@@ -17218,7 +17218,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.88,
       "proj_hits": 0.45,
       "proj_hr": 0.19,
@@ -17380,7 +17380,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.75,
       "proj_hits": 0.43,
       "proj_hr": 0.19,
@@ -17722,7 +17722,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.65,
       "proj_hits": 0.45,
       "proj_hr": 0.15,
@@ -17740,7 +17740,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.65,
       "proj_hits": 0.41,
       "proj_hr": 0.1,
@@ -17866,7 +17866,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.66,
       "proj_hits": 0.37,
       "proj_hr": 0.09,
@@ -17970,24 +17970,6 @@
       "rank": 214
     },
     {
-      "name": "Logan O'Hoppe",
-      "team": "LAA",
-      "opponent": "SF",
-      "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.65,
-      "proj_hits": 0.43,
-      "proj_hr": 0.1,
-      "proj_runs": 0.23,
-      "proj_rbi": 0.21,
-      "proj_tb": 0.95,
-      "proj_walks": 0.15,
-      "proj_strikeouts": 0.92,
-      "confidence": "high",
-      "points": 1.08,
-      "rank": 215
-    },
-    {
       "name": "Willi Castro",
       "team": "COL",
       "opponent": "MIL",
@@ -18003,7 +17985,7 @@
       "proj_strikeouts": 1.63,
       "confidence": "high",
       "points": 1.04,
-      "rank": 216
+      "rank": 215
     },
     {
       "name": "Luis Lara",
@@ -18021,7 +18003,7 @@
       "proj_strikeouts": 0.54,
       "confidence": "high",
       "points": 1.03,
-      "rank": 217
+      "rank": 216
     },
     {
       "name": "Starling Marte",
@@ -18039,7 +18021,7 @@
       "proj_strikeouts": 1.22,
       "confidence": "high",
       "points": 1.02,
-      "rank": 218
+      "rank": 217
     },
     {
       "name": "Anthony Volpe",
@@ -18057,14 +18039,14 @@
       "proj_strikeouts": 1.13,
       "confidence": "high",
       "points": 1.02,
-      "rank": 219
+      "rank": 218
     },
     {
       "name": "Denzer Guzman",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.65,
       "proj_hits": 0.45,
       "proj_hr": 0.11,
@@ -18075,7 +18057,7 @@
       "proj_strikeouts": 0.94,
       "confidence": "high",
       "points": 1.02,
-      "rank": 220
+      "rank": 219
     },
     {
       "name": "Mickey Moniak",
@@ -18093,7 +18075,7 @@
       "proj_strikeouts": 1.41,
       "confidence": "high",
       "points": 0.99,
-      "rank": 221
+      "rank": 220
     },
     {
       "name": "David Fry",
@@ -18111,7 +18093,7 @@
       "proj_strikeouts": 0.74,
       "confidence": "high",
       "points": 0.98,
-      "rank": 222
+      "rank": 221
     },
     {
       "name": "Michael Massey",
@@ -18129,7 +18111,7 @@
       "proj_strikeouts": 1.02,
       "confidence": "high",
       "points": 0.97,
-      "rank": 223
+      "rank": 222
     },
     {
       "name": "Lane Thomas",
@@ -18147,7 +18129,7 @@
       "proj_strikeouts": 1.56,
       "confidence": "high",
       "points": 0.96,
-      "rank": 224
+      "rank": 223
     },
     {
       "name": "Christian V\u00e1zquez",
@@ -18165,7 +18147,7 @@
       "proj_strikeouts": 0.69,
       "confidence": "high",
       "points": 0.96,
-      "rank": 225
+      "rank": 224
     },
     {
       "name": "Victor Caratini",
@@ -18183,7 +18165,7 @@
       "proj_strikeouts": 1.02,
       "confidence": "high",
       "points": 0.95,
-      "rank": 226
+      "rank": 225
     },
     {
       "name": "Cam Smith",
@@ -18201,7 +18183,7 @@
       "proj_strikeouts": 0.87,
       "confidence": "high",
       "points": 0.92,
-      "rank": 227
+      "rank": 226
     },
     {
       "name": "Weston Wilson",
@@ -18219,7 +18201,7 @@
       "proj_strikeouts": 0.79,
       "confidence": "high",
       "points": 0.91,
-      "rank": 228
+      "rank": 227
     },
     {
       "name": "Tristan Peters",
@@ -18237,7 +18219,7 @@
       "proj_strikeouts": 0.9,
       "confidence": "high",
       "points": 0.89,
-      "rank": 229
+      "rank": 228
     },
     {
       "name": "Evan Carter",
@@ -18255,7 +18237,7 @@
       "proj_strikeouts": 0.8,
       "confidence": "high",
       "points": 0.84,
-      "rank": 230
+      "rank": 229
     },
     {
       "name": "Jos\u00e9 Caballero",
@@ -18271,6 +18253,24 @@
       "proj_tb": 0.83,
       "proj_walks": 0.19,
       "proj_strikeouts": 1.17,
+      "confidence": "high",
+      "points": 0.83,
+      "rank": 230
+    },
+    {
+      "name": "Tyler Heineman",
+      "team": "LAA",
+      "opponent": "SF",
+      "lineup_spot": 9,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.82,
+      "proj_hits": 0.31,
+      "proj_hr": 0.07,
+      "proj_runs": 0.16,
+      "proj_rbi": 0.15,
+      "proj_tb": 0.68,
+      "proj_walks": 0.1,
+      "proj_strikeouts": 0.52,
       "confidence": "high",
       "points": 0.83,
       "rank": 231
@@ -18294,24 +18294,6 @@
       "rank": 232
     },
     {
-      "name": "Josh Lowe",
-      "team": "LAA",
-      "opponent": "SF",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 2.94,
-      "proj_hits": 0.35,
-      "proj_hr": 0.1,
-      "proj_runs": 0.19,
-      "proj_rbi": 0.21,
-      "proj_tb": 0.73,
-      "proj_walks": 0.13,
-      "proj_strikeouts": 0.89,
-      "confidence": "high",
-      "points": 0.81,
-      "rank": 233
-    },
-    {
       "name": "Isaac Collins",
       "team": "KC",
       "opponent": "DET",
@@ -18327,7 +18309,7 @@
       "proj_strikeouts": 1.22,
       "confidence": "high",
       "points": 0.8,
-      "rank": 234
+      "rank": 233
     },
     {
       "name": "Jorge Mateo",
@@ -18345,7 +18327,7 @@
       "proj_strikeouts": 0.91,
       "confidence": "high",
       "points": 0.71,
-      "rank": 235
+      "rank": 234
     },
     {
       "name": "Nico Hoerner",
@@ -18363,7 +18345,7 @@
       "proj_strikeouts": 0.73,
       "confidence": "high",
       "points": 0.68,
-      "rank": 236
+      "rank": 235
     },
     {
       "name": "Ali S\u00e1nchez",
@@ -18381,7 +18363,7 @@
       "proj_strikeouts": 0.89,
       "confidence": "high",
       "points": 0.65,
-      "rank": 237
+      "rank": 236
     },
     {
       "name": "Alex Bregman",
@@ -18399,7 +18381,7 @@
       "proj_strikeouts": 1.07,
       "confidence": "high",
       "points": 0.63,
-      "rank": 238
+      "rank": 237
     },
     {
       "name": "Tyler Tolbert",
@@ -18417,7 +18399,7 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 0.62,
-      "rank": 239
+      "rank": 238
     },
     {
       "name": "Ben Malgeri",
@@ -18435,7 +18417,7 @@
       "proj_strikeouts": 0.77,
       "confidence": "high",
       "points": 0.62,
-      "rank": 240
+      "rank": 239
     },
     {
       "name": "Ryan Kreidler",
@@ -18453,7 +18435,7 @@
       "proj_strikeouts": 0.94,
       "confidence": "high",
       "points": 0.61,
-      "rank": 241
+      "rank": 240
     },
     {
       "name": "Austin Martin",
@@ -18469,6 +18451,24 @@
       "proj_tb": 0.42,
       "proj_walks": 0.32,
       "proj_strikeouts": 0.89,
+      "confidence": "high",
+      "points": 0.57,
+      "rank": 241
+    },
+    {
+      "name": "Wade Meckler",
+      "team": "LAA",
+      "opponent": "SF",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.73,
+      "proj_hits": 0.3,
+      "proj_hr": 0.05,
+      "proj_runs": 0.14,
+      "proj_rbi": 0.15,
+      "proj_tb": 0.54,
+      "proj_walks": 0.09,
+      "proj_strikeouts": 0.71,
       "confidence": "high",
       "points": 0.57,
       "rank": 242
