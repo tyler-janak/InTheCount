@@ -1550,3 +1550,18 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-23,824406,MIN,CLE,MIN,CLE,Minnesota Twins,Cleveland Guardians,Taj Bradley,Gavin Williams,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-23,824893,SD,ATL,SD,ATL,San Diego Padres,Atlanta Braves,Kyle Hart,Chris Sale,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77
 2026-07-23,822785,TB,TOR,TB,TOR,Tampa Bay Rays,Toronto Blue Jays,Casey Legumina,Shane Bieber,0.4674,0.5326,PASS,PASS,0.47,0.03,0.883,68,77
+2026-07-24,823680,ATH,MIN,ATH,MIN,Athletics,Minnesota Twins,Jacob Lopez,Zebby Matthews,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,824812,ATL,BAL,ATL,BAL,Atlanta Braves,Baltimore Orioles,Grant Holmes,TBD,0.4682,0.5318,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-24,822707,AZ,WSH,AZ,WSH,Arizona Diamondbacks,Washington Nationals,Eduardo Rodriguez,Carson Palmquist,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823352,CHC,PIT,CHC,PIT,Chicago Cubs,Pittsburgh Pirates,Matthew Boyd,Jared Jones,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823031,CIN,STL,CIN,STL,Cincinnati Reds,St. Louis Cardinals,Rhett Lowder,Dustin May,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,822952,CLE,TB,CLE,TB,Cleveland Guardians,Tampa Bay Rays,Joey Cantillo,Shane McClanahan,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823759,COL,MIL,COL,MIL,Colorado Rockies,Milwaukee Brewers,Tomoyuki Sugano,Shane Drohan,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,824573,HOU,CWS,HOU,CWS,Houston Astros,Chicago White Sox,Spencer Arrighetti,Davis Martin,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,824248,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Beck Way,Tarik Skubal,0.5031,0.4969,NRFI,YES,0.47,0.03,0.74,57,77
+2026-07-24,823196,LAA,SF,LAA,SF,Los Angeles Angels,San Francisco Giants,Grayson Rodriguez,Logan Webb,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823601,LAD,NYM,LAD,NYM,Los Angeles Dodgers,New York Mets,Roki Sasaki,Sean Manaea,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823434,NYY,PHI,NYY,PHI,New York Yankees,Philadelphia Phillies,Will Warren,Jesús Luzardo,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-24,823843,SD,MIA,SD,MIA,San Diego Padres,Miami Marlins,Germán Márquez,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-24,822872,SEA,TEX,SEA,TEX,Seattle Mariners,Texas Rangers,Bryce Miller,MacKenzie Gore,0.4677,0.5323,PASS,PASS,0.47,0.03,0.883,68,77
+2026-07-24,824733,TOR,BOS,TOR,BOS,Toronto Blue Jays,Boston Red Sox,Trey Yesavage,Patrick Sandoval,0.3704,0.6296,YRFI,NO,0.47,0.03,1.0,77,77
