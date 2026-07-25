@@ -1573,7 +1573,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-25,822948,CLE,TB,CLE,TB,Cleveland Guardians,Tampa Bay Rays,Tanner Bibee,Nick Martinez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-25,823758,COL,MIL,COL,MIL,Colorado Rockies,Milwaukee Brewers,Ryan Feltner,Robert Gasser,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-25,824571,HOU,CWS,HOU,CWS,Houston Astros,Chicago White Sox,Hunter Brown,Sean Burke,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-07-25,824244,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Michael Wacha,Casey Mize,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-25,824244,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Michael Wacha,Casey Mize,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,In Progress
 2026-07-25,823197,LAA,SF,LAA,SF,Los Angeles Angels,San Francisco Giants,Ryan Johnson,Robbie Ray,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-07-25,823600,LAD,NYM,LAD,NYM,Los Angeles Dodgers,New York Mets,Yoshinobu Yamamoto,Nolan McLean,0.3632,0.6368,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-25,823435,NYY,PHI,NYY,PHI,New York Yankees,Philadelphia Phillies,Ryan Weathers,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Scheduled
