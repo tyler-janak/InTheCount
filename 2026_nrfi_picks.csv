@@ -1565,7 +1565,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-24,823843,SD,MIA,SD,MIA,San Diego Padres,Miami Marlins,Germán Márquez,Ryan Gusto,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-24,822872,SEA,TEX,SEA,TEX,Seattle Mariners,Texas Rangers,Bryce Miller,MacKenzie Gore,0.4677,0.5323,PASS,PASS,0.47,0.03,0.883,68,77
 2026-07-24,824733,TOR,BOS,TOR,BOS,Toronto Blue Jays,Boston Red Sox,Trey Yesavage,Patrick Sandoval,0.3704,0.6296,YRFI,NO,0.47,0.03,1.0,77,77
-2026-07-25,823679,ATH,MIN,ATH,MIN,Athletics,Minnesota Twins,Brady Basso,TBD,0.4628,0.5372,PASS,PASS,0.47,0.03,0.468,36,77
+2026-07-25,823679,ATH,MIN,ATH,MIN,Athletics,Minnesota Twins,Brady Basso,Mike Paredes,0.3704,0.6296,YRFI,NO,0.47,0.03,0.74,57,77
 2026-07-25,824811,ATL,BAL,ATL,BAL,Atlanta Braves,Baltimore Orioles,Bryce Elder,Brandon Young,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77
 2026-07-25,822704,AZ,WSH,AZ,WSH,Arizona Diamondbacks,Washington Nationals,Mitch Bratt,Foster Griffin,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
 2026-07-25,823355,CHC,PIT,CHC,PIT,Chicago Cubs,Pittsburgh Pirates,Shota Imanaga,Paul Skenes,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
@@ -1576,7 +1576,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-25,824244,KC,DET,KC,DET,Kansas City Royals,Detroit Tigers,Michael Wacha,Casey Mize,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-25,823197,LAA,SF,LAA,SF,Los Angeles Angels,San Francisco Giants,Ryan Johnson,Robbie Ray,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-25,823600,LAD,NYM,LAD,NYM,Los Angeles Dodgers,New York Mets,Yoshinobu Yamamoto,Nolan McLean,0.3632,0.6368,YRFI,NO,0.47,0.03,1.0,77,77
-2026-07-25,823435,NYY,PHI,NYY,PHI,New York Yankees,Philadelphia Phillies,Ryan Weathers,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-25,823435,NYY,PHI,NYY,PHI,New York Yankees,Philadelphia Phillies,Ryan Weathers,Tim Mayza,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-25,823841,SD,MIA,SD,MIA,San Diego Padres,Miami Marlins,Randy Vásquez,Eury Pérez,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-25,822869,SEA,TEX,SEA,TEX,Seattle Mariners,Texas Rangers,Bryan Woo,Nathan Eovaldi,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-25,824734,TOR,BOS,TOR,BOS,Toronto Blue Jays,Boston Red Sox,Dylan Cease,Sonny Gray,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
