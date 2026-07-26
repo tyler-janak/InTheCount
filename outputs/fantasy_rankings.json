@@ -14266,7 +14266,7 @@
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.93,
       "proj_hr": 0.39,
@@ -14518,7 +14518,7 @@
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.96,
       "proj_hr": 0.25,
@@ -14661,8 +14661,8 @@
       "name": "Alec Bohm",
       "team": "PHI",
       "opponent": "NYY",
-      "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 5,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 1.01,
       "proj_hr": 0.19,
@@ -14986,7 +14986,7 @@
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.98,
       "proj_hr": 0.21,
@@ -15130,7 +15130,7 @@
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.67,
       "proj_hr": 0.24,
@@ -15306,6 +15306,24 @@
       "rank": 66
     },
     {
+      "name": "Nolan Schanuel",
+      "team": "LAA",
+      "opponent": "SF",
+      "lineup_spot": 5,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 4.65,
+      "proj_hits": 0.79,
+      "proj_hr": 0.11,
+      "proj_runs": 0.51,
+      "proj_rbi": 0.38,
+      "proj_tb": 1.3,
+      "proj_walks": 0.69,
+      "proj_strikeouts": 0.47,
+      "confidence": "high",
+      "points": 2.65,
+      "rank": 67
+    },
+    {
       "name": "Luis Campusano",
       "team": "SD",
       "opponent": "MIA",
@@ -15321,7 +15339,7 @@
       "proj_strikeouts": 0.96,
       "confidence": "high",
       "points": 2.64,
-      "rank": 67
+      "rank": 68
     },
     {
       "name": "Luis Rengifo",
@@ -15339,7 +15357,7 @@
       "proj_strikeouts": 0.66,
       "confidence": "high",
       "points": 2.62,
-      "rank": 68
+      "rank": 69
     },
     {
       "name": "Chase DeLauter",
@@ -15357,7 +15375,7 @@
       "proj_strikeouts": 0.71,
       "confidence": "high",
       "points": 2.61,
-      "rank": 69
+      "rank": 70
     },
     {
       "name": "Luke Maile",
@@ -15375,7 +15393,7 @@
       "proj_strikeouts": 0.7,
       "confidence": "high",
       "points": 2.56,
-      "rank": 70
+      "rank": 71
     },
     {
       "name": "J.P. Crawford",
@@ -15393,7 +15411,7 @@
       "proj_strikeouts": 1.24,
       "confidence": "high",
       "points": 2.53,
-      "rank": 71
+      "rank": 72
     },
     {
       "name": "Nick Gonzales",
@@ -15411,14 +15429,14 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 2.52,
-      "rank": 72
+      "rank": 73
     },
     {
       "name": "Zach Neto",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.7,
       "proj_hr": 0.23,
@@ -15429,7 +15447,7 @@
       "proj_strikeouts": 1.21,
       "confidence": "high",
       "points": 2.52,
-      "rank": 73
+      "rank": 74
     },
     {
       "name": "Jos\u00e9 Ram\u00edrez",
@@ -15447,7 +15465,7 @@
       "proj_strikeouts": 0.67,
       "confidence": "high",
       "points": 2.48,
-      "rank": 74
+      "rank": 75
     },
     {
       "name": "Randy Arozarena",
@@ -15465,14 +15483,14 @@
       "proj_strikeouts": 1.18,
       "confidence": "high",
       "points": 2.48,
-      "rank": 75
+      "rank": 76
     },
     {
       "name": "Jorge Soler",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.65,
       "proj_hits": 0.67,
       "proj_hr": 0.22,
@@ -15483,7 +15501,7 @@
       "proj_strikeouts": 1.13,
       "confidence": "high",
       "points": 2.47,
-      "rank": 76
+      "rank": 77
     },
     {
       "name": "Steven Kwan",
@@ -15501,7 +15519,7 @@
       "proj_strikeouts": 0.47,
       "confidence": "high",
       "points": 2.46,
-      "rank": 77
+      "rank": 78
     },
     {
       "name": "Jonah Heim",
@@ -15519,7 +15537,7 @@
       "proj_strikeouts": 1.13,
       "confidence": "high",
       "points": 2.46,
-      "rank": 78
+      "rank": 79
     },
     {
       "name": "Romy Gonzalez",
@@ -15537,14 +15555,14 @@
       "proj_strikeouts": 0.75,
       "confidence": "high",
       "points": 2.45,
-      "rank": 79
+      "rank": 80
     },
     {
       "name": "Bryson Stott",
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.97,
       "proj_hits": 0.87,
       "proj_hr": 0.15,
@@ -15555,7 +15573,7 @@
       "proj_strikeouts": 0.58,
       "confidence": "high",
       "points": 2.45,
-      "rank": 80
+      "rank": 81
     },
     {
       "name": "Tommy Edman",
@@ -15573,7 +15591,7 @@
       "proj_strikeouts": 0.83,
       "confidence": "high",
       "points": 2.44,
-      "rank": 81
+      "rank": 82
     },
     {
       "name": "A.J. Ewing",
@@ -15591,7 +15609,7 @@
       "proj_strikeouts": 1.39,
       "confidence": "high",
       "points": 2.44,
-      "rank": 82
+      "rank": 83
     },
     {
       "name": "Tommy White",
@@ -15609,7 +15627,7 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 2.44,
-      "rank": 83
+      "rank": 84
     },
     {
       "name": "Nick Loftin",
@@ -15627,7 +15645,7 @@
       "proj_strikeouts": 0.43,
       "confidence": "high",
       "points": 2.42,
-      "rank": 84
+      "rank": 85
     },
     {
       "name": "Junior Caminero",
@@ -15645,7 +15663,7 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 2.38,
-      "rank": 85
+      "rank": 86
     },
     {
       "name": "Jake Mangum",
@@ -15663,7 +15681,7 @@
       "proj_strikeouts": 0.98,
       "confidence": "high",
       "points": 2.38,
-      "rank": 86
+      "rank": 87
     },
     {
       "name": "Brandon Lowe",
@@ -15681,14 +15699,14 @@
       "proj_strikeouts": 1.57,
       "confidence": "high",
       "points": 2.36,
-      "rank": 87
+      "rank": 88
     },
     {
       "name": "Vaughn Grissom",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.38,
       "proj_hits": 0.71,
       "proj_hr": 0.13,
@@ -15699,24 +15717,6 @@
       "proj_strikeouts": 0.65,
       "confidence": "high",
       "points": 2.34,
-      "rank": 88
-    },
-    {
-      "name": "Trent Grisham",
-      "team": "NYY",
-      "opponent": "PHI",
-      "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 4.48,
-      "proj_hits": 1.16,
-      "proj_hr": 0.08,
-      "proj_runs": 0.55,
-      "proj_rbi": 0.49,
-      "proj_tb": 1.59,
-      "proj_walks": 0.23,
-      "proj_strikeouts": 1.06,
-      "confidence": "high",
-      "points": 2.33,
       "rank": 89
     },
     {
@@ -15846,11 +15846,29 @@
       "rank": 96
     },
     {
+      "name": "Trent Grisham",
+      "team": "NYY",
+      "opponent": "PHI",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 4.48,
+      "proj_hits": 1.16,
+      "proj_hr": 0.08,
+      "proj_runs": 0.48,
+      "proj_rbi": 0.49,
+      "proj_tb": 1.59,
+      "proj_walks": 0.23,
+      "proj_strikeouts": 1.06,
+      "confidence": "high",
+      "points": 2.26,
+      "rank": 97
+    },
+    {
       "name": "Brandon Marsh",
       "team": "PHI",
       "opponent": "NYY",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 4,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.66,
       "proj_hits": 0.81,
       "proj_hr": 0.17,
@@ -15861,7 +15879,7 @@
       "proj_strikeouts": 0.77,
       "confidence": "high",
       "points": 2.26,
-      "rank": 97
+      "rank": 98
     },
     {
       "name": "Daulton Varsho",
@@ -15879,7 +15897,7 @@
       "proj_strikeouts": 0.97,
       "confidence": "high",
       "points": 2.25,
-      "rank": 98
+      "rank": 99
     },
     {
       "name": "Cal Raleigh",
@@ -15895,24 +15913,6 @@
       "proj_tb": 1.63,
       "proj_walks": 0.45,
       "proj_strikeouts": 1.55,
-      "confidence": "high",
-      "points": 2.25,
-      "rank": 99
-    },
-    {
-      "name": "Denzer Guzman",
-      "team": "LAA",
-      "opponent": "SF",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 4.35,
-      "proj_hits": 0.74,
-      "proj_hr": 0.14,
-      "proj_runs": 0.43,
-      "proj_rbi": 0.39,
-      "proj_tb": 1.32,
-      "proj_walks": 0.6,
-      "proj_strikeouts": 0.99,
       "confidence": "high",
       "points": 2.25,
       "rank": 100
@@ -16080,6 +16080,24 @@
       "rank": 109
     },
     {
+      "name": "Denzer Guzman",
+      "team": "LAA",
+      "opponent": "SF",
+      "lineup_spot": 7,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 4.35,
+      "proj_hits": 0.74,
+      "proj_hr": 0.14,
+      "proj_runs": 0.43,
+      "proj_rbi": 0.34,
+      "proj_tb": 1.32,
+      "proj_walks": 0.6,
+      "proj_strikeouts": 0.99,
+      "confidence": "high",
+      "points": 2.19,
+      "rank": 110
+    },
+    {
       "name": "Alejandro Kirk",
       "team": "TOR",
       "opponent": "BOS",
@@ -16095,14 +16113,14 @@
       "proj_strikeouts": 1.06,
       "confidence": "high",
       "points": 2.18,
-      "rank": 110
+      "rank": 111
     },
     {
       "name": "J.T. Realmuto",
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.93,
       "proj_hits": 0.78,
       "proj_hr": 0.15,
@@ -16113,7 +16131,7 @@
       "proj_strikeouts": 0.64,
       "confidence": "high",
       "points": 2.18,
-      "rank": 111
+      "rank": 112
     },
     {
       "name": "Brett Baty",
@@ -16131,7 +16149,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 2.17,
-      "rank": 112
+      "rank": 113
     },
     {
       "name": "Kyle Karros",
@@ -16149,7 +16167,7 @@
       "proj_strikeouts": 1.36,
       "confidence": "high",
       "points": 2.13,
-      "rank": 113
+      "rank": 114
     },
     {
       "name": "Cole Young",
@@ -16167,7 +16185,7 @@
       "proj_strikeouts": 0.99,
       "confidence": "high",
       "points": 2.12,
-      "rank": 114
+      "rank": 115
     },
     {
       "name": "Julio Rodr\u00edguez",
@@ -16185,7 +16203,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 2.12,
-      "rank": 115
+      "rank": 116
     },
     {
       "name": "Sam Antonacci",
@@ -16203,14 +16221,14 @@
       "proj_strikeouts": 1.0,
       "confidence": "high",
       "points": 2.11,
-      "rank": 116
+      "rank": 117
     },
     {
       "name": "Jasson Dom\u00ednguez",
       "team": "NYY",
       "opponent": "PHI",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 4,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.38,
       "proj_hits": 1.12,
       "proj_hr": 0.05,
@@ -16221,7 +16239,7 @@
       "proj_strikeouts": 1.1,
       "confidence": "high",
       "points": 2.11,
-      "rank": 117
+      "rank": 118
     },
     {
       "name": "Leody Taveras",
@@ -16239,7 +16257,7 @@
       "proj_strikeouts": 1.07,
       "confidence": "high",
       "points": 2.1,
-      "rank": 118
+      "rank": 119
     },
     {
       "name": "Andr\u00e9s Gim\u00e9nez",
@@ -16257,7 +16275,7 @@
       "proj_strikeouts": 0.86,
       "confidence": "high",
       "points": 2.08,
-      "rank": 119
+      "rank": 120
     },
     {
       "name": "Jacob Gonzalez",
@@ -16275,7 +16293,7 @@
       "proj_strikeouts": 1.02,
       "confidence": "high",
       "points": 2.07,
-      "rank": 120
+      "rank": 121
     },
     {
       "name": "Henry Bolte",
@@ -16293,7 +16311,7 @@
       "proj_strikeouts": 1.34,
       "confidence": "high",
       "points": 2.07,
-      "rank": 121
+      "rank": 122
     },
     {
       "name": "Braden Montgomery",
@@ -16311,7 +16329,7 @@
       "proj_strikeouts": 1.43,
       "confidence": "high",
       "points": 2.06,
-      "rank": 122
+      "rank": 123
     },
     {
       "name": "Luis Torrens",
@@ -16329,7 +16347,7 @@
       "proj_strikeouts": 0.83,
       "confidence": "high",
       "points": 2.05,
-      "rank": 123
+      "rank": 124
     },
     {
       "name": "Ryan Kreidler",
@@ -16347,7 +16365,7 @@
       "proj_strikeouts": 0.55,
       "confidence": "high",
       "points": 2.05,
-      "rank": 124
+      "rank": 125
     },
     {
       "name": "Andruw Monasterio",
@@ -16365,7 +16383,7 @@
       "proj_strikeouts": 0.55,
       "confidence": "high",
       "points": 2.04,
-      "rank": 125
+      "rank": 126
     },
     {
       "name": "Mauricio Dub\u00f3n",
@@ -16383,7 +16401,7 @@
       "proj_strikeouts": 0.67,
       "confidence": "high",
       "points": 2.04,
-      "rank": 126
+      "rank": 127
     },
     {
       "name": "Kevin McGonigle",
@@ -16401,7 +16419,7 @@
       "proj_strikeouts": 0.69,
       "confidence": "high",
       "points": 2.04,
-      "rank": 127
+      "rank": 128
     },
     {
       "name": "Sung-Mun Song",
@@ -16419,7 +16437,7 @@
       "proj_strikeouts": 0.68,
       "confidence": "high",
       "points": 2.04,
-      "rank": 128
+      "rank": 129
     },
     {
       "name": "Colton Cowser",
@@ -16437,7 +16455,7 @@
       "proj_strikeouts": 1.26,
       "confidence": "high",
       "points": 2.03,
-      "rank": 129
+      "rank": 130
     },
     {
       "name": "Jake McCarthy",
@@ -16455,7 +16473,7 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 2.03,
-      "rank": 130
+      "rank": 131
     },
     {
       "name": "Jackson Holliday",
@@ -16473,7 +16491,7 @@
       "proj_strikeouts": 1.08,
       "confidence": "high",
       "points": 2.02,
-      "rank": 131
+      "rank": 132
     },
     {
       "name": "Angel Mart\u00ednez",
@@ -16491,7 +16509,7 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 2.01,
-      "rank": 132
+      "rank": 133
     },
     {
       "name": "Matt Olson",
@@ -16509,7 +16527,7 @@
       "proj_strikeouts": 1.28,
       "confidence": "high",
       "points": 2.01,
-      "rank": 133
+      "rank": 134
     },
     {
       "name": "Yandy D\u00edaz",
@@ -16527,7 +16545,7 @@
       "proj_strikeouts": 0.71,
       "confidence": "high",
       "points": 1.99,
-      "rank": 134
+      "rank": 135
     },
     {
       "name": "Jorge Polanco",
@@ -16545,7 +16563,7 @@
       "proj_strikeouts": 0.81,
       "confidence": "high",
       "points": 1.99,
-      "rank": 135
+      "rank": 136
     },
     {
       "name": "Alex Jackson",
@@ -16563,7 +16581,7 @@
       "proj_strikeouts": 0.63,
       "confidence": "high",
       "points": 1.98,
-      "rank": 136
+      "rank": 137
     },
     {
       "name": "Kazuma Okamoto",
@@ -16581,7 +16599,7 @@
       "proj_strikeouts": 1.78,
       "confidence": "high",
       "points": 1.96,
-      "rank": 137
+      "rank": 138
     },
     {
       "name": "Carlos Narv\u00e1ez",
@@ -16599,7 +16617,7 @@
       "proj_strikeouts": 0.72,
       "confidence": "high",
       "points": 1.96,
-      "rank": 138
+      "rank": 139
     },
     {
       "name": "Chandler Simpson",
@@ -16617,7 +16635,7 @@
       "proj_strikeouts": 0.42,
       "confidence": "high",
       "points": 1.95,
-      "rank": 139
+      "rank": 140
     },
     {
       "name": "Luis Arraez",
@@ -16635,7 +16653,7 @@
       "proj_strikeouts": 0.43,
       "confidence": "high",
       "points": 1.95,
-      "rank": 140
+      "rank": 141
     },
     {
       "name": "Drake Baldwin",
@@ -16653,7 +16671,7 @@
       "proj_strikeouts": 1.25,
       "confidence": "high",
       "points": 1.94,
-      "rank": 141
+      "rank": 142
     },
     {
       "name": "Jeff McNeil",
@@ -16671,7 +16689,7 @@
       "proj_strikeouts": 0.63,
       "confidence": "high",
       "points": 1.94,
-      "rank": 142
+      "rank": 143
     },
     {
       "name": "Jared Young",
@@ -16689,7 +16707,7 @@
       "proj_strikeouts": 0.91,
       "confidence": "high",
       "points": 1.93,
-      "rank": 143
+      "rank": 144
     },
     {
       "name": "JJ Wetherholt",
@@ -16707,7 +16725,7 @@
       "proj_strikeouts": 0.72,
       "confidence": "high",
       "points": 1.93,
-      "rank": 144
+      "rank": 145
     },
     {
       "name": "Michael Harris II",
@@ -16725,7 +16743,7 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 1.91,
-      "rank": 145
+      "rank": 146
     },
     {
       "name": "Hunter Goodman",
@@ -16743,7 +16761,7 @@
       "proj_strikeouts": 1.96,
       "confidence": "high",
       "points": 1.91,
-      "rank": 146
+      "rank": 147
     },
     {
       "name": "Ozzie Albies",
@@ -16761,7 +16779,7 @@
       "proj_strikeouts": 0.84,
       "confidence": "high",
       "points": 1.9,
-      "rank": 147
+      "rank": 148
     },
     {
       "name": "Dominic Canzone",
@@ -16779,7 +16797,7 @@
       "proj_strikeouts": 1.05,
       "confidence": "high",
       "points": 1.9,
-      "rank": 148
+      "rank": 149
     },
     {
       "name": "Gleyber Torres",
@@ -16797,7 +16815,7 @@
       "proj_strikeouts": 1.2,
       "confidence": "high",
       "points": 1.78,
-      "rank": 149
+      "rank": 150
     },
     {
       "name": "Otto Lopez",
@@ -16815,7 +16833,7 @@
       "proj_strikeouts": 0.42,
       "confidence": "high",
       "points": 1.76,
-      "rank": 150
+      "rank": 151
     },
     {
       "name": "Alec Burleson",
@@ -16833,24 +16851,6 @@
       "proj_strikeouts": 0.73,
       "confidence": "high",
       "points": 1.76,
-      "rank": 151
-    },
-    {
-      "name": "Paul Goldschmidt",
-      "team": "NYY",
-      "opponent": "PHI",
-      "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.97,
-      "proj_hits": 0.89,
-      "proj_hr": 0.07,
-      "proj_runs": 0.43,
-      "proj_rbi": 0.38,
-      "proj_tb": 1.41,
-      "proj_walks": 0.19,
-      "proj_strikeouts": 1.31,
-      "confidence": "high",
-      "points": 1.75,
       "rank": 152
     },
     {
@@ -16926,6 +16926,24 @@
       "rank": 156
     },
     {
+      "name": "Paul Goldschmidt",
+      "team": "NYY",
+      "opponent": "PHI",
+      "lineup_spot": 1,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.97,
+      "proj_hits": 0.89,
+      "proj_hr": 0.07,
+      "proj_runs": 0.43,
+      "proj_rbi": 0.33,
+      "proj_tb": 1.41,
+      "proj_walks": 0.19,
+      "proj_strikeouts": 1.31,
+      "confidence": "high",
+      "points": 1.7,
+      "rank": 157
+    },
+    {
       "name": "Willi Castro",
       "team": "COL",
       "opponent": "MIL",
@@ -16941,7 +16959,7 @@
       "proj_strikeouts": 1.75,
       "confidence": "high",
       "points": 1.68,
-      "rank": 157
+      "rank": 158
     },
     {
       "name": "Jonny DeLuca",
@@ -16959,7 +16977,7 @@
       "proj_strikeouts": 0.96,
       "confidence": "high",
       "points": 1.67,
-      "rank": 158
+      "rank": 159
     },
     {
       "name": "Nick Fortes",
@@ -16977,14 +16995,14 @@
       "proj_strikeouts": 0.63,
       "confidence": "high",
       "points": 1.66,
-      "rank": 159
+      "rank": 160
     },
     {
       "name": "Jos\u00e9 Caballero",
       "team": "NYY",
       "opponent": "PHI",
-      "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 8,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.88,
       "proj_hits": 0.96,
       "proj_hr": 0.04,
@@ -16995,7 +17013,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 1.66,
-      "rank": 160
+      "rank": 161
     },
     {
       "name": "Jordan Walker",
@@ -17013,7 +17031,7 @@
       "proj_strikeouts": 1.14,
       "confidence": "high",
       "points": 1.64,
-      "rank": 161
+      "rank": 162
     },
     {
       "name": "Riley Greene",
@@ -17031,14 +17049,14 @@
       "proj_strikeouts": 1.61,
       "confidence": "high",
       "points": 1.61,
-      "rank": 162
+      "rank": 163
     },
     {
       "name": "Ben Rice",
       "team": "NYY",
       "opponent": "PHI",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.48,
       "proj_hits": 0.97,
       "proj_hr": 0.06,
@@ -17049,7 +17067,7 @@
       "proj_strikeouts": 1.66,
       "confidence": "high",
       "points": 1.61,
-      "rank": 163
+      "rank": 164
     },
     {
       "name": "Xavier Edwards",
@@ -17067,7 +17085,7 @@
       "proj_strikeouts": 0.41,
       "confidence": "high",
       "points": 1.6,
-      "rank": 164
+      "rank": 165
     },
     {
       "name": "Spencer Steer",
@@ -17085,7 +17103,7 @@
       "proj_strikeouts": 0.9,
       "confidence": "high",
       "points": 1.6,
-      "rank": 165
+      "rank": 166
     },
     {
       "name": "JJ Bleday",
@@ -17103,7 +17121,7 @@
       "proj_strikeouts": 0.87,
       "confidence": "high",
       "points": 1.6,
-      "rank": 166
+      "rank": 167
     },
     {
       "name": "Troy Johnston",
@@ -17121,7 +17139,7 @@
       "proj_strikeouts": 0.98,
       "confidence": "high",
       "points": 1.57,
-      "rank": 167
+      "rank": 168
     },
     {
       "name": "Tyler Callihan",
@@ -17139,7 +17157,7 @@
       "proj_strikeouts": 1.17,
       "confidence": "high",
       "points": 1.56,
-      "rank": 168
+      "rank": 169
     },
     {
       "name": "Colt Emerson",
@@ -17157,7 +17175,7 @@
       "proj_strikeouts": 1.43,
       "confidence": "high",
       "points": 1.56,
-      "rank": 169
+      "rank": 170
     },
     {
       "name": "Cole Carrigg",
@@ -17173,24 +17191,6 @@
       "proj_tb": 1.23,
       "proj_walks": 0.3,
       "proj_strikeouts": 1.35,
-      "confidence": "high",
-      "points": 1.55,
-      "rank": 170
-    },
-    {
-      "name": "Jo Adell",
-      "team": "LAA",
-      "opponent": "SF",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.66,
-      "proj_hits": 0.47,
-      "proj_hr": 0.16,
-      "proj_runs": 0.34,
-      "proj_rbi": 0.3,
-      "proj_tb": 0.99,
-      "proj_walks": 0.31,
-      "proj_strikeouts": 0.79,
       "confidence": "high",
       "points": 1.55,
       "rank": 171
@@ -17214,24 +17214,6 @@
       "rank": 172
     },
     {
-      "name": "Jazz Chisholm Jr.",
-      "team": "NYY",
-      "opponent": "PHI",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 4.35,
-      "proj_hits": 0.95,
-      "proj_hr": 0.07,
-      "proj_runs": 0.4,
-      "proj_rbi": 0.4,
-      "proj_tb": 1.41,
-      "proj_walks": 0.19,
-      "proj_strikeouts": 1.72,
-      "confidence": "high",
-      "points": 1.54,
-      "rank": 173
-    },
-    {
       "name": "Austin Riley",
       "team": "ATL",
       "opponent": "BAL",
@@ -17247,7 +17229,7 @@
       "proj_strikeouts": 1.36,
       "confidence": "high",
       "points": 1.53,
-      "rank": 174
+      "rank": 173
     },
     {
       "name": "LaMonte Wade Jr.",
@@ -17265,14 +17247,14 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 1.53,
-      "rank": 175
+      "rank": 174
     },
     {
       "name": "Logan O'Hoppe",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.66,
       "proj_hits": 0.57,
       "proj_hr": 0.09,
@@ -17283,7 +17265,7 @@
       "proj_strikeouts": 0.85,
       "confidence": "high",
       "points": 1.53,
-      "rank": 176
+      "rank": 175
     },
     {
       "name": "Eugenio Su\u00e1rez",
@@ -17301,7 +17283,7 @@
       "proj_strikeouts": 1.17,
       "confidence": "high",
       "points": 1.52,
-      "rank": 177
+      "rank": 176
     },
     {
       "name": "Iv\u00e1n Herrera",
@@ -17319,6 +17301,24 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 1.52,
+      "rank": 177
+    },
+    {
+      "name": "Jo Adell",
+      "team": "LAA",
+      "opponent": "SF",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.66,
+      "proj_hits": 0.47,
+      "proj_hr": 0.16,
+      "proj_runs": 0.3,
+      "proj_rbi": 0.3,
+      "proj_tb": 0.99,
+      "proj_walks": 0.31,
+      "proj_strikeouts": 0.79,
+      "confidence": "high",
+      "points": 1.51,
       "rank": 178
     },
     {
@@ -17434,7 +17434,7 @@
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.97,
       "proj_hits": 0.59,
       "proj_hr": 0.07,
@@ -17560,7 +17560,7 @@
       "team": "PHI",
       "opponent": "NYY",
       "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.94,
       "proj_hits": 0.56,
       "proj_hr": 0.1,
@@ -17826,24 +17826,6 @@
       "rank": 206
     },
     {
-      "name": "Oswald Peraza",
-      "team": "LAA",
-      "opponent": "SF",
-      "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.41,
-      "proj_hits": 0.45,
-      "proj_hr": 0.09,
-      "proj_runs": 0.25,
-      "proj_rbi": 0.21,
-      "proj_tb": 0.89,
-      "proj_walks": 0.3,
-      "proj_strikeouts": 0.82,
-      "confidence": "high",
-      "points": 1.24,
-      "rank": 207
-    },
-    {
       "name": "Ezequiel Duran",
       "team": "TEX",
       "opponent": "SEA",
@@ -17859,14 +17841,14 @@
       "proj_strikeouts": 1.55,
       "confidence": "high",
       "points": 1.23,
-      "rank": 208
+      "rank": 207
     },
     {
       "name": "Jose Siri",
       "team": "LAA",
       "opponent": "SF",
       "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.94,
       "proj_hits": 0.47,
       "proj_hr": 0.08,
@@ -17877,7 +17859,7 @@
       "proj_strikeouts": 0.76,
       "confidence": "high",
       "points": 1.22,
-      "rank": 209
+      "rank": 208
     },
     {
       "name": "Dillon Dingler",
@@ -17895,7 +17877,7 @@
       "proj_strikeouts": 1.11,
       "confidence": "high",
       "points": 1.21,
-      "rank": 210
+      "rank": 209
     },
     {
       "name": "Griffin Conine",
@@ -17913,7 +17895,7 @@
       "proj_strikeouts": 0.92,
       "confidence": "high",
       "points": 1.19,
-      "rank": 211
+      "rank": 210
     },
     {
       "name": "Mike Yastrzemski",
@@ -17931,7 +17913,7 @@
       "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 1.17,
-      "rank": 212
+      "rank": 211
     },
     {
       "name": "Tyrone Taylor",
@@ -17949,7 +17931,7 @@
       "proj_strikeouts": 0.69,
       "confidence": "high",
       "points": 1.16,
-      "rank": 213
+      "rank": 212
     },
     {
       "name": "Luke Raley",
@@ -17967,7 +17949,7 @@
       "proj_strikeouts": 1.22,
       "confidence": "high",
       "points": 1.15,
-      "rank": 214
+      "rank": 213
     },
     {
       "name": "Drew Gilbert",
@@ -17985,7 +17967,7 @@
       "proj_strikeouts": 0.87,
       "confidence": "high",
       "points": 1.14,
-      "rank": 215
+      "rank": 214
     },
     {
       "name": "Blaze Jordan",
@@ -18003,14 +17985,14 @@
       "proj_strikeouts": 0.73,
       "confidence": "high",
       "points": 1.13,
-      "rank": 216
+      "rank": 215
     },
     {
       "name": "Ali S\u00e1nchez",
       "team": "NYY",
       "opponent": "PHI",
       "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.94,
       "proj_hits": 0.72,
       "proj_hr": 0.03,
@@ -18021,7 +18003,7 @@
       "proj_strikeouts": 0.82,
       "confidence": "high",
       "points": 1.13,
-      "rank": 217
+      "rank": 216
     },
     {
       "name": "Ben Williamson",
@@ -18039,7 +18021,7 @@
       "proj_strikeouts": 0.79,
       "confidence": "high",
       "points": 1.11,
-      "rank": 218
+      "rank": 217
     },
     {
       "name": "Nathaniel Lowe",
@@ -18057,7 +18039,7 @@
       "proj_strikeouts": 0.9,
       "confidence": "high",
       "points": 1.1,
-      "rank": 219
+      "rank": 218
     },
     {
       "name": "Austin Martin",
@@ -18075,7 +18057,7 @@
       "proj_strikeouts": 0.45,
       "confidence": "high",
       "points": 1.09,
-      "rank": 220
+      "rank": 219
     },
     {
       "name": "Edouard Julien",
@@ -18093,7 +18075,7 @@
       "proj_strikeouts": 1.13,
       "confidence": "high",
       "points": 1.09,
-      "rank": 221
+      "rank": 220
     },
     {
       "name": "Dominic Smith",
@@ -18111,7 +18093,7 @@
       "proj_strikeouts": 0.56,
       "confidence": "high",
       "points": 1.08,
-      "rank": 222
+      "rank": 221
     },
     {
       "name": "Heliot Ramos",
@@ -18129,7 +18111,7 @@
       "proj_strikeouts": 1.51,
       "confidence": "high",
       "points": 1.06,
-      "rank": 223
+      "rank": 222
     },
     {
       "name": "Zach Dezenzo",
@@ -18147,7 +18129,7 @@
       "proj_strikeouts": 1.14,
       "confidence": "high",
       "points": 1.05,
-      "rank": 224
+      "rank": 223
     },
     {
       "name": "Nicky Lopez",
@@ -18165,7 +18147,7 @@
       "proj_strikeouts": 0.72,
       "confidence": "high",
       "points": 1.05,
-      "rank": 225
+      "rank": 224
     },
     {
       "name": "Drew Romo",
@@ -18183,7 +18165,7 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 1.04,
-      "rank": 226
+      "rank": 225
     },
     {
       "name": "Austin Hedges",
@@ -18201,7 +18183,7 @@
       "proj_strikeouts": 0.59,
       "confidence": "high",
       "points": 1.02,
-      "rank": 227
+      "rank": 226
     },
     {
       "name": "Noelvi Marte",
@@ -18219,7 +18201,7 @@
       "proj_strikeouts": 0.76,
       "confidence": "high",
       "points": 1.02,
-      "rank": 228
+      "rank": 227
     },
     {
       "name": "Taylor Trammell",
@@ -18237,7 +18219,7 @@
       "proj_strikeouts": 1.24,
       "confidence": "high",
       "points": 1.01,
-      "rank": 229
+      "rank": 228
     },
     {
       "name": "Josh Smith",
@@ -18255,7 +18237,7 @@
       "proj_strikeouts": 1.21,
       "confidence": "high",
       "points": 0.98,
-      "rank": 230
+      "rank": 229
     },
     {
       "name": "Joc Pederson",
@@ -18273,7 +18255,7 @@
       "proj_strikeouts": 1.37,
       "confidence": "high",
       "points": 0.97,
-      "rank": 231
+      "rank": 230
     },
     {
       "name": "Kerry Carpenter",
@@ -18291,7 +18273,7 @@
       "proj_strikeouts": 1.14,
       "confidence": "high",
       "points": 0.92,
-      "rank": 232
+      "rank": 231
     },
     {
       "name": "Elias D\u00edaz",
@@ -18309,7 +18291,7 @@
       "proj_strikeouts": 1.16,
       "confidence": "high",
       "points": 0.9,
-      "rank": 233
+      "rank": 232
     },
     {
       "name": "Spencer Torkelson",
@@ -18327,7 +18309,7 @@
       "proj_strikeouts": 1.56,
       "confidence": "high",
       "points": 0.89,
-      "rank": 234
+      "rank": 233
     },
     {
       "name": "Hao-Yu Lee",
@@ -18345,7 +18327,7 @@
       "proj_strikeouts": 0.96,
       "confidence": "high",
       "points": 0.86,
-      "rank": 235
+      "rank": 234
     },
     {
       "name": "Willy Adames",
@@ -18363,7 +18345,7 @@
       "proj_strikeouts": 1.58,
       "confidence": "high",
       "points": 0.83,
-      "rank": 236
+      "rank": 235
     },
     {
       "name": "Davis Schneider",
@@ -18381,7 +18363,7 @@
       "proj_strikeouts": 1.06,
       "confidence": "high",
       "points": 0.81,
-      "rank": 237
+      "rank": 236
     },
     {
       "name": "Evan Carter",
@@ -18399,14 +18381,14 @@
       "proj_strikeouts": 1.23,
       "confidence": "high",
       "points": 0.81,
-      "rank": 238
+      "rank": 237
     },
     {
       "name": "Max Schuemann",
       "team": "NYY",
       "opponent": "PHI",
-      "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 7,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.94,
       "proj_hits": 0.6,
       "proj_hr": 0.02,
@@ -18417,7 +18399,7 @@
       "proj_strikeouts": 1.12,
       "confidence": "high",
       "points": 0.81,
-      "rank": 239
+      "rank": 238
     },
     {
       "name": "Dane Myers",
@@ -18435,7 +18417,7 @@
       "proj_strikeouts": 0.71,
       "confidence": "high",
       "points": 0.8,
-      "rank": 240
+      "rank": 239
     },
     {
       "name": "Colt Keith",
@@ -18453,7 +18435,7 @@
       "proj_strikeouts": 0.9,
       "confidence": "high",
       "points": 0.76,
-      "rank": 241
+      "rank": 240
     },
     {
       "name": "Graham Pauley",
@@ -18471,7 +18453,7 @@
       "proj_strikeouts": 0.47,
       "confidence": "high",
       "points": 0.76,
-      "rank": 242
+      "rank": 241
     },
     {
       "name": "James Outman",
@@ -18489,6 +18471,24 @@
       "proj_strikeouts": 1.19,
       "confidence": "high",
       "points": 0.75,
+      "rank": 242
+    },
+    {
+      "name": "Anthony Volpe",
+      "team": "NYY",
+      "opponent": "PHI",
+      "lineup_spot": 5,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.41,
+      "proj_hits": 0.47,
+      "proj_hr": 0.02,
+      "proj_runs": 0.21,
+      "proj_rbi": 0.19,
+      "proj_tb": 0.71,
+      "proj_walks": 0.06,
+      "proj_strikeouts": 0.85,
+      "confidence": "high",
+      "points": 0.74,
       "rank": 243
     },
     {
@@ -18600,6 +18600,24 @@
       "rank": 249
     },
     {
+      "name": "Amed Rosario",
+      "team": "NYY",
+      "opponent": "PHI",
+      "lineup_spot": 3,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 2.27,
+      "proj_hits": 0.39,
+      "proj_hr": 0.02,
+      "proj_runs": 0.17,
+      "proj_rbi": 0.16,
+      "proj_tb": 0.59,
+      "proj_walks": 0.01,
+      "proj_strikeouts": 0.85,
+      "confidence": "high",
+      "points": 0.51,
+      "rank": 250
+    },
+    {
       "name": "Grant McCray",
       "team": "SF",
       "opponent": "LAA",
@@ -18613,24 +18631,6 @@
       "proj_tb": 0.49,
       "proj_walks": 0.13,
       "proj_strikeouts": 0.76,
-      "confidence": "high",
-      "points": 0.49,
-      "rank": 250
-    },
-    {
-      "name": "Amed Rosario",
-      "team": "NYY",
-      "opponent": "PHI",
-      "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 2.27,
-      "proj_hits": 0.39,
-      "proj_hr": 0.02,
-      "proj_runs": 0.17,
-      "proj_rbi": 0.14,
-      "proj_tb": 0.59,
-      "proj_walks": 0.01,
-      "proj_strikeouts": 0.85,
       "confidence": "high",
       "points": 0.49,
       "rank": 251
