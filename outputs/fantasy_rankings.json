@@ -14542,24 +14542,6 @@
       "rank": 21
     },
     {
-      "name": "Braden Montgomery",
-      "team": "CWS",
-      "opponent": "NYY",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 4.91,
-      "proj_hits": 1.47,
-      "proj_hr": 0.09,
-      "proj_runs": 0.61,
-      "proj_rbi": 0.61,
-      "proj_tb": 2.08,
-      "proj_walks": 0.31,
-      "proj_strikeouts": 0.75,
-      "confidence": "high",
-      "points": 3.23,
-      "rank": 22
-    },
-    {
       "name": "Jazz Chisholm Jr.",
       "team": "NYY",
       "opponent": "CWS",
@@ -14575,13 +14557,31 @@
       "proj_strikeouts": 1.0,
       "confidence": "high",
       "points": 3.2,
+      "rank": 22
+    },
+    {
+      "name": "Sam Antonacci",
+      "team": "CWS",
+      "opponent": "NYY",
+      "lineup_spot": 1,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 4.65,
+      "proj_hits": 1.43,
+      "proj_hr": 0.08,
+      "proj_runs": 0.67,
+      "proj_rbi": 0.52,
+      "proj_tb": 1.99,
+      "proj_walks": 0.29,
+      "proj_strikeouts": 0.6,
+      "confidence": "high",
+      "points": 3.17,
       "rank": 23
     },
     {
       "name": "Colson Montgomery",
       "team": "CWS",
       "opponent": "NYY",
-      "lineup_spot": 4,
+      "lineup_spot": 5,
       "lineup_status": "Expected Lineup",
       "proj_pa": 4.95,
       "proj_hits": 1.27,
@@ -14956,24 +14956,6 @@
       "rank": 44
     },
     {
-      "name": "Chase Meidroth",
-      "team": "CWS",
-      "opponent": "NYY",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.97,
-      "proj_hits": 1.2,
-      "proj_hr": 0.05,
-      "proj_runs": 0.56,
-      "proj_rbi": 0.48,
-      "proj_tb": 1.68,
-      "proj_walks": 0.29,
-      "proj_strikeouts": 0.77,
-      "confidence": "high",
-      "points": 2.62,
-      "rank": 45
-    },
-    {
       "name": "Brice Turang",
       "team": "MIL",
       "opponent": "SF",
@@ -14989,7 +14971,7 @@
       "proj_strikeouts": 1.06,
       "confidence": "high",
       "points": 2.59,
-      "rank": 46
+      "rank": 45
     },
     {
       "name": "Jung Hoo Lee",
@@ -15007,7 +14989,7 @@
       "proj_strikeouts": 0.48,
       "confidence": "high",
       "points": 2.59,
-      "rank": 47
+      "rank": 46
     },
     {
       "name": "Nasim Nu\u00f1ez",
@@ -15025,7 +15007,7 @@
       "proj_strikeouts": 0.75,
       "confidence": "high",
       "points": 2.58,
-      "rank": 48
+      "rank": 47
     },
     {
       "name": "Tyler Soderstrom",
@@ -15043,6 +15025,24 @@
       "proj_strikeouts": 1.21,
       "confidence": "high",
       "points": 2.58,
+      "rank": 48
+    },
+    {
+      "name": "Chase Meidroth",
+      "team": "CWS",
+      "opponent": "NYY",
+      "lineup_spot": 6,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 3.97,
+      "proj_hits": 1.2,
+      "proj_hr": 0.05,
+      "proj_runs": 0.49,
+      "proj_rbi": 0.48,
+      "proj_tb": 1.68,
+      "proj_walks": 0.29,
+      "proj_strikeouts": 0.77,
+      "confidence": "high",
+      "points": 2.55,
       "rank": 49
     },
     {
@@ -15064,19 +15064,19 @@
       "rank": 50
     },
     {
-      "name": "Tristan Peters",
+      "name": "Everson Pereira",
       "team": "CWS",
       "opponent": "NYY",
       "lineup_spot": 7,
       "lineup_status": "Expected Lineup",
-      "proj_pa": 3.88,
-      "proj_hits": 1.12,
-      "proj_hr": 0.06,
-      "proj_runs": 0.46,
-      "proj_rbi": 0.41,
-      "proj_tb": 1.66,
-      "proj_walks": 0.23,
-      "proj_strikeouts": 0.6,
+      "proj_pa": 4.38,
+      "proj_hits": 1.2,
+      "proj_hr": 0.11,
+      "proj_runs": 0.52,
+      "proj_rbi": 0.46,
+      "proj_tb": 1.79,
+      "proj_walks": 0.25,
+      "proj_strikeouts": 1.12,
       "confidence": "high",
       "points": 2.46,
       "rank": 51
@@ -15553,7 +15553,7 @@
       "name": "Edgar Quero",
       "team": "CWS",
       "opponent": "NYY",
-      "lineup_spot": 8,
+      "lineup_spot": 9,
       "lineup_status": "Expected Lineup",
       "proj_pa": 3.52,
       "proj_hits": 0.99,
@@ -16633,7 +16633,7 @@
       "name": "Luisangel Acu\u00f1a",
       "team": "CWS",
       "opponent": "NYY",
-      "lineup_spot": 9,
+      "lineup_spot": 8,
       "lineup_status": "Expected Lineup",
       "proj_pa": 2.6,
       "proj_hits": 0.72,
@@ -17098,6 +17098,24 @@
       "rank": 163
     },
     {
+      "name": "Randal Grichuk",
+      "team": "CWS",
+      "opponent": "NYY",
+      "lineup_spot": 4,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 2.27,
+      "proj_hits": 0.47,
+      "proj_hr": 0.05,
+      "proj_runs": 0.24,
+      "proj_rbi": 0.21,
+      "proj_tb": 0.79,
+      "proj_walks": 0.11,
+      "proj_strikeouts": 0.67,
+      "confidence": "high",
+      "points": 1.02,
+      "rank": 164
+    },
+    {
       "name": "Ezequiel Duran",
       "team": "TEX",
       "opponent": "SEA",
@@ -17113,7 +17131,7 @@
       "proj_strikeouts": 1.27,
       "confidence": "high",
       "points": 1.0,
-      "rank": 164
+      "rank": 165
     },
     {
       "name": "Jake Burger",
@@ -17131,7 +17149,7 @@
       "proj_strikeouts": 1.37,
       "confidence": "high",
       "points": 1.0,
-      "rank": 165
+      "rank": 166
     },
     {
       "name": "Colt Keith",
@@ -17149,7 +17167,7 @@
       "proj_strikeouts": 0.64,
       "confidence": "high",
       "points": 1.0,
-      "rank": 166
+      "rank": 167
     },
     {
       "name": "Zach McKinstry",
@@ -17165,24 +17183,6 @@
       "proj_tb": 0.7,
       "proj_walks": 0.17,
       "proj_strikeouts": 0.54,
-      "confidence": "high",
-      "points": 1.0,
-      "rank": 167
-    },
-    {
-      "name": "Randal Grichuk",
-      "team": "CWS",
-      "opponent": "NYY",
-      "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 2.27,
-      "proj_hits": 0.47,
-      "proj_hr": 0.05,
-      "proj_runs": 0.24,
-      "proj_rbi": 0.19,
-      "proj_tb": 0.79,
-      "proj_walks": 0.11,
-      "proj_strikeouts": 0.67,
       "confidence": "high",
       "points": 1.0,
       "rank": 168
