@@ -1599,7 +1599,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-27,823353,AZ,PIT,AZ,PIT,Arizona Diamondbacks,Pittsburgh Pirates,Merrill Kelly,Mitch Keller,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-27,824245,BAL,DET,BAL,DET,Baltimore Orioles,Detroit Tigers,Kyle Bradish,Keider Montero,0.4799,0.5201,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-27,824977,BOS,ATH,BOS,ATH,Boston Red Sox,Athletics,Payton Tolle,Jack Perkins,0.4628,0.5372,PASS,PASS,0.47,0.03,0.883,68,77
-2026-07-27,823025,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,David Peterson,TBD,0.4674,0.5326,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-27,823025,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,David Peterson,Matthew Liberatore,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-27,824490,CLE,CIN,CLE,CIN,Cleveland Guardians,Cincinnati Reds,Slade Cecconi,Chase Burns,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-27,824001,HOU,LAA,HOU,LAA,Houston Astros,Los Angeles Angels,Tatsuya Imai,Walbert Ureña,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-27,823195,MIL,SF,MIL,SF,Milwaukee Brewers,San Francisco Giants,Brandon Sproat,Tyler Mahle,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
