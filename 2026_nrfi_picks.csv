@@ -1611,14 +1611,14 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-28,823350,AZ,PIT,AZ,PIT,Arizona Diamondbacks,Pittsburgh Pirates,Brandon Pfaadt,Bubba Chandler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,824243,BAL,DET,BAL,DET,Baltimore Orioles,Detroit Tigers,Dean Kremer,Troy Melton,0.4634,0.5366,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,824976,BOS,ATH,BOS,ATH,Boston Red Sox,Athletics,Jake Bennett,Gage Jump,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-28,823026,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,Colin Rea,TBD,0.4888,0.5112,PASS,PASS,0.47,0.03,0.727,56,77
-2026-07-28,824489,CLE,CIN,CLE,CIN,Cleveland Guardians,Cincinnati Reds,Gavin Williams,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-07-28,823026,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,Colin Rea,Michael McGreevy,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-28,824489,CLE,CIN,CLE,CIN,Cleveland Guardians,Cincinnati Reds,Gavin Williams,Caleb Ferguson,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
 2026-07-28,823275,COL,SD,COL,SD,Colorado Rockies,San Diego Padres,Michael Lorenzen,Michael King,0.4135,0.5865,YRFI,NO,0.47,0.03,1.0,77,77
 2026-07-28,824003,HOU,LAA,HOU,LAA,Houston Astros,Los Angeles Angels,Peter Lambert,Reid Detmers,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,823676,KC,MIN,KC,MIN,Kansas City Royals,Minnesota Twins,Seth Lugo,Taj Bradley,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,823193,MIL,SF,MIL,SF,Milwaukee Brewers,San Francisco Giants,Logan Henderson,Landen Roupp,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,824569,NYY,CWS,NYY,CWS,New York Yankees,Chicago White Sox,Gerrit Cole,Anthony Kay,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77
 2026-07-28,823838,PHI,MIA,PHI,MIA,Philadelphia Phillies,Miami Marlins,Aaron Nola,Sandy Alcantara,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-28,823923,SEA,LAD,SEA,LAD,Seattle Mariners,Los Angeles Dodgers,Luis Castillo,TBD,0.4105,0.5895,YRFI,NO,0.47,0.03,0.727,56,77
-2026-07-28,822949,TEX,TB,TEX,TB,Texas Rangers,Tampa Bay Rays,TBD,Griffin Jax,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77
+2026-07-28,823923,SEA,LAD,SEA,LAD,Seattle Mariners,Los Angeles Dodgers,Luis Castillo,Justin Wrobleski,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-28,822949,TEX,TB,TEX,TB,Texas Rangers,Tampa Bay Rays,Cal Quantrill,Griffin Jax,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-28,822703,TOR,WSH,TOR,WSH,Toronto Blue Jays,Washington Nationals,Shane Bieber,Cade Cavalli,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
