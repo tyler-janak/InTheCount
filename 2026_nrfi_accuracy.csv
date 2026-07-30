@@ -1638,10 +1638,10 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-29,822947,TEX,TB,TEX,TB,Texas Rangers,Tampa Bay Rays,MacKenzie Gore,Casey Legumina,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77,3.0,0.0,False,False,Final
 2026-07-29,822702,TOR,WSH,TOR,WSH,Toronto Blue Jays,Washington Nationals,Trey Yesavage,Zack Littell,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-07-30,824974,BOS,ATH,BOS,ATH,Boston Red Sox,Athletics,Sonny Gray,Mason Barnett,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Scheduled
-2026-07-30,823023,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,Javier Assad,Andre Pallante,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-07-30,823674,KC,MIN,KC,MIN,Kansas City Royals,Minnesota Twins,Noah Cameron,Bailey Ober,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-30,823023,CHC,STL,CHC,STL,Chicago Cubs,St. Louis Cardinals,Javier Assad,Andre Pallante,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
+2026-07-30,823674,KC,MIN,KC,MIN,Kansas City Royals,Minnesota Twins,Noah Cameron,Bailey Ober,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,In Progress
 2026-07-30,823595,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Eury Pérez,Nolan McLean,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-07-30,824568,NYY,CWS,NYY,CWS,New York Yankees,Chicago White Sox,Ryan Weathers,Sean Burke,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-07-30,824568,NYY,CWS,NYY,CWS,New York Yankees,Chicago White Sox,Ryan Weathers,Sean Burke,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,In Progress
 2026-07-30,824488,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Yohan Ramírez,Rhett Lowder,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-30,823921,SEA,LAD,SEA,LAD,Seattle Mariners,Los Angeles Dodgers,Bryan Woo,Roki Sasaki,0.4344,0.5656,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-07-30,823271,SF,SD,SF,SD,San Francisco Giants,San Diego Padres,TBD,JP Sears,0.4658,0.5342,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Scheduled
