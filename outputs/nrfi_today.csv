@@ -10,7 +10,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-31,823272,SF,SD,SF,SD,San Francisco Giants,San Diego Padres,Carson Whisenhunt,Bradgley Rodriguez,0.4539,0.5461,PASS,PASS,0.47,0.03,0.883,68,77
 2026-07-31,824486,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Paul Skenes,Hunter Greene,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,824809,PHI,BAL,PHI,BAL,Philadelphia Phillies,Baltimore Orioles,TBD,Brandon Young,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77
-2026-07-31,823593,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Janson Junk,Freddy Peralta,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-31,823593,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Janson Junk,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
 2026-07-31,824407,AZ,CLE,AZ,CLE,Arizona Diamondbacks,Cleveland Guardians,Mitch Bratt,Tanner Bibee,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,824325,KC,COL,KC,COL,Kansas City Royals,Colorado Rockies,Michael Wacha,Tomoyuki Sugano,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,823111,MIN,SEA,MIN,SEA,Minnesota Twins,Seattle Mariners,Zebby Matthews,Bryce Miller,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
