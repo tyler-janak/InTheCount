@@ -1650,7 +1650,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-07-31,824407,AZ,CLE,AZ,CLE,Arizona Diamondbacks,Cleveland Guardians,Mitch Bratt,Tanner Bibee,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,823922,BOS,LAD,BOS,LAD,Boston Red Sox,Los Angeles Dodgers,Ranger Suarez,Edgardo Henriquez,0.4802,0.5198,PASS,PASS,0.47,0.03,0.727,56,77
 2026-07-31,822945,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Erick Fedde,Nick Martinez,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-07-31,824975,DET,ATH,DET,ATH,Detroit Tigers,Athletics,Casey Mize,Jeffrey Springs,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-07-31,824975,DET,ATH,DET,ATH,Detroit Tigers,Athletics,TBD,Jeffrey Springs,0.4658,0.5342,PASS,PASS,0.47,0.03,0.74,57,77
 2026-07-31,824325,KC,COL,KC,COL,Kansas City Royals,Colorado Rockies,Michael Wacha,Tomoyuki Sugano,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,823593,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Janson Junk,Freddy Peralta,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-07-31,823999,MIL,LAA,MIL,LAA,Milwaukee Brewers,Los Angeles Angels,Shane Drohan,Ryan Johnson,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
