@@ -1,10 +1,10 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
 2026-08-01,823920,BOS,LAD,BOS,LAD,Boston Red Sox,Los Angeles Dodgers,Payton Tolle,Yoshinobu Yamamoto,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824890,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Miles Mikolas,Reynaldo López,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,823109,MIN,SEA,MIN,SEA,Minnesota Twins,Seattle Mariners,Connor Prielipp,Logan Gilbert,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,824649,NYY,CHC,NYY,CHC,New York Yankees,Chicago Cubs,Max Fried,David Peterson,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,822944,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Jordan Hicks,Drew Rasmussen,0.4788,0.5212,PASS,PASS,0.47,0.03,0.74,57,77
 2026-08-01,824000,MIL,LAA,MIL,LAA,Milwaukee Brewers,Los Angeles Angels,Robert Gasser,Brent Suter,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-01,824890,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Miles Mikolas,Martín Pérez,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,824162,TEX,HOU,TEX,HOU,Texas Rangers,Houston Astros,Jacob deGrom,Ronel Blanco,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,824326,KC,COL,KC,COL,Kansas City Royals,Colorado Rockies,Luinder Avila,Ryan Feltner,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-01,824485,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Braxton Ashcraft,Andrew Abbott,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
