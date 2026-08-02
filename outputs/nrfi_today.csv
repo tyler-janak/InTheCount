@@ -1,16 +1,16 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
-2026-08-01,823920,BOS,LAD,BOS,LAD,Boston Red Sox,Los Angeles Dodgers,Payton Tolle,Yoshinobu Yamamoto,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,823109,MIN,SEA,MIN,SEA,Minnesota Twins,Seattle Mariners,Connor Prielipp,Logan Gilbert,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824649,NYY,CHC,NYY,CHC,New York Yankees,Chicago Cubs,Max Fried,David Peterson,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,822944,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Jordan Hicks,Drew Rasmussen,0.4788,0.5212,PASS,PASS,0.47,0.03,0.74,57,77
-2026-08-01,824000,MIL,LAA,MIL,LAA,Milwaukee Brewers,Los Angeles Angels,Robert Gasser,Brent Suter,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824890,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Miles Mikolas,Martín Pérez,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824162,TEX,HOU,TEX,HOU,Texas Rangers,Houston Astros,Jacob deGrom,Ronel Blanco,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824326,KC,COL,KC,COL,Kansas City Royals,Colorado Rockies,Luinder Avila,Ryan Feltner,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824485,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Braxton Ashcraft,Andrew Abbott,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,823594,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Tyler Phillips,Zac Thornton,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,822781,STL,TOR,STL,TOR,St. Louis Cardinals,Toronto Blue Jays,Quinn Mathews,Kevin Gausman,0.4533,0.5467,PASS,PASS,0.47,0.03,0.818,63,77
-2026-08-01,823269,SF,SD,SF,SD,San Francisco Giants,San Diego Padres,Tyler Mahle,Walker Buehler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824405,AZ,CLE,AZ,CLE,Arizona Diamondbacks,Cleveland Guardians,Kohl Drake,Parker Messick,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-01,824972,DET,ATH,DET,ATH,Detroit Tigers,Athletics,Framber Valdez,Jack Perkins,0.3961,0.6039,YRFI,NO,0.47,0.03,0.883,68,77
-2026-08-01,824808,PHI,BAL,PHI,BAL,Philadelphia Phillies,Baltimore Orioles,Cristopher Sánchez,Shane Baz,0.3144,0.6856,YRFI,NO,0.47,0.03,1.0,77,77
+2026-08-02,823996,MIL,LAA,MIL,LAA,Milwaukee Brewers,Los Angeles Angels,Jacob Misiorowski,Walbert Ureña,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-02,824404,AZ,CLE,AZ,CLE,Arizona Diamondbacks,Cleveland Guardians,Merrill Kelly,Gavin Williams,0.4872,0.5128,PASS,PASS,0.47,0.03,0.883,68,77
+2026-08-02,824891,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Cade Cavalli,TBD,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-02,822943,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Anthony Kay,Griffin Jax,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,823592,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Sandy Alcantara,Robert Stock,0.4677,0.5323,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-02,824807,PHI,BAL,PHI,BAL,Philadelphia Phillies,Baltimore Orioles,Zack Wheeler,Kyle Bradish,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,824648,NYY,CHC,NYY,CHC,New York Yankees,Chicago Cubs,Gerrit Cole,Colin Rea,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,824163,TEX,HOU,TEX,HOU,Texas Rangers,Houston Astros,Kumar Rocker,Peter Lambert,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,822783,STL,TOR,STL,TOR,St. Louis Cardinals,Toronto Blue Jays,Matthew Liberatore,Max Scherzer,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77
+2026-08-02,824483,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Mitch Keller,Chase Burns,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,823270,SF,SD,SF,SD,San Francisco Giants,San Diego Padres,Landen Roupp,Michael King,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,823919,BOS,LAD,BOS,LAD,Boston Red Sox,Los Angeles Dodgers,Jake Bennett,Emmet Sheehan,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,823107,MIN,SEA,MIN,SEA,Minnesota Twins,Seattle Mariners,Taj Bradley,George Kirby,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,824323,KC,COL,KC,COL,Kansas City Royals,Colorado Rockies,Seth Lugo,Kyle Freeland,0.3964,0.6036,YRFI,NO,0.47,0.03,1.0,77,77
+2026-08-02,824971,DET,ATH,DET,ATH,Detroit Tigers,Athletics,Keider Montero,Gage Jump,0.2793,0.7207,YRFI,NO,0.47,0.03,1.0,77,77
