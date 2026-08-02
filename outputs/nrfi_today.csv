@@ -1,11 +1,11 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
 2026-08-02,823996,MIL,LAA,MIL,LAA,Milwaukee Brewers,Los Angeles Angels,Jacob Misiorowski,Walbert Ureña,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
-2026-08-02,824891,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Cade Cavalli,TBD,0.4888,0.5112,PASS,PASS,0.47,0.03,0.727,56,77
-2026-08-02,822943,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Anthony Kay,Griffin Jax,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-02,823919,BOS,LAD,BOS,LAD,Boston Red Sox,Los Angeles Dodgers,Jake Bennett,Emmet Sheehan,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,822943,CWS,TB,CWS,TB,Chicago White Sox,Tampa Bay Rays,Anthony Kay,Griffin Jax,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-02,824648,NYY,CHC,NYY,CHC,New York Yankees,Chicago Cubs,Gerrit Cole,Colin Rea,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-02,822783,STL,TOR,STL,TOR,St. Louis Cardinals,Toronto Blue Jays,Matthew Liberatore,Max Scherzer,0.4677,0.5323,PASS,PASS,0.47,0.03,0.883,68,77
 2026-08-02,824807,PHI,BAL,PHI,BAL,Philadelphia Phillies,Baltimore Orioles,Zack Wheeler,Kyle Bradish,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-02,824891,WSH,ATL,WSH,ATL,Washington Nationals,Atlanta Braves,Cade Cavalli,JR Ritchie,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-02,824404,AZ,CLE,AZ,CLE,Arizona Diamondbacks,Cleveland Guardians,Merrill Kelly,Gavin Williams,0.4658,0.5342,PASS,PASS,0.47,0.03,0.883,68,77
 2026-08-02,824483,PIT,CIN,PIT,CIN,Pittsburgh Pirates,Cincinnati Reds,Mitch Keller,Chase Burns,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-02,823592,MIA,NYM,MIA,NYM,Miami Marlins,New York Mets,Sandy Alcantara,Robert Stock,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
