@@ -1,4 +1,9 @@
 {
+  "453286": {
+    "age": 42,
+    "birth_date": "1984-07-27",
+    "name": "Max Scherzer"
+  },
   "500779": {
     "age": 37,
     "birth_date": "1989-01-24",
@@ -808,6 +813,11 @@
     "age": 29,
     "birth_date": "1997-01-04",
     "name": "Davis Martin"
+  },
+  "663457": {
+    "age": 28,
+    "birth_date": "1997-09-08",
+    "name": "Lars Nootbaar"
   },
   "663460": {
     "age": 28,
@@ -2669,5 +2679,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-08-02"
+  "__updated__": "2026-08-03"
 }
