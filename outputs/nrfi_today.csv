@@ -1,8 +1,8 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
 2026-08-03,823757,PIT,MIL,PIT,MIL,Pittsburgh Pirates,Milwaukee Brewers,Bubba Chandler,Brandon Sproat,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-03,823431,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Andrew Alvarez,Aaron Nola,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-03,822867,SF,TEX,SF,TEX,San Francisco Giants,Texas Rangers,Logan Webb,TBD,0.4677,0.5323,PASS,PASS,0.47,0.03,0.727,56,77
 2026-08-03,824324,TB,COL,TB,COL,Tampa Bay Rays,Colorado Rockies,Ian Seymour,Michael Lorenzen,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,823431,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,TBD,Aaron Nola,0.4658,0.5342,PASS,PASS,0.47,0.03,0.74,57,77
 2026-08-03,825095,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Michael King,Brandon Pfaadt,0.4634,0.5366,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-03,823520,STL,NYY,STL,NYY,St. Louis Cardinals,New York Yankees,Michael McGreevy,Cam Schlittler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-03,824647,LAD,CHC,LAD,CHC,Los Angeles Dodgers,Chicago Cubs,TBD,Matthew Boyd,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77
