@@ -1,9 +1,16 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
-2026-08-03,823757,PIT,MIL,PIT,MIL,Pittsburgh Pirates,Milwaukee Brewers,Bubba Chandler,Brandon Sproat,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
-2026-08-03,823431,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Andrew Alvarez,Aaron Nola,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,822867,SF,TEX,SF,TEX,San Francisco Giants,Texas Rangers,Logan Webb,Cal Quantrill,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,824324,TB,COL,TB,COL,Tampa Bay Rays,Colorado Rockies,Ian Seymour,Michael Lorenzen,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,825095,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Michael King,Brandon Pfaadt,0.4634,0.5366,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,823520,STL,NYY,STL,NYY,St. Louis Cardinals,New York Yankees,Michael McGreevy,Cam Schlittler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,824647,LAD,CHC,LAD,CHC,Los Angeles Dodgers,Chicago Cubs,Justin Wrobleski,Matthew Boyd,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-03,824160,TOR,HOU,TOR,HOU,Toronto Blue Jays,Houston Astros,Shane Bieber,Cristian Javier,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,824403,NYM,CLE,NYM,CLE,New York Mets,Cleveland Guardians,Sean Manaea,Joey Cantillo,0.5153,0.4847,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-04,823756,PIT,MIL,PIT,MIL,Pittsburgh Pirates,Milwaukee Brewers,Jared Jones,Logan Henderson,0.5143,0.4857,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-04,824731,CWS,BOS,CWS,BOS,Chicago White Sox,Boston Red Sox,Davis Martin,Patrick Sandoval,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-04,824321,TB,COL,TB,COL,Tampa Bay Rays,Colorado Rockies,Freddy Peralta,Gabriel Hughes,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,823432,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Zack Littell,Jesús Luzardo,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,822865,SF,TEX,SF,TEX,San Francisco Giants,Texas Rangers,Blade Tidwell,MacKenzie Gore,0.4664,0.5336,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-04,825054,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Randy Vásquez,Eduardo Rodriguez,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,823108,DET,SEA,DET,SEA,Detroit Tigers,Seattle Mariners,TBD,Emerson Hancock,0.4549,0.5451,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-04,823517,STL,NYY,STL,NYY,St. Louis Cardinals,New York Yankees,Hunter Dobbins,Ryan Weathers,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,824805,LAA,BAL,LAA,BAL,Los Angeles Angels,Baltimore Orioles,Grayson Rodriguez,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-04,824484,ATH,CIN,ATH,CIN,Athletics,Cincinnati Reds,J.T. Ginn,Brady Singer,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,824645,LAD,CHC,LAD,CHC,Los Angeles Dodgers,Chicago Cubs,Tarik Skubal,Javier Assad,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,824084,MIN,KC,MIN,KC,Minnesota Twins,Kansas City Royals,Joe Ryan,Randy Dobnak,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-04,824161,TOR,HOU,TOR,HOU,Toronto Blue Jays,Houston Astros,Trey Yesavage,Hayden Wesneski,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77
+2026-08-04,824888,MIA,ATL,MIA,ATL,Miami Marlins,Atlanta Braves,Ryan Gusto,Grant Holmes,0.3579,0.6421,YRFI,NO,0.47,0.03,1.0,77,77
