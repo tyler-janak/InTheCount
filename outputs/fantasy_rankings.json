@@ -16626,6 +16626,24 @@
       "rank": 130
     },
     {
+      "name": "Nico Hoerner",
+      "team": "CHC",
+      "opponent": "LAD",
+      "lineup_spot": 5,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.97,
+      "proj_hits": 0.78,
+      "proj_hr": 0.03,
+      "proj_runs": 0.36,
+      "proj_rbi": 0.31,
+      "proj_tb": 1.08,
+      "proj_walks": 0.19,
+      "proj_strikeouts": 0.52,
+      "confidence": "high",
+      "points": 1.68,
+      "rank": 131
+    },
+    {
       "name": "Brooks Lee",
       "team": "MIN",
       "opponent": "KC",
@@ -16641,7 +16659,7 @@
       "proj_strikeouts": 0.47,
       "confidence": "high",
       "points": 1.66,
-      "rank": 131
+      "rank": 132
     },
     {
       "name": "Javier B\u00e1ez",
@@ -16659,24 +16677,6 @@
       "proj_strikeouts": 0.67,
       "confidence": "high",
       "points": 1.65,
-      "rank": 132
-    },
-    {
-      "name": "Nico Hoerner",
-      "team": "CHC",
-      "opponent": "LAD",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.97,
-      "proj_hits": 0.78,
-      "proj_hr": 0.03,
-      "proj_runs": 0.32,
-      "proj_rbi": 0.31,
-      "proj_tb": 1.08,
-      "proj_walks": 0.19,
-      "proj_strikeouts": 0.52,
-      "confidence": "high",
-      "points": 1.64,
       "rank": 133
     },
     {
@@ -17062,7 +17062,7 @@
       "team": "CHC",
       "opponent": "LAD",
       "lineup_spot": 3,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.98,
       "proj_hits": 0.68,
       "proj_hr": 0.04,
@@ -17688,24 +17688,6 @@
       "rank": 189
     },
     {
-      "name": "Carson Kelly",
-      "team": "CHC",
-      "opponent": "LAD",
-      "lineup_spot": 4,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.88,
-      "proj_hits": 0.65,
-      "proj_hr": 0.04,
-      "proj_runs": 0.32,
-      "proj_rbi": 0.27,
-      "proj_tb": 0.8,
-      "proj_walks": 0.18,
-      "proj_strikeouts": 0.74,
-      "confidence": "high",
-      "points": 1.2,
-      "rank": 190
-    },
-    {
       "name": "Brendan Donovan",
       "team": "SEA",
       "opponent": "DET",
@@ -17721,7 +17703,7 @@
       "proj_strikeouts": 0.59,
       "confidence": "high",
       "points": 1.2,
-      "rank": 191
+      "rank": 190
     },
     {
       "name": "Nick Loftin",
@@ -17739,7 +17721,7 @@
       "proj_strikeouts": 0.44,
       "confidence": "high",
       "points": 1.19,
-      "rank": 192
+      "rank": 191
     },
     {
       "name": "Zach McKinstry",
@@ -17757,7 +17739,7 @@
       "proj_strikeouts": 0.58,
       "confidence": "high",
       "points": 1.19,
-      "rank": 193
+      "rank": 192
     },
     {
       "name": "Wade Meckler",
@@ -17775,7 +17757,7 @@
       "proj_strikeouts": 0.56,
       "confidence": "high",
       "points": 1.17,
-      "rank": 194
+      "rank": 193
     },
     {
       "name": "Luke Keaschall",
@@ -17793,7 +17775,7 @@
       "proj_strikeouts": 0.42,
       "confidence": "high",
       "points": 1.17,
-      "rank": 195
+      "rank": 194
     },
     {
       "name": "Marcus Semien",
@@ -17811,7 +17793,7 @@
       "proj_strikeouts": 1.5,
       "confidence": "high",
       "points": 1.15,
-      "rank": 196
+      "rank": 195
     },
     {
       "name": "JJ Bleday",
@@ -17829,7 +17811,7 @@
       "proj_strikeouts": 1.3,
       "confidence": "high",
       "points": 1.15,
-      "rank": 197
+      "rank": 196
     },
     {
       "name": "Luis Robert Jr.",
@@ -17847,7 +17829,7 @@
       "proj_strikeouts": 1.41,
       "confidence": "high",
       "points": 1.14,
-      "rank": 198
+      "rank": 197
     },
     {
       "name": "Esmerlyn Valdez",
@@ -17865,14 +17847,14 @@
       "proj_strikeouts": 1.82,
       "confidence": "high",
       "points": 1.14,
-      "rank": 199
+      "rank": 198
     },
     {
       "name": "Pete Crow-Armstrong",
       "team": "CHC",
       "opponent": "LAD",
       "lineup_spot": 1,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.97,
       "proj_hits": 0.64,
       "proj_hr": 0.05,
@@ -17883,7 +17865,7 @@
       "proj_strikeouts": 1.48,
       "confidence": "high",
       "points": 1.12,
-      "rank": 200
+      "rank": 199
     },
     {
       "name": "Myles Straw",
@@ -17901,6 +17883,24 @@
       "proj_strikeouts": 0.45,
       "confidence": "high",
       "points": 1.12,
+      "rank": 200
+    },
+    {
+      "name": "Pedro Ram\u00edrez",
+      "team": "CHC",
+      "opponent": "LAD",
+      "lineup_spot": 8,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.65,
+      "proj_hits": 0.62,
+      "proj_hr": 0.02,
+      "proj_runs": 0.26,
+      "proj_rbi": 0.22,
+      "proj_tb": 0.85,
+      "proj_walks": 0.17,
+      "proj_strikeouts": 0.78,
+      "confidence": "high",
+      "points": 1.11,
       "rank": 201
     },
     {
@@ -17998,7 +17998,7 @@
       "team": "CHC",
       "opponent": "LAD",
       "lineup_spot": 2,
-      "lineup_status": "Expected Lineup",
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 4.17,
       "proj_hits": 0.65,
       "proj_hr": 0.05,
@@ -18177,8 +18177,8 @@
       "name": "Dansby Swanson",
       "team": "CHC",
       "opponent": "LAD",
-      "lineup_spot": 9,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 7,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.88,
       "proj_hits": 0.64,
       "proj_hr": 0.04,
@@ -18213,8 +18213,8 @@
       "name": "Michael Busch",
       "team": "CHC",
       "opponent": "LAD",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 4,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 3.65,
       "proj_hits": 0.58,
       "proj_hr": 0.02,
@@ -18246,19 +18246,19 @@
       "rank": 220
     },
     {
-      "name": "Ian Happ",
+      "name": "Miguel Amaya",
       "team": "CHC",
       "opponent": "LAD",
-      "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.66,
-      "proj_hits": 0.59,
-      "proj_hr": 0.05,
-      "proj_runs": 0.27,
-      "proj_rbi": 0.23,
-      "proj_tb": 0.89,
-      "proj_walks": 0.21,
-      "proj_strikeouts": 1.33,
+      "lineup_spot": 9,
+      "lineup_status": "Confirmed Lineup",
+      "proj_pa": 3.41,
+      "proj_hits": 0.54,
+      "proj_hr": 0.03,
+      "proj_runs": 0.23,
+      "proj_rbi": 0.19,
+      "proj_tb": 0.84,
+      "proj_walks": 0.16,
+      "proj_strikeouts": 0.95,
       "confidence": "high",
       "points": 0.94,
       "rank": 221
@@ -18501,18 +18501,18 @@
       "name": "Tyrone Taylor",
       "team": "CHC",
       "opponent": "LAD",
-      "lineup_spot": 8,
-      "lineup_status": "Expected Lineup",
+      "lineup_spot": 6,
+      "lineup_status": "Confirmed Lineup",
       "proj_pa": 2.97,
       "proj_hits": 0.46,
       "proj_hr": 0.03,
       "proj_runs": 0.2,
-      "proj_rbi": 0.17,
+      "proj_rbi": 0.19,
       "proj_tb": 0.64,
       "proj_walks": 0.14,
       "proj_strikeouts": 0.91,
       "confidence": "high",
-      "points": 0.69,
+      "points": 0.71,
       "rank": 235
     },
     {
