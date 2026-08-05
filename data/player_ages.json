@@ -1089,6 +1089,11 @@
     "birth_date": "1997-09-30",
     "name": "Jes\u00fas Luzardo"
   },
+  "666211": {
+    "age": 28,
+    "birth_date": "1997-09-13",
+    "name": "Taylor Trammell"
+  },
   "666397": {
     "age": 27,
     "birth_date": "1999-04-30",
@@ -1308,6 +1313,11 @@
     "age": 28,
     "birth_date": "1998-02-08",
     "name": "Jared Triolo"
+  },
+  "669713": {
+    "age": 28,
+    "birth_date": "1997-12-05",
+    "name": "Hayden Wesneski"
   },
   "669854": {
     "age": 32,
@@ -2684,5 +2694,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-08-04"
+  "__updated__": "2026-08-05"
 }
