@@ -1730,14 +1730,14 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-05,824322,TB,COL,TB,COL,Tampa Bay Rays,Colorado Rockies,Nick Martinez,Tomoyuki Sugano,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,0.0,2.0,False,True,Final
 2026-08-05,824158,TOR,HOU,TOR,HOU,Toronto Blue Jays,Houston Astros,Jameson Taillon,Hunter Brown,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-08-05,823429,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Jake Irvin,Andrew Painter,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,1.0,False,,Final
-2026-08-06,824481,ATH,CIN,ATH,CIN,Athletics,Cincinnati Reds,Mason Barnett,Andrew Abbott,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824729,CWS,BOS,CWS,BOS,Chicago White Sox,Boston Red Sox,Luis Castillo,Ranger Suarez,0.4634,0.5366,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Scheduled
-2026-08-06,823105,DET,SEA,DET,SEA,Detroit Tigers,Seattle Mariners,Framber Valdez,Bryce Miller,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824804,LAA,BAL,LAA,BAL,Los Angeles Angels,Baltimore Orioles,Ryan Johnson,Brandon Young,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824885,MIA,ATL,MIA,ATL,Miami Marlins,Atlanta Braves,Janson Junk,Martín Pérez,0.4303,0.5697,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824080,MIN,KC,MIN,KC,Minnesota Twins,Kansas City Royals,Bailey Ober,Michael Wacha,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824401,NYM,CLE,NYM,CLE,New York Mets,Cleveland Guardians,Nolan McLean,Foster Griffin,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,823754,PIT,MIL,PIT,MIL,Pittsburgh Pirates,Milwaukee Brewers,Braxton Ashcraft,Dustin May,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,825053,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Walker Buehler,Kohl Drake,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,824664,TOR,CHC,TOR,CHC,Toronto Blue Jays,Chicago Cubs,Dylan Cease,David Peterson,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-06,823430,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Miles Mikolas,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-06,824481,ATH,CIN,ATH,CIN,Athletics,Cincinnati Reds,Mason Barnett,Andrew Abbott,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,1.0,0.0,False,,Final
+2026-08-06,824729,CWS,BOS,CWS,BOS,Chicago White Sox,Boston Red Sox,Luis Castillo,Ranger Suarez,0.4634,0.5366,PASS,PASS,0.47,0.03,0.883,68,77,0.0,0.0,True,,In Progress
+2026-08-06,823105,DET,SEA,DET,SEA,Detroit Tigers,Seattle Mariners,Framber Valdez,Bryce Miller,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77,0.0,3.0,False,,Final
+2026-08-06,824804,LAA,BAL,LAA,BAL,Los Angeles Angels,Baltimore Orioles,Ryan Johnson,Brandon Young,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
+2026-08-06,824885,MIA,ATL,MIA,ATL,Miami Marlins,Atlanta Braves,Janson Junk,Martín Pérez,0.4303,0.5697,YRFI,NO,0.47,0.03,1.0,77,77,0.0,0.0,True,False,In Progress
+2026-08-06,824080,MIN,KC,MIN,KC,Minnesota Twins,Kansas City Royals,Bailey Ober,Michael Wacha,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,0.0,0.0,True,False,In Progress
+2026-08-06,824401,NYM,CLE,NYM,CLE,New York Mets,Cleveland Guardians,Nolan McLean,Foster Griffin,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,2.0,0.0,False,,Final
+2026-08-06,823754,PIT,MIL,PIT,MIL,Pittsburgh Pirates,Milwaukee Brewers,Braxton Ashcraft,Dustin May,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,1.0,0.0,False,,Final
+2026-08-06,825053,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Walker Buehler,Kohl Drake,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
+2026-08-06,824664,TOR,CHC,TOR,CHC,Toronto Blue Jays,Chicago Cubs,Dylan Cease,David Peterson,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,0.0,1.0,False,False,Final
+2026-08-06,823430,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Miles Mikolas,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,2.0,0.0,False,,Final
