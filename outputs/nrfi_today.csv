@@ -1,10 +1,10 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
 2026-08-07,824727,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,Jack Perkins,Payton Tolle,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
 2026-08-07,823428,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,José Soriano,Zack Wheeler,0.4894,0.5106,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,824081,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,TBD,Daniel Lynch IV,0.4674,0.5326,PASS,PASS,0.47,0.03,0.468,36,77
 2026-08-07,825051,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Roki Sasaki,Merrill Kelly,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-07,824566,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Parker Messick,Noah Schultz,0.4635,0.5365,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-07,823024,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Ryan Feltner,Kyle Leahy,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-07,824081,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Kevin Gausman,Daniel Lynch IV,0.4549,0.5451,PASS,PASS,0.47,0.03,0.727,56,77
 2026-08-07,822863,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Shane Baz,Nathan Eovaldi,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-07,823750,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Zebby Matthews,Shane Drohan,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-07,823515,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Tyler Mahle,Max Fried,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
