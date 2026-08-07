@@ -1741,7 +1741,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-06,825053,SD,AZ,SD,AZ,San Diego Padres,Arizona Diamondbacks,Walker Buehler,Kohl Drake,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,0.0,1.0,False,,Final
 2026-08-06,824664,TOR,CHC,TOR,CHC,Toronto Blue Jays,Chicago Cubs,Dylan Cease,David Peterson,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,0.0,1.0,False,False,Final
 2026-08-06,823430,WSH,PHI,WSH,PHI,Washington Nationals,Philadelphia Phillies,Miles Mikolas,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,2.0,0.0,False,,Final
-2026-08-07,824727,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,Jack Perkins,Payton Tolle,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-07,824727,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,Jack Perkins,Payton Tolle,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,In Progress
 2026-08-07,823515,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Tyler Mahle,Max Fried,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Delayed Start
 2026-08-07,822863,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Shane Baz,Nathan Eovaldi,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-07,824081,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Kevin Gausman,Daniel Lynch IV,0.4549,0.5451,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Pre-Game
@@ -1750,9 +1750,9 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-07,823024,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Ryan Feltner,Kyle Leahy,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-07,823191,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Keider Montero,JT Brubaker,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Pre-Game
 2026-08-07,823266,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Ronel Blanco,Robbie Ray,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-08-07,823836,LAA,MIA,LAA,MIA,Los Angeles Angels,Miami Marlins,George Klassen,Tyler Phillips,0.3584,0.6416,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-07,823836,LAA,MIA,LAA,MIA,Los Angeles Angels,Miami Marlins,George Klassen,Tyler Phillips,0.3584,0.6416,YRFI,NO,0.47,0.03,1.0,77,77,,,,,In Progress
 2026-08-07,825051,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Roki Sasaki,Merrill Kelly,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-07,823750,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Zebby Matthews,Shane Drohan,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-08-07,823349,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Zac Thornton,Carmen Mlodzinski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
+2026-08-07,823349,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Zac Thornton,Carmen Mlodzinski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,1.0,False,,In Progress
 2026-08-07,823103,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Drew Rasmussen,Logan Gilbert,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-07,823428,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,José Soriano,Zack Wheeler,0.4894,0.5106,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Delayed Start
