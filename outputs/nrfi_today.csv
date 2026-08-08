@@ -1,16 +1,16 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
-2026-08-07,824727,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,Jack Perkins,Payton Tolle,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
-2026-08-07,823428,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,José Soriano,Zack Wheeler,0.4894,0.5106,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,825051,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Roki Sasaki,Merrill Kelly,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,824566,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Parker Messick,Noah Schultz,0.4635,0.5365,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823024,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Ryan Feltner,Kyle Leahy,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,824081,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Kevin Gausman,Daniel Lynch IV,0.4549,0.5451,PASS,PASS,0.47,0.03,0.727,56,77
-2026-08-07,822863,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Shane Baz,Nathan Eovaldi,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823750,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Zebby Matthews,Shane Drohan,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823515,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Tyler Mahle,Max Fried,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823349,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Zac Thornton,Carmen Mlodzinski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,822699,CIN,WSH,CIN,WSH,Cincinnati Reds,Washington Nationals,Chase Petty,Cade Cavalli,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77
-2026-08-07,823103,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Drew Rasmussen,Logan Gilbert,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823266,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Ronel Blanco,Robbie Ray,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-07,823191,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Keider Montero,JT Brubaker,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
-2026-08-07,823836,LAA,MIA,LAA,MIA,Los Angeles Angels,Miami Marlins,George Klassen,Tyler Phillips,0.3584,0.6416,YRFI,NO,0.47,0.03,1.0,77,77
+2026-08-08,825049,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Yoshinobu Yamamoto,Brandon Pfaadt,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,824726,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,Gage Jump,Jake Bennett,0.4814,0.5186,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,824079,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Clay Holmes,Seth Lugo,0.4808,0.5192,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823102,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Griffin Jax,George Kirby,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823834,LAA,MIA,LAA,MIA,Los Angeles Angels,Miami Marlins,Walbert Ureña,Sandy Alcantara,0.4772,0.5228,PASS,PASS,0.47,0.03,0.883,68,77
+2026-08-08,822864,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Kyle Bradish,Jacob deGrom,0.4692,0.5308,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,822701,CIN,WSH,CIN,WSH,Cincinnati Reds,Washington Nationals,Chase Burns,Andrew Alvarez,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823514,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Chris Sale,Gerrit Cole,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823188,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Jackson Jobe,Landen Roupp,0.4539,0.5461,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-08,823426,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,Max Scherzer,Aaron Nola,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823348,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Robert Stock,Bubba Chandler,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77
+2026-08-08,823021,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Kyle Freeland,Matthew Liberatore,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823267,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Peter Lambert,Michael King,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,823752,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Taj Bradley,Robert Gasser,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-08,824565,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Gavin Williams,Anthony Kay,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
