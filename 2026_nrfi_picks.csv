@@ -1771,18 +1771,18 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-08,823348,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Robert Stock,Bubba Chandler,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77
 2026-08-08,823102,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Griffin Jax,George Kirby,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-08,823426,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,Max Scherzer,Aaron Nola,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,824724,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,J.T. Ginn,TBD,0.4495,0.5505,PASS,PASS,0.47,0.03,0.727,56,77
-2026-08-09,823513,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Grant Holmes,Cam Schlittler,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,822862,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Cade Povich,Kumar Rocker,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,824078,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Matthew Boyd,Randy Dobnak,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,824724,ATH,BOS,ATH,BOS,Athletics,Boston Red Sox,J.T. Ginn,Erik Miller,0.4924,0.5076,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-09,823513,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Grant Holmes,Cam Schlittler,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,822862,BAL,TEX,BAL,TEX,Baltimore Orioles,Texas Rangers,Cade Povich,Kumar Rocker,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,824078,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Matthew Boyd,Randy Dobnak,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,822700,CIN,WSH,CIN,WSH,Cincinnati Reds,Washington Nationals,Brady Singer,Brad Lord,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,824564,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Joey Cantillo,Davis Martin,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823020,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Michael Lorenzen,Michael McGreevy,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823190,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Troy Melton,Logan Webb,0.4878,0.5122,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823268,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Cristian Javier,TBD,0.4658,0.5342,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-09,824564,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Joey Cantillo,Davis Martin,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823020,COL,STL,COL,STL,Colorado Rockies,St. Louis Cardinals,Michael Lorenzen,Michael McGreevy,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823190,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Troy Melton,Logan Webb,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823268,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Cristian Javier,TBD,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77
 2026-08-09,823835,LAA,MIA,LAA,MIA,Los Angeles Angels,Miami Marlins,Grayson Rodriguez,Ryan Gusto,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,825050,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Justin Wrobleski,Eduardo Rodriguez,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823751,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Connor Prielipp,Jacob Misiorowski,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823345,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Sean Manaea,Jared Jones,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823104,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,TBD,Emerson Hancock,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77
-2026-08-09,823425,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,Shane Bieber,Jesús Luzardo,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,825050,LAD,AZ,LAD,AZ,Los Angeles Dodgers,Arizona Diamondbacks,Justin Wrobleski,Eduardo Rodriguez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823751,MIN,MIL,MIN,MIL,Minnesota Twins,Milwaukee Brewers,Connor Prielipp,Jacob Misiorowski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823345,NYM,PIT,NYM,PIT,New York Mets,Pittsburgh Pirates,Sean Manaea,Jared Jones,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823104,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Ian Seymour,Emerson Hancock,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-09,823425,TOR,PHI,TOR,PHI,Toronto Blue Jays,Philadelphia Phillies,Shane Bieber,Jesús Luzardo,0.4664,0.5336,PASS,PASS,0.47,0.03,1.0,77,77
