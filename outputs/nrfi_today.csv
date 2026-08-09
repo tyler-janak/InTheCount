@@ -3,7 +3,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-09,822700,CIN,WSH,CIN,WSH,Cincinnati Reds,Washington Nationals,Brady Singer,Brad Lord,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,823190,DET,SF,DET,SF,Detroit Tigers,San Francisco Giants,Troy Melton,Logan Webb,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,824564,CLE,CWS,CLE,CWS,Cleveland Guardians,Chicago White Sox,Joey Cantillo,Davis Martin,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-09,823268,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Cristian Javier,TBD,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-09,823268,HOU,SD,HOU,SD,Houston Astros,San Diego Padres,Cristian Javier,Randy Vásquez,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,823513,ATL,NYY,ATL,NYY,Atlanta Braves,New York Yankees,Grant Holmes,Cam Schlittler,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,824078,CHC,KC,CHC,KC,Chicago Cubs,Kansas City Royals,Matthew Boyd,Randy Dobnak,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-09,823104,TB,SEA,TB,SEA,Tampa Bay Rays,Seattle Mariners,Ian Seymour,Emerson Hancock,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
