@@ -1,5 +1,5 @@
 game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,home_sp,nrfi_prob,yrfi_prob,pick,lean,threshold,pass_margin,feature_coverage,features_found,features_total
-2026-08-11,823186,HOU,SF,HOU,SF,Houston Astros,San Francisco Giants,Hunter Brown,TBD,0.5016,0.4984,NRFI,YES,0.47,0.03,0.727,56,77
+2026-08-11,823186,HOU,SF,HOU,SF,Houston Astros,San Francisco Giants,Hunter Brown,Carson Whisenhunt,0.5317,0.4683,NRFI,YES,0.47,0.03,0.883,68,77
 2026-08-11,824563,CIN,CWS,CIN,CWS,Cincinnati Reds,Chicago White Sox,Nick Lodolo,Sean Burke,0.4878,0.5122,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-11,822778,BOS,TOR,BOS,TOR,Boston Red Sox,Toronto Blue Jays,Patrick Sandoval,Dylan Cease,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-11,823832,PIT,MIA,PIT,MIA,Pittsburgh Pirates,Miami Marlins,Paul Skenes,Eury Pérez,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77

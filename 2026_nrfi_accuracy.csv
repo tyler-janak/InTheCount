@@ -1802,7 +1802,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-11,824563,CIN,CWS,CIN,CWS,Cincinnati Reds,Chicago White Sox,Nick Lodolo,Sean Burke,0.4878,0.5122,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-11,824240,CLE,DET,CLE,DET,Cleveland Guardians,Detroit Tigers,Tanner Bibee,Drew Anderson,0.4664,0.5336,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-11,825046,COL,AZ,COL,AZ,Colorado Rockies,Arizona Diamondbacks,Tomoyuki Sugano,Mitch Bratt,0.4664,0.5336,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-11,823186,HOU,SF,HOU,SF,Houston Astros,San Francisco Giants,Hunter Brown,TBD,0.5016,0.4984,NRFI,YES,0.47,0.03,0.727,56,77,,,,,Scheduled
+2026-08-11,823186,HOU,SF,HOU,SF,Houston Astros,San Francisco Giants,Hunter Brown,Carson Whisenhunt,0.5317,0.4683,NRFI,YES,0.47,0.03,0.883,68,77,,,,,Scheduled
 2026-08-11,823917,KC,LAD,KC,LAD,Kansas City Royals,Los Angeles Dodgers,Michael Wacha,Blake Snell,0.4597,0.5403,PASS,PASS,0.47,0.03,0.818,63,77,,,,,Scheduled
 2026-08-11,823264,MIL,SD,MIL,SD,Milwaukee Brewers,San Diego Padres,Kyle Harrison,Walker Buehler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-11,824886,NYM,ATL,NYM,ATL,New York Mets,Atlanta Braves,Nolan McLean,Martín Pérez,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
