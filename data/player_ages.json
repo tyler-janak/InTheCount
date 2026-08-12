@@ -289,6 +289,11 @@
     "birth_date": "1993-06-04",
     "name": "Aaron Nola"
   },
+  "605483": {
+    "age": 33,
+    "birth_date": "1992-12-04",
+    "name": "Blake Snell"
+  },
   "605488": {
     "age": 33,
     "birth_date": "1992-09-20",
@@ -1229,6 +1234,11 @@
     "birth_date": "1997-11-18",
     "name": "Shea Langeliers"
   },
+  "669134": {
+    "age": 27,
+    "birth_date": "1998-09-29",
+    "name": "Luis Campusano"
+  },
   "669160": {
     "age": 28,
     "birth_date": "1997-09-06",
@@ -1498,6 +1508,11 @@
     "age": 28,
     "birth_date": "1998-02-12",
     "name": "Josh Jung"
+  },
+  "674003": {
+    "age": 28,
+    "birth_date": "1998-02-22",
+    "name": "Cody Bradford"
   },
   "674841": {
     "age": 27,
@@ -2714,5 +2729,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-08-11"
+  "__updated__": "2026-08-12"
 }
