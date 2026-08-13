@@ -1826,12 +1826,12 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-12,823511,SEA,NYY,SEA,NYY,Seattle Mariners,New York Yankees,Bryce Miller,Will Warren,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,0.0,3.0,False,False,Final
 2026-08-12,824967,TB,ATH,TB,ATH,Tampa Bay Rays,Athletics,Drew Rasmussen,Jack Perkins,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-08-12,823994,TEX,LAA,TEX,LAA,Texas Rangers,Los Angeles Angels,Cal Quantrill,George Klassen,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
-2026-08-13,822776,BOS,TOR,BOS,TOR,Boston Red Sox,Toronto Blue Jays,Payton Tolle,Max Scherzer,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-13,822776,BOS,TOR,BOS,TOR,Boston Red Sox,Toronto Blue Jays,Payton Tolle,Max Scherzer,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-13,822696,CHC,WSH,CHC,WSH,Chicago Cubs,Washington Nationals,Kevin Gausman,Cade Cavalli,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,824561,CIN,CWS,CIN,CWS,Cincinnati Reds,Chicago White Sox,Andrew Abbott,Davis Martin,0.3579,0.6421,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,824238,CLE,DET,CLE,DET,Cleveland Guardians,Detroit Tigers,Parker Messick,Keider Montero,0.5138,0.4862,NRFI,YES,0.47,0.03,0.883,68,77,,,,,Scheduled
-2026-08-13,823915,MIL,LAD,MIL,LAD,Milwaukee Brewers,Los Angeles Dodgers,Shane Drohan,Roki Sasaki,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,823669,PHI,MIN,PHI,MIN,Philadelphia Phillies,Minnesota Twins,Aaron Nola,Taj Bradley,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,823829,PIT,MIA,PIT,MIA,Pittsburgh Pirates,Miami Marlins,Braxton Ashcraft,Tyler Phillips,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,823508,SEA,NYY,SEA,NYY,Seattle Mariners,New York Yankees,Logan Gilbert,Max Fried,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-13,823995,TEX,LAA,TEX,LAA,Texas Rangers,Los Angeles Angels,Jacob deGrom,Walbert Ureña,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-13,824561,CIN,CWS,CIN,CWS,Cincinnati Reds,Chicago White Sox,Andrew Abbott,Davis Martin,0.2174,0.7826,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-13,824238,CLE,DET,CLE,DET,Cleveland Guardians,Detroit Tigers,Parker Messick,Keider Montero,0.5138,0.4862,NRFI,YES,0.47,0.03,0.883,68,77,,,,,Pre-Game
+2026-08-13,823915,MIL,LAD,MIL,LAD,Milwaukee Brewers,Los Angeles Dodgers,Shane Drohan,Roki Sasaki,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-13,823669,PHI,MIN,PHI,MIN,Philadelphia Phillies,Minnesota Twins,Aaron Nola,Taj Bradley,0.4135,0.5865,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-13,823829,PIT,MIA,PIT,MIA,Pittsburgh Pirates,Miami Marlins,Braxton Ashcraft,Tyler Phillips,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-13,823508,SEA,NYY,SEA,NYY,Seattle Mariners,New York Yankees,Logan Gilbert,Max Fried,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-13,823995,TEX,LAA,TEX,LAA,Texas Rangers,Los Angeles Angels,Jacob deGrom,Walbert Ureña,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
