@@ -7,7 +7,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-14,824159,SEA,HOU,SEA,HOU,Seattle Mariners,Houston Astros,George Kirby,Peter Lambert,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-14,823591,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Andrew Alvarez,Robert Stock,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-14,824399,SD,CLE,SD,CLE,San Diego Padres,Cleveland Guardians,Michael King,Gavin Williams,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-14,822942,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,TBD,Steven Matz,0.4644,0.5356,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-14,822942,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Chris Bassitt,Steven Matz,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-14,823185,COL,SF,COL,SF,Colorado Rockies,San Francisco Giants,Kyle Freeland,Landen Roupp,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-14,824968,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,Kumar Rocker,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
 2026-08-14,822777,NYY,TOR,NYY,TOR,New York Yankees,Toronto Blue Jays,Gerrit Cole,Shane Bieber,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77

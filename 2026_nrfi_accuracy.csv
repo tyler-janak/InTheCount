@@ -1836,7 +1836,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-13,823508,SEA,NYY,SEA,NYY,Seattle Mariners,New York Yankees,Logan Gilbert,Max Fried,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,0.0,0.0,True,True,Final
 2026-08-13,823995,TEX,LAA,TEX,LAA,Texas Rangers,Los Angeles Angels,Jacob deGrom,Walbert Ureña,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-08-14,824882,AZ,ATL,AZ,ATL,Arizona Diamondbacks,Atlanta Braves,Brandon Pfaadt,Chris Sale,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-14,822942,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,TBD,Steven Matz,0.4644,0.5356,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Scheduled
+2026-08-14,822942,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Chris Bassitt,Steven Matz,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-14,823346,BOS,PIT,BOS,PIT,Boston Red Sox,Pittsburgh Pirates,Jake Bennett,Bubba Chandler,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-14,823185,COL,SF,COL,SF,Colorado Rockies,San Francisco Giants,Kyle Freeland,Landen Roupp,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-14,824237,CWS,DET,CWS,DET,Chicago White Sox,Detroit Tigers,Sean Newcomb,Jackson Jobe,0.4872,0.5128,PASS,PASS,0.47,0.03,0.818,63,77,,,,,Scheduled
