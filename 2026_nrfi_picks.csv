@@ -1835,3 +1835,17 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-13,823829,PIT,MIA,PIT,MIA,Pittsburgh Pirates,Miami Marlins,Braxton Ashcraft,Tyler Phillips,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-13,823508,SEA,NYY,SEA,NYY,Seattle Mariners,New York Yankees,Logan Gilbert,Max Fried,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77
 2026-08-13,823995,TEX,LAA,TEX,LAA,Texas Rangers,Los Angeles Angels,Jacob deGrom,Walbert Ureña,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824882,AZ,ATL,AZ,ATL,Arizona Diamondbacks,Atlanta Braves,Brandon Pfaadt,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-14,822942,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,TBD,Steven Matz,0.4644,0.5356,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-14,823346,BOS,PIT,BOS,PIT,Boston Red Sox,Pittsburgh Pirates,Jake Bennett,Bubba Chandler,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,823185,COL,SF,COL,SF,Colorado Rockies,San Francisco Giants,Kyle Freeland,Landen Roupp,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824237,CWS,DET,CWS,DET,Chicago White Sox,Detroit Tigers,Sean Newcomb,Jackson Jobe,0.4872,0.5128,PASS,PASS,0.47,0.03,0.818,63,77
+2026-08-14,823993,KC,LAA,KC,LAA,Kansas City Royals,Los Angeles Angels,Seth Lugo,Grayson Rodriguez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824479,MIA,CIN,MIA,CIN,Miami Marlins,Cincinnati Reds,Sandy Alcantara,Chase Burns,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,823913,MIL,LAD,MIL,LAD,Milwaukee Brewers,Los Angeles Dodgers,Robert Gasser,Yoshinobu Yamamoto,0.4924,0.5076,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,822777,NYY,TOR,NYY,TOR,New York Yankees,Toronto Blue Jays,Gerrit Cole,Shane Bieber,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824399,SD,CLE,SD,CLE,San Diego Padres,Cleveland Guardians,Michael King,Gavin Williams,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824159,SEA,HOU,SEA,HOU,Seattle Mariners,Houston Astros,George Kirby,Peter Lambert,0.4674,0.5326,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824643,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Matthew Liberatore,Clay Holmes,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-14,824968,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,Kumar Rocker,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-14,823591,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Andrew Alvarez,Robert Stock,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
