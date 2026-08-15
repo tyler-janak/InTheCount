@@ -1459,6 +1459,11 @@
     "birth_date": "1999-07-08",
     "name": "Reid Detmers"
   },
+  "672386": {
+    "age": 27,
+    "birth_date": "1998-11-06",
+    "name": "Alejandro Kirk"
+  },
   "672456": {
     "age": 25,
     "birth_date": "2000-07-06",
@@ -2749,5 +2754,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-08-14"
+  "__updated__": "2026-08-15"
 }
