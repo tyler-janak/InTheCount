@@ -1849,18 +1849,18 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-14,824643,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Matthew Liberatore,Clay Holmes,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-08-14,824968,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,Kumar Rocker,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77,3.0,0.0,False,,Final
 2026-08-14,823591,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Andrew Alvarez,Robert Stock,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
-2026-08-15,824884,AZ,ATL,AZ,ATL,Arizona Diamondbacks,Atlanta Braves,Eduardo Rodriguez,Grant Holmes,0.3128,0.6872,YRFI,NO,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,822941,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Kyle Bradish,Ian Seymour,0.5153,0.4847,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,824884,AZ,ATL,AZ,ATL,Arizona Diamondbacks,Atlanta Braves,Eduardo Rodriguez,Grant Holmes,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,822941,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Kyle Bradish,Ian Seymour,0.5138,0.4862,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-15,823347,BOS,PIT,BOS,PIT,Boston Red Sox,Pittsburgh Pirates,Sonny Gray,Jared Jones,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-15,823184,COL,SF,COL,SF,Colorado Rockies,San Francisco Giants,Michael Lorenzen,Logan Webb,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,824239,CWS,DET,CWS,DET,Chicago White Sox,Detroit Tigers,Anthony Kay,Troy Melton,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,823990,KC,LAA,KC,LAA,Kansas City Royals,Los Angeles Angels,Randy Dobnak,Reid Detmers,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,824480,MIA,CIN,MIA,CIN,Miami Marlins,Cincinnati Reds,Ryan Gusto,Brady Singer,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,824239,CWS,DET,CWS,DET,Chicago White Sox,Detroit Tigers,Anthony Kay,Troy Melton,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-15,823990,KC,LAA,KC,LAA,Kansas City Royals,Los Angeles Angels,Randy Dobnak,Reid Detmers,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,824480,MIA,CIN,MIA,CIN,Miami Marlins,Cincinnati Reds,Ryan Gusto,Brady Singer,0.4665,0.5335,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
 2026-08-15,823914,MIL,LAD,MIL,LAD,Milwaukee Brewers,Los Angeles Dodgers,Jacob Misiorowski,Justin Wrobleski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,822775,NYY,TOR,NYY,TOR,New York Yankees,Toronto Blue Jays,Cam Schlittler,Braydon Fisher,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,822775,NYY,TOR,NYY,TOR,New York Yankees,Toronto Blue Jays,Cam Schlittler,Braydon Fisher,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-15,823671,PHI,MIN,PHI,MIN,Philadelphia Phillies,Minnesota Twins,Jesús Luzardo,Connor Prielipp,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,824400,SD,CLE,SD,CLE,San Diego Padres,Cleveland Guardians,TBD,Joey Cantillo,0.4634,0.5366,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Scheduled
-2026-08-15,824157,SEA,HOU,SEA,HOU,Seattle Mariners,Houston Astros,Emerson Hancock,Hayden Wesneski,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-15,824644,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Michael McGreevy,Matthew Boyd,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,824400,SD,CLE,SD,CLE,San Diego Padres,Cleveland Guardians,TBD,Joey Cantillo,0.4264,0.5736,YRFI,NO,0.47,0.03,0.74,57,77,,,,,Scheduled
+2026-08-15,824157,SEA,HOU,SEA,HOU,Seattle Mariners,Houston Astros,Emerson Hancock,Hayden Wesneski,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77,,,,,Scheduled
+2026-08-15,824644,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Michael McGreevy,Matthew Boyd,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
 2026-08-15,824966,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,MacKenzie Gore,J.T. Ginn,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Scheduled
-2026-08-15,823588,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Brad Lord,Sean Manaea,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Scheduled
+2026-08-15,823588,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Brad Lord,Sean Manaea,0.4549,0.5451,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Scheduled
