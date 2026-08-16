@@ -1864,3 +1864,18 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-15,824644,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Michael McGreevy,Matthew Boyd,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-15,824966,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,MacKenzie Gore,J.T. Ginn,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77
 2026-08-15,823588,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Brad Lord,Sean Manaea,0.4549,0.5451,PASS,PASS,0.47,0.03,0.883,68,77
+2026-08-16,824880,AZ,ATL,AZ,ATL,Arizona Diamondbacks,Atlanta Braves,Michael Soroka,Bryce Elder,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,822940,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Trevor Rogers,Freddy Peralta,0.5016,0.4984,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-16,823344,BOS,PIT,BOS,PIT,Boston Red Sox,Pittsburgh Pirates,Patrick Sandoval,Lake Bachar,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,823182,COL,SF,COL,SF,Colorado Rockies,San Francisco Giants,Gabriel Hughes,Blade Tidwell,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,824236,CWS,DET,CWS,DET,Chicago White Sox,Detroit Tigers,Sean Burke,Drew Anderson,0.4692,0.5308,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,823991,KC,LAA,KC,LAA,Kansas City Royals,Los Angeles Angels,Noah Cameron,Ryan Johnson,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,824477,MIA,CIN,MIA,CIN,Miami Marlins,Cincinnati Reds,Eury Pérez,Nick Lodolo,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,823912,MIL,LAD,MIL,LAD,Milwaukee Brewers,Los Angeles Dodgers,Logan Henderson,Tarik Skubal,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,822774,NYY,TOR,NYY,TOR,New York Yankees,Toronto Blue Jays,Ryan Weathers,Dylan Cease,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,823670,PHI,MIN,PHI,MIN,Philadelphia Phillies,Minnesota Twins,Andrew Painter,Dean Kremer,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,824397,SD,CLE,SD,CLE,San Diego Padres,Cleveland Guardians,Casey Mize,Tanner Bibee,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,824156,SEA,HOU,SEA,HOU,Seattle Mariners,Houston Astros,Bryan Woo,Hunter Brown,0.5423,0.4577,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-16,824642,STL,CHC,STL,CHC,St. Louis Cardinals,Chicago Cubs,Hunter Dobbins,Edward Cabrera,0.4692,0.5308,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,824965,TEX,ATH,TEX,ATH,Texas Rangers,Athletics,Cody Bradford,Jacob Lopez,0.4802,0.5198,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-16,823590,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Jake Irvin,Christian Scott,0.4888,0.5112,PASS,PASS,0.47,0.03,1.0,77,77
