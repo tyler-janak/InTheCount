@@ -1881,11 +1881,11 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-16,823590,WSH,NYM,WSH,NYM,Washington Nationals,New York Mets,Jake Irvin,Christian Scott,0.5031,0.4969,NRFI,YES,0.47,0.03,1.0,77,77
 2026-08-17,824077,ATH,KC,ATH,KC,Athletics,Kansas City Royals,Mason Barnett,Michael Wacha,0.5143,0.4857,NRFI,YES,0.47,0.03,1.0,77,77
 2026-08-17,823668,ATL,MIN,ATL,MIN,Atlanta Braves,Minnesota Twins,Martín Pérez,Bailey Ober,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-17,824725,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Mitch Bratt,TBD,0.4872,0.5128,PASS,PASS,0.47,0.03,0.727,56,77
+2026-08-17,824725,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Mitch Bratt,Alec Gamboa,0.5016,0.4984,NRFI,YES,0.47,0.03,0.727,56,77
 2026-08-17,822939,BAL,TB,BAL,TB,Baltimore Orioles,Tampa Bay Rays,Brandon Young,Shane McClanahan,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-17,824641,CWS,CHC,CWS,CHC,Chicago White Sox,Chicago Cubs,Luis Castillo,Shota Imanaga,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-17,823343,DET,PIT,DET,PIT,Detroit Tigers,Pittsburgh Pirates,Framber Valdez,Carmen Mlodzinski,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-17,824320,LAD,COL,LAD,COL,Los Angeles Dodgers,Colorado Rockies,Blake Snell,Tomoyuki Sugano,0.4402,0.5598,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-17,823427,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Janson Junk,Cristopher Sánchez,0.4658,0.5342,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-17,823589,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Walker Buehler,Nolan McLean,0.4818,0.5182,PASS,PASS,0.47,0.03,1.0,77,77
-2026-08-17,824478,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,TBD,Rhett Lowder,0.4485,0.5515,PASS,PASS,0.47,0.03,0.74,57,77
+2026-08-17,823427,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Janson Junk,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
+2026-08-17,823589,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Walker Buehler,Nolan McLean,0.5153,0.4847,NRFI,YES,0.47,0.03,1.0,77,77
+2026-08-17,824478,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Andre Pallante,Rhett Lowder,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77
