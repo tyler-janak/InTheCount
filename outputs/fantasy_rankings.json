@@ -15795,7 +15795,7 @@
       "name": "Brooks Lee",
       "team": "MIN",
       "opponent": "ATL",
-      "lineup_spot": 8,
+      "lineup_spot": 7,
       "lineup_status": "Expected Lineup",
       "proj_pa": 4.38,
       "proj_hits": 0.91,
@@ -16008,6 +16008,24 @@
       "rank": 68
     },
     {
+      "name": "Luke Keaschall",
+      "team": "MIN",
+      "opponent": "ATL",
+      "lineup_spot": 6,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 4.38,
+      "proj_hits": 0.81,
+      "proj_hr": 0.04,
+      "proj_runs": 0.38,
+      "proj_rbi": 0.33,
+      "proj_tb": 1.09,
+      "proj_walks": 0.47,
+      "proj_strikeouts": 0.41,
+      "confidence": "high",
+      "points": 2.07,
+      "rank": 69
+    },
+    {
       "name": "Jake Rogers",
       "team": "CWS",
       "opponent": "CHC",
@@ -16023,7 +16041,7 @@
       "proj_strikeouts": 1.07,
       "confidence": "high",
       "points": 2.06,
-      "rank": 69
+      "rank": 70
     },
     {
       "name": "Josh Bell",
@@ -16041,24 +16059,6 @@
       "proj_strikeouts": 0.65,
       "confidence": "high",
       "points": 2.04,
-      "rank": 70
-    },
-    {
-      "name": "Luke Keaschall",
-      "team": "MIN",
-      "opponent": "ATL",
-      "lineup_spot": 7,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 4.38,
-      "proj_hits": 0.81,
-      "proj_hr": 0.04,
-      "proj_runs": 0.38,
-      "proj_rbi": 0.29,
-      "proj_tb": 1.09,
-      "proj_walks": 0.47,
-      "proj_strikeouts": 0.41,
-      "confidence": "high",
-      "points": 2.03,
       "rank": 71
     },
     {
@@ -16728,6 +16728,24 @@
       "rank": 108
     },
     {
+      "name": "Victor Caratini",
+      "team": "MIN",
+      "opponent": "ATL",
+      "lineup_spot": 5,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 3.88,
+      "proj_hits": 0.68,
+      "proj_hr": 0.04,
+      "proj_runs": 0.35,
+      "proj_rbi": 0.28,
+      "proj_tb": 0.95,
+      "proj_walks": 0.32,
+      "proj_strikeouts": 0.66,
+      "confidence": "high",
+      "points": 1.57,
+      "rank": 109
+    },
+    {
       "name": "Christian Encarnacion-Strand",
       "team": "BAL",
       "opponent": "TB",
@@ -16743,7 +16761,7 @@
       "proj_strikeouts": 0.97,
       "confidence": "high",
       "points": 1.55,
-      "rank": 109
+      "rank": 110
     },
     {
       "name": "Luis Rengifo",
@@ -16761,7 +16779,7 @@
       "proj_strikeouts": 0.41,
       "confidence": "high",
       "points": 1.55,
-      "rank": 110
+      "rank": 111
     },
     {
       "name": "Kaelen Culpepper",
@@ -16779,24 +16797,6 @@
       "proj_strikeouts": 0.79,
       "confidence": "high",
       "points": 1.54,
-      "rank": 111
-    },
-    {
-      "name": "Victor Caratini",
-      "team": "MIN",
-      "opponent": "ATL",
-      "lineup_spot": 6,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.88,
-      "proj_hits": 0.68,
-      "proj_hr": 0.04,
-      "proj_runs": 0.31,
-      "proj_rbi": 0.28,
-      "proj_tb": 0.95,
-      "proj_walks": 0.32,
-      "proj_strikeouts": 0.66,
-      "confidence": "high",
-      "points": 1.53,
       "rank": 112
     },
     {
@@ -16890,24 +16890,6 @@
       "rank": 117
     },
     {
-      "name": "Austin Martin",
-      "team": "MIN",
-      "opponent": "ATL",
-      "lineup_spot": 5,
-      "lineup_status": "Expected Lineup",
-      "proj_pa": 3.52,
-      "proj_hits": 0.61,
-      "proj_hr": 0.02,
-      "proj_runs": 0.32,
-      "proj_rbi": 0.24,
-      "proj_tb": 0.82,
-      "proj_walks": 0.36,
-      "proj_strikeouts": 0.48,
-      "confidence": "high",
-      "points": 1.5,
-      "rank": 118
-    },
-    {
       "name": "Taylor Walls",
       "team": "TB",
       "opponent": "BAL",
@@ -16923,7 +16905,7 @@
       "proj_strikeouts": 0.78,
       "confidence": "high",
       "points": 1.49,
-      "rank": 119
+      "rank": 118
     },
     {
       "name": "Trea Turner",
@@ -16941,7 +16923,7 @@
       "proj_strikeouts": 0.57,
       "confidence": "high",
       "points": 1.48,
-      "rank": 120
+      "rank": 119
     },
     {
       "name": "Noelvi Marte",
@@ -16959,7 +16941,7 @@
       "proj_strikeouts": 0.74,
       "confidence": "high",
       "points": 1.46,
-      "rank": 121
+      "rank": 120
     },
     {
       "name": "Gunnar Henderson",
@@ -16977,7 +16959,7 @@
       "proj_strikeouts": 1.28,
       "confidence": "high",
       "points": 1.4,
-      "rank": 122
+      "rank": 121
     },
     {
       "name": "Jackson Holliday",
@@ -16995,7 +16977,7 @@
       "proj_strikeouts": 1.01,
       "confidence": "high",
       "points": 1.38,
-      "rank": 123
+      "rank": 122
     },
     {
       "name": "Bo Bichette",
@@ -17013,7 +16995,7 @@
       "proj_strikeouts": 0.7,
       "confidence": "high",
       "points": 1.37,
-      "rank": 124
+      "rank": 123
     },
     {
       "name": "Carlos Cortes",
@@ -17031,7 +17013,7 @@
       "proj_strikeouts": 0.62,
       "confidence": "high",
       "points": 1.36,
-      "rank": 125
+      "rank": 124
     },
     {
       "name": "Jake Cronenworth",
@@ -17049,7 +17031,7 @@
       "proj_strikeouts": 0.7,
       "confidence": "high",
       "points": 1.35,
-      "rank": 126
+      "rank": 125
     },
     {
       "name": "Francisco Lindor",
@@ -17067,7 +17049,7 @@
       "proj_strikeouts": 0.9,
       "confidence": "high",
       "points": 1.35,
-      "rank": 127
+      "rank": 126
     },
     {
       "name": "Marcus Semien",
@@ -17085,6 +17067,24 @@
       "proj_strikeouts": 0.91,
       "confidence": "high",
       "points": 1.34,
+      "rank": 127
+    },
+    {
+      "name": "Ryan Kreidler",
+      "team": "MIN",
+      "opponent": "ATL",
+      "lineup_spot": 8,
+      "lineup_status": "Expected Lineup",
+      "proj_pa": 3.65,
+      "proj_hits": 0.6,
+      "proj_hr": 0.02,
+      "proj_runs": 0.26,
+      "proj_rbi": 0.21,
+      "proj_tb": 0.86,
+      "proj_walks": 0.26,
+      "proj_strikeouts": 0.52,
+      "confidence": "high",
+      "points": 1.33,
       "rank": 128
     },
     {
