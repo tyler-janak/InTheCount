@@ -1889,18 +1889,18 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-17,823427,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Janson Junk,Cristopher Sánchez,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,Final
 2026-08-17,823589,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Walker Buehler,Nolan McLean,0.5153,0.4847,NRFI,YES,0.47,0.03,1.0,77,77,2.0,0.0,False,False,Final
 2026-08-17,824478,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Andre Pallante,Rhett Lowder,0.4105,0.5895,YRFI,NO,0.47,0.03,1.0,77,77,1.0,0.0,False,True,Final
-2026-08-18,824075,ATH,KC,ATH,KC,Athletics,Kansas City Royals,Jack Perkins,TBD,0.4533,0.5467,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Scheduled
-2026-08-18,823667,ATL,MIN,ATL,MIN,Atlanta Braves,Minnesota Twins,Tyler Mahle,Zebby Matthews,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824723,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Merrill Kelly,Ranger Suarez,0.4664,0.5336,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824639,CWS,CHC,CWS,CHC,Chicago White Sox,Chicago Cubs,TBD,Kevin Gausman,0.4539,0.5461,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Scheduled
-2026-08-18,823341,DET,PIT,DET,PIT,Detroit Tigers,Pittsburgh Pirates,Keider Montero,Braxton Ashcraft,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824154,LAA,HOU,LAA,HOU,Los Angeles Angels,Houston Astros,George Klassen,Cristian Javier,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824319,LAD,COL,LAD,COL,Los Angeles Dodgers,Colorado Rockies,Eric Lauer,Ryan Feltner,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,823423,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Cade Gibson,Zack Wheeler,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Scheduled
-2026-08-18,824803,NYY,BAL,NYY,BAL,New York Yankees,Baltimore Orioles,Carlos Rodón,Shane Baz,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,823586,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Robbie Ray,Zac Thornton,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,823749,SEA,MIL,SEA,MIL,Seattle Mariners,Milwaukee Brewers,Bryce Miller,Kyle Harrison,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824398,SF,CLE,SF,CLE,San Francisco Giants,Cleveland Guardians,Carson Whisenhunt,Foster Griffin,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,824475,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Kyle Leahy,Andrew Abbott,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,822938,TOR,TB,TOR,TB,Toronto Blue Jays,Tampa Bay Rays,José Soriano,Nick Martinez,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Scheduled
-2026-08-18,822859,WSH,TEX,WSH,TEX,Washington Nationals,Texas Rangers,Jackson Kent,Cal Quantrill,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77,,,,,Scheduled
+2026-08-18,824075,ATH,KC,ATH,KC,Athletics,Kansas City Royals,Brady Basso,Daniel Lynch IV,0.4533,0.5467,PASS,PASS,0.47,0.03,0.883,68,77,,,,,Pre-Game
+2026-08-18,823667,ATL,MIN,ATL,MIN,Atlanta Braves,Minnesota Twins,Tyler Mahle,Zebby Matthews,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824723,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Merrill Kelly,Ranger Suarez,0.4664,0.5336,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824639,CWS,CHC,CWS,CHC,Chicago White Sox,Chicago Cubs,Bryan Hudson,Kevin Gausman,0.4549,0.5451,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,823341,DET,PIT,DET,PIT,Detroit Tigers,Pittsburgh Pirates,Keider Montero,Braxton Ashcraft,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824154,LAA,HOU,LAA,HOU,Los Angeles Angels,Houston Astros,George Klassen,Cristian Javier,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824319,LAD,COL,LAD,COL,Los Angeles Dodgers,Colorado Rockies,Eric Lauer,Ryan Feltner,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,823423,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Cade Gibson,Zack Wheeler,0.4533,0.5467,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Pre-Game
+2026-08-18,824803,NYY,BAL,NYY,BAL,New York Yankees,Baltimore Orioles,Carlos Rodón,Shane Baz,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,823586,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Robbie Ray,Zac Thornton,0.4872,0.5128,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,823749,SEA,MIL,SEA,MIL,Seattle Mariners,Milwaukee Brewers,Bryce Miller,Kyle Harrison,0.4539,0.5461,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824398,SF,CLE,SF,CLE,San Francisco Giants,Cleveland Guardians,Carson Whisenhunt,Foster Griffin,0.4772,0.5228,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,824475,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Kyle Leahy,Andrew Abbott,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,822938,TOR,TB,TOR,TB,Toronto Blue Jays,Tampa Bay Rays,José Soriano,Nick Martinez,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-18,822859,WSH,TEX,WSH,TEX,Washington Nationals,Texas Rangers,Jackson Kent,Cal Quantrill,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77,,,,,Pre-Game
