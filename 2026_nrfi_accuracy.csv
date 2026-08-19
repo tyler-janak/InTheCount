@@ -1911,11 +1911,11 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-19,823342,DET,PIT,DET,PIT,Detroit Tigers,Pittsburgh Pirates,Jackson Jobe,Paul Skenes,0.4677,0.5323,PASS,PASS,0.47,0.03,0.883,68,77,1.0,0.0,False,,Final
 2026-08-19,824155,LAA,HOU,LAA,HOU,Los Angeles Angels,Houston Astros,Walbert Ureña,Ethan Pecko,0.4799,0.5201,PASS,PASS,0.47,0.03,0.727,56,77,,,,,Pre-Game
 2026-08-19,824318,LAD,COL,LAD,COL,Los Angeles Dodgers,Colorado Rockies,Roki Sasaki,Kyle Freeland,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-08-19,823424,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Sandy Alcantara,Aaron Nola,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Warmup
-2026-08-19,824801,NYY,BAL,NYY,BAL,New York Yankees,Baltimore Orioles,Will Warren,Chris Bassitt,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-19,823424,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Sandy Alcantara,Aaron Nola,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,In Progress
+2026-08-19,824801,NYY,BAL,NYY,BAL,New York Yankees,Baltimore Orioles,Will Warren,Chris Bassitt,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,1.0,0.0,False,,In Progress
 2026-08-19,823587,SD,NYM,SD,NYM,San Diego Padres,New York Mets,Michael King,Robert Stock,0.5021,0.4979,NRFI,YES,0.47,0.03,1.0,77,77,0.0,0.0,True,True,Final
 2026-08-19,823748,SEA,MIL,SEA,MIL,Seattle Mariners,Milwaukee Brewers,Logan Gilbert,Dustin May,0.4939,0.5061,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-08-19,824394,SF,CLE,SF,CLE,San Francisco Giants,Cleveland Guardians,Matt Wilkinson,Parker Messick,0.4677,0.5323,PASS,PASS,0.47,0.03,0.74,57,77,,,,,Pre-Game
-2026-08-19,824476,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Matthew Liberatore,Chase Burns,0.4682,0.5318,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
-2026-08-19,822937,TOR,TB,TOR,TB,Toronto Blue Jays,Tampa Bay Rays,Max Scherzer,Drew Rasmussen,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
+2026-08-19,824394,SF,CLE,SF,CLE,San Francisco Giants,Cleveland Guardians,Matt Wilkinson,Parker Messick,0.4677,0.5323,PASS,PASS,0.47,0.03,0.74,57,77,0.0,0.0,True,,In Progress
+2026-08-19,824476,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Matthew Liberatore,Chase Burns,0.4682,0.5318,PASS,PASS,0.47,0.03,1.0,77,77,0.0,0.0,True,,In Progress
+2026-08-19,822937,TOR,TB,TOR,TB,Toronto Blue Jays,Tampa Bay Rays,Max Scherzer,Drew Rasmussen,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,2.0,0.0,False,,In Progress
 2026-08-19,822860,WSH,TEX,WSH,TEX,Washington Nationals,Texas Rangers,Cade Cavalli,Kumar Rocker,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77,,,,,Pre-Game
