@@ -1904,7 +1904,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-18,824475,STL,CIN,STL,CIN,St. Louis Cardinals,Cincinnati Reds,Kyle Leahy,Andrew Abbott,0.4628,0.5372,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-18,822938,TOR,TB,TOR,TB,Toronto Blue Jays,Tampa Bay Rays,José Soriano,Nick Martinez,0.4677,0.5323,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-18,822859,WSH,TEX,WSH,TEX,Washington Nationals,Texas Rangers,Jackson Kent,Cal Quantrill,0.4533,0.5467,PASS,PASS,0.47,0.03,0.935,72,77
-2026-08-19,824076,ATH,KC,ATH,KC,Athletics,Kansas City Royals,TBD,TBD,0.4658,0.5342,PASS,PASS,0.47,0.03,0.468,36,77
+2026-08-19,824076,ATH,KC,ATH,KC,Athletics,Kansas City Royals,Jeffrey Springs,Seth Lugo,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-19,823664,ATL,MIN,ATL,MIN,Atlanta Braves,Minnesota Twins,AJ Smith-Shawver,Taj Bradley,0.4677,0.5323,PASS,PASS,0.47,0.03,0.818,63,77
 2026-08-19,824722,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Brandon Pfaadt,Payton Tolle,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-19,824640,CWS,CHC,CWS,CHC,Chicago White Sox,Chicago Cubs,Sean Newcomb,Clay Holmes,0.4788,0.5212,PASS,PASS,0.47,0.03,1.0,77,77

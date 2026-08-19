@@ -7,7 +7,7 @@ game_date,gamePk,away_team,home_team,team_a,team_b,away_full,home_full,away_sp,h
 2026-08-19,823664,ATL,MIN,ATL,MIN,Atlanta Braves,Minnesota Twins,AJ Smith-Shawver,Taj Bradley,0.4677,0.5323,PASS,PASS,0.47,0.03,0.818,63,77
 2026-08-19,823342,DET,PIT,DET,PIT,Detroit Tigers,Pittsburgh Pirates,Jackson Jobe,Paul Skenes,0.4677,0.5323,PASS,PASS,0.47,0.03,0.883,68,77
 2026-08-19,824394,SF,CLE,SF,CLE,San Francisco Giants,Cleveland Guardians,Matt Wilkinson,Parker Messick,0.4677,0.5323,PASS,PASS,0.47,0.03,0.74,57,77
-2026-08-19,824076,ATH,KC,ATH,KC,Athletics,Kansas City Royals,TBD,TBD,0.4658,0.5342,PASS,PASS,0.47,0.03,0.468,36,77
+2026-08-19,824076,ATH,KC,ATH,KC,Athletics,Kansas City Royals,Jeffrey Springs,Seth Lugo,0.4644,0.5356,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-19,824722,AZ,BOS,AZ,BOS,Arizona Diamondbacks,Boston Red Sox,Brandon Pfaadt,Payton Tolle,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-19,823424,MIA,PHI,MIA,PHI,Miami Marlins,Philadelphia Phillies,Sandy Alcantara,Aaron Nola,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
 2026-08-19,824801,NYY,BAL,NYY,BAL,New York Yankees,Baltimore Orioles,Will Warren,Chris Bassitt,0.4533,0.5467,PASS,PASS,0.47,0.03,1.0,77,77
