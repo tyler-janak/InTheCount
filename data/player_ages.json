@@ -409,6 +409,11 @@
     "birth_date": "1995-03-02",
     "name": "Miguel Andujar"
   },
+  "615698": {
+    "age": 31,
+    "birth_date": "1995-02-10",
+    "name": "Cal Quantrill"
+  },
   "620443": {
     "age": 30,
     "birth_date": "1996-05-02",
@@ -2759,5 +2764,5 @@
     "birth_date": "1998-05-09",
     "name": "Tatsuya Imai"
   },
-  "__updated__": "2026-08-16"
+  "__updated__": "2026-08-19"
 }
