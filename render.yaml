@@ -3,7 +3,7 @@
 # free-tier ephemeral disk problem. See .github/workflows/daily.yml
 services:
   - type: web
-    name: thebullpenbet
+    name: inthecount
     runtime: python
     plan: free                # upgrade to "starter" ($7/mo) for always-on (no spin-down)
     region: ohio              # closest to ET — change if you want
