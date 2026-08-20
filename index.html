@@ -398,7 +398,7 @@
         <li><strong>Backfill missing past-date player snapshots</strong> — for any past date without a snapshot on disk, fetches the actual lineup from MLB box scores and runs the player projection models against it, using only feature rows with <code>game_date &lt; target_date</code>. Idempotent.</li>
         <li><strong>Generate today's hitter and pitcher projections</strong> — writes both the live <code>hitterspitchers_today.csv</code> the front-end reads and a dated snapshot for tonight's grading.</li>
         <li><strong>Grade player snapshots</strong> — joins every snapshot to its game's actual box score and rebuilds <code>2026_player_accuracy.csv</code>, which feeds the Performance tab and the empirical blend-weight tuner.</li>
-        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season production for every player from the freshly-graded log.</li>
+        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season WAR (offense + defense + baserunning) for every hitter and rest-of-season production for every pitcher, from the freshly-graded log.</li>
       </ol>
       <p>
         Model retraining is a <strong>separate, opt-in step</strong> — the daily tick uses whatever <code>.pkl</code> files are on disk. When the trainer runs (<code>hitterspitchers_train.py</code> and <code>train_game_model.py</code>), the new game model is written as a <em>candidate</em> first and only promoted to production if it beats the current model on the holdout — the existing model is backed up with a timestamp before the swap. This prevents a bad training run from silently degrading the live site.
@@ -689,7 +689,7 @@
         <p>Press, partnerships, recruiting, or "how does X work" questions all welcome.</p>
         <p>Email: <a href="mailto:tylerjanak09@gmail.com">tylerjanak09@gmail.com</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/tyler-janak/" target="_blank" rel="noopener">linkedin.com/in/tyler-janak/</a></p>
-        <p>GitHub: <a href="https://github.com/tyler-janak/TheBullpenBet" target="_blank" rel="noopener">github.com/tyler-janak/TheBullpenBet</a></p>
+        <p>GitHub: <a href="https://github.com/tyler-janak/inthecount" target="_blank" rel="noopener">github.com/tyler-janak/inthecount</a></p>
       </div>
     </div>
   </section>
@@ -1696,39 +1696,38 @@ function _drawRankingsTable() {
   rows = rows.map((r, i) => ({...r, _displayRank: i + 1}));
 
   if (cnt) cnt.textContent = `${rows.length.toLocaleString()} ${isHitters ? 'hitters' : 'pitchers'}`;
-  sub.textContent = `Rest-of-season production estimate, ranked by power score` +
+  sub.textContent = (isHitters
+      ? `Rest-of-season WAR projection (offense + defense + baserunning)`
+      : `Rest-of-season production estimate, ranked by power score`) +
     (state.rankingsSub === 'young' ? ` — players age ${data.age_cutoff || 25} and under` : '') +
     ` · as of ${data.as_of || '—'}.`;
 
   if (isHitters) {
     head.innerHTML = `<tr>
       <th style="text-align:right;">#</th>
-      <th>Player</th><th>Team</th>
+      <th>Player</th><th>Team</th><th>Pos</th>
       <th style="text-align:right;">Age</th>
       <th style="text-align:right;">GP</th>
       <th style="text-align:right;">GR</th>
-      <th style="text-align:right;">H</th>
       <th style="text-align:right;">HR</th>
-      <th style="text-align:right;">R</th>
-      <th style="text-align:right;">RBI</th>
-      <th style="text-align:right;">BB</th>
-      <th style="text-align:right;">K</th>
-      <th style="text-align:right;">Power</th>
+      <th style="text-align:right;">Bat</th>
+      <th style="text-align:right;">Def</th>
+      <th style="text-align:right;">BsR</th>
+      <th style="text-align:right;">WAR</th>
     </tr>`;
     body.innerHTML = rows.slice(0, 250).map(r => `<tr>
       <td style="text-align:right; color:var(--text-dim); font-family:var(--font-mono);">${r._displayRank}</td>
       <td style="color:var(--text-primary); font-family:var(--font-body);">${playerLink(r.name, r.mlb_id, r.team)}</td>
       <td style="color:var(--text-secondary);">${r.team}</td>
+      <td style="color:var(--text-dim); font-family:var(--font-mono); font-size:0.75rem;">${r.position ?? '—'}</td>
       <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.age ?? '—'}</td>
       <td style="text-align:right; font-family:var(--font-mono);">${r.games_played}</td>
       <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.games_remaining}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_h}</td>
       <td style="text-align:right; font-family:var(--font-mono); color:var(--green);">${r.ros_hr}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_r}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_rbi}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_bb}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-dim);">${r.ros_k}</td>
-      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r.power_score}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r.bat_runs}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r.def_runs}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r.bsr_runs}</td>
+      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r.war}</td>
     </tr>`).join('') || `<tr><td colspan="12" style="text-align:center;color:var(--text-muted);padding:2rem;">No hitters match this view.</td></tr>`;
   } else {
     head.innerHTML = `<tr>
