@@ -1,6 +1,6 @@
-# TheBullpenBet — Deploy Guide (V1, no paywall)
+# TheBullpenBet — Deploy Guide
 
-Get the site live in **under an hour**. Free, fully automated.
+Get the site live in **under an hour**. Free, fully automated, no accounts.
 
 ---
 
@@ -109,21 +109,7 @@ git push -u origin main
 
 ---
 
-## Step 4 — Set the Odds API key as a secret (2 min)
-
-The daily cron needs your Odds API key. **Don't put it in code.**
-
-1. Go to your repo on GitHub → **Settings** → **Secrets and variables** → **Actions**
-2. Click **New repository secret**
-3. Name: `ODDS_API_KEY`
-4. Value: `afa28350c34fba9f318ecd7ae4e21b63` *(or whatever your key is)*
-5. Save.
-
-`daily_update.py` already reads it via `os.environ.get("ODDS_API_KEY")`.
-
----
-
-## Step 5 — Test the cron once manually (3 min)
+## Step 4 — Test the cron once manually (3 min)
 
 Before relying on the schedule, trigger the workflow once by hand to make sure it works.
 
@@ -137,7 +123,7 @@ If it fails, click into the failed run, expand the failing step, and the error l
 
 ---
 
-## Step 6 — Deploy to Render (10 min)
+## Step 5 — Deploy to Render (10 min)
 
 ### 6a. Create a Render account
 https://render.com/register — free, sign in with GitHub so it can see your repo.
@@ -160,7 +146,7 @@ That means every time the daily cron commits new CSVs, Render redeploys automati
 
 ---
 
-## Step 7 — Share with friends (0 min)
+## Step 6 — Share with friends (0 min)
 
 That's it. Send them the Render URL.
 
@@ -184,30 +170,13 @@ The site stays in sync because:
 - GitHub Actions: free (2000 min/mo, you'll use ~30 min/day = ~900 min/mo)
 - GitHub LFS: free (1GB / 1GB) — should be enough; bandwidth is the variable cost
 - Render: free for always-on-when-someone-visits, $7/mo for always-on-period
-- Total for v1: **$0/mo**
-
----
-
-## When you're ready for the paywall (v2)
-
-The HTML and server have stubs for Stripe + Supabase already. To enable:
-
-1. Sign up for Supabase (free) — create a `user_profiles` table per the schema in the `index.html` header comment
-2. Sign up for Stripe — create the monthly + yearly products, get publishable key + price IDs
-3. Replace placeholder values in `index.html` and `server.py`
-4. Flip `PAYWALL_ENABLED = true` in `index.html`
-5. Add the `/api/create-checkout` Stripe handler in `server.py`
-6. Push — Render auto-deploys
-
-Estimated time when you're ready: ~45 min.
+- Total: **$0/mo**
 
 ---
 
 ## Troubleshooting
 
-**Site shows "No games today" forever** → The daily cron hasn't run yet, or `outputs/today_predictions_with_ev.csv` is empty. Check Actions tab → latest run.
-
-**Cron says "ODDS_API_KEY not set"** → You skipped step 4. Set the secret.
+**Site shows "No games today" forever** → The daily cron hasn't run yet, or `outputs/today_predictions.csv` is empty. Check Actions tab → latest run.
 
 **Cron fails with `ModuleNotFoundError`** → Some package is missing from `requirements.txt`. Add it and push.
 

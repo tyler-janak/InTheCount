@@ -70,7 +70,7 @@ else {
 }
 
 # --- 5. Game-ML CANDIDATE (never auto-promotes by default) -----------------
-Section "Train game-ML candidate (won't touch betting_model.pkl)"
+Section "Train game-ML candidate (won't touch the production model)"
 python train_game_model.py
 if ($PromoteGame) {
     Section "Promote game-ML candidate to production"
@@ -90,7 +90,7 @@ python backfill_blend_components.py --force
 Section "Grade player projections (no MLB API surface)"
 python -c "from grade_player_predictions import grade_player_predictions; grade_player_predictions(snapshots_dir='outputs', output_file='2026_player_accuracy.csv', season_start='2026-03-25')"
 
-Section "Daily run (game ML + NRFI + props grading; API retries built in)"
+Section "Daily run (game ML + player grading + power rankings; API retries built in)"
 python daily_update.py
 
 # --- 9. Empirical blend tuning ---------------------------------------------

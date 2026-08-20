@@ -77,18 +77,14 @@ jobs:
       # daily_update.py is the SINGLE entry point. It runs:
       #   0. 2026 Statcast refresh → rebuild data/*.csv feature files
       #   1. Game-pick backfill
-      #   2. Today's game model
+      #   2. Today's game model (win-probability projections)
       #   3. Game grading
-      #   4. NRFI backfill (past dates)
-      #   5. Today's NRFI predictions → 2026_nrfi_picks.csv
-      #   6. NRFI grading → 2026_nrfi_accuracy.csv
-      #   7. Player snapshot backfill
-      #   8. Today's player projections
-      #   9. Player projection grading
-      #  10. Calibration rebuild + apply
+      #   4. Player snapshot backfill
+      #   5. Today's player projections
+      #   6. Player projection grading
+      #   7. Calibration rebuild + apply
+      #   8. Player power rankings rebuild
       - name: Run daily pipeline (data refresh + games + players)
-        env:
-          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
         run: python daily_update.py
 
       - name: Commit fresh outputs
@@ -98,40 +94,21 @@ jobs:
 
           # Stage every artifact the pipeline can touch:
           #   data/                        → refreshed 2026 per-game features (LFS)
-          #   models/                      → trained model PKL files (nrfi, hitter, pitcher)
-          #   outputs/                     → today's predictions, dated snapshots, nrfi_today.csv
-          #   2026_picks_accuracy.csv      → game pick log
+          #   models/                      → trained model PKL files
+          #   outputs/                     → today's predictions, dated snapshots, power rankings
+          #   2026_picks_accuracy.csv      → game projection log
           #   2026_player_accuracy.csv     → player projection vs actual log
-          #   2026_nrfi_picks.csv          → NRFI pick log (YES/NO lean per game)
-          #   2026_nrfi_accuracy.csv       → NRFI grading results
           #   calibration.json             → live bias-correction block
           # The pitch_data_2026.csv cache is gitignored (too large for git);
           # it lives in the GitHub Actions cache instead.
-          # Stage every artifact the pipeline can touch:
-          #   data/                        → refreshed 2026 per-game features (LFS)
-          #   models/                      → trained model PKL files
-          #   outputs/                     → today's predictions, snapshots, props
-          #   2026_picks_accuracy.csv      → game pick log
-          #   2026_player_accuracy.csv     → player projection vs actual log
-          #   2026_nrfi_picks.csv          → NRFI picks log
-          #   2026_nrfi_accuracy.csv       → NRFI grading
-          #   2026_props_log.csv           → every prop seen (open + close stages)
-          #   2026_props_accuracy.csv      → graded prop picks
-          #   2026_props_clv.csv           → CLV deltas
-          #   calibration.json             → live bias-correction block
-          # Stage everything that exists. Some files (props_accuracy / props_clv /
-          # nrfi_accuracy) are only written once grading has actuals, so we add
-          # them only if present — otherwise `git add <missing>` exits non-zero
-          # and aborts the commit even when the rest of the pipeline succeeded.
+          # Stage everything that exists — some files are only written once
+          # grading has actuals, so we add them only if present, otherwise
+          # `git add <missing>` exits non-zero and aborts the commit even
+          # when the rest of the pipeline succeeded.
           git add data/ models/ outputs/ || true
           for f in \
             2026_picks_accuracy.csv \
             2026_player_accuracy.csv \
-            2026_nrfi_picks.csv \
-            2026_nrfi_accuracy.csv \
-            2026_props_log.csv \
-            2026_props_accuracy.csv \
-            2026_props_clv.csv \
             calibration.json; do
             if [ -f "$f" ]; then
               git add "$f"

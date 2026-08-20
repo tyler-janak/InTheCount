@@ -1,20 +1,21 @@
 """
 TheBullpenBet — FastAPI Backend
 ================================
-Serves the static index.html and four data endpoints that read from the
-daily-refreshed CSVs produced by your existing pipeline.
+Serves the static index.html and the data endpoints that read from the
+daily-refreshed CSVs produced by the projection pipeline. This is a free,
+public research site — no accounts, no paywall, no odds.
 
 ENDPOINTS:
   GET  /                       → index.html
-  GET  /api/games              → today's games + model picks
-  GET  /api/pitchers           → today's pitcher projections
-  GET  /api/hitters            → today's hitter projections
-  GET  /api/accuracy           → game-pick season accuracy + last 30 picks
-  GET  /api/player-accuracy    → hitter / pitcher projection accuracy summary
-  GET  /api/calibration        → current bias-correction block applied to projections
-  GET  /api/player/{mlb_id}    → recent games + last-5/10/season splits by hand
-  GET  /health                 → liveness probe
-  POST /api/create-checkout    → stub (returns 503 until paywall enabled)
+  GET  /api/games               today's games + projected winners
+  GET  /api/pitchers            today's pitcher projections
+  GET  /api/hitters              today's hitter projections
+  GET  /api/accuracy            game-projection season accuracy + last 30
+  GET  /api/player-accuracy     hitter / pitcher projection accuracy summary
+  GET  /api/calibration         current bias-correction block applied to projections
+  GET  /api/rankings            season player power rankings (all + 25-and-under)
+  GET  /api/player/{mlb_id}     recent games + last-5/10/season splits by hand
+  GET  /health                  liveness probe
 
 LOCAL RUN:
   pip install -r requirements-server.txt
@@ -35,33 +36,28 @@ from zoneinfo import ZoneInfo
 
 import numpy as np
 import pandas as pd
-from fastapi import Depends, FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse, JSONResponse, Response
-from pydantic import BaseModel, EmailStr
-
-import auth as auth_mod
-import billing as billing_mod
+from fastapi.responses import FileResponse, JSONResponse
 
 # ───── PATHS ─────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent
 OUTPUT_DIR = BASE_DIR / "outputs"
 DATA_DIR = BASE_DIR / "data"
-PREDS_PATH = OUTPUT_DIR / "today_predictions_with_ev.csv"
+PREDS_PATH = OUTPUT_DIR / "today_predictions.csv"
 PROJ_PATH = OUTPUT_DIR / "hitterspitchers_today.csv"
-FD_PROPS_PATH = OUTPUT_DIR / "fanduel_props_today.csv"
-NRFI_ML_PATH = OUTPUT_DIR / "nrfi_today.csv"
 PICKS_PATH = BASE_DIR / "2026_picks_accuracy.csv"
 PLAYER_ACC_PATH = BASE_DIR / "2026_player_accuracy.csv"
 HITTER_GAMES_PATH = DATA_DIR / "hitter_game_data.csv"
 PITCHER_GAMES_PATH = DATA_DIR / "pitcher_game_data.csv"
+RANKINGS_PATH = OUTPUT_DIR / "player_rankings.json"
 INDEX_PATH = BASE_DIR / "index.html"
 FAVICON_PATH = BASE_DIR / "favicon.svg"
 
 # ───── FASTAPI APP ──────────────────────────────────────────
-app = FastAPI(title="TheBullpenBet API", version="1.0")
+app = FastAPI(title="TheBullpenBet API", version="2.0")
 
-# CORS open for v1 (paywall off, public read-only API)
+# CORS open — public read-only API, no accounts, nothing to protect.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -124,17 +120,6 @@ def _format_time_et(iso_str) -> str:
         return ""
 
 
-def _format_ml(ml) -> str:
-    ml = _safe(ml)
-    if ml is None:
-        return ""
-    try:
-        ml = int(round(float(ml)))
-    except (TypeError, ValueError):
-        return ""
-    return f"+{ml}" if ml > 0 else str(ml)
-
-
 def _conf_label(c) -> str:
     s = str(c or "").strip().lower()
     if s.startswith("h"):
@@ -144,41 +129,7 @@ def _conf_label(c) -> str:
     return "LOW"
 
 
-def _load_fd_lookup() -> dict[str, dict]:
-    """Load fanduel_props_today.csv; return {lower_player_name: row_dict}.
-    Returns {} if the file doesn't exist or can't be parsed."""
-    if not FD_PROPS_PATH.exists():
-        return {}
-    try:
-        df = pd.read_csv(FD_PROPS_PATH, low_memory=False)
-        out: dict[str, dict] = {}
-        for _, r in df.iterrows():
-            name = str(r.get("player_name", "")).strip().lower()
-            if name:
-                out[name] = r.to_dict()
-        return out
-    except Exception:
-        return {}
-
-
-def _fd_line(fd_row: dict, col: str):
-    """Return a FanDuel line value as float, or None if missing/NaN."""
-    if not fd_row:
-        return None
-    v = fd_row.get(col)
-    if v is None:
-        return None
-    try:
-        f = float(v)
-        return None if (np.isnan(f) or np.isinf(f)) else f
-    except (TypeError, ValueError):
-        return None
-
-
 # ───── PAYLOAD BUILDERS ─────────────────────────────────────
-EV_THRESHOLD = 0.02   # +2% — minimum EV to flag as "Good Value"
-
-
 def games_payload() -> list[dict]:
     if not PREDS_PATH.exists():
         return []
@@ -192,25 +143,16 @@ def games_payload() -> list[dict]:
         home_prob = _f(r.get("home_win_prob"), 0.5)
         away_prob = _f(r.get("away_win_prob"), 1 - home_prob)
         pick = _safe(r.get("predicted_winner"), home) or home
-        ev = _f(r.get("best_ev"), 0.0)
-        # Server enforces the 2% threshold regardless of what's in the CSV — so
-        # a pick flagged "bet_recommended" by an older cron run with a lower
-        # threshold still won't show as Good Value here.
-        is_value = bool(_safe(r.get("bet_recommended"), False)) and ev >= EV_THRESHOLD
         rows.append({
             "away": away,
             "home": home,
             "time": _format_time_et(_safe(r.get("commence_time"))),
             "awayStarter": _safe(r.get("away_starter"), "TBD") or "TBD",
             "homeStarter": _safe(r.get("home_starter"), "TBD") or "TBD",
-            "awayML": _format_ml(_safe(r.get("away_ml"))),
-            "homeML": _format_ml(_safe(r.get("home_ml"))),
             "homeProb": home_prob,
             "awayProb": away_prob,
             "pick": pick,
             "pickProb": home_prob if pick == home else away_prob,
-            "ev": ev,
-            "isValue": is_value,
         })
     return rows
 
@@ -237,11 +179,8 @@ def pitchers_payload() -> list[dict]:
         return []
     df = pd.read_csv(PROJ_PATH, low_memory=False)
     df = df[df["player_type"].astype(str).str.lower() == "pitcher"]
-    fd = _cached("fd_lookup", _load_fd_lookup)
     rows: list[dict] = []
     for _, r in df.iterrows():
-        name_key = str(r.get("player_name", "")).strip().lower()
-        fd_row = fd.get(name_key, {})
         rows.append({
             "player_name": _safe(r.get("player_name"), "") or "",
             "mlb_id": int(_f(r.get("mlb_id"), 0)) or None,
@@ -254,11 +193,6 @@ def pitchers_payload() -> list[dict]:
             "proj_runs_allowed": _f(r.get("proj_runs_allowed")),
             "confidence": _conf_label(_safe(r.get("confidence"))),
             "confidence_score": _grade(r.get("confidence_score")),
-            # FanDuel prop lines (null when FD file not yet available)
-            "fd_strikeouts_line": _fd_line(fd_row, "fd_strikeouts_line"),
-            "fd_walks_line":      _fd_line(fd_row, "fd_walks_line"),
-            "fd_hits_line":       _fd_line(fd_row, "fd_hits_allowed_line"),
-            "fd_outs_line":       _fd_line(fd_row, "fd_outs_line"),
         })
     return rows
 
@@ -268,7 +202,6 @@ def hitters_payload() -> list[dict]:
         return []
     df = pd.read_csv(PROJ_PATH, low_memory=False)
     df = df[df["player_type"].astype(str).str.lower() == "hitter"]
-    fd = _cached("fd_lookup", _load_fd_lookup)
     rows: list[dict] = []
     for _, r in df.iterrows():
         ls_raw = _safe(r.get("lineup_spot"))
@@ -276,8 +209,6 @@ def hitters_payload() -> list[dict]:
             lineup_spot = int(ls_raw) if ls_raw is not None else None
         except (TypeError, ValueError):
             lineup_spot = None
-        name_key = str(r.get("player_name", "")).strip().lower()
-        fd_row = fd.get(name_key, {})
         rows.append({
             "player_name": _safe(r.get("player_name"), "") or "",
             "mlb_id": int(_f(r.get("mlb_id"), 0)) or None,
@@ -294,11 +225,6 @@ def hitters_payload() -> list[dict]:
             "proj_rbi": _f(r.get("proj_rbi")),
             "confidence": _conf_label(_safe(r.get("confidence"))),
             "confidence_score": _grade(r.get("confidence_score")),
-            # FanDuel prop lines (null when FD file not yet available)
-            "fd_hits_line":       _fd_line(fd_row, "fd_hits_line"),
-            "fd_hr_line":         _fd_line(fd_row, "fd_hr_line"),
-            "fd_strikeouts_line": _fd_line(fd_row, "fd_strikeouts_line"),
-            "fd_walks_line":      _fd_line(fd_row, "fd_walks_line"),
         })
     return rows
 
@@ -588,372 +514,6 @@ def player_accuracy_payload() -> dict:
 
 
 # ─────────────────────────────────────────────────────────────
-#  NRFI — today's projections + season accuracy
-# ─────────────────────────────────────────────────────────────
-NRFI_PICKS_PATH = BASE_DIR / "2026_nrfi_picks.csv"
-NRFI_ACC_PATH   = BASE_DIR / "2026_nrfi_accuracy.csv"
-
-
-def nrfi_today_payload() -> dict:
-    """Today's NRFI projections.
-
-    Prefers the ML model output (outputs/nrfi_today.csv produced by nrfi_today.py).
-    Falls back to the Poisson-heuristic model (nrfi.compute_nrfi_for_today()) when
-    the ML CSV doesn't exist or can't be parsed.
-
-    Both sources normalise to the same dict shape so the frontend nrfiCard()
-    works unchanged.
-    """
-    # ── Try ML model first ──────────────────────────────────────────────────
-    if NRFI_ML_PATH.exists():
-        try:
-            df = pd.read_csv(NRFI_ML_PATH, low_memory=False)
-            for col in ["nrfi_prob", "yrfi_prob", "threshold"]:
-                if col in df.columns:
-                    df[col] = pd.to_numeric(df[col], errors="coerce")
-            # Surface the CSV's game_date so callers can tell at a glance
-            # whether they're getting today's slate vs a stale file.
-            csv_game_date = None
-            if "game_date" in df.columns and not df.empty:
-                gd = str(df["game_date"].iloc[0]).strip()
-                if gd and gd.lower() != "nan":
-                    csv_game_date = gd[:10]
-            if not df.empty:
-                df = df.sort_values("nrfi_prob", ascending=False)
-                games: list[dict] = []
-                for _, row in df.iterrows():
-                    nrfi_prob = _f(row.get("nrfi_prob"), 0.5)
-                    yrfi_prob = _f(row.get("yrfi_prob"), 1.0 - nrfi_prob)
-                    pick = str(row.get("pick", "")).upper()
-                    lean = "YES" if pick == "NRFI" else ("NO" if pick == "YRFI" else "PASS")
-                    away = _safe(row.get("away_team"), "") or ""
-                    home = _safe(row.get("home_team"), "") or ""
-                    games.append({
-                        "team_a": away,
-                        "team_b": home,
-                        "p_nrfi": nrfi_prob,
-                        "yrfi_prob": yrfi_prob,
-                        "lean": lean,
-                        "source": "ml",
-                        "side_a": {
-                            "pitcher_name": _safe(row.get("away_sp"), "TBD") or "TBD",
-                            "pitcher_team": away,
-                            "pitcher_k_rate": None,
-                            "opposing_top5_obp": None,
-                            "opposing_top5_slg": None,
-                            "p_zero": None,
-                        },
-                        "side_b": {
-                            "pitcher_name": _safe(row.get("home_sp"), "TBD") or "TBD",
-                            "pitcher_team": home,
-                            "pitcher_k_rate": None,
-                            "opposing_top5_obp": None,
-                            "opposing_top5_slg": None,
-                            "p_zero": None,
-                        },
-                    })
-                return {
-                    "available": True,
-                    "source": "ml",
-                    "game_date": csv_game_date,
-                    "games": games,
-                }
-        except Exception:
-            pass  # fall through to heuristic
-
-    # ── Fall back to heuristic Poisson model ────────────────────────────────
-    try:
-        from nrfi import compute_nrfi_for_today
-        games = compute_nrfi_for_today()
-        return {"available": True, "source": "heuristic", "games": games}
-    except Exception as e:
-        return {"available": False, "error": f"{type(e).__name__}: {str(e)[:200]}", "games": []}
-
-
-def nrfi_accuracy_payload() -> dict:
-    """
-    Season-long NRFI accuracy stats.
-
-    Reads 2026_nrfi_accuracy.csv (built by nrfi_grade.py). Returns:
-      - total picks logged + total graded
-      - hit rate on YES leans, NO leans, and combined
-      - profit per side at standard NRFI line (-115 typical)
-      - last 30 picks for the table
-    """
-    empty = {
-        "available": False,
-        "total_picks": 0, "total_graded": 0,
-        "yes_picks": 0, "yes_correct": 0, "yes_acc": None,
-        "no_picks": 0, "no_correct": 0, "no_acc": None,
-        "overall_acc": None,
-        "actual_nrfi_rate": None,
-        "recent": [],
-    }
-    if not NRFI_ACC_PATH.exists():
-        return empty
-    try:
-        df = pd.read_csv(NRFI_ACC_PATH, low_memory=False)
-    except Exception:
-        return empty
-    if df.empty or "lean" not in df.columns:
-        return empty
-
-    df["lean"] = df["lean"].astype(str).str.upper()
-    if "correct" in df.columns:
-        df["correct"] = df["correct"].astype(str).str.lower().map(
-            {"true": True, "1": True, "1.0": True, "false": False, "0": False, "0.0": False}
-        )
-    else:
-        df["correct"] = None
-    if "actual_nrfi" in df.columns:
-        df["actual_nrfi"] = df["actual_nrfi"].astype(str).str.lower().map(
-            {"true": True, "1": True, "1.0": True, "false": False, "0": False, "0.0": False}
-        )
-
-    graded = df[df["correct"].notna()].copy()
-    yes_picks = graded[graded["lean"] == "YES"]
-    no_picks  = graded[graded["lean"] == "NO"]
-
-    yes_correct = int(yes_picks["correct"].sum()) if len(yes_picks) else 0
-    no_correct  = int(no_picks["correct"].sum()) if len(no_picks) else 0
-    yes_acc = (yes_correct / len(yes_picks) * 100) if len(yes_picks) else None
-    no_acc  = (no_correct  / len(no_picks)  * 100) if len(no_picks)  else None
-    total_correct = yes_correct + no_correct
-    total_lean = len(yes_picks) + len(no_picks)
-    overall_acc = (total_correct / total_lean * 100) if total_lean else None
-
-    # Actual NRFI rate across graded games (regardless of pick) — useful sanity check
-    actual_nrfi_rate = None
-    if "actual_nrfi" in graded.columns and len(graded):
-        actual_nrfi_rate = float(graded["actual_nrfi"].sum() / len(graded) * 100)
-
-    # Last 30 graded picks (most recent first)
-    recent = graded.copy()
-    if "game_date" in recent.columns:
-        recent = recent.sort_values("game_date", ascending=False)
-    recent = recent.head(30)
-    rows = []
-    for _, r in recent.iterrows():
-        rows.append({
-            "date": str(r.get("game_date", ""))[:10],
-            "team_a": _safe(r.get("team_a"), "") or "",
-            "team_b": _safe(r.get("team_b"), "") or "",
-            "lean": str(r.get("lean", "")),
-            "p_nrfi": _f(r.get("p_nrfi"), 0.0),
-            "home_runs_1st": int(r.get("home_runs_1st")) if pd.notna(r.get("home_runs_1st")) else None,
-            "away_runs_1st": int(r.get("away_runs_1st")) if pd.notna(r.get("away_runs_1st")) else None,
-            "actual_nrfi": bool(r.get("actual_nrfi")) if pd.notna(r.get("actual_nrfi")) else None,
-            "correct": bool(r.get("correct")) if pd.notna(r.get("correct")) else None,
-        })
-
-    return {
-        "available": True,
-        "total_picks": int(len(df)),
-        "total_graded": int(len(graded)),
-        "yes_picks": int(len(yes_picks)), "yes_correct": yes_correct,
-        "yes_acc": round(yes_acc, 1) if yes_acc is not None else None,
-        "no_picks": int(len(no_picks)), "no_correct": no_correct,
-        "no_acc": round(no_acc, 1) if no_acc is not None else None,
-        "overall_acc": round(overall_acc, 1) if overall_acc is not None else None,
-        "actual_nrfi_rate": round(actual_nrfi_rate, 1) if actual_nrfi_rate is not None else None,
-        "recent": rows,
-    }
-
-
-# ─────────────────────────────────────────────────────────────
-#  PROPS / EDGE ENGINE — today's edges + season props accuracy
-# ─────────────────────────────────────────────────────────────
-PROPS_EDGE_PATH    = OUTPUT_DIR / "today_props_with_ev.csv"
-PROPS_LOG_PATH     = BASE_DIR / "2026_props_log.csv"
-PROPS_ACC_PATH     = BASE_DIR / "2026_props_accuracy.csv"
-PROPS_CLV_PATH     = BASE_DIR / "2026_props_clv.csv"
-
-
-def props_today_payload() -> dict:
-    """
-    Today's player-prop edges sorted by score descending.
-    Read from outputs/today_props_with_ev.csv (built by props_fetch.py).
-    """
-    empty = {"available": False, "rows": [], "summary": {}}
-    if not PROPS_EDGE_PATH.exists():
-        return empty
-    try:
-        df = pd.read_csv(PROPS_EDGE_PATH, low_memory=False)
-    except Exception:
-        return empty
-    if df.empty:
-        return empty
-
-    # Coerce numerics for safe JSON
-    for c in ("line", "over_odds", "under_odds", "proj_value",
-              "p_over_model", "p_over_no_vig",
-              "edge_over", "edge_under", "ev_over", "ev_under",
-              "ev", "score", "confidence_weight", "confidence_score"):
-        if c in df.columns:
-            df[c] = pd.to_numeric(df[c], errors="coerce")
-
-    # Sort by score (already done by engine but be defensive)
-    if "score" in df.columns:
-        df = df.sort_values("score", ascending=False).reset_index(drop=True)
-
-    # Summary card values
-    n_total = int(len(df))
-    n_value = int((df["flag"].astype(str).str.upper() == "VALUE").sum()) if "flag" in df else 0
-    avg_ev  = float(df["ev"].mean()) if "ev" in df.columns and not df["ev"].dropna().empty else None
-    top_score = float(df["score"].max()) if "score" in df.columns and not df["score"].dropna().empty else None
-    by_market = df["market"].value_counts().to_dict() if "market" in df.columns else {}
-
-    rows = []
-    for _, r in df.iterrows():
-        rows.append({
-            "player_name": _safe(r.get("player_name"), "") or "",
-            "mlb_id": int(_f(r.get("mlb_id"), 0)) or None,
-            "kind": _safe(r.get("kind"), "") or "",
-            "market": _safe(r.get("market"), "") or "",
-            "line": _f(r.get("line"), 0.0),
-            "sportsbook": _safe(r.get("sportsbook"), "") or "",
-            "over_odds": int(r.get("over_odds")) if pd.notna(r.get("over_odds")) else None,
-            "under_odds": int(r.get("under_odds")) if pd.notna(r.get("under_odds")) else None,
-            "proj_value": _f(r.get("proj_value"), 0.0),
-            "p_over_model": _f(r.get("p_over_model"), 0.0),
-            "p_over_no_vig": _f(r.get("p_over_no_vig"), 0.0),
-            "side": _safe(r.get("side"), "PASS") or "PASS",
-            "ev": _f(r.get("ev"), 0.0),
-            "edge_over": _f(r.get("edge_over"), 0.0),
-            "edge_under": _f(r.get("edge_under"), 0.0),
-            "score": _f(r.get("score"), 0.0),
-            "flag": _safe(r.get("flag"), "PASS") or "PASS",
-            "confidence_score": int(_f(r.get("confidence_score"), 50)),
-            "home_team": _safe(r.get("home_team"), "") or "",
-            "away_team": _safe(r.get("away_team"), "") or "",
-        })
-
-    return {
-        "available": True,
-        "rows": rows,
-        "summary": {
-            "total_props": n_total,
-            "value_props": n_value,
-            "avg_ev": round(avg_ev, 4) if avg_ev is not None else None,
-            "top_score": round(top_score, 4) if top_score is not None else None,
-            "by_market": by_market,
-        },
-    }
-
-
-def props_accuracy_payload() -> dict:
-    """
-    Season-long props accuracy stats: hit rate, ROI per side, market breakdown,
-    and a CLV summary. Reads 2026_props_accuracy.csv + 2026_props_clv.csv.
-    """
-    empty = {
-        "available": False,
-        "total": 0, "settled": 0,
-        "hits": 0, "misses": 0, "pushes": 0,
-        "units": 0.0, "roi_pct": None,
-        "by_market": [],
-        "by_side": [],
-        "clv": {"pairs": 0, "positive_pct": None, "avg_line_delta": None},
-        "recent": [],
-    }
-    if not PROPS_ACC_PATH.exists():
-        return empty
-    try:
-        df = pd.read_csv(PROPS_ACC_PATH, low_memory=False)
-    except Exception:
-        return empty
-    if df.empty:
-        return empty
-
-    df["profit_units"] = pd.to_numeric(df["profit_units"], errors="coerce")
-    settled = df[df["profit_units"].notna()].copy()
-    n_settled = int(len(settled))
-    n_hits = int((settled["result"] == "HIT").sum())
-    n_miss = int((settled["result"] == "MISS").sum())
-    n_push = int((settled["result"] == "PUSH").sum())
-    units = float(settled["profit_units"].sum()) if n_settled else 0.0
-    roi = (units / n_settled * 100.0) if n_settled else None
-
-    # Per-market breakdown
-    by_market: list[dict] = []
-    if n_settled and "market" in settled.columns:
-        for mkt, sub in settled.groupby("market"):
-            n = int(len(sub))
-            h = int((sub["result"] == "HIT").sum())
-            u = float(sub["profit_units"].sum())
-            by_market.append({
-                "market": mkt,
-                "n": n,
-                "hits": h,
-                "hit_rate": round(h / n * 100.0, 1) if n else None,
-                "units": round(u, 2),
-                "roi": round(u / n * 100.0, 1) if n else None,
-            })
-        by_market.sort(key=lambda x: x["n"], reverse=True)
-
-    # Per-side breakdown
-    by_side: list[dict] = []
-    if n_settled and "side" in settled.columns:
-        for sd, sub in settled.groupby("side"):
-            n = int(len(sub))
-            h = int((sub["result"] == "HIT").sum())
-            u = float(sub["profit_units"].sum())
-            by_side.append({
-                "side": sd, "n": n, "hits": h,
-                "hit_rate": round(h / n * 100.0, 1) if n else None,
-                "units": round(u, 2),
-                "roi": round(u / n * 100.0, 1) if n else None,
-            })
-
-    # CLV summary
-    clv_block = empty["clv"]
-    if PROPS_CLV_PATH.exists():
-        try:
-            cdf = pd.read_csv(PROPS_CLV_PATH, low_memory=False)
-            cdf["clv_line"] = pd.to_numeric(cdf["clv_line"], errors="coerce")
-            settled_clv = cdf[cdf["clv_line"].notna()]
-            if len(settled_clv):
-                pos = int((settled_clv["clv_line"] > 0).sum())
-                clv_block = {
-                    "pairs": int(len(settled_clv)),
-                    "positive_pct": round(pos / len(settled_clv) * 100.0, 1),
-                    "avg_line_delta": round(float(settled_clv["clv_line"].mean()), 3),
-                }
-        except Exception:
-            pass
-
-    # Recent 25 picks for the table
-    recent_df = df.sort_values("game_date", ascending=False).head(25)
-    recent = []
-    for _, r in recent_df.iterrows():
-        recent.append({
-            "date": str(r.get("game_date", ""))[:10],
-            "player_name": _safe(r.get("player_name"), "") or "",
-            "market": _safe(r.get("market"), "") or "",
-            "line": _f(r.get("line"), 0.0),
-            "side": _safe(r.get("side"), "") or "",
-            "odds": int(r.get("odds")) if pd.notna(r.get("odds")) else None,
-            "proj_value": _f(r.get("proj_value"), 0.0),
-            "actual_value": _f(r.get("actual_value"), 0.0),
-            "result": _safe(r.get("result"), "") or "",
-            "profit_units": _f(r.get("profit_units"), 0.0),
-        })
-
-    return {
-        "available": True,
-        "total": int(len(df)),
-        "settled": n_settled,
-        "hits": n_hits, "misses": n_miss, "pushes": n_push,
-        "units": round(units, 2),
-        "roi_pct": round(roi, 2) if roi is not None else None,
-        "by_market": by_market,
-        "by_side": by_side,
-        "clv": clv_block,
-        "recent": recent,
-    }
-
-
-# ─────────────────────────────────────────────────────────────
 #  PLAYER DETAIL — used by the modal that opens when a user
 #  clicks a player name. Returns recent-game-by-game stats plus
 #  season / last10 / last5 aggregates split by opposing handedness.
@@ -1201,6 +761,35 @@ def _player_detail_payload(mlb_id: int) -> dict | None:
     return hitter_payload or pitcher_payload
 
 
+# ─────────────────────────────────────────────────────────────
+#  PLAYER POWER RANKINGS — season-long production ranking, all
+#  players + a 25-and-under cut. Rebuilt every cron tick by
+#  player_rankings.py and written to outputs/player_rankings.json.
+# ─────────────────────────────────────────────────────────────
+def rankings_payload() -> dict:
+    empty = {
+        "available": False,
+        "hitters": [],
+        "pitchers": [],
+        "note": "player_rankings.json not found — run "
+                "player_rankings.py or wait for the next update.",
+    }
+    if not RANKINGS_PATH.exists():
+        return empty
+    try:
+        import json
+        bundle = json.loads(RANKINGS_PATH.read_text())
+        bundle["available"] = True
+        return bundle
+    except Exception as e:
+        return {
+            "available": False,
+            "hitters": [],
+            "pitchers": [],
+            "error": f"{type(e).__name__}: {str(e)[:200]}",
+        }
+
+
 # ───── ROUTES ───────────────────────────────────────────────
 @app.get("/")
 def index():
@@ -1274,30 +863,6 @@ def api_player_accuracy():
     return JSONResponse(_cached("player_accuracy", player_accuracy_payload))
 
 
-@app.get("/api/nrfi")
-def api_nrfi():
-    """Today's NRFI projections for every game on the slate."""
-    return JSONResponse(_cached("nrfi_today", nrfi_today_payload))
-
-
-@app.get("/api/nrfi-accuracy")
-def api_nrfi_accuracy():
-    """Season-long NRFI accuracy stats + recent graded picks."""
-    return JSONResponse(_cached("nrfi_accuracy", nrfi_accuracy_payload))
-
-
-@app.get("/api/props")
-def api_props():
-    """Today's player-prop edges sorted by score (EV × confidence)."""
-    return JSONResponse(_cached("props_today", props_today_payload))
-
-
-@app.get("/api/props-accuracy")
-def api_props_accuracy():
-    """Season-long props accuracy + ROI + CLV summary."""
-    return JSONResponse(_cached("props_accuracy", props_accuracy_payload))
-
-
 @app.get("/api/calibration")
 def api_calibration():
     """
@@ -1317,35 +882,9 @@ def api_calibration():
         return JSONResponse({"available": False, "hitter": {}, "pitcher": {}})
 
 
-@app.get("/api/fantasy/rankings")
-def api_fantasy_rankings():
-    """
-    Returns rest-of-season fantasy rankings (Yahoo-style points scoring).
-    Rebuilt every cron tick by fantasy_rankings.build_rankings() and
-    written to outputs/fantasy_rankings.json. Front-end's Fantasy tab
-    consumes this directly.
-    """
-    rank_path = OUTPUT_DIR / "fantasy_rankings.json"
-    if not rank_path.exists():
-        return JSONResponse({
-            "available": False,
-            "hitters": [],
-            "pitchers": [],
-            "note": "fantasy_rankings.json not found - run "
-                    "fantasy_rankings.py or wait for the next cron tick.",
-        })
-    try:
-        import json
-        bundle = json.loads(rank_path.read_text())
-        bundle["available"] = True
-        return JSONResponse(bundle)
-    except Exception as e:
-        return JSONResponse({
-            "available": False,
-            "hitters": [],
-            "pitchers": [],
-            "error": f"{type(e).__name__}: {str(e)[:200]}",
-        })
+@app.get("/api/rankings")
+def api_rankings():
+    return JSONResponse(_cached("rankings", rankings_payload))
 
 
 @app.get("/api/player/{mlb_id}")
@@ -1436,180 +975,3 @@ def health():
             info["snapshots_populated"] = None
 
     return info
-
-
-# ───────────────────────────────────────────────────────────────
-# AUTH + BILLING
-# ───────────────────────────────────────────────────────────────
-# Auth state is held server-side by Supabase. We forward signup/login from
-# the browser through these endpoints so the frontend never needs the
-# Supabase JS SDK and so we can set the access token as an HttpOnly cookie
-# (safer than localStorage against XSS). Same access token can also be sent
-# in the Authorization header — `auth.current_user` accepts either.
-
-COOKIE_NAME = "sb_access_token"
-COOKIE_REFRESH = "sb_refresh_token"
-# 7 days — Supabase refresh tokens last longer; we just renew when the
-# access token expires.
-COOKIE_MAX_AGE = 60 * 60 * 24 * 7
-
-
-def _set_session_cookies(resp: Response, access_token: str, refresh_token: str | None) -> None:
-    resp.set_cookie(
-        COOKIE_NAME, access_token,
-        max_age=COOKIE_MAX_AGE, httponly=True, samesite="lax", secure=True, path="/",
-    )
-    if refresh_token:
-        resp.set_cookie(
-            COOKIE_REFRESH, refresh_token,
-            max_age=COOKIE_MAX_AGE, httponly=True, samesite="lax", secure=True, path="/",
-        )
-
-
-def _clear_session_cookies(resp: Response) -> None:
-    resp.delete_cookie(COOKIE_NAME, path="/")
-    resp.delete_cookie(COOKIE_REFRESH, path="/")
-
-
-class AuthBody(BaseModel):
-    email: EmailStr
-    password: str
-
-
-@app.post("/api/auth/signup")
-def auth_signup(body: AuthBody, resp: Response):
-    """Create a new Supabase user with email + password, log them in,
-    and set the session cookie on the response."""
-    if not auth_mod.auth_configured():
-        raise HTTPException(503, "Auth not configured — see SETUP_ACCOUNTS.md")
-    try:
-        result = auth_mod.supabase_anon.auth.sign_up(
-            {"email": body.email, "password": body.password}
-        )
-    except Exception as exc:
-        # Supabase wraps everything in AuthError — surface the message.
-        raise HTTPException(400, f"Sign up failed: {exc}") from exc
-    if not result.session:
-        # Email confirmation is on — user must verify before logging in.
-        return {
-            "needs_confirmation": True,
-            "message": "Check your email to confirm your account.",
-        }
-    _set_session_cookies(resp, result.session.access_token, result.session.refresh_token)
-    return {
-        "id": result.user.id,
-        "email": result.user.email,
-        "is_subscribed": False,
-        "subscription": None,
-    }
-
-
-@app.post("/api/auth/login")
-def auth_login(body: AuthBody, resp: Response):
-    """Sign in with email + password. Returns the user + subscription state."""
-    if not auth_mod.auth_configured():
-        raise HTTPException(503, "Auth not configured — see SETUP_ACCOUNTS.md")
-    try:
-        result = auth_mod.supabase_anon.auth.sign_in_with_password(
-            {"email": body.email, "password": body.password}
-        )
-    except Exception as exc:
-        raise HTTPException(401, "Invalid email or password") from exc
-    if not result.session:
-        raise HTTPException(401, "Invalid email or password")
-    _set_session_cookies(resp, result.session.access_token, result.session.refresh_token)
-    sub = auth_mod.get_subscription(result.user.id)
-    return {
-        "id": result.user.id,
-        "email": result.user.email,
-        "is_subscribed": auth_mod.is_user_subscribed(sub),
-        "subscription": sub,
-    }
-
-
-@app.post("/api/auth/logout")
-def auth_logout(resp: Response):
-    """Clear the session cookies. Idempotent — fine to call when logged out."""
-    _clear_session_cookies(resp)
-    return {"ok": True}
-
-
-@app.get("/api/me")
-def api_me(user: dict | None = Depends(auth_mod.current_user_optional)):
-    """Return the logged-in user + subscription state, or {logged_in:false}."""
-    if not user:
-        return {"logged_in": False}
-    return {
-        "logged_in": True,
-        "id": user["id"],
-        "email": user["email"],
-        "is_subscribed": user["is_subscribed"],
-        "subscription": user["subscription"],
-    }
-
-
-class CheckoutBody(BaseModel):
-    plan: str  # 'monthly' | 'annual'
-
-
-@app.post("/api/billing/checkout")
-def api_billing_checkout(body: CheckoutBody,
-                         user: dict = Depends(auth_mod.current_user)):
-    """Create a Stripe Checkout session for the logged-in user + chosen plan.
-    Returns the hosted URL the browser should redirect to."""
-    if not billing_mod.billing_configured():
-        raise HTTPException(503, "Billing not configured — see SETUP_ACCOUNTS.md")
-    if body.plan not in {"monthly", "annual"}:
-        raise HTTPException(400, "plan must be 'monthly' or 'annual'")
-    try:
-        url = billing_mod.create_checkout_session(
-            user_id=user["id"], email=user["email"], plan=body.plan,
-        )
-    except Exception as exc:
-        raise HTTPException(500, f"Stripe checkout error: {exc}") from exc
-    return {"url": url}
-
-
-@app.post("/api/billing/portal")
-def api_billing_portal(user: dict = Depends(auth_mod.current_user)):
-    """Hand the user off to Stripe's Customer Portal so they can cancel,
-    swap card, view invoices, etc."""
-    if not billing_mod.billing_configured():
-        raise HTTPException(503, "Billing not configured — see SETUP_ACCOUNTS.md")
-    sub = user.get("subscription") or {}
-    customer_id = sub.get("stripe_customer_id")
-    if not customer_id:
-        raise HTTPException(400, "No Stripe customer on file. Subscribe first.")
-    try:
-        url = billing_mod.create_portal_session(stripe_customer_id=customer_id)
-    except Exception as exc:
-        raise HTTPException(500, f"Stripe portal error: {exc}") from exc
-    return {"url": url}
-
-
-@app.post("/api/billing/webhook")
-async def api_billing_webhook(request: Request):
-    """Stripe → our server. Verifies the signature, then mirrors subscription
-    state into the `subscriptions` table so the paywall stays accurate."""
-    if not billing_mod.billing_configured():
-        raise HTTPException(503, "Billing not configured")
-    payload = await request.body()
-    sig_header = request.headers.get("Stripe-Signature", "")
-    try:
-        event = billing_mod.verify_webhook(payload, sig_header)
-    except Exception as exc:
-        raise HTTPException(400, f"Webhook signature verification failed: {exc}") from exc
-    try:
-        summary = billing_mod.handle_event(event)
-    except Exception as exc:
-        # Returning 500 makes Stripe retry, which is what we want for a
-        # transient DB/Supabase blip.
-        raise HTTPException(500, f"Webhook handler error: {exc}") from exc
-    return {"received": True, **summary}
-
-
-# Legacy stub kept so anything pointing at /api/create-checkout doesn't 404
-# while frontends are updated to the new /api/billing/checkout.
-@app.post("/api/create-checkout")
-def create_checkout_legacy():
-    raise HTTPException(410, "Moved to /api/billing/checkout")
