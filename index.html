@@ -398,7 +398,7 @@
         <li><strong>Backfill missing past-date player snapshots</strong> — for any past date without a snapshot on disk, fetches the actual lineup from MLB box scores and runs the player projection models against it, using only feature rows with <code>game_date &lt; target_date</code>. Idempotent.</li>
         <li><strong>Generate today's hitter and pitcher projections</strong> — writes both the live <code>hitterspitchers_today.csv</code> the front-end reads and a dated snapshot for tonight's grading.</li>
         <li><strong>Grade player snapshots</strong> — joins every snapshot to its game's actual box score and rebuilds <code>2026_player_accuracy.csv</code>, which feeds the Performance tab and the empirical blend-weight tuner.</li>
-        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season WAR (offense + defense + baserunning) for every hitter and rest-of-season production for every pitcher, from the freshly-graded log.</li>
+        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season WAR for every hitter (offense + defense + baserunning) and every pitcher (RA9-based), from the freshly-graded log. The defense and baserunning sub-models retrain once per season, not every tick — see below.</li>
       </ol>
       <p>
         Model retraining is a <strong>separate, opt-in step</strong> — the daily tick uses whatever <code>.pkl</code> files are on disk. When the trainer runs (<code>hitterspitchers_train.py</code> and <code>train_game_model.py</code>), the new game model is written as a <em>candidate</em> first and only promoted to production if it beats the current model on the holdout — the existing model is backed up with a timestamp before the swap. This prevents a bad training run from silently degrading the live site.
@@ -539,10 +539,14 @@
         Rest-of-season production estimate for every player with graded games this season.
         Rebuilt every update from the live projections + graded player log.
       </div>
-      <div class="player-pill-row">
+      <div class="player-pill-row" id="rankingsTypePillRow">
         <button class="pill active" data-rankingstype="hitters">Hitters</button>
         <button class="pill" data-rankingstype="pitchers">Pitchers</button>
         <span class="ptype-count" id="rankingsCount">—</span>
+      </div>
+      <div class="player-pill-row" id="rankingsModePillRow">
+        <button class="pill active" data-rankingsmode="ros">Rest of Season</button>
+        <button class="pill" data-rankingsmode="full">Full Season</button>
       </div>
       <div style="overflow-x:auto;">
         <table class="picks-table" id="rankingsTable">
@@ -815,6 +819,7 @@ const state = {
   rankings: null,
   rankingsSub: 'all',          // 'all' | 'young'
   rankingsType: 'hitters',     // 'hitters' | 'pitchers'
+  rankingsMode: 'ros',         // 'ros' | 'full'
   accuracySubtab: 'games',     // 'games' | 'players'
   playerAccType: 'pitchers',   // 'pitchers' | 'hitters'
 };
@@ -1653,11 +1658,19 @@ async function renderRankingsTab() {
         _drawRankingsTable();
       });
     });
-    document.querySelectorAll('#panel-rankings .player-pill-row .pill').forEach(b => {
+    document.querySelectorAll('#rankingsTypePillRow .pill').forEach(b => {
       b.addEventListener('click', () => {
         state.rankingsType = b.dataset.rankingstype;
-        document.querySelectorAll('#panel-rankings .player-pill-row .pill').forEach(x =>
+        document.querySelectorAll('#rankingsTypePillRow .pill').forEach(x =>
           x.classList.toggle('active', x.dataset.rankingstype === state.rankingsType));
+        _drawRankingsTable();
+      });
+    });
+    document.querySelectorAll('#rankingsModePillRow .pill').forEach(b => {
+      b.addEventListener('click', () => {
+        state.rankingsMode = b.dataset.rankingsmode;
+        document.querySelectorAll('#rankingsModePillRow .pill').forEach(x =>
+          x.classList.toggle('active', x.dataset.rankingsmode === state.rankingsMode));
         _drawRankingsTable();
       });
     });
@@ -1687,18 +1700,24 @@ function _drawRankingsTable() {
   empty.style.display = 'none';
 
   const isHitters = state.rankingsType === 'hitters';
+  const isFull = state.rankingsMode === 'full';
+  const p = isFull ? 'full_' : 'ros_';   // field-name prefix for the active mode
+
   let rows = isHitters ? (data.hitters || []) : (data.pitchers || []);
   if (state.rankingsSub === 'young') {
     const cutoff = data.age_cutoff || 25;
     rows = rows.filter(r => r.age != null && r.age <= cutoff);
   }
-  // Re-rank for display within the current view so the # column has no gaps.
+  // Re-sort by whichever metric is active for this mode, then re-rank for
+  // display within the current view so the # column has no gaps.
+  const metricKey = p + 'war';
+  rows = [...rows].sort((a, b) => (b[metricKey] ?? -Infinity) - (a[metricKey] ?? -Infinity));
   rows = rows.map((r, i) => ({...r, _displayRank: i + 1}));
 
   if (cnt) cnt.textContent = `${rows.length.toLocaleString()} ${isHitters ? 'hitters' : 'pitchers'}`;
   sub.textContent = (isHitters
-      ? `Rest-of-season WAR projection (offense + defense + baserunning)`
-      : `Rest-of-season production estimate, ranked by power score`) +
+      ? `${isFull ? 'Full-season' : 'Rest-of-season'} WAR projection (offense + defense + baserunning)`
+      : `${isFull ? 'Full-season' : 'Rest-of-season'} WAR projection (RA9-based)`) +
     (state.rankingsSub === 'young' ? ` — players age ${data.age_cutoff || 25} and under` : '') +
     ` · as of ${data.as_of || '—'}.`;
 
@@ -1708,7 +1727,7 @@ function _drawRankingsTable() {
       <th>Player</th><th>Team</th><th>Pos</th>
       <th style="text-align:right;">Age</th>
       <th style="text-align:right;">GP</th>
-      <th style="text-align:right;">GR</th>
+      <th style="text-align:right;">${isFull ? 'Proj G' : 'GR'}</th>
       <th style="text-align:right;">HR</th>
       <th style="text-align:right;">Bat</th>
       <th style="text-align:right;">Def</th>
@@ -1722,12 +1741,12 @@ function _drawRankingsTable() {
       <td style="color:var(--text-dim); font-family:var(--font-mono); font-size:0.75rem;">${r.position ?? '—'}</td>
       <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.age ?? '—'}</td>
       <td style="text-align:right; font-family:var(--font-mono);">${r.games_played}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.games_remaining}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--green);">${r.ros_hr}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.bat_runs}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.def_runs}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.bsr_runs}</td>
-      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r.war}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${isFull ? (r.games_played + r.games_remaining).toFixed(1) : r.games_remaining}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--green);">${r[p+'hr']}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'bat_runs']}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'def_runs']}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'bsr_runs']}</td>
+      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r[p+'war']}</td>
     </tr>`).join('') || `<tr><td colspan="12" style="text-align:center;color:var(--text-muted);padding:2rem;">No hitters match this view.</td></tr>`;
   } else {
     head.innerHTML = `<tr>
@@ -1735,13 +1754,14 @@ function _drawRankingsTable() {
       <th>Pitcher</th><th>Team</th>
       <th style="text-align:right;">Age</th>
       <th style="text-align:right;">GS</th>
-      <th style="text-align:right;">SR</th>
+      <th style="text-align:right;">${isFull ? 'Proj GS' : 'SR'}</th>
       <th style="text-align:right;">IP</th>
       <th style="text-align:right;">K</th>
       <th style="text-align:right;">BB</th>
       <th style="text-align:right;">H</th>
       <th style="text-align:right;">ER</th>
-      <th style="text-align:right;">Power</th>
+      <th style="text-align:right;">RA9</th>
+      <th style="text-align:right;">WAR</th>
     </tr>`;
     body.innerHTML = rows.slice(0, 250).map(r => `<tr>
       <td style="text-align:right; color:var(--text-dim); font-family:var(--font-mono);">${r._displayRank}</td>
@@ -1749,14 +1769,15 @@ function _drawRankingsTable() {
       <td style="color:var(--text-secondary);">${r.team}</td>
       <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.age ?? '—'}</td>
       <td style="text-align:right; font-family:var(--font-mono);">${r.starts_made}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r.starts_remaining}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_ip}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--green);">${r.ros_k}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_bb}</td>
-      <td style="text-align:right; font-family:var(--font-mono);">${r.ros_h}</td>
-      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-dim);">${r.ros_er}</td>
-      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r.power_score}</td>
-    </tr>`).join('') || `<tr><td colspan="12" style="text-align:center;color:var(--text-muted);padding:2rem;">No pitchers match this view.</td></tr>`;
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${isFull ? (r.starts_made + r.starts_remaining).toFixed(1) : r.starts_remaining}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'ip']}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--green);">${r[p+'k']}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'bb']}</td>
+      <td style="text-align:right; font-family:var(--font-mono);">${r[p+'h']}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-dim);">${r[p+'er']}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r[p+'ra9'] ?? '—'}</td>
+      <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r[p+'war']}</td>
+    </tr>`).join('') || `<tr><td colspan="13" style="text-align:center;color:var(--text-muted);padding:2rem;">No pitchers match this view.</td></tr>`;
   }
 }
 
