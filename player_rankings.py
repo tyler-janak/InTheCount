@@ -207,12 +207,12 @@ PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
 # bottom (DH stays the actual floor, since that's the whole point of this
 # feature — penalizing zero defensive value — just scaled down too).
 POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
-    "CF": 6.0, "SS": 6.0,
-    "C": 4.5,
-    "3B": 3.0,
-    "2B": 1.5,
-    "RF": -3.0,
-    "1B": -6.0, "LF": -6.0,
+    "CF": 7.0, "SS": 7.0,
+    "C": 5.5,
+    "3B": 3.5,
+    "2B": 2.5,
+    "RF": 1.0,
+    "1B": -6.0, "LF": -5.0,
     "DH": -9.0,
 }
 
