@@ -4,10 +4,17 @@ player_rankings.py
 Season player power rankings for the Power Rankings tab.
 
 HITTERS are ranked by a projected rest-of-season WAR built from four
-separate sub-models, summed together the way real WAR is (all four are
-denominated in the same currency — runs above average/replacement — so
-they add directly; none of them get an arbitrary "weight" multiplier,
-same as real fWAR/bWAR):
+separate sub-models. In real WAR all four would be denominated in the
+same currency (runs above average/replacement) and just added — no
+component gets a "weight" multiplier, because a run is a run regardless
+of whether it came from a double or a diving catch. THIS VERSION
+DELIBERATELY BREAKS FROM THAT, per explicit direction: Def is weighted
+DEF_RUNS_WEIGHT (1.15x) relative to Bat, and PositionalAdj uses a
+customized table (not the standard published one) with CF/SS at the
+top, then C, 3B, 2B, RF, then 1B/LF at the bottom, all scaled to a
+smaller spread than the textbook version. That makes this a house-rules
+scoring system, not textbook fWAR/bWAR — worth knowing if you're ever
+comparing these numbers to FanGraphs or Baseball-Reference.
 
     Bat   — batting runs above average, from a linear-weights model
             (H/2B/3B/HR/BB/outs) applied to this pipeline's own projected
@@ -41,38 +48,34 @@ same as real fWAR/bWAR):
             only fetched for the top hitters by projected Bat runs
             (bounded MLB Stats API calls, same as the age lookup below);
             everyone else defaults to BsR = 0.
-    PositionalAdj — the piece Def alone can't provide: a standard
-            published sabermetric table (runs/162 games by position,
-            e.g. DH −17.5, C +12.5) applied to each player's OFFICIAL
-            games-played-by-position from the MLB Stats API. This is
-            NOT derived from this pipeline's data (unlike Bat/Def/BsR)
-            — it's a fixed, well-established constant table, same
-            category as PITCHER_REPLACEMENT_RA9_MULTIPLIER. Without it,
-            a bat-only player who rarely takes the field would only get
-            a small, thin-sample Def number (from whatever few chances
-            they had) instead of the real penalty for providing no
-            defensive value most nights — see
-            POSITIONAL_ADJUSTMENT_RUNS_PER_162 and fetch_position_games().
+    PositionalAdj — the piece Def alone can't provide: a runs/162-games
+            by position table applied to each player's OFFICIAL
+            games-played-by-position from the MLB Stats API. CUSTOMIZED
+            (see POSITIONAL_ADJUSTMENT_RUNS_PER_162) — not the standard
+            published sabermetric table. Without it, a bat-only player
+            who rarely takes the field would only get a small,
+            thin-sample Def number (from whatever few chances they had)
+            instead of a real penalty for providing no defensive value
+            most nights — see fetch_position_games().
 
-    WAR = (Bat + Def + BsR + PositionalAdj + Replacement) / RUNS_PER_WIN
+    WAR = (Bat + Def*DEF_RUNS_WEIGHT + BsR + PositionalAdj + Replacement)
+          / RUNS_PER_WIN
     Replacement = 20 runs / 600 PA (standard replacement-level constant).
 
-This is a real WAR *structure* — four components combined into wins
-above replacement, all in the same run-based currency (no component is
-scaled up or down relative to the others — that would break the units
-and turn it into a made-up score instead of real WAR). Bat is computed
-fresh every run (it's cheap — just this run's own projected stats). Def
-and the SB/CS run values are trained/derived from this pipeline's own
-data too, but only once per season (cached under models/, like the
-hitter/pitcher projection models), not re-trained on every cron tick —
-see "Model caching" below. PositionalAdj uses a fixed public constant
-table, not something this pipeline derives. Only the raw SB/CS event
-counts, games-by-position, and player ages come from an outside feed
-(MLB's official Stats API — factual box-score data, not someone else's
-model). Def, BsR, and PositionalAdj are all best-effort: if the local
-pitch data or the Stats API is unavailable on a given run, those
-components degrade to 0 for the affected players rather than failing
-the whole build (see
+This is a WAR *structure* — four components combined into wins above
+replacement — customized in two ways per explicit direction: Def gets a
+1.15x weight relative to Bat, and PositionalAdj uses a non-standard
+table (see above). Bat is computed fresh every run (it's cheap — just
+this run's own projected stats). Def and the SB/CS run values are
+trained/derived from this pipeline's own data too, but only once per
+season (cached under models/, like the hitter/pitcher projection
+models), not re-trained on every cron tick — see "Model caching" below.
+Only the raw SB/CS event counts, games-by-position, and player ages
+come from an outside feed (MLB's official Stats API — factual box-score
+data, not someone else's model). Def, BsR, and PositionalAdj are all
+best-effort: if the local pitch data or the Stats API is unavailable on
+a given run, those components degrade to 0 for the affected players
+rather than failing the whole build (see
 `data_availability` in the output bundle).
 
 Model caching: the defense regression model and the baserunning run-
@@ -194,19 +197,31 @@ PITCHER_WEIGHTS = {"IP": 3.0, "K": 1.0, "ER": -1.0, "H": -0.5, "BB": -0.5}
 # pitcher pool every run).
 PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
 
-# Standard published sabermetric positional-adjustment table (runs per 162
-# team games spent at that position), NOT derived from this pipeline's own
-# data — same category as PITCHER_REPLACEMENT_RA9_MULTIPLIER above. This is
-# what real WAR uses to penalize players who spend a lot of time at DH (zero
-# defensive value, no matter how well the innings they DO field grade out)
-# and reward up-the-middle positions. Without this, our in-house Def model
-# alone under-penalizes DH-heavy bat-only players: their measured Def total
-# is just a small, thin-sample number from whatever few chances they had,
-# not a real accounting for providing no defense at all most nights.
+# Positional-adjustment table (runs per 162 team games spent at that
+# position). CUSTOMIZED per Tyler's explicit direction — this is NOT the
+# standard published sabermetric table anymore (that one had C highest,
+# then SS, then 2B/3B/CF bunched together, then LF/RF, then 1B, then DH —
+# see the git history for the original if you want to revert). This
+# version scales the whole spread down and reorders it: CF and SS get the
+# top premium, then C, then 3B, then 2B, then RF, then 1B/LF at the
+# bottom (DH stays the actual floor, since that's the whole point of this
+# feature — penalizing zero defensive value — just scaled down too).
 POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
-    "C": 12.5, "SS": 7.5, "2B": 2.5, "3B": 2.5, "CF": 2.5,
-    "LF": -7.5, "RF": -7.5, "1B": -12.5, "DH": -17.5,
+    "CF": 6.0, "SS": 6.0,
+    "C": 4.5,
+    "3B": 3.0,
+    "2B": 1.5,
+    "RF": -3.0,
+    "1B": -6.0, "LF": -6.0,
+    "DH": -9.0,
 }
+
+# Def is weighted slightly higher than Bat, per explicit request — a
+# deliberate departure from real WAR, where every component is worth
+# exactly 1 run per run with no multiplier (that's what makes it WAR
+# instead of a house-rules score in the first place). Applied directly
+# to a player's measured Def runs before they're combined into WAR.
+DEF_RUNS_WEIGHT = 1.15
 
 # ---------------------------------------------------------------------------
 # WAR model constants.
@@ -1012,7 +1027,10 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             ros_bsr_runs = 0.0
             full_bsr_runs = 0.0
 
-        season_def_runs = defense_runs_by_player.get(mid, 0.0)
+        # DEF_RUNS_WEIGHT applied here (not to the cached raw model output)
+        # so the weight is easy to find/adjust and every downstream use of
+        # Def runs (WAR, the displayed Def column) reflects it consistently.
+        season_def_runs = defense_runs_by_player.get(mid, 0.0) * DEF_RUNS_WEIGHT
         ros_def_runs = (season_def_runs / gp * gr) if gp > 0 else 0.0
         full_def_runs = season_def_runs + ros_def_runs
 
@@ -1173,19 +1191,27 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "position_adjustment": bool(position_games_data),
         },
         "scoring": {
-            "type": "war_v4_inhouse",
+            "type": "war_v5_custom",
             "hitter": {
-                "model": "Bat + Def + BsR + PositionalAdj + Replacement, / 10 runs per win",
+                "model": "Bat + Def*1.15 + BsR + PositionalAdj(custom) + Replacement, / 10 runs per win",
+                "customized": True,
+                "def_runs_weight": DEF_RUNS_WEIGHT,
                 "batting_linear_weights": BATTING_LINEAR_WEIGHTS,
                 "baserunning_weights_used": {"SB": round(sb_run_value, 3), "CS": round(cs_run_value, 3)},
                 "baserunning_weights_from_own_run_expectancy_matrix": re_matrix_built,
                 "positional_adjustment_runs_per_162": POSITIONAL_ADJUSTMENT_RUNS_PER_162,
                 "replacement_runs_per_600pa": REPLACEMENT_RUNS_PER_600PA,
                 "runs_per_win": RUNS_PER_WIN,
-                "note": "Rest-of-season / full-season WAR projection. Bat "
-                        "runs are self-consistent (above this hitter "
-                        "pool's own PA-weighted average). Def comes from "
-                        "an in-house model (exit velo + launch angle + "
+                "note": "Rest-of-season / full-season WAR-style projection "
+                        "— CUSTOMIZED, not textbook WAR: Def is weighted "
+                        f"{DEF_RUNS_WEIGHT}x relative to Bat (def_runs_"
+                        "weight above), and positional_adjustment_runs_"
+                        "per_162 is a customized table (CF/SS highest, "
+                        "then C, 3B, 2B, RF, then 1B/LF), not the "
+                        "standard published sabermetric one. Bat runs "
+                        "are self-consistent (above this hitter pool's "
+                        "own PA-weighted average). Def comes from an "
+                        "in-house model (exit velo + launch angle + "
                         "fielding zone -> expected run value, vs. what "
                         "actually happened) — no external leaderboard. "
                         "The model is trained ONCE PER SEASON on pooled "
@@ -1204,17 +1230,14 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "also cached the same way "
                         "(models/baserunning_re_weights.json) — see "
                         "baserunning_weights_used above for what was "
-                        "actually applied this run. PositionalAdj is a "
-                        "standard published sabermetric table (NOT "
-                        "derived from this pipeline's data, unlike "
-                        "Bat/Def/BsR) applied to official games-played-"
-                        "by-position from the MLB Stats API — this is "
-                        "what penalizes bat-only DH-heavy players and "
-                        "rewards up-the-middle defenders, on top of "
-                        "(not instead of) their measured Def runs; "
-                        "without it, a player who rarely takes the field "
-                        "would only get a small, thin-sample Def number "
-                        "instead of the real cost of providing no "
+                        "actually applied this run. PositionalAdj is "
+                        "applied to official games-played-by-position "
+                        "from the MLB Stats API — this is what penalizes "
+                        "bat-only DH-heavy players and rewards CF/SS, on "
+                        "top of (not instead of) their measured Def "
+                        "runs; without it, a player who rarely takes the "
+                        "field would only get a small, thin-sample Def "
+                        "number instead of the real cost of providing no "
                         "defense most nights. Def, BsR, and "
                         "PositionalAdj all degrade gracefully to 0 (BsR "
                         "weights to the public fallback) if no cache "
