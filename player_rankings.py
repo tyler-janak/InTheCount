@@ -749,11 +749,14 @@ def fetch_position_games(ids: set[int], season: int, throttle: float = 0.05) -> 
     counts (one split per position a player appeared at), not inferred
     from Statcast batted-ball chances the way build_defense_model's
     primary_position guess is (which undercounts a good defender who
-    simply doesn't get many balls hit their way). DH games aren't a row
-    here — DH has no fielding stat — so they're inferred downstream as
-    (total games played) − (sum of fielded games). No persistent cache,
-    same reasoning as fetch_baserunning: this changes every day a player
-    plays. Best-effort per player."""
+    simply doesn't get many balls hit their way). This endpoint DOES
+    include an explicit "DH" split (confirmed against real data — 0
+    fielding chances, but a real gamesPlayed count), so use it directly
+    downstream rather than re-deriving DH games from (total games played)
+    − (sum of fielded games), which would double-count the DH split's
+    own games into "fielded" and wipe out the real number. No persistent
+    cache, same reasoning as fetch_baserunning: this changes every day a
+    player plays. Best-effort per player."""
     out: dict[int, dict[str, float]] = {}
     for mid in ids:
         url = (f"https://statsapi.mlb.com/api/v1/people/{int(mid)}/stats"
@@ -1015,19 +1018,29 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
 
         # Positional adjustment: official games-played-by-position (MLB
         # Stats API) this season, projected forward at the same per-game
-        # mix. Games not spent at any fielding position count as DH —
-        # but ONLY when we actually have position data for this player;
-        # "no data" (API call failed / player outside the bounded pool)
-        # must default to a NEUTRAL adjustment (0), same as Def/BsR's
-        # degrade-to-0 pattern, not to "assume 100% DH" — those are very
-        # different things and conflating them would wrongly tank every
-        # player's WAR whenever the position fetch is unavailable.
+        # mix. The API's fielding-group response ALREADY includes an
+        # explicit "DH" row (confirmed against real data — DH does show
+        # up there, with 0 fielding chances, contrary to what an earlier
+        # version of this code assumed) — trust that number directly
+        # rather than re-deriving it, since re-summing it into "games
+        # fielded" and subtracting from gp would double-count it and
+        # wipe out the real DH total. Only treat games as DH by
+        # inference (gp minus everything the API reported) for the
+        # leftover slice the API has no positional record for at all
+        # (e.g. a pinch-hit-only game), which should be small or zero.
+        # "No position data at all" (API call failed / player outside
+        # the bounded pool) must default to a NEUTRAL adjustment (0),
+        # same as Def/BsR's degrade-to-0 pattern, not to "assume 100%
+        # DH" — those are very different things and conflating them
+        # would wrongly tank every player's WAR whenever the fetch fails.
         raw_positions = position_games_data.get(mid, {})
         has_position_data = mid in position_games_data
         if has_position_data and gp > 0:
-            fielded_games_to_date = sum(raw_positions.values())
-            dh_games_to_date = max(0.0, gp - fielded_games_to_date)
-            games_to_date_by_pos = {**raw_positions, "DH": dh_games_to_date}
+            total_reported_games = sum(raw_positions.values())
+            unaccounted_games = max(0.0, gp - total_reported_games)
+            games_to_date_by_pos = dict(raw_positions)
+            if unaccounted_games > 0:
+                games_to_date_by_pos["DH"] = games_to_date_by_pos.get("DH", 0.0) + unaccounted_games
             per_game_pos_rate = {pos: g / gp for pos, g in games_to_date_by_pos.items()}
             ros_positions = {pos: rate * gr for pos, rate in per_game_pos_rate.items()}
             full_positions = {pos: games_to_date_by_pos.get(pos, 0.0) + ros_positions.get(pos, 0.0)
