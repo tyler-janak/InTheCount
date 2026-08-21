@@ -3,8 +3,11 @@ player_rankings.py
 ===================
 Season player power rankings for the Power Rankings tab.
 
-HITTERS are ranked by a projected rest-of-season WAR built from three
-separate sub-models, weighted together the way real WAR is:
+HITTERS are ranked by a projected rest-of-season WAR built from four
+separate sub-models, summed together the way real WAR is (all four are
+denominated in the same currency — runs above average/replacement — so
+they add directly; none of them get an arbitrary "weight" multiplier,
+same as real fWAR/bWAR):
 
     Bat   — batting runs above average, from a linear-weights model
             (H/2B/3B/HR/BB/outs) applied to this pipeline's own projected
@@ -38,21 +41,38 @@ separate sub-models, weighted together the way real WAR is:
             only fetched for the top hitters by projected Bat runs
             (bounded MLB Stats API calls, same as the age lookup below);
             everyone else defaults to BsR = 0.
+    PositionalAdj — the piece Def alone can't provide: a standard
+            published sabermetric table (runs/162 games by position,
+            e.g. DH −17.5, C +12.5) applied to each player's OFFICIAL
+            games-played-by-position from the MLB Stats API. This is
+            NOT derived from this pipeline's data (unlike Bat/Def/BsR)
+            — it's a fixed, well-established constant table, same
+            category as PITCHER_REPLACEMENT_RA9_MULTIPLIER. Without it,
+            a bat-only player who rarely takes the field would only get
+            a small, thin-sample Def number (from whatever few chances
+            they had) instead of the real penalty for providing no
+            defensive value most nights — see
+            POSITIONAL_ADJUSTMENT_RUNS_PER_162 and fetch_position_games().
 
-    WAR = (Bat + Def + BsR + Replacement) / RUNS_PER_WIN
+    WAR = (Bat + Def + BsR + PositionalAdj + Replacement) / RUNS_PER_WIN
     Replacement = 20 runs / 600 PA (standard replacement-level constant).
 
-This is a real WAR *structure* — three components combined into wins
-above replacement. Bat is computed fresh every run (it's cheap — just
-this run's own projected stats). Def and the SB/CS run values are
-trained/derived from this pipeline's own data too, but only once per
-season (cached under models/, like the hitter/pitcher projection
-models), not re-trained on every cron tick — see "Model caching" below.
-Only the raw SB/CS event counts and player ages come from an outside
-feed (MLB's official Stats API — factual box-score data, not someone
-else's model). Def and BsR are best-effort: if the local pitch data or
-the Stats API is unavailable on a given run, those components degrade
-to 0 for the affected players rather than failing the whole build (see
+This is a real WAR *structure* — four components combined into wins
+above replacement, all in the same run-based currency (no component is
+scaled up or down relative to the others — that would break the units
+and turn it into a made-up score instead of real WAR). Bat is computed
+fresh every run (it's cheap — just this run's own projected stats). Def
+and the SB/CS run values are trained/derived from this pipeline's own
+data too, but only once per season (cached under models/, like the
+hitter/pitcher projection models), not re-trained on every cron tick —
+see "Model caching" below. PositionalAdj uses a fixed public constant
+table, not something this pipeline derives. Only the raw SB/CS event
+counts, games-by-position, and player ages come from an outside feed
+(MLB's official Stats API — factual box-score data, not someone else's
+model). Def, BsR, and PositionalAdj are all best-effort: if the local
+pitch data or the Stats API is unavailable on a given run, those
+components degrade to 0 for the affected players rather than failing
+the whole build (see
 `data_availability` in the output bundle).
 
 Model caching: the defense regression model and the baserunning run-
@@ -173,6 +193,20 @@ PITCHER_WEIGHTS = {"IP": 3.0, "K": 1.0, "ER": -1.0, "H": -0.5, "BB": -0.5}
 # data, unlike league_RA9 itself (which IS computed fresh from this
 # pitcher pool every run).
 PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
+
+# Standard published sabermetric positional-adjustment table (runs per 162
+# team games spent at that position), NOT derived from this pipeline's own
+# data — same category as PITCHER_REPLACEMENT_RA9_MULTIPLIER above. This is
+# what real WAR uses to penalize players who spend a lot of time at DH (zero
+# defensive value, no matter how well the innings they DO field grade out)
+# and reward up-the-middle positions. Without this, our in-house Def model
+# alone under-penalizes DH-heavy bat-only players: their measured Def total
+# is just a small, thin-sample number from whatever few chances they had,
+# not a real accounting for providing no defense at all most nights.
+POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
+    "C": 12.5, "SS": 7.5, "2B": 2.5, "3B": 2.5, "CF": 2.5,
+    "LF": -7.5, "RF": -7.5, "1B": -12.5, "DH": -17.5,
+}
 
 # ---------------------------------------------------------------------------
 # WAR model constants.
@@ -705,6 +739,55 @@ def fetch_baserunning(ids: set[int], season: int, throttle: float = 0.05) -> dic
 
 
 # ---------------------------------------------------------------------------
+# Positional adjustment (real WAR's fix for the "bat-only DH ranks too
+# high" problem) — official games-played-by-position from the MLB Stats
+# API, bounded to the same top-N pool as baserunning.
+# ---------------------------------------------------------------------------
+def fetch_position_games(ids: set[int], season: int, throttle: float = 0.05) -> dict[int, dict[str, float]]:
+    """{mlb_id: {position_abbrev: games_played}} via the MLB Stats API
+    season fielding-stats-by-position endpoint — OFFICIAL games-played
+    counts (one split per position a player appeared at), not inferred
+    from Statcast batted-ball chances the way build_defense_model's
+    primary_position guess is (which undercounts a good defender who
+    simply doesn't get many balls hit their way). DH games aren't a row
+    here — DH has no fielding stat — so they're inferred downstream as
+    (total games played) − (sum of fielded games). No persistent cache,
+    same reasoning as fetch_baserunning: this changes every day a player
+    plays. Best-effort per player."""
+    out: dict[int, dict[str, float]] = {}
+    for mid in ids:
+        url = (f"https://statsapi.mlb.com/api/v1/people/{int(mid)}/stats"
+               f"?stats=season&group=fielding&season={season}")
+        try:
+            r = requests.get(url, timeout=8)
+            r.raise_for_status()
+            data = r.json()
+            splits = (data.get("stats") or [{}])[0].get("splits") or []
+            by_pos: dict[str, float] = {}
+            for s in splits:
+                pos = ((s.get("position") or {}).get("abbreviation") or "").upper()
+                games = float((s.get("stat") or {}).get("gamesPlayed") or 0.0)
+                if pos and games:
+                    by_pos[pos] = by_pos.get(pos, 0.0) + games
+            if by_pos:
+                out[int(mid)] = by_pos
+        except Exception:
+            continue
+        time.sleep(throttle)
+    return out
+
+
+def _positional_adjustment_runs(games_by_position: dict) -> float:
+    """Standard sabermetric positional-adjustment runs (see
+    POSITIONAL_ADJUSTMENT_RUNS_PER_162) for a games-played-by-position
+    dict that includes a synthetic "DH" entry for games not spent
+    fielding any position. Unknown/unmapped position codes contribute 0
+    (best-effort — doesn't fail the whole calc over an odd code)."""
+    return sum(g / 162.0 * POSITIONAL_ADJUSTMENT_RUNS_PER_162.get(pos, 0.0)
+               for pos, g in games_by_position.items())
+
+
+# ---------------------------------------------------------------------------
 # Pitcher points (old formula, kept for reference) + RA9-based pitcher WAR.
 # ---------------------------------------------------------------------------
 def _pitcher_points(ros: dict) -> float:
@@ -848,6 +931,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                    fetch_ages: bool = True,
                    fetch_defense: bool = True,
                    fetch_baserunning_data: bool = True,
+                   fetch_position_adjustment: bool = True,
                    retrain_models: bool = False) -> dict:
     if not ACC_CSV.exists():
         raise FileNotFoundError(f"Accuracy log not found at {ACC_CSV}")
@@ -887,21 +971,28 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         p["ros_bat_runs"] = (player_bat_rate - league_bat_rate) * p["ros"]["PA"]
         p["full_bat_runs"] = (player_bat_rate - league_bat_rate) * p["full"]["PA"]
 
-    # Bound the per-player baserunning lookup to the top N by Bat runs —
-    # this is what "power" hitters look like before defense/baserunning
-    # are folded in, and keeps the MLB Stats API call volume sane.
+    # Bound the per-player baserunning / positional-adjustment lookups to
+    # the top N by Bat runs — this is what "power" hitters look like
+    # before defense/baserunning/position are folded in, and keeps the
+    # MLB Stats API call volume sane.
     prelim.sort(key=lambda p: p["ros_bat_runs"], reverse=True)
+    top_ids = {p["mlb_id"] for p in prelim[:TOP_N_HITTERS_FOR_BASERUNNING] if p["mlb_id"] is not None}
+
     baserunning_data = {}
     sb_run_value, cs_run_value, re_matrix_built = FALLBACK_SB_RUN, FALLBACK_CS_RUN, False
-    defense_runs_by_player, position_by_player = {}, {}
     if fetch_baserunning_data:
-        top_ids = {p["mlb_id"] for p in prelim[:TOP_N_HITTERS_FOR_BASERUNNING] if p["mlb_id"] is not None}
         baserunning_data = fetch_baserunning(top_ids, season_year)
         sb_run_value, cs_run_value, re_matrix_built = build_run_expectancy_and_baserunning_weights(
             season_year, retrain=retrain_models)
+
+    defense_runs_by_player, position_by_player = {}, {}
     if fetch_defense:
         defense_runs_by_player, position_by_player = build_defense_model(
             season_year, retrain=retrain_models)
+
+    position_games_data = {}
+    if fetch_position_adjustment:
+        position_games_data = fetch_position_games(top_ids, season_year)
 
     hitter_rows = []
     for p in prelim:
@@ -922,14 +1013,50 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         ros_def_runs = (season_def_runs / gp * gr) if gp > 0 else 0.0
         full_def_runs = season_def_runs + ros_def_runs
 
+        # Positional adjustment: official games-played-by-position (MLB
+        # Stats API) this season, projected forward at the same per-game
+        # mix. Games not spent at any fielding position count as DH —
+        # but ONLY when we actually have position data for this player;
+        # "no data" (API call failed / player outside the bounded pool)
+        # must default to a NEUTRAL adjustment (0), same as Def/BsR's
+        # degrade-to-0 pattern, not to "assume 100% DH" — those are very
+        # different things and conflating them would wrongly tank every
+        # player's WAR whenever the position fetch is unavailable.
+        raw_positions = position_games_data.get(mid, {})
+        has_position_data = mid in position_games_data
+        if has_position_data and gp > 0:
+            fielded_games_to_date = sum(raw_positions.values())
+            dh_games_to_date = max(0.0, gp - fielded_games_to_date)
+            games_to_date_by_pos = {**raw_positions, "DH": dh_games_to_date}
+            per_game_pos_rate = {pos: g / gp for pos, g in games_to_date_by_pos.items()}
+            ros_positions = {pos: rate * gr for pos, rate in per_game_pos_rate.items()}
+            full_positions = {pos: games_to_date_by_pos.get(pos, 0.0) + ros_positions.get(pos, 0.0)
+                              for pos in games_to_date_by_pos}
+            ros_positional_adj = _positional_adjustment_runs(ros_positions)
+            full_positional_adj = _positional_adjustment_runs(full_positions)
+        else:
+            ros_positional_adj = 0.0
+            full_positional_adj = 0.0
+
         ros_replacement_runs = REPLACEMENT_RUNS_PER_600PA * (ros["PA"] / 600.0)
         full_replacement_runs = REPLACEMENT_RUNS_PER_600PA * (full["PA"] / 600.0)
-        ros_war = (p["ros_bat_runs"] + ros_def_runs + ros_bsr_runs + ros_replacement_runs) / RUNS_PER_WIN
-        full_war = (p["full_bat_runs"] + full_def_runs + full_bsr_runs + full_replacement_runs) / RUNS_PER_WIN
+        ros_war = (p["ros_bat_runs"] + ros_def_runs + ros_bsr_runs + ros_positional_adj
+                  + ros_replacement_runs) / RUNS_PER_WIN
+        full_war = (p["full_bat_runs"] + full_def_runs + full_bsr_runs + full_positional_adj
+                   + full_replacement_runs) / RUNS_PER_WIN
+
+        # Prefer the MLB Stats API's official primary position (most games
+        # actually played there) over the defense model's Statcast-chance
+        # inference — official is more reliable and this pool already has
+        # it, since it's the same data used for the adjustment above.
+        if raw_positions:
+            official_position = max(raw_positions.items(), key=lambda kv: kv[1])[0]
+        else:
+            official_position = None
 
         hitter_rows.append({
             "mlb_id": mid, "name": p["name"], "team": p["team"],
-            "position": position_by_player.get(mid),
+            "position": official_position or position_by_player.get(mid),
             "games_played": gp,
             "games_remaining": round(gr, 1),
             "ros_h":  round(ros["H"], 1),   "full_h":  round(full["H"], 1),
@@ -944,11 +1071,14 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "ros_bat_runs": round(p["ros_bat_runs"], 1), "full_bat_runs": round(p["full_bat_runs"], 1),
             "ros_def_runs": round(ros_def_runs, 1),      "full_def_runs": round(full_def_runs, 1),
             "ros_bsr_runs": round(ros_bsr_runs, 1),      "full_bsr_runs": round(full_bsr_runs, 1),
+            "ros_positional_adj": round(ros_positional_adj, 1),
+            "full_positional_adj": round(full_positional_adj, 1),
             "ros_replacement_runs": round(ros_replacement_runs, 1),
             "full_replacement_runs": round(full_replacement_runs, 1),
             "ros_war": round(ros_war, 1), "full_war": round(full_war, 1),
             "has_baserunning_data": mid in baserunning_data,
             "has_defense_data": mid in defense_runs_by_player,
+            "has_position_data": has_position_data,
         })
     hitter_rows.sort(key=lambda r: r["ros_war"], reverse=True)
     for i, r in enumerate(hitter_rows, start=1):
@@ -1027,14 +1157,16 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "defense": bool(defense_runs_by_player),
             "baserunning": bool(baserunning_data),
             "baserunning_weights_from_own_data": re_matrix_built,
+            "position_adjustment": bool(position_games_data),
         },
         "scoring": {
-            "type": "war_v3_inhouse",
+            "type": "war_v4_inhouse",
             "hitter": {
-                "model": "Bat + Def + BsR + Replacement, / 10 runs per win",
+                "model": "Bat + Def + BsR + PositionalAdj + Replacement, / 10 runs per win",
                 "batting_linear_weights": BATTING_LINEAR_WEIGHTS,
                 "baserunning_weights_used": {"SB": round(sb_run_value, 3), "CS": round(cs_run_value, 3)},
                 "baserunning_weights_from_own_run_expectancy_matrix": re_matrix_built,
+                "positional_adjustment_runs_per_162": POSITIONAL_ADJUSTMENT_RUNS_PER_162,
                 "replacement_runs_per_600pa": REPLACEMENT_RUNS_PER_600PA,
                 "runs_per_win": RUNS_PER_WIN,
                 "note": "Rest-of-season / full-season WAR projection. Bat "
@@ -1059,11 +1191,22 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "also cached the same way "
                         "(models/baserunning_re_weights.json) — see "
                         "baserunning_weights_used above for what was "
-                        "actually applied this run. Both Def and BsR "
-                        "degrade gracefully (Def to 0, BsR weights to the "
-                        "public fallback) if no cache exists yet and "
-                        "local pitch data is missing or too thin; see "
-                        "data_availability above.",
+                        "actually applied this run. PositionalAdj is a "
+                        "standard published sabermetric table (NOT "
+                        "derived from this pipeline's data, unlike "
+                        "Bat/Def/BsR) applied to official games-played-"
+                        "by-position from the MLB Stats API — this is "
+                        "what penalizes bat-only DH-heavy players and "
+                        "rewards up-the-middle defenders, on top of "
+                        "(not instead of) their measured Def runs; "
+                        "without it, a player who rarely takes the field "
+                        "would only get a small, thin-sample Def number "
+                        "instead of the real cost of providing no "
+                        "defense most nights. Def, BsR, and "
+                        "PositionalAdj all degrade gracefully to 0 (BsR "
+                        "weights to the public fallback) if no cache "
+                        "exists yet and local pitch data / API calls are "
+                        "unavailable; see data_availability above.",
             },
             "pitcher": {
                 "model": "(Pitching runs + Replacement) / 10 runs per win, RA9-based",
@@ -1111,6 +1254,10 @@ def main() -> None:
                     help="Skip training the in-house defense model (Def will be 0 for everyone).")
     ap.add_argument("--no-baserunning", action="store_true",
                     help="Skip the per-player SB/CS fetch + run-expectancy matrix (BsR will be 0 for everyone).")
+    ap.add_argument("--no-position-adjustment", action="store_true",
+                    help="Skip the per-player games-by-position fetch + positional adjustment "
+                         "(PositionalAdj will be 0 for everyone — DH-heavy players won't be "
+                         "penalized for providing no defensive value).")
     ap.add_argument("--retrain-defense", action="store_true",
                     help="Force retraining the in-house defense model and re-deriving the "
                          "baserunning run-expectancy weights instead of reusing the cached "
@@ -1122,12 +1269,14 @@ def main() -> None:
           f"as_of={args.as_of or 'today'}, fetch_ages={not args.no_ages}, "
           f"fetch_defense={not args.no_defense}, "
           f"fetch_baserunning={not args.no_baserunning}, "
+          f"fetch_position_adjustment={not args.no_position_adjustment}, "
           f"retrain_defense={args.retrain_defense})...")
     bundle = build_rankings(season_games=args.season_games,
                              as_of=args.as_of,
                              fetch_ages=not args.no_ages,
                              fetch_defense=not args.no_defense,
                              fetch_baserunning_data=not args.no_baserunning,
+                             fetch_position_adjustment=not args.no_position_adjustment,
                              retrain_models=args.retrain_defense)
 
     out_path = Path(args.out)
@@ -1145,9 +1294,10 @@ def main() -> None:
 
     print(f"\nTop 5 hitters by projected ROS WAR (full-season WAR alongside):")
     for r in bundle["hitters"][:5]:
-        print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4}  "
+        print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4} {r.get('position') or '—':<3} "
               f"age={r.get('age','—')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
-              f"(bat={r['ros_bat_runs']:>5.1f} def={r['ros_def_runs']:>5.1f} bsr={r['ros_bsr_runs']:>4.1f})")
+              f"(bat={r['ros_bat_runs']:>5.1f} def={r['ros_def_runs']:>5.1f} "
+              f"bsr={r['ros_bsr_runs']:>4.1f} pos={r['ros_positional_adj']:>5.1f})")
     print(f"\nTop 5 pitchers by projected ROS WAR (full-season WAR alongside):")
     for r in bundle["pitchers"][:5]:
         print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4}  "

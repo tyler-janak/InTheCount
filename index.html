@@ -398,7 +398,7 @@
         <li><strong>Backfill missing past-date player snapshots</strong> — for any past date without a snapshot on disk, fetches the actual lineup from MLB box scores and runs the player projection models against it, using only feature rows with <code>game_date &lt; target_date</code>. Idempotent.</li>
         <li><strong>Generate today's hitter and pitcher projections</strong> — writes both the live <code>hitterspitchers_today.csv</code> the front-end reads and a dated snapshot for tonight's grading.</li>
         <li><strong>Grade player snapshots</strong> — joins every snapshot to its game's actual box score and rebuilds <code>2026_player_accuracy.csv</code>, which feeds the Performance tab and the empirical blend-weight tuner.</li>
-        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season WAR for every hitter (offense + defense + baserunning) and every pitcher (RA9-based), from the freshly-graded log. The defense and baserunning sub-models retrain once per season, not every tick — see below.</li>
+        <li><strong>Rebuild season power rankings</strong> — recomputes rest-of-season WAR for every hitter (offense + defense + baserunning + positional adjustment) and every pitcher (RA9-based), from the freshly-graded log. The defense and baserunning sub-models retrain once per season, not every tick — see below.</li>
       </ol>
       <p>
         Model retraining is a <strong>separate, opt-in step</strong> — the daily tick uses whatever <code>.pkl</code> files are on disk. When the trainer runs (<code>hitterspitchers_train.py</code> and <code>train_game_model.py</code>), the new game model is written as a <em>candidate</em> first and only promoted to production if it beats the current model on the holdout — the existing model is backed up with a timestamp before the swap. This prevents a bad training run from silently degrading the live site.
@@ -1716,7 +1716,7 @@ function _drawRankingsTable() {
 
   if (cnt) cnt.textContent = `${rows.length.toLocaleString()} ${isHitters ? 'hitters' : 'pitchers'}`;
   sub.textContent = (isHitters
-      ? `${isFull ? 'Full-season' : 'Rest-of-season'} WAR projection (offense + defense + baserunning)`
+      ? `${isFull ? 'Full-season' : 'Rest-of-season'} WAR projection (offense + defense + baserunning + positional adjustment)`
       : `${isFull ? 'Full-season' : 'Rest-of-season'} WAR projection (RA9-based)`) +
     (state.rankingsSub === 'young' ? ` — players age ${data.age_cutoff || 25} and under` : '') +
     ` · as of ${data.as_of || '—'}.`;
@@ -1732,6 +1732,7 @@ function _drawRankingsTable() {
       <th style="text-align:right;">Bat</th>
       <th style="text-align:right;">Def</th>
       <th style="text-align:right;">BsR</th>
+      <th style="text-align:right;">Pos.Adj</th>
       <th style="text-align:right;">WAR</th>
     </tr>`;
     body.innerHTML = rows.slice(0, 250).map(r => `<tr>
@@ -1746,8 +1747,9 @@ function _drawRankingsTable() {
       <td style="text-align:right; font-family:var(--font-mono);">${r[p+'bat_runs']}</td>
       <td style="text-align:right; font-family:var(--font-mono);">${r[p+'def_runs']}</td>
       <td style="text-align:right; font-family:var(--font-mono);">${r[p+'bsr_runs']}</td>
+      <td style="text-align:right; font-family:var(--font-mono); color:var(--text-secondary);">${r[p+'positional_adj']}</td>
       <td style="text-align:right; font-family:var(--font-display); font-weight:700; color:var(--text-primary);">${r[p+'war']}</td>
-    </tr>`).join('') || `<tr><td colspan="12" style="text-align:center;color:var(--text-muted);padding:2rem;">No hitters match this view.</td></tr>`;
+    </tr>`).join('') || `<tr><td colspan="13" style="text-align:center;color:var(--text-muted);padding:2rem;">No hitters match this view.</td></tr>`;
   } else {
     head.innerHTML = `<tr>
       <th style="text-align:right;">#</th>
