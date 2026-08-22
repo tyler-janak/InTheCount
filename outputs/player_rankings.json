@@ -8509,12 +8509,12 @@
       "ros_def_runs": 1.2,
       "full_def_runs": 6.1,
       "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
+      "full_bsr_runs": 0.2,
       "ros_replacement_runs": 0.6,
       "full_replacement_runs": 2.8,
       "ros_war": 0.4,
       "full_war": 1.9,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 211,
       "age": 27
@@ -8988,13 +8988,13 @@
       "full_bat_runs": 5.1,
       "ros_def_runs": 1.5,
       "full_def_runs": 7.0,
-      "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
+      "ros_bsr_runs": 0.1,
+      "full_bsr_runs": 0.3,
       "ros_replacement_runs": 1.1,
       "full_replacement_runs": 5.2,
       "ros_war": 0.4,
-      "full_war": 1.7,
-      "has_baserunning_data": false,
+      "full_war": 1.8,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 223,
       "age": 31
@@ -11114,7 +11114,7 @@
       "full_replacement_runs": 0.4,
       "ros_war": 0.2,
       "full_war": 0.3,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": false,
       "rank": 276,
       "age": 26
@@ -12228,13 +12228,13 @@
       "full_bat_runs": 1.0,
       "ros_def_runs": -0.5,
       "full_def_runs": -2.5,
-      "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
+      "ros_bsr_runs": -0.2,
+      "full_bsr_runs": -0.8,
       "ros_replacement_runs": 2.3,
       "full_replacement_runs": 11.1,
       "ros_war": 0.2,
-      "full_war": 1.0,
-      "has_baserunning_data": false,
+      "full_war": 0.9,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 304,
       "age": 31
@@ -13314,7 +13314,7 @@
       "full_replacement_runs": 1.7,
       "ros_war": 0.1,
       "full_war": 0.4,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 331,
       "age": 28
@@ -14549,15 +14549,55 @@
       "ros_def_runs": 0.1,
       "full_def_runs": 0.4,
       "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
+      "full_bsr_runs": 0.2,
       "ros_replacement_runs": 0.6,
       "full_replacement_runs": 2.8,
       "ros_war": 0.1,
       "full_war": 0.3,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 362,
       "age": 26
+    },
+    {
+      "mlb_id": 656413,
+      "name": "Stuart Fairchild",
+      "team": "CLE",
+      "position": "CF",
+      "games_played": 7,
+      "games_remaining": 1.8,
+      "ros_h": 0.8,
+      "full_h": 3.8,
+      "ros_2b": 0.0,
+      "full_2b": 0.0,
+      "ros_3b": 0.0,
+      "full_3b": 0.0,
+      "ros_hr": 0.0,
+      "full_hr": 0.0,
+      "ros_r": 0.8,
+      "full_r": 3.8,
+      "ros_rbi": 0.3,
+      "full_rbi": 1.3,
+      "ros_bb": 1.0,
+      "full_bb": 5.0,
+      "ros_k": 2.6,
+      "full_k": 12.6,
+      "ros_pa": 5.1,
+      "full_pa": 25.1,
+      "ros_bat_runs": -0.0,
+      "full_bat_runs": -0.0,
+      "ros_def_runs": 0.3,
+      "full_def_runs": 1.3,
+      "ros_bsr_runs": 0.1,
+      "full_bsr_runs": 0.4,
+      "ros_replacement_runs": 0.2,
+      "full_replacement_runs": 0.8,
+      "ros_war": 0.1,
+      "full_war": 0.3,
+      "has_baserunning_data": true,
+      "has_defense_data": true,
+      "rank": 363,
+      "age": 30
     },
     {
       "mlb_id": 669004,
@@ -14596,7 +14636,7 @@
       "full_war": 0.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 363,
+      "rank": 364,
       "age": 27
     },
     {
@@ -14636,7 +14676,7 @@
       "full_war": 0.5,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 364,
+      "rank": 365,
       "age": 26
     },
     {
@@ -14676,7 +14716,7 @@
       "full_war": 0.7,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 365,
+      "rank": 366,
       "age": 28
     },
     {
@@ -14714,9 +14754,9 @@
       "full_replacement_runs": 0.4,
       "ros_war": 0.1,
       "full_war": 0.1,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 366,
+      "rank": 367,
       "age": 30
     },
     {
@@ -14756,7 +14796,7 @@
       "full_war": 0.7,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 367,
+      "rank": 368,
       "age": 37
     },
     {
@@ -14796,7 +14836,7 @@
       "full_war": 0.5,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 368,
+      "rank": 369,
       "age": 26
     },
     {
@@ -14836,7 +14876,7 @@
       "full_war": 0.6,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 369,
+      "rank": 370,
       "age": 27
     },
     {
@@ -14876,7 +14916,7 @@
       "full_war": 0.3,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 370,
+      "rank": 371,
       "age": 24
     },
     {
@@ -14916,7 +14956,7 @@
       "full_war": 0.5,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 371,
+      "rank": 372,
       "age": 29
     },
     {
@@ -14956,7 +14996,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 372,
+      "rank": 373,
       "age": 32
     },
     {
@@ -14996,7 +15036,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 373,
+      "rank": 374,
       "age": 36
     },
     {
@@ -15036,7 +15076,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 374,
+      "rank": 375,
       "age": 25
     },
     {
@@ -15076,7 +15116,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 375,
+      "rank": 376,
       "age": 28
     },
     {
@@ -15116,7 +15156,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 376,
+      "rank": 377,
       "age": 35
     },
     {
@@ -15156,7 +15196,7 @@
       "full_war": 0.3,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 377,
+      "rank": 378,
       "age": 23
     },
     {
@@ -15196,7 +15236,7 @@
       "full_war": 0.7,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 378,
+      "rank": 379,
       "age": 30
     },
     {
@@ -15236,7 +15276,7 @@
       "full_war": 0.7,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 379,
+      "rank": 380,
       "age": 31
     },
     {
@@ -15276,7 +15316,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 380,
+      "rank": 381,
       "age": 24
     },
     {
@@ -15316,7 +15356,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 381,
+      "rank": 382,
       "age": 22
     },
     {
@@ -15356,7 +15396,7 @@
       "full_war": 0.1,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 382,
+      "rank": 383,
       "age": 27
     },
     {
@@ -15396,7 +15436,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 383,
+      "rank": 384,
       "age": 27
     },
     {
@@ -15436,7 +15476,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 384,
+      "rank": 385,
       "age": 23
     },
     {
@@ -15476,7 +15516,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 385,
+      "rank": 386,
       "age": 35
     },
     {
@@ -15516,7 +15556,7 @@
       "full_war": 0.1,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 386,
+      "rank": 387,
       "age": 27
     },
     {
@@ -15556,7 +15596,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 387,
+      "rank": 388,
       "age": 29
     },
     {
@@ -15596,7 +15636,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 388,
+      "rank": 389,
       "age": 27
     },
     {
@@ -15636,7 +15676,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 389,
+      "rank": 390,
       "age": 31
     },
     {
@@ -15676,7 +15716,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 390,
+      "rank": 391,
       "age": 32
     },
     {
@@ -15716,7 +15756,7 @@
       "full_war": 0.6,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 391,
+      "rank": 392,
       "age": 35
     },
     {
@@ -15756,7 +15796,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 392,
+      "rank": 393,
       "age": 25
     },
     {
@@ -15796,7 +15836,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 393,
+      "rank": 394,
       "age": 28
     },
     {
@@ -15836,7 +15876,7 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 394,
+      "rank": 395,
       "age": 28
     },
     {
@@ -15876,7 +15916,7 @@
       "full_war": 0.6,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 395,
+      "rank": 396,
       "age": 35
     },
     {
@@ -15916,7 +15956,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 396,
+      "rank": 397,
       "age": 24
     },
     {
@@ -15956,7 +15996,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 397,
+      "rank": 398,
       "age": 25
     },
     {
@@ -15996,7 +16036,7 @@
       "full_war": 0.4,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 398,
+      "rank": 399,
       "age": 29
     },
     {
@@ -16036,7 +16076,7 @@
       "full_war": 0.5,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 399,
+      "rank": 400,
       "age": 24
     },
     {
@@ -16076,8 +16116,8 @@
       "full_war": 0.3,
       "has_baserunning_data": false,
       "has_defense_data": true,
-      "rank": 400,
-      "age": 30
+      "rank": 401,
+      "age": null
     },
     {
       "mlb_id": 687637,
@@ -16116,7 +16156,7 @@
       "full_war": -0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 401,
+      "rank": 402,
       "age": null
     },
     {
@@ -16156,7 +16196,7 @@
       "full_war": 0.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 402,
+      "rank": 403,
       "age": null
     },
     {
@@ -16196,7 +16236,7 @@
       "full_war": 0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 403,
+      "rank": 404,
       "age": null
     },
     {
@@ -16236,7 +16276,7 @@
       "full_war": -0.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 404,
+      "rank": 405,
       "age": null
     },
     {
@@ -16276,7 +16316,7 @@
       "full_war": -0.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 405,
+      "rank": 406,
       "age": null
     },
     {
@@ -16308,15 +16348,15 @@
       "full_bat_runs": 2.0,
       "ros_def_runs": -1.2,
       "full_def_runs": -5.7,
-      "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
+      "ros_bsr_runs": 0.1,
+      "full_bsr_runs": 0.4,
       "ros_replacement_runs": 0.9,
       "full_replacement_runs": 4.2,
       "ros_war": 0.0,
       "full_war": 0.1,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 406,
+      "rank": 407,
       "age": null
     },
     {
@@ -16356,7 +16396,7 @@
       "full_war": 0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 407,
+      "rank": 408,
       "age": null
     },
     {
@@ -16394,9 +16434,9 @@
       "full_replacement_runs": 0.2,
       "ros_war": 0.0,
       "full_war": 0.1,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": false,
-      "rank": 408,
+      "rank": 409,
       "age": null
     },
     {
@@ -16436,7 +16476,7 @@
       "full_war": 0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 409,
+      "rank": 410,
       "age": null
     },
     {
@@ -16476,7 +16516,7 @@
       "full_war": -0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 410,
+      "rank": 411,
       "age": null
     },
     {
@@ -16516,7 +16556,7 @@
       "full_war": -0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 411,
+      "rank": 412,
       "age": null
     },
     {
@@ -16556,7 +16596,7 @@
       "full_war": -0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 412,
+      "rank": 413,
       "age": null
     },
     {
@@ -16596,7 +16636,7 @@
       "full_war": -0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 413,
+      "rank": 414,
       "age": null
     },
     {
@@ -16636,7 +16676,7 @@
       "full_war": 0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 414,
+      "rank": 415,
       "age": null
     },
     {
@@ -16676,7 +16716,7 @@
       "full_war": 0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 415,
+      "rank": 416,
       "age": null
     },
     {
@@ -16716,7 +16756,7 @@
       "full_war": -0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 416,
+      "rank": 417,
       "age": null
     },
     {
@@ -16756,7 +16796,7 @@
       "full_war": 0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 417,
+      "rank": 418,
       "age": null
     },
     {
@@ -16796,7 +16836,7 @@
       "full_war": 0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 418,
+      "rank": 419,
       "age": null
     },
     {
@@ -16836,7 +16876,7 @@
       "full_war": 0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 419,
+      "rank": 420,
       "age": null
     },
     {
@@ -16876,7 +16916,7 @@
       "full_war": -0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 420,
+      "rank": 421,
       "age": null
     },
     {
@@ -16916,7 +16956,7 @@
       "full_war": -0.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 421,
+      "rank": 422,
       "age": null
     },
     {
@@ -16956,7 +16996,7 @@
       "full_war": 0.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 422,
+      "rank": 423,
       "age": null
     },
     {
@@ -16996,7 +17036,7 @@
       "full_war": 0.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 423,
+      "rank": 424,
       "age": null
     },
     {
@@ -17036,7 +17076,7 @@
       "full_war": 0.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 424,
+      "rank": 425,
       "age": null
     },
     {
@@ -17074,47 +17114,7 @@
       "full_replacement_runs": 2.0,
       "ros_war": -0.0,
       "full_war": -0.0,
-      "has_baserunning_data": false,
-      "has_defense_data": true,
-      "rank": 425,
-      "age": null
-    },
-    {
-      "mlb_id": 656413,
-      "name": "Stuart Fairchild",
-      "team": "CLE",
-      "position": "CF",
-      "games_played": 7,
-      "games_remaining": 1.8,
-      "ros_h": 0.8,
-      "full_h": 3.8,
-      "ros_2b": 0.0,
-      "full_2b": 0.0,
-      "ros_3b": 0.0,
-      "full_3b": 0.0,
-      "ros_hr": 0.0,
-      "full_hr": 0.0,
-      "ros_r": 0.8,
-      "full_r": 3.8,
-      "ros_rbi": 0.3,
-      "full_rbi": 1.3,
-      "ros_bb": 1.0,
-      "full_bb": 5.0,
-      "ros_k": 2.6,
-      "full_k": 12.6,
-      "ros_pa": 5.1,
-      "full_pa": 25.1,
-      "ros_bat_runs": -0.0,
-      "full_bat_runs": -0.0,
-      "ros_def_runs": 0.3,
-      "full_def_runs": 1.3,
-      "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.0,
-      "ros_replacement_runs": 0.2,
-      "full_replacement_runs": 0.8,
-      "ros_war": 0.0,
-      "full_war": 0.2,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 426,
       "age": null
@@ -17594,7 +17594,7 @@
       "full_replacement_runs": 9.5,
       "ros_war": -0.0,
       "full_war": -0.2,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 438,
       "age": null
@@ -19674,7 +19674,7 @@
       "full_replacement_runs": 0.4,
       "ros_war": -0.1,
       "full_war": -0.3,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 490,
       "age": null
