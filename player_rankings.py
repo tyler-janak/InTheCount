@@ -16,32 +16,58 @@ smaller spread than the textbook version. That makes this a house-rules
 scoring system, not textbook fWAR/bWAR — worth knowing if you're ever
 comparing these numbers to FanGraphs or Baseball-Reference.
 
-    Bat   — batting runs above average, from a linear-weights model
-            (H/2B/3B/HR/BB/outs) applied to this pipeline's own projected
-            rest-of-season counting stats. "Above average" is relative to
-            the league-average rate computed from this same hitter pool
-            (self-consistent — no external league constant needed).
+    Bat   — real wOBA -> wRAA, the same two-step FanGraphs uses: wOBA
+            (H/2B/3B/HR/BB weighted by WOBA_WEIGHTS, FanGraphs' own
+            published Guts! constants) is a rate stat, not runs — it's
+            converted to runs above average via wRAA = ((player wOBA −
+            league wOBA) / WOBA_SCALE) * PA. League wOBA is the PA-
+            weighted average across this same hitter pool (self-
+            consistent — no external lgwOBA constant needed); WOBA_SCALE
+            itself is a published external constant (see the comment
+            above WOBA_WEIGHTS). HBP isn't tracked by this pipeline's
+            box-score log so it's dropped from the wOBA numerator, and PA
+            stands in for the technically-correct AB+BB-IBB+SF+HBP
+            denominator — both standard, sub-1%-impact simplifications.
     Def   — fielding runs, from an in-house model that regresses exit
             velocity + launch angle + which fielding zone a ball was hit
-            toward against this pipeline's own linear weights (what
-            actually happened, in runs), then for every batted ball
-            attributes (expected − actual) to whichever player was
-            standing at that position on that play. A fielder's Def is
-            the sum of that over their CURRENT season's worth of
-            chances — outperform the model for your zone, gain runs;
-            underperform, lose them. The underlying regression model is
-            trained ONCE PER SEASON (not every run) on pooled batted-ball
-            data from this season plus last season for a bigger, more
-            stable sample, then cached to models/ and reused all season
-            — see build_defense_model() and DEFENSE_MODEL_CACHE.
-    BsR   — baserunning runs, from stolen bases and caught-stealing.
-            The counts (SB/CS) still have to come from the MLB Stats
-            API — that's just the official box score, nothing to model,
-            and those are re-fetched every run since they change every
-            day a player plays. What used to be fixed textbook weights
-            (0.20 / -0.40) are now derived from a real run-expectancy
-            matrix built from this season plus last season's own
-            play-by-play base/out states — see
+            toward against this pipeline's own absolute run-value table
+            (DEFENSE_RUN_VALUE_WEIGHTS — a separate table from Bat's wOBA
+            weights; see the comment above WOBA_WEIGHTS for why they
+            can't be shared), then for every batted ball attributes
+            (expected − actual) to whichever player was standing at that
+            position on that play. A fielder's Def is the sum of that
+            over their CURRENT season's worth of chances — outperform the
+            model for your zone, gain runs; underperform, lose them. This
+            is an Outs-Above-Average-style proxy, not literal UZR/DRS —
+            those are proprietary vendor metrics (BIS zone ratings for
+            DRS, MLBAM positioning data for UZR) built on manually-
+            charted data this pipeline has no access to; nothing public
+            can reproduce them exactly. The underlying regression model
+            is trained ONCE PER SEASON (not every run) on pooled batted-
+            ball data from this season plus last season for a bigger,
+            more stable sample, then cached to models/ and reused all
+            season — see build_defense_model() and DEFENSE_MODEL_CACHE.
+    BsR   — baserunning runs. Currently covers stolen-base value only
+            (the wSB-equivalent piece of FanGraphs' BsR) — extra-bases-
+            taken (UBR) and double-play avoidance (wGDP) are NOT
+            implemented. wGDP needs a batter ID on every pitch to know
+            who to charge/credit, and this pipeline's pitch_data_
+            <year>.csv doesn't currently carry one (it has pitcher +
+            fielder IDs and on-base runner IDs, but no batter column) —
+            adding it upstream in the Statcast pull would make wGDP
+            straightforward with the same run-expectancy-matrix machinery
+            already built for SB/CS. UBR is harder even with a batter ID:
+            it needs hit-location/difficulty context to judge what an
+            "average" runner would have done on a given ball, which
+            isn't reliable to infer from base-occupancy alone (FanGraphs
+            itself doesn't publish play-by-play UBR data for this
+            reason). The SB/CS counts still have to come from the MLB
+            Stats API — that's just the official box score, nothing to
+            model, and those are re-fetched every run since they change
+            every day a player plays. What used to be fixed textbook
+            weights (0.20 / -0.40) are now derived from a real run-
+            expectancy matrix built from this season plus last season's
+            own play-by-play base/out states — see
             build_run_expectancy_and_baserunning_weights(). Like the
             defense model, this derivation is cached and only runs once
             per season, not on every pipeline tick. SB/CS counts are
@@ -207,12 +233,12 @@ PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
 # bottom (DH stays the actual floor, since that's the whole point of this
 # feature — penalizing zero defensive value — just scaled down too).
 POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
-    "CF": 7.0, "SS": 7.0,
-    "C": 5.5,
-    "3B": 3.5,
-    "2B": 2.5,
-    "RF": 0.0,
-    "1B": -6.0, "LF": -5.0,
+    "CF": 6.0, "SS": 6.0,
+    "C": 4.5,
+    "3B": 3.0,
+    "2B": 1.5,
+    "RF": -3.0,
+    "1B": -6.0, "LF": -6.0,
     "DH": -9.0,
 }
 
@@ -221,25 +247,74 @@ POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
 # exactly 1 run per run with no multiplier (that's what makes it WAR
 # instead of a house-rules score in the first place). Applied directly
 # to a player's measured Def runs before they're combined into WAR.
-DEF_RUNS_WEIGHT = 1.1
+DEF_RUNS_WEIGHT = 1.15
 
 # ---------------------------------------------------------------------------
 # WAR model constants.
-# BATTING_LINEAR_WEIGHTS: standard public sabermetric linear weights, used
-# both for the Bat component and as the training target for the in-house
-# defense model below (see build_defense_model). REPLACEMENT_RUNS_PER_600PA
-# and RUNS_PER_WIN are standard replacement-level / win-conversion
-# constants. SB_RUN / CS_RUN are only a FALLBACK — the real per-run values
-# are derived from this pipeline's own play-by-play data (pooled across
-# this season + last season) in build_run_expectancy_and_baserunning_
-# weights(), cached, and reused all season; these fixed numbers only kick
-# in if that derivation has never been able to run (pitch data missing /
-# too thin, and no cache exists yet either).
+#
+# Two SEPARATE weight tables, for two purposes that must not share one set
+# of numbers (an earlier version of this file conflated them, which is what
+# was inflating Bat runs — see below):
+#
+# WOBA_WEIGHTS / WOBA_SCALE: the real wOBA -> wRAA pipeline (Offense),
+# published each year by FanGraphs' Guts! page (fangraphs.com/guts.aspx).
+# Values below are the 2025 constants (checked via web search when this was
+# implemented — re-check the Guts page each new season and update if they've
+# moved). wOBA itself is just a rate stat: wOBA = (wBB*BB + w1B*1B + w2B*2B +
+# w3B*3B + wHR*HR) / PA (HBP is dropped from the numerator — not tracked by
+# this pipeline's box-score log — and PA is used in place of the technically
+# -correct AB+BB-IBB+SF+HBP denominator for the same reason; both are
+# standard, sub-1%-impact simplifications when HBP/SF/IBB aren't available).
+# wOBA on its own is NOT in run units — converting it to actual runs above
+# average (wRAA) requires dividing by WOBA_SCALE:
+#     wRAA = ((player_wOBA - league_wOBA) / WOBA_SCALE) * PA
+# league_wOBA is computed self-consistently from this pipeline's own hitter
+# pool (PA-weighted average), same as the old league_bat_rate approach — no
+# external lgwOBA constant needed. WOBA_SCALE itself, unlike lgwOBA, can't
+# be self-derived without modeling the league's full run environment, so
+# it's a published external constant, same footing as RUNS_PER_WIN below.
+#
+# DEFENSE_RUN_VALUE_WEIGHTS: true ABSOLUTE run values (classic Palmer-style
+# Linear Weights — "runs above an out"), used ONLY as the training target
+# for the in-house defense model (see build_defense_model / _outcome_run_
+# value) — it needs every outcome, including an out, priced in the same
+# real-runs units with no separate scale step, which is exactly what wOBA's
+# coefficients are NOT designed for (they only mean something once divided
+# by WOBA_SCALE, and even then have no "OUT" term at all — outs are implicit
+# in wOBA, not priced directly). Mixing the two tables up — using wOBA's
+# coefficients as if they were absolute run values, paired with a real Out
+# value from this table — is exactly what was inflating Bat runs (and
+# therefore WAR) for high-power/high-BB hitters before this fix: their hit
+# events were valued ~1.5-2x too high relative to the Out penalty.
+#
+# REPLACEMENT_RUNS_PER_600PA and RUNS_PER_WIN are standard replacement-
+# level / win-conversion constants (see the replacement-level derivation
+# note further down for where the 20.0 figure comes from). SB_RUN / CS_RUN
+# are only a FALLBACK — the real per-run values are derived from this
+# pipeline's own play-by-play data (pooled across this season + last
+# season) in build_run_expectancy_and_baserunning_weights(), cached, and
+# reused all season; these fixed numbers only kick in if that derivation
+# has never been able to run (pitch data missing / too thin, and no cache
+# exists yet either).
 # ---------------------------------------------------------------------------
-BATTING_LINEAR_WEIGHTS = {
-    "BB": 0.688, "1B": 0.878, "2B": 1.245, "3B": 1.576, "HR": 2.03, "OUT": -0.35,
+WOBA_WEIGHTS = {
+    "BB": 0.691, "1B": 0.882, "2B": 1.252, "3B": 1.584, "HR": 2.037,
 }
-FALLBACK_SB_RUN, FALLBACK_CS_RUN = 0.35, -0.25
+WOBA_SCALE = 1.232
+DEFENSE_RUN_VALUE_WEIGHTS = {
+    "BB": 0.33, "1B": 0.47, "2B": 0.78, "3B": 1.09, "HR": 1.40, "OUT": -0.25,
+}
+FALLBACK_SB_RUN, FALLBACK_CS_RUN = 0.20, -0.40
+# Replacement level ≈ 20 runs below average per 600 PA — the standard,
+# widely-cited rounding of FanGraphs' actual derivation: a replacement-level
+# team wins ~.294 (about 47-48 games/162), which nets to roughly 1,000 wins
+# above replacement leaguewide/season, ~57% (570) of which goes to position
+# players; spread across a league-PA-weighted share of that, a full-time
+# 600-PA regular's slice comes out close to 18-20 runs depending on the
+# season's exact run environment and total league PA — see
+# https://library.fangraphs.com/misc/war/replacement-level/. Applied
+# uniformly regardless of position (position value is handled separately by
+# PositionalAdj above), matching how FanGraphs computes it.
 REPLACEMENT_RUNS_PER_600PA = 20.0
 RUNS_PER_WIN = 10.0
 
@@ -371,36 +446,48 @@ def _remaining_games(games_played: int, team_games: int, season_games: int) -> f
 
 
 # ---------------------------------------------------------------------------
-# Batting runs (offense component of WAR)
+# Batting runs (offense component of WAR) — real wOBA -> wRAA, the same
+# two-step FanGraphs uses (see the WOBA_WEIGHTS / WOBA_SCALE comment above).
 # ---------------------------------------------------------------------------
-def _batting_runs_per_pa(rate: dict) -> float:
-    """Raw linear-weights runs per PA for a per-game rate dict with
-    H/2B/3B/HR/BB/PA keys (season-to-date or projected rate)."""
+def _woba(rate: dict) -> float:
+    """wOBA for a per-game rate dict with H/2B/3B/HR/BB/PA keys (season-
+    to-date or projected rate — a rate stat, so per-game vs per-season
+    inputs give the same ratio). HBP is dropped from the numerator (not
+    tracked by this pipeline's box-score log) and PA stands in for the
+    technically-correct AB+BB-IBB+SF+HBP denominator (IBB/SF aren't
+    tracked either) — both are standard, sub-1%-impact simplifications."""
     pa = rate.get("PA") or 0.0
     if pa <= 0:
         return 0.0
     h, doubles, triples, hr = rate.get("H", 0.0), rate.get("2B", 0.0), rate.get("3B", 0.0), rate.get("HR", 0.0)
     bb = rate.get("BB", 0.0)
     singles = max(0.0, h - doubles - triples - hr)
-    outs = max(0.0, pa - h - bb)
-    w = BATTING_LINEAR_WEIGHTS
-    runs = (w["BB"] * bb + w["1B"] * singles + w["2B"] * doubles +
-            w["3B"] * triples + w["HR"] * hr + w["OUT"] * outs)
-    return runs / pa
+    w = WOBA_WEIGHTS
+    numerator = (w["BB"] * bb + w["1B"] * singles + w["2B"] * doubles +
+                 w["3B"] * triples + w["HR"] * hr)
+    return numerator / pa
 
 
-def _league_avg_batting_runs_per_pa(per_game_by_player: list[dict]) -> float:
-    """PA-weighted league-average batting runs/PA across the current
-    hitter pool — makes "above average" self-consistent without needing
-    an external league constant."""
-    total_runs, total_pa = 0.0, 0.0
+def _league_avg_woba(per_game_by_player: list[dict]) -> float:
+    """PA-weighted league-average wOBA across the current hitter pool —
+    makes "above average" self-consistent without needing an external
+    lgwOBA constant (WOBA_SCALE still has to come from FanGraphs — see
+    above — but the league baseline itself doesn't)."""
+    total_num, total_pa = 0.0, 0.0
     for rate in per_game_by_player:
         pa = rate.get("PA") or 0.0
         if pa <= 0:
             continue
-        total_runs += _batting_runs_per_pa(rate) * pa
+        total_num += _woba(rate) * pa
         total_pa += pa
-    return (total_runs / total_pa) if total_pa > 0 else 0.0
+    return (total_num / total_pa) if total_pa > 0 else 0.0
+
+
+def _wraa_per_pa(rate: dict, league_woba: float) -> float:
+    """wRAA per PA: (player wOBA − league wOBA) / WOBA_SCALE. The
+    standard FanGraphs conversion from wOBA points (not run units) into
+    actual runs above average."""
+    return (_woba(rate) - league_woba) / WOBA_SCALE
 
 
 # ---------------------------------------------------------------------------
@@ -437,20 +524,22 @@ def _load_multi_year_pitch_data(years: list[int], columns: list[str]) -> pd.Data
 
 
 def _outcome_run_value(events) -> float | None:
-    """Maps a Statcast `events` value to this file's own linear-weights
-    run value (same BATTING_LINEAR_WEIGHTS used for Bat runs), or None
-    for outcomes we don't want in the defense model's training set
-    (still mid-PA, ambiguous, or too rare to trust)."""
+    """Maps a Statcast `events` value to this file's own absolute-run-
+    value table (DEFENSE_RUN_VALUE_WEIGHTS — NOT the wOBA weights used
+    for Bat runs; see the comment above WOBA_WEIGHTS/DEFENSE_RUN_VALUE_
+    WEIGHTS for why those two tables have to stay separate), or None for
+    outcomes we don't want in the defense model's training set (still
+    mid-PA, ambiguous, or too rare to trust)."""
     if events in _HIT_EVENT_WEIGHT_KEY:
-        return BATTING_LINEAR_WEIGHTS[_HIT_EVENT_WEIGHT_KEY[events]]
+        return DEFENSE_RUN_VALUE_WEIGHTS[_HIT_EVENT_WEIGHT_KEY[events]]
     if events == "field_error":
         # Batter reaches, most commonly at 1st — treated as roughly
         # single-equivalent. An approximation; the alternative (excluding
         # errors from training entirely) would bias the model toward
         # thinking every hard-hit ball in that zone was fielded cleanly.
-        return BATTING_LINEAR_WEIGHTS["1B"]
+        return DEFENSE_RUN_VALUE_WEIGHTS["1B"]
     if events in _OUT_EVENTS:
-        return BATTING_LINEAR_WEIGHTS["OUT"]
+        return DEFENSE_RUN_VALUE_WEIGHTS["OUT"]
     return None
 
 
@@ -519,7 +608,7 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     """Scores THIS season's own batted balls (launch speed + launch angle
     + which fielding zone it was hit toward) against an in-house
     "expected run value of this contact" model (using this file's own
-    BATTING_LINEAR_WEIGHTS as the target), and credits the residual
+    DEFENSE_RUN_VALUE_WEIGHTS as the target), and credits the residual
     (expected − actual) to whichever player was standing at that
     position on that specific play (via the fielder_<N> / pitcher
     columns Statcast already tags each pitch with). A fielder's season
@@ -824,7 +913,7 @@ def _ra9(rate: dict) -> float | None:
 def _league_avg_ra9(per_game_by_pitcher: list[dict]) -> float:
     """IP-weighted league-average RA9 across the current pitcher pool —
     self-consistent, no external league constant, same pattern as
-    _league_avg_batting_runs_per_pa for hitters."""
+    _league_avg_woba for hitters."""
     total_er, total_ip = 0.0, 0.0
     for rate in per_game_by_pitcher:
         ip = rate.get("IP") or 0.0
@@ -982,12 +1071,12 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "gp": gp, "gr": gr, "ros": ros, "full": full,
         })
 
-    league_bat_rate = _league_avg_batting_runs_per_pa([p["per_game"] for p in prelim])
+    league_woba = _league_avg_woba([p["per_game"] for p in prelim])
 
     for p in prelim:
-        player_bat_rate = _batting_runs_per_pa(p["per_game"])
-        p["ros_bat_runs"] = (player_bat_rate - league_bat_rate) * p["ros"]["PA"]
-        p["full_bat_runs"] = (player_bat_rate - league_bat_rate) * p["full"]["PA"]
+        wraa_rate = _wraa_per_pa(p["per_game"], league_woba)
+        p["ros_bat_runs"] = wraa_rate * p["ros"]["PA"]
+        p["full_bat_runs"] = wraa_rate * p["full"]["PA"]
 
     # Bound the per-player baserunning / positional-adjustment lookups to
     # the top N by Bat runs — this is what "power" hitters look like
@@ -1196,7 +1285,9 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                 "model": "Bat + Def*1.15 + BsR + PositionalAdj(custom) + Replacement, / 10 runs per win",
                 "customized": True,
                 "def_runs_weight": DEF_RUNS_WEIGHT,
-                "batting_linear_weights": BATTING_LINEAR_WEIGHTS,
+                "woba_weights": WOBA_WEIGHTS,
+                "woba_scale": WOBA_SCALE,
+                "defense_run_value_weights": DEFENSE_RUN_VALUE_WEIGHTS,
                 "baserunning_weights_used": {"SB": round(sb_run_value, 3), "CS": round(cs_run_value, 3)},
                 "baserunning_weights_from_own_run_expectancy_matrix": re_matrix_built,
                 "positional_adjustment_runs_per_162": POSITIONAL_ADJUSTMENT_RUNS_PER_162,
@@ -1209,11 +1300,26 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "per_162 is a customized table (CF/SS highest, "
                         "then C, 3B, 2B, RF, then 1B/LF), not the "
                         "standard published sabermetric one. Bat runs "
-                        "are self-consistent (above this hitter pool's "
-                        "own PA-weighted average). Def comes from an "
-                        "in-house model (exit velo + launch angle + "
+                        "are real wOBA -> wRAA (woba_weights / woba_scale "
+                        "above are FanGraphs' published 2025 Guts! "
+                        "constants — re-check fangraphs.com/guts.aspx "
+                        "each season), compared against this hitter "
+                        "pool's own PA-weighted average wOBA (self-"
+                        "consistent, no external league-average needed). "
+                        "BsR currently covers stolen-base value only "
+                        "(wSB-equivalent) — extra-bases-taken (UBR) and "
+                        "double-play avoidance (wGDP) are NOT included: "
+                        "wGDP needs a batter ID on every pitch, which "
+                        "this pipeline's pitch_data_<year>.csv does not "
+                        "currently capture, and UBR needs hit-location/"
+                        "difficulty context beyond what's reliable to "
+                        "infer from base-occupancy alone. Def comes from "
+                        "an in-house model (exit velo + launch angle + "
                         "fielding zone -> expected run value, vs. what "
-                        "actually happened) — no external leaderboard. "
+                        "actually happened) — an Outs-Above-Average-style "
+                        "proxy, not literal UZR/DRS (those are proprietary "
+                        "vendor metrics built on manually-charted zone/"
+                        "difficulty data this pipeline has no access to). "
                         "The model is trained ONCE PER SEASON on pooled "
                         "batted-ball data from this season + last season "
                         "and cached (models/defense_run_value_model.pkl), "
