@@ -211,7 +211,7 @@ POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
     "C": 5.5,
     "3B": 3.5,
     "2B": 2.5,
-    "RF": 1.0,
+    "RF": 0.0,
     "1B": -6.0, "LF": -5.0,
     "DH": -9.0,
 }
@@ -221,7 +221,7 @@ POSITIONAL_ADJUSTMENT_RUNS_PER_162 = {
 # exactly 1 run per run with no multiplier (that's what makes it WAR
 # instead of a house-rules score in the first place). Applied directly
 # to a player's measured Def runs before they're combined into WAR.
-DEF_RUNS_WEIGHT = 1.15
+DEF_RUNS_WEIGHT = 1.1
 
 # ---------------------------------------------------------------------------
 # WAR model constants.
@@ -237,9 +237,9 @@ DEF_RUNS_WEIGHT = 1.15
 # too thin, and no cache exists yet either).
 # ---------------------------------------------------------------------------
 BATTING_LINEAR_WEIGHTS = {
-    "BB": 0.69, "1B": 0.89, "2B": 1.27, "3B": 1.62, "HR": 2.10, "OUT": -0.25,
+    "BB": 0.688, "1B": 0.878, "2B": 1.245, "3B": 1.576, "HR": 2.03, "OUT": -0.35,
 }
-FALLBACK_SB_RUN, FALLBACK_CS_RUN = 0.20, -0.40
+FALLBACK_SB_RUN, FALLBACK_CS_RUN = 0.35, -0.25
 REPLACEMENT_RUNS_PER_600PA = 20.0
 RUNS_PER_WIN = 10.0
 
