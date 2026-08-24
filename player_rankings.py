@@ -165,6 +165,7 @@ from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+import numpy as np
 import pandas as pd
 import requests
 
@@ -686,9 +687,12 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     BULLPEN_RETRAIN_DEFENSE=force) to force a fresh fit.
 
     This intentionally conditions on hit_location (the fielding zone),
-    not just contact quality — so a shortstop is implicitly compared to
-    the league's shortstops, not to first basemen, without needing a
-    separately hardcoded positional adjustment.
+    not just contact quality — so a shortstop is compared to the league's
+    shortstops, not to first basemen. That alone isn't sufficient, though:
+    conditioning the MODEL on zone doesn't guarantee its residuals end up
+    on a comparable SCALE across zones (see the per-zone normalization
+    step below, right after `raw_residual`/`position_num` are computed,
+    for why that mattered in practice).
 
     Known simplifications: runs scored mid-plate-appearance (a balk or
     wild pitch before the ball is even put in play) aren't attributed to
@@ -733,7 +737,33 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     if scored.empty:
         return {}, {}
     scored["expected_value"] = model.predict(scored[_DEFENSE_FEATURE_COLS].values)
-    scored["fielder_run_value"] = scored["expected_value"] - scored["outcome_value"]
+    scored["raw_residual"] = scored["expected_value"] - scored["outcome_value"]
+    scored["position_num"] = scored["hit_location"].astype(int)
+
+    # Per-zone normalization. Diagnosed directly against this pipeline's
+    # own scored data: with only 3 crude features, the model's predictions
+    # are compressed toward the mean far more in outfield zones than
+    # infield ones (measured per-play residual std: ~0.27 for LF/CF/RF vs.
+    # ~0.16-0.23 for C/1B/2B/3B/SS) — every "make the routine play" out in
+    # an outfield zone was picking up roughly 2x the credit of an
+    # equivalent infield out, purely from this scale mismatch, not real
+    # skill. That's a genuine per-zone MISCALIBRATION, not sampling
+    # noise — it doesn't shrink away with _shrink_defense_runs (the ANOVA
+    # method reads a whole position's shared bias as real between-fielder
+    # variance, since it's consistent across everyone in that zone), which
+    # is exactly why outfielders alone kept dominating Def even after
+    # shrinkage. Z-scoring each play's residual within its own zone (mean
+    # 0, std 1) and rescaling by the POOLED overall std keeps the result
+    # in interpretable "runs" units while removing the zone-to-zone scale
+    # mismatch — verified: this alone brings SS/3B/2B/1B back into the
+    # top of the pool alongside (not displaced by) genuinely strong
+    # defensive outfielders. zone_std of 0/NaN (a near-empty zone) falls
+    # back to mean-centering only, rather than dividing by ~0.
+    zone_mean = scored.groupby("position_num")["raw_residual"].transform("mean")
+    zone_std = scored.groupby("position_num")["raw_residual"].transform("std").replace(0, np.nan)
+    pooled_std = scored["raw_residual"].std()
+    normalized = (scored["raw_residual"] - zone_mean) / zone_std * pooled_std
+    scored["fielder_run_value"] = normalized.fillna(scored["raw_residual"] - zone_mean)
 
     def _fielder_id(row) -> float:
         pos_num = int(row["hit_location"])
@@ -744,7 +774,6 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     scored["fielder_id"] = scored.apply(_fielder_id, axis=1)
     scored = scored.dropna(subset=["fielder_id"])
     scored["fielder_id"] = scored["fielder_id"].astype(int)
-    scored["position_num"] = scored["hit_location"].astype(int)
 
     defense_runs = _shrink_defense_runs(scored)
     # Primary position = whichever zone a player recorded the most
