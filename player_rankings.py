@@ -31,61 +31,47 @@ fielding chances.
             box-score log so it's dropped from the wOBA numerator, and PA
             stands in for the technically-correct AB+BB-IBB+SF+HBP
             denominator — both standard, sub-1%-impact simplifications.
-    Def   — fielding runs, from an in-house model that regresses exit
-            velocity + launch angle + which fielding zone a ball was hit
-            toward against this pipeline's own absolute run-value table
-            (DEFENSE_RUN_VALUE_WEIGHTS — a separate table from Bat's wOBA
-            weights; see the comment above WOBA_WEIGHTS for why they
-            can't be shared), then for every batted ball attributes
-            (expected − actual) to whichever player was standing at that
-            position on that play. A fielder's Def is the empirical-Bayes
-            -SHRUNK sum of that over their CURRENT season's worth of
-            chances (see _shrink_defense_runs) — outperform the model for
-            your zone, gain runs; underperform, lose them — but pulled
-            toward 0 based on chance count, since a 3-feature model
-            leaves a lot of per-play variance unexplained, and an UNshrunk
-            sum over a partial season was mostly that noise, not real
-            skill (confirmed: a zero-true-skill-difference simulation
-            using this same per-play noise level produced top-of-pool
-            values statistically indistinguishable from what the unshrunk
-            version was crediting real fielders — see build_defense_model
-            for the verification). This is an Outs-Above-Average-style
-            proxy, not literal UZR/DRS — those are proprietary vendor
-            metrics (BIS zone ratings for DRS, MLBAM positioning data for
-            UZR) built on manually-charted data this pipeline has no
-            access to; nothing public can reproduce them exactly. The
-            underlying regression model
-            is trained ONCE PER SEASON (not every run) on pooled batted-
-            ball data from this season plus last season for a bigger,
-            more stable sample, then cached to models/ and reused all
-            season — see build_defense_model() and DEFENSE_MODEL_CACHE.
-    BsR   — baserunning runs. Currently covers stolen-base value only
-            (the wSB-equivalent piece of FanGraphs' BsR) — extra-bases-
-            taken (UBR) and double-play avoidance (wGDP) are NOT
-            implemented. wGDP needs a batter ID on every pitch to know
-            who to charge/credit, and this pipeline's pitch_data_
-            <year>.csv doesn't currently carry one (it has pitcher +
-            fielder IDs and on-base runner IDs, but no batter column) —
-            adding it upstream in the Statcast pull would make wGDP
-            straightforward with the same run-expectancy-matrix machinery
-            already built for SB/CS. UBR is harder even with a batter ID:
-            it needs hit-location/difficulty context to judge what an
-            "average" runner would have done on a given ball, which
-            isn't reliable to infer from base-occupancy alone (FanGraphs
-            itself doesn't publish play-by-play UBR data for this
-            reason). The SB/CS counts still have to come from the MLB
-            Stats API — that's just the official box score, nothing to
-            model, and those are re-fetched every run since they change
-            every day a player plays. What used to be fixed textbook
-            weights (0.20 / -0.40) are now derived from a real run-
-            expectancy matrix built from this season plus last season's
-            own play-by-play base/out states — see
-            build_run_expectancy_and_baserunning_weights(). Like the
-            defense model, this derivation is cached and only runs once
-            per season, not on every pipeline tick. SB/CS counts are
-            only fetched for the top hitters by projected Bat runs
-            (bounded MLB Stats API calls, same as the age lookup below);
-            everyone else defaults to BsR = 0.
+    Def   — fielding runs. DEFAULTS to Statcast's own official Fielding
+            Run Value leaderboard, fetched directly from baseballsavant.
+            mlb.com (see fetch_statcast_fielding_run_value) — real range/
+            positioning-based defensive value computed by MLBAM from
+            actual player-tracking data (hang time, distance covered,
+            etc.), not modeled by this pipeline at all. This replaced an
+            earlier in-house model that regressed exit velocity + launch
+            angle + hit_location against expected run value — that
+            approach went through several rounds of real, measured bias
+            (outfielders systematically over-credited relative to
+            infielders/catchers because a 3-feature model can't tell a
+            trivial fly-ball out from a genuinely tough one as precisely
+            in the outfield as closer to the plate — see
+            build_defense_model's docstring for the full history and the
+            shrinkage/normalization steps that were built to patch around
+            it) before landing on "just use Statcast's own number instead
+            of re-deriving a worse version of it." That in-house model is
+            kept as a FALLBACK — build_defense_model() only runs if the
+            Statcast fetch fails (network issue, or Statcast changes their
+            page's columns) — see defense_source in the output bundle's
+            data_availability for which one actually supplied a given
+            run's numbers.
+    BsR   — baserunning runs = SB/CS value (this pipeline's own run-
+            expectancy-matrix-derived run values applied to real SB/CS
+            counts from the MLB Stats API, unchanged from before) PLUS
+            extra-bases-taken value fetched directly from Statcast's own
+            Baserunning / Extra Bases Run Value leaderboard (see
+            fetch_statcast_baserunning_run_value) — taking the extra base
+            on a hit, scoring from 1st on a double, tagging up, etc.,
+            computed by MLBAM from real tracking data. Falls back to SB/CS
+            -only if that second fetch fails — see baserunning_extra_bases
+            in data_availability. Double-play avoidance (wGDP) is still
+            NOT implemented (would need a batter ID on every pitch, which
+            this pipeline's pitch_data_<year>.csv doesn't carry — a
+            possible future addition upstream in the Statcast pull, not
+            related to the Statcast leaderboard fetches above). The SB/CS
+            counts themselves are re-fetched every run (official box
+            score, changes every day a player plays), only for the top
+            hitters by projected Bat runs (bounded MLB Stats API calls,
+            same as the age lookup below); everyone else defaults to
+            BsR = 0.
     WAR = (Bat + Def*DEF_RUNS_WEIGHT + BsR + Replacement) / RUNS_PER_WIN
     Replacement = 20 runs / 600 PA (standard replacement-level constant).
 
@@ -158,6 +144,7 @@ Player ages cached at data/player_ages.json (MLB Stats API, fetched lazily).
 from __future__ import annotations
 
 import argparse
+import io
 import json
 import os
 import time
@@ -904,6 +891,126 @@ def build_run_expectancy_and_baserunning_weights(
     return sb_run_value, cs_run_value, True
 
 
+# ---------------------------------------------------------------------------
+# Statcast's OWN official leaderboards (baseballsavant.mlb.com), fetched
+# directly — replaces the in-house defense model as the primary Def source,
+# and supplements the SB/CS-only baserunning model with real extra-bases-
+# taken value. Both are MLBAM-computed from actual player-tracking data
+# (hang time, distance covered, etc.) that this pipeline's own pitch_data
+# CSVs don't contain — categorically more accurate than anything buildable
+# from exit velo/launch angle/hit_location alone (see build_defense_model's
+# docstring for the long history of trying to patch around that gap).
+#
+# Both are best-effort and network-only (no local cache — these leaderboard
+# numbers already reflect the season to date, refreshed by MLB itself, so
+# there's nothing to train/retrain here). build_rankings() falls back to
+# the in-house model / SB-CS-only model respectively if either of these
+# returns empty (network failure, or Statcast changes their page's exact
+# CSV columns — this fetch was written and tested from an environment that
+# cannot itself reach baseballsavant.mlb.com, so the column-matching below
+# is defensive: it tries several likely column names and, if none match,
+# prints the actual columns it got back so they can be corrected quickly
+# rather than silently guessing wrong).
+# ---------------------------------------------------------------------------
+def _find_column(columns, candidates: tuple[str, ...], contains: tuple[str, ...] = ()) -> str | None:
+    lower = {c.strip().lower(): c for c in columns}
+    for cand in candidates:
+        if cand in lower:
+            return lower[cand]
+    for orig_lower, orig in lower.items():
+        if any(sub in orig_lower for sub in contains):
+            return orig
+    return None
+
+
+def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
+                                       timeout: float = 15.0) -> dict[int, float]:
+    """{mlb_id: fielding run value} straight from Statcast's official
+    Fielding Run Value leaderboard — real range/positioning-based defensive
+    value, not modeled here at all. One request covers every position
+    (position="" = "All" in the leaderboard's own UI). min_innings=20 is a
+    deliberately low bar (the leaderboard's own default is 100) so more of
+    this pipeline's hitter pool gets covered even mid-season; Statcast's
+    model is far more reliable than this file's old one even in smaller
+    samples, since it has real tracking data instead of 3 crude features.
+    Best-effort: returns {} on any network/parsing failure — the caller
+    should fall back to build_defense_model() in that case."""
+    url = ("https://baseballsavant.mlb.com/leaderboard/fielding-run-value"
+           f"?gameType=Regular&seasonStart={season_year}&seasonEnd={season_year}"
+           f"&type=fielder&position=&minInnings={min_innings}&minResults=1&csv=true")
+    try:
+        r = requests.get(url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        df = pd.read_csv(io.StringIO(r.text))
+    except Exception as e:
+        print(f"⚠️  Statcast fielding run value fetch failed ({e}); "
+              f"falling back to the in-house defense model.")
+        return {}
+
+    id_col = _find_column(df.columns, ("player_id", "mlbamid", "mlb_id", "playerid"))
+    value_col = _find_column(df.columns, ("frv", "fielding_run_value"), contains=("run_value",))
+    if id_col is None or value_col is None or df.empty:
+        print(f"⚠️  Statcast fielding run value: expected columns not found "
+              f"(got {list(df.columns)}). Falling back to the in-house "
+              f"defense model. If this keeps happening, paste this column "
+              f"list back so the matching can be fixed.")
+        return {}
+
+    sub = df[[id_col, value_col]].copy()
+    sub[id_col] = pd.to_numeric(sub[id_col], errors="coerce")
+    sub[value_col] = pd.to_numeric(sub[value_col], errors="coerce")
+    sub = sub.dropna()
+    out = sub.groupby(sub[id_col].astype(int))[value_col].sum().to_dict()
+    print(f"   Fetched Statcast fielding run value for {len(out)} players "
+          f"(season={season_year}, min_innings={min_innings}).")
+    return {int(k): float(v) for k, v in out.items()}
+
+
+def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: int = 5,
+                                          timeout: float = 15.0) -> dict[int, float]:
+    """{mlb_id: extra-bases-taken run value} from Statcast's Baserunning /
+    "Extra Bases" Run Value leaderboard — taking the extra base on a hit,
+    scoring from 1st on a double, tagging up, etc. This is ADDED on top of
+    (not instead of) the existing SB/CS-derived BsR component, on the
+    assumption that "extra bases taken on a batted ball" and "stolen
+    bases" are genuinely separate skills Statcast tracks separately, not
+    two views of the same value — that assumption is NOT independently
+    verified (this environment can't reach baseballsavant.mlb.com to
+    check), so if a burner's BsR ever looks implausibly huge after this,
+    that's the first thing to double-check for double-counting. Best-
+    effort: returns {} on any failure, in which case build_rankings just
+    keeps the SB/CS-only value it already had."""
+    url = ("https://baseballsavant.mlb.com/leaderboard/baserunning-run-value"
+           f"?game_type=Regular&season_start={season_year}&season_end={season_year}"
+           f"&type=Run&split=no&n={min_opportunities}&team=&with_team_only=1&csv=true")
+    try:
+        r = requests.get(url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        df = pd.read_csv(io.StringIO(r.text))
+    except Exception as e:
+        print(f"⚠️  Statcast baserunning run value fetch failed ({e}); "
+              f"keeping the SB/CS-only baserunning value.")
+        return {}
+
+    id_col = _find_column(df.columns, ("player_id", "mlbamid", "mlb_id", "playerid", "runner_id"))
+    value_col = _find_column(df.columns, ("runvalue", "runner_runvalue"), contains=("run_value",))
+    if id_col is None or value_col is None or df.empty:
+        print(f"⚠️  Statcast baserunning run value: expected columns not "
+              f"found (got {list(df.columns)}). Keeping the SB/CS-only "
+              f"baserunning value. If this keeps happening, paste this "
+              f"column list back so the matching can be fixed.")
+        return {}
+
+    sub = df[[id_col, value_col]].copy()
+    sub[id_col] = pd.to_numeric(sub[id_col], errors="coerce")
+    sub[value_col] = pd.to_numeric(sub[value_col], errors="coerce")
+    sub = sub.dropna()
+    out = sub.groupby(sub[id_col].astype(int))[value_col].sum().to_dict()
+    print(f"   Fetched Statcast baserunning (extra bases) run value for "
+          f"{len(out)} players (season={season_year}).")
+    return {int(k): float(v) for k, v in out.items()}
+
+
 def fetch_baserunning(ids: set[int], season: int, throttle: float = 0.05) -> dict[int, dict]:
     """{mlb_id: {"sb": int, "cs": int}} via the MLB Stats API season
     hitting stats endpoint. No persistent cache — unlike age, SB/CS
@@ -1169,15 +1276,29 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
 
     baserunning_data = {}
     sb_run_value, cs_run_value, re_matrix_built = FALLBACK_SB_RUN, FALLBACK_CS_RUN, False
+    extra_bases_by_player = {}
     if fetch_baserunning_data:
         baserunning_data = fetch_baserunning(top_ids, season_year)
         sb_run_value, cs_run_value, re_matrix_built = build_run_expectancy_and_baserunning_weights(
             season_year, retrain=retrain_models)
+        extra_bases_by_player = fetch_statcast_baserunning_run_value(season_year)
 
+    # Def: try Statcast's own official Fielding Run Value leaderboard
+    # first — real range/positioning-based value, not modeled from 3 crude
+    # features. Only fall back to the in-house model (build_defense_model)
+    # if that fetch comes back empty (network failure, or Statcast changed
+    # their page — see fetch_statcast_fielding_run_value's docstring).
     defense_runs_by_player, position_by_player = {}, {}
+    defense_source = None
     if fetch_defense:
-        defense_runs_by_player, position_by_player = build_defense_model(
-            season_year, retrain=retrain_models)
+        defense_runs_by_player = fetch_statcast_fielding_run_value(season_year)
+        if defense_runs_by_player:
+            defense_source = "statcast_fielding_run_value"
+        else:
+            defense_runs_by_player, position_by_player = build_defense_model(
+                season_year, retrain=retrain_models)
+            if defense_runs_by_player:
+                defense_source = "in_house_model_fallback"
 
     position_games_data = {}
     if fetch_official_positions:
@@ -1191,12 +1312,25 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         br = baserunning_data.get(mid)
         if br and gp > 0:
             sb_rate, cs_rate = br["sb"] / gp, br["cs"] / gp
-            ros_bsr_runs = (sb_run_value * sb_rate + cs_run_value * cs_rate) * gr
-            full_bsr_runs_to_date = sb_run_value * br["sb"] + cs_run_value * br["cs"]
-            full_bsr_runs = full_bsr_runs_to_date + ros_bsr_runs
+            ros_sb_cs_runs = (sb_run_value * sb_rate + cs_run_value * cs_rate) * gr
+            full_sb_cs_runs_to_date = sb_run_value * br["sb"] + cs_run_value * br["cs"]
+            full_sb_cs_runs = full_sb_cs_runs_to_date + ros_sb_cs_runs
         else:
-            ros_bsr_runs = 0.0
-            full_bsr_runs = 0.0
+            ros_sb_cs_runs = 0.0
+            full_sb_cs_runs = 0.0
+
+        # Extra-bases-taken value from Statcast's own leaderboard (see
+        # fetch_statcast_baserunning_run_value) — a season-to-date total,
+        # same treatment as Def: extrapolate at the same per-game rate for
+        # the rest-of-season projection. Added ON TOP OF the SB/CS-derived
+        # value above (see that function's docstring for the not-fully-
+        # verified assumption that these two don't overlap).
+        season_extra_bases_runs = extra_bases_by_player.get(mid, 0.0)
+        ros_extra_bases_runs = (season_extra_bases_runs / gp * gr) if gp > 0 else 0.0
+        full_extra_bases_runs = season_extra_bases_runs + ros_extra_bases_runs
+
+        ros_bsr_runs = ros_sb_cs_runs + ros_extra_bases_runs
+        full_bsr_runs = full_sb_cs_runs + full_extra_bases_runs
 
         # DEF_RUNS_WEIGHT applied here (not to the cached raw model output)
         # so the weight is easy to find/adjust and every downstream use of
@@ -1325,12 +1459,14 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         "age_cutoff": AGE_CUTOFF,
         "data_availability": {
             "defense": bool(defense_runs_by_player),
+            "defense_source": defense_source,
             "baserunning": bool(baserunning_data),
             "baserunning_weights_from_own_data": re_matrix_built,
+            "baserunning_extra_bases": bool(extra_bases_by_player),
             "official_position_labels": bool(position_games_data),
         },
         "scoring": {
-            "type": "war_v6_custom",
+            "type": "war_v7_custom",
             "hitter": {
                 "model": "Bat + Def*1.15 + BsR + Replacement, / 10 runs per win",
                 "customized": True,
@@ -1360,50 +1496,47 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "each season), compared against this hitter "
                         "pool's own PA-weighted average wOBA (self-"
                         "consistent, no external league-average needed). "
-                        "BsR currently covers stolen-base value only "
-                        "(wSB-equivalent) — extra-bases-taken (UBR) and "
-                        "double-play avoidance (wGDP) are NOT included: "
-                        "wGDP needs a batter ID on every pitch, which "
-                        "this pipeline's pitch_data_<year>.csv does not "
-                        "currently capture, and UBR needs hit-location/"
-                        "difficulty context beyond what's reliable to "
-                        "infer from base-occupancy alone. Def comes from "
-                        "an in-house model (exit velo + launch angle + "
-                        "fielding zone -> expected run value, vs. what "
-                        "actually happened) — an Outs-Above-Average-style "
-                        "proxy, not literal UZR/DRS (those are proprietary "
-                        "vendor metrics built on manually-charted zone/"
-                        "difficulty data this pipeline has no access to). "
-                        "That raw per-play residual is then shrunk toward "
-                        "0 with empirical-Bayes/random-effects regression "
-                        "based on each fielder's chance count this season "
-                        "(see _shrink_defense_runs) — without it, a "
-                        "3-feature model's per-play noise summed over a "
-                        "partial season regularly produced 15-20+ run "
-                        "'Def' totals that were mostly noise, not skill "
-                        "(verified against a zero-true-skill simulation "
-                        "using this pipeline's own observed noise level). "
-                        "The model is trained ONCE PER SEASON on pooled "
-                        "batted-ball data from this season + last season "
-                        "and cached (models/defense_run_value_model.pkl), "
-                        "then re-scored against just this season's own "
-                        "chances every run, not retrained every run — "
-                        "pass --retrain-defense to force a refresh. SB/CS "
-                        "counts still come from the MLB Stats API "
-                        "(official box score, refetched every run, "
-                        f"limited to the top {TOP_N_HITTERS_FOR_BASERUNNING} "
-                        "hitters by projected Bat runs to bound API calls) "
-                        "but their run values are derived from a "
-                        "run-expectancy matrix built from pooled "
-                        "this-season + last-season play-by-play data, "
-                        "also cached the same way "
+                        "BsR = SB/CS value (this pipeline's own run-"
+                        "expectancy-matrix-derived SB/CS run values, "
+                        "same as before) PLUS extra-bases-taken value "
+                        "fetched directly from Statcast's own Baserunning "
+                        "/ Extra Bases Run Value leaderboard (see "
+                        "fetch_statcast_baserunning_run_value) — real "
+                        "MLBAM-computed baserunning value (taking the "
+                        "extra base, scoring from 1st on a double, tagging "
+                        "up, etc.), not modeled in-house. The assumption "
+                        "that these two don't double-count the same value "
+                        "is not independently verified from this "
+                        "environment (can't reach baseballsavant.mlb.com "
+                        "to check) — see baserunning_extra_bases in "
+                        "data_availability; falls back to SB/CS-only if "
+                        "the fetch fails. Def defaults to Statcast's own "
+                        "official Fielding Run Value leaderboard — real "
+                        "range/positioning-based defensive value computed "
+                        "by MLBAM from actual player-tracking data (hang "
+                        "time, distance covered), not this file's old "
+                        "in-house 3-feature model. See defense_source in "
+                        "data_availability for which one actually supplied "
+                        "this run's numbers: 'statcast_fielding_run_value' "
+                        "(the good case) or 'in_house_model_fallback' (the "
+                        "Statcast fetch failed — see build_defense_model's "
+                        "docstring for that model's own history of biases "
+                        "and the shrinkage/normalization steps that patch "
+                        "around them, none of which are needed when the "
+                        "Statcast fetch succeeds). SB/CS counts still come "
+                        "from the MLB Stats API (official box score, "
+                        "refetched every run, limited to the top "
+                        f"{TOP_N_HITTERS_FOR_BASERUNNING} hitters by "
+                        "projected Bat runs to bound API calls); their run "
+                        "values are derived from a run-expectancy matrix "
+                        "built from pooled this-season + last-season play-"
+                        "by-play data, cached "
                         "(models/baserunning_re_weights.json) — see "
                         "baserunning_weights_used above for what was "
                         "actually applied this run. Def and BsR both "
-                        "degrade gracefully to 0 (BsR weights to the "
-                        "public fallback) if no cache exists yet and "
-                        "local pitch data / API calls are unavailable; "
-                        "see data_availability above.",
+                        "degrade gracefully to 0 if no data is available "
+                        "at all (see data_availability above), never to a "
+                        "misleading default.",
             },
             "pitcher": {
                 "model": "(Pitching runs + Replacement) / 10 runs per win, RA9-based",
