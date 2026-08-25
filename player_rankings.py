@@ -1150,6 +1150,39 @@ def _pitching_replacement_runs(rate: dict, league_ra9: float) -> float:
     return league_ra9 * (PITCHER_REPLACEMENT_RA9_MULTIPLIER - 1.0) * (ip / 9.0)
 
 
+def _pitcher_dynamic_runs_per_win(pitcher_ra9: float, league_ra9: float,
+                                   ip_per_appearance: float) -> float:
+    """Runs-per-win for THIS pitcher, not a flat league-wide constant.
+
+    FanGraphs does not divide every pitcher's runs-above-replacement by
+    the same ~10 used for hitters — it computes an individual runs-per-win
+    per pitcher, specifically because a truly dominant pitcher creates a
+    LOWER-scoring environment in their own starts (fewer runs are needed
+    to win a 1-0 game than a 6-5 game), so each run they save is worth
+    MORE wins than it would be for an average pitcher. See
+    https://library.fangraphs.com/misc/war/converting-runs-to-wins/ and
+    https://library.fangraphs.com/war/calculating-war-pitchers/ (verified
+    2026-08-25). Their real formula uses FIPR9; this pipeline only has
+    RA9 (see the module docstring's note on why — no HR/HBP tracked), so
+    RA9 is substituted directly for FIPR9 below, same substitution this
+    file already makes everywhere else for pitcher runs:
+
+        dRPW = (((18 - IP/G) * league_RA9 + (IP/G) * pitcher_RA9) / 18 + 2) * 1.5
+
+    IP/G ("innings per game/appearance") is clamped to [1, 9] so a tiny or
+    garbage-innings sample (an injury-shortened stint, a long-relief
+    cameo) can't produce a wild multiplier — a real appearance is always
+    within that range anyway. For a pitcher whose RA9 is close to league
+    average this reduces to ~9.5-10.5 (matches the flat RUNS_PER_WIN this
+    file previously used for every pitcher), so this only meaningfully
+    moves the number for real outliers — better AND worse — which is
+    exactly the case (an "unthinkable" season) where a flat conversion
+    under-credits how much those runs are actually worth.
+    """
+    ipg = max(1.0, min(9.0, ip_per_appearance))
+    return (((18.0 - ipg) * league_ra9 + ipg * pitcher_ra9) / 18.0 + 2.0) * 1.5
+
+
 # ---------------------------------------------------------------------------
 # Player ages (for the 25-and-under cut)
 # ---------------------------------------------------------------------------
@@ -1433,8 +1466,24 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         full_pitching_runs = _pitching_runs_above_avg(full, league_ra9)
         ros_replacement_runs = _pitching_replacement_runs(ros, league_ra9)
         full_replacement_runs = _pitching_replacement_runs(full, league_ra9)
-        ros_war = (ros_pitching_runs + ros_replacement_runs) / RUNS_PER_WIN
-        full_war = (full_pitching_runs + full_replacement_runs) / RUNS_PER_WIN
+
+        # Dynamic, per-pitcher runs-per-win (see _pitcher_dynamic_runs_per_win)
+        # instead of the flat RUNS_PER_WIN used for hitters — this is what
+        # FanGraphs' own pitcher WAR does, and it's the piece that was
+        # under-crediting truly dominant ("unthinkable year") pitchers: a
+        # flat ~10 runs/win treats a 1.75-RA9 ace's saved runs the same as
+        # an average pitcher's, when in reality those runs are worth more
+        # wins because they're happening in a lower-scoring context.
+        established_ra9 = _ra9(p["per_game"])
+        ip_per_appearance = p["per_game"].get("IP") or 0.0
+        if established_ra9 is None or ip_per_appearance <= 0:
+            dynamic_rpw = RUNS_PER_WIN  # no innings on record yet — safe flat fallback
+        else:
+            dynamic_rpw = _pitcher_dynamic_runs_per_win(
+                established_ra9, league_ra9, ip_per_appearance)
+
+        ros_war = (ros_pitching_runs + ros_replacement_runs) / dynamic_rpw
+        full_war = (full_pitching_runs + full_replacement_runs) / dynamic_rpw
         pitcher_rows.append({
             "mlb_id": p["mlb_id"],
             "name": p["name"], "team": p["team"],
@@ -1451,6 +1500,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "full_pitching_runs": round(full_pitching_runs, 1),
             "ros_replacement_runs": round(ros_replacement_runs, 1),
             "full_replacement_runs": round(full_replacement_runs, 1),
+            "dynamic_runs_per_win": round(dynamic_rpw, 2),
             "ros_war": round(ros_war, 1), "full_war": round(full_war, 1),
             "ros_power_score": round(_pitcher_points(ros), 1),
             "full_power_score": round(_pitcher_points(full), 1),
@@ -1458,6 +1508,45 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
     pitcher_rows.sort(key=lambda r: r["ros_war"], reverse=True)
     for i, r in enumerate(pitcher_rows, start=1):
         r["rank"] = i
+
+    # ------- TWO-WAY PLAYERS (Ohtani, etc.) -------
+    # hitter_rows and pitcher_rows are built from two completely separate
+    # groupbys (player_type == "hitter" vs "pitcher" in the accuracy log),
+    # so a two-way player's mlb_id shows up in BOTH lists with only HALF
+    # their value in each row — e.g. Ohtani's hitter row WAR is his batting
+    # value only, and his pitcher row WAR (usually far down that list) is
+    # his pitching value only. Neither row alone represents his true total
+    # value, and nothing above ever adds them together. Fix: find IDs
+    # present in both lists and attach the combined WAR to both rows (so
+    # whichever list you're looking at, the true two-way total is right
+    # there), plus a dedicated top-level list for anything that wants to
+    # rank two-way players by their real combined value.
+    hitter_by_id = {r["mlb_id"]: r for r in hitter_rows if r["mlb_id"] is not None}
+    pitcher_by_id = {r["mlb_id"]: r for r in pitcher_rows if r["mlb_id"] is not None}
+    two_way_ids = set(hitter_by_id) & set(pitcher_by_id)
+
+    two_way_players = []
+    for mid in two_way_ids:
+        h, pch = hitter_by_id[mid], pitcher_by_id[mid]
+        combined_ros_war = round(h["ros_war"] + pch["ros_war"], 1)
+        combined_full_war = round(h["full_war"] + pch["full_war"], 1)
+        h["is_two_way"] = True
+        h["combined_ros_war"] = combined_ros_war
+        h["combined_full_war"] = combined_full_war
+        pch["is_two_way"] = True
+        pch["combined_ros_war"] = combined_ros_war
+        pch["combined_full_war"] = combined_full_war
+        two_way_players.append({
+            "mlb_id": mid, "name": h["name"], "team": h["team"],
+            "ros_hit_war": h["ros_war"], "full_hit_war": h["full_war"],
+            "ros_pitch_war": pch["ros_war"], "full_pitch_war": pch["full_war"],
+            "ros_war": combined_ros_war, "full_war": combined_full_war,
+        })
+    for r in hitter_rows:
+        r.setdefault("is_two_way", False)
+    for r in pitcher_rows:
+        r.setdefault("is_two_way", False)
+    two_way_players.sort(key=lambda r: r["full_war"], reverse=True)
 
     # ------- AGES (for the 25-and-under view) -------
     if fetch_ages:
@@ -1555,7 +1644,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "misleading default.",
             },
             "pitcher": {
-                "model": "(Pitching runs + Replacement) / 10 runs per win, RA9-based",
+                "model": "(Pitching runs + Replacement) / dynamic per-pitcher runs-per-win, RA9-based",
                 "league_ra9_used": round(league_ra9, 3),
                 "replacement_ra9_multiplier": PITCHER_REPLACEMENT_RA9_MULTIPLIER,
                 "runs_per_win": RUNS_PER_WIN,
@@ -1575,16 +1664,39 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "for pitchers yet, which a proper FIP would "
                         "need, and 'ER' here is actually total runs "
                         "allowed (earned vs. unearned isn't split out). "
-                        "The old production-points formula "
-                        "(old_production_points_weights) is still "
-                        "computed and shipped as ros/full_power_score "
-                        "for reference, but WAR is now the primary "
-                        "pitcher ranking metric.",
+                        "Runs are converted to WAR using a DYNAMIC, per-"
+                        "pitcher runs-per-win (see dynamic_runs_per_win on "
+                        "each pitcher row and _pitcher_dynamic_runs_per_win "
+                        "in the source), not the flat runs_per_win above "
+                        "(that flat value is what hitters still use, and "
+                        "is only kept here as the safe fallback for a "
+                        "pitcher with no innings on record yet). This "
+                        "mirrors FanGraphs' own pitcher WAR, which "
+                        "explicitly does NOT use a flat runs-per-win for "
+                        "pitchers the way it does for hitters — a truly "
+                        "dominant pitcher creates a lower-scoring "
+                        "environment in their own starts, so each run "
+                        "saved is worth more wins (verified against "
+                        "library.fangraphs.com/misc/war/converting-runs-"
+                        "to-wins and library.fangraphs.com/war/calculating-"
+                        "war-pitchers, 2026-08-25). For a roughly league-"
+                        "average RA9 pitcher this reduces to about the "
+                        "same ~9.5-10.5 the flat constant would have given; "
+                        "it only meaningfully moves the number for real "
+                        "outliers, in both directions — which is exactly "
+                        "the case (a historically dominant or historically "
+                        "bad season) where a flat conversion was under- or "
+                        "over-crediting the runs involved. The old "
+                        "production-points formula (old_production_points_"
+                        "weights) is still computed and shipped as ros/"
+                        "full_power_score for reference, but WAR is now "
+                        "the primary pitcher ranking metric.",
             },
         },
         "team_games_played": team_games,
         "hitters": hitter_rows,
         "pitchers": pitcher_rows,
+        "two_way_players": two_way_players,
     }
 
 
@@ -1649,6 +1761,15 @@ def main() -> None:
         print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4}  "
               f"age={r.get('age','—')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
               f"(RA9={r['ros_ra9']})")
+
+    if bundle["two_way_players"]:
+        print(f"\nTwo-way players (hitting + pitching WAR combined — each half "
+              f"is also shown separately in the hitters/pitchers WAR above, "
+              f"which on its own understates a two-way player's true value):")
+        for r in bundle["two_way_players"]:
+            print(f"   {r['name']:<25} {r['team']:<4}  "
+                  f"ROS_WAR={r['ros_war']:>5.1f} (hit={r['ros_hit_war']:>4.1f} + pitch={r['ros_pitch_war']:>4.1f})  "
+                  f"FULL_WAR={r['full_war']:>5.1f} (hit={r['full_hit_war']:>4.1f} + pitch={r['full_pitch_war']:>4.1f})")
 
 
 if __name__ == "__main__":
