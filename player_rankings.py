@@ -947,8 +947,13 @@ def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
               f"falling back to the in-house defense model.")
         return {}
 
-    id_col = _find_column(df.columns, ("player_id", "mlbamid", "mlb_id", "playerid"))
-    value_col = _find_column(df.columns, ("frv", "fielding_run_value"), contains=("run_value",))
+    # Confirmed against a real fetch (season 2026): Baseball Savant's
+    # fielding-run-value CSV uses "id" (not "player_id") and "total_runs"
+    # (not "frv"/"fielding_run_value") as of this writing. The old guesses
+    # are kept as fallback candidates in case Statcast renames columns again.
+    id_col = _find_column(df.columns, ("id", "player_id", "mlbamid", "mlb_id", "playerid"))
+    value_col = _find_column(df.columns, ("total_runs", "frv", "fielding_run_value"),
+                              contains=("run_value",))
     if id_col is None or value_col is None or df.empty:
         print(f"⚠️  Statcast fielding run value: expected columns not found "
               f"(got {list(df.columns)}). Falling back to the in-house "
@@ -992,8 +997,19 @@ def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: in
               f"keeping the SB/CS-only baserunning value.")
         return {}
 
+    # Confirmed against a real fetch (season 2026): Baseball Savant's
+    # baserunning-run-value CSV uses "player_id" (as guessed) but the value
+    # column is "runner_runs_XB" — the extra-bases-taken component
+    # specifically. "runner_runs_tot" (the leaderboard's grand total) is
+    # deliberately NOT used here: it already folds in "runner_runs_SBX" /
+    # "runner_runs_SB2" / "runner_runs_SB3" (stolen-base value), which would
+    # double-count against this pipeline's own separately-computed SB/CS
+    # run-expectancy-matrix component. runner_runs_XB is the non-overlapping
+    # "took the extra base on a batted ball" piece this function is meant to add.
     id_col = _find_column(df.columns, ("player_id", "mlbamid", "mlb_id", "playerid", "runner_id"))
-    value_col = _find_column(df.columns, ("runvalue", "runner_runvalue"), contains=("run_value",))
+    value_col = _find_column(df.columns,
+                              ("runner_runs_xb", "runvalue", "runner_runvalue"),
+                              contains=("run_value",))
     if id_col is None or value_col is None or df.empty:
         print(f"⚠️  Statcast baserunning run value: expected columns not "
               f"found (got {list(df.columns)}). Keeping the SB/CS-only "
