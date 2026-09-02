@@ -5436,7 +5436,7 @@
       "ros_def_runs": 0.1,
       "full_def_runs": 1.2,
       "ros_bsr_runs": -0.1,
-      "full_bsr_runs": -1.2,
+      "full_bsr_runs": -1.1,
       "ros_pos_runs": 0.2,
       "full_pos_runs": 1.7,
       "ros_replacement_runs": 1.9,
