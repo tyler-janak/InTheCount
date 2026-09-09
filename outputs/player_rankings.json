@@ -17455,7 +17455,7 @@
       "full_replacement_runs": 0.9,
       "ros_war": -0.0,
       "full_war": -0.3,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": false,
       "rank": 414,
       "age": null
@@ -17623,7 +17623,7 @@
       "full_replacement_runs": 0.7,
       "ros_war": -0.0,
       "full_war": -0.6,
-      "has_baserunning_data": false,
+      "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 418,
       "age": null
