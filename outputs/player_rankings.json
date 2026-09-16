@@ -4273,6 +4273,48 @@
       "age": 25
     },
     {
+      "mlb_id": 665019,
+      "name": "Kody Clemens",
+      "team": "MIN",
+      "position": "2B",
+      "games_played": 127,
+      "games_remaining": 9.2,
+      "ros_h": 7.3,
+      "full_h": 125.3,
+      "ros_2b": 1.3,
+      "full_2b": 22.3,
+      "ros_3b": 0.4,
+      "full_3b": 7.4,
+      "ros_hr": 2.1,
+      "full_hr": 28.1,
+      "ros_r": 4.7,
+      "full_r": 72.7,
+      "ros_rbi": 5.0,
+      "full_rbi": 81.0,
+      "ros_bb": 3.1,
+      "full_bb": 38.1,
+      "ros_k": 10.4,
+      "full_k": 128.4,
+      "ros_pa": 38.4,
+      "full_pa": 569.4,
+      "ros_bat_runs": 0.9,
+      "full_bat_runs": 23.4,
+      "ros_def_runs": 0.1,
+      "full_def_runs": 3.9,
+      "ros_bsr_runs": 0.0,
+      "full_bsr_runs": 0.6,
+      "ros_pos_runs": 0.2,
+      "full_pos_runs": 2.4,
+      "ros_replacement_runs": 1.3,
+      "full_replacement_runs": 19.0,
+      "ros_war": 0.3,
+      "full_war": 4.9,
+      "has_baserunning_data": true,
+      "has_defense_data": true,
+      "rank": 101,
+      "age": 30
+    },
+    {
       "mlb_id": 677594,
       "name": "Julio Rodr\u00edguez",
       "team": "SEA",
@@ -4311,7 +4353,7 @@
       "full_war": 4.6,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 101,
+      "rank": 102,
       "age": 25
     },
     {
@@ -4353,7 +4395,7 @@
       "full_war": 4.7,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 102,
+      "rank": 103,
       "age": 27
     },
     {
@@ -4395,7 +4437,7 @@
       "full_war": 6.7,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 103,
+      "rank": 104,
       "age": 25
     },
     {
@@ -4437,7 +4479,7 @@
       "full_war": 4.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 104,
+      "rank": 105,
       "age": 23
     },
     {
@@ -4479,7 +4521,7 @@
       "full_war": 3.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 105,
+      "rank": 106,
       "age": 30
     },
     {
@@ -4521,7 +4563,7 @@
       "full_war": 5.6,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 106,
+      "rank": 107,
       "age": 26
     },
     {
@@ -4563,7 +4605,7 @@
       "full_war": 3.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 107,
+      "rank": 108,
       "age": 29
     },
     {
@@ -4605,7 +4647,7 @@
       "full_war": 4.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 108,
+      "rank": 109,
       "age": 28
     },
     {
@@ -4647,7 +4689,7 @@
       "full_war": 1.8,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 109,
+      "rank": 110,
       "age": 24
     },
     {
@@ -4689,7 +4731,7 @@
       "full_war": 4.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 110,
+      "rank": 111,
       "age": 28
     },
     {
@@ -4731,7 +4773,7 @@
       "full_war": 2.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 111,
+      "rank": 112,
       "age": 31
     },
     {
@@ -4773,7 +4815,7 @@
       "full_war": 2.3,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 112,
+      "rank": 113,
       "age": 28
     },
     {
@@ -4815,7 +4857,7 @@
       "full_war": 6.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 113,
+      "rank": 114,
       "age": 25
     },
     {
@@ -4857,7 +4899,7 @@
       "full_war": 3.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 114,
+      "rank": 115,
       "age": 26
     },
     {
@@ -4899,7 +4941,7 @@
       "full_war": 4.5,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 115,
+      "rank": 116,
       "age": 27
     },
     {
@@ -4941,7 +4983,7 @@
       "full_war": 3.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 116,
+      "rank": 117,
       "age": 23
     },
     {
@@ -4983,7 +5025,7 @@
       "full_war": 3.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 117,
+      "rank": 118,
       "age": 28
     },
     {
@@ -5025,7 +5067,7 @@
       "full_war": 4.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 118,
+      "rank": 119,
       "age": 27
     },
     {
@@ -5067,7 +5109,7 @@
       "full_war": 2.5,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 119,
+      "rank": 120,
       "age": 29
     },
     {
@@ -5109,7 +5151,7 @@
       "full_war": 2.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 120,
+      "rank": 121,
       "age": 25
     },
     {
@@ -5151,7 +5193,7 @@
       "full_war": 1.7,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 121,
+      "rank": 122,
       "age": 32
     },
     {
@@ -5193,7 +5235,7 @@
       "full_war": 2.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 122,
+      "rank": 123,
       "age": 27
     },
     {
@@ -5235,7 +5277,7 @@
       "full_war": 0.8,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 123,
+      "rank": 124,
       "age": 23
     },
     {
@@ -5277,7 +5319,7 @@
       "full_war": 1.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 124,
+      "rank": 125,
       "age": 31
     },
     {
@@ -5319,7 +5361,7 @@
       "full_war": 2.6,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 125,
+      "rank": 126,
       "age": 25
     },
     {
@@ -5361,7 +5403,7 @@
       "full_war": 5.1,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 126,
+      "rank": 127,
       "age": 22
     },
     {
@@ -5403,7 +5445,7 @@
       "full_war": 3.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 127,
+      "rank": 128,
       "age": 24
     },
     {
@@ -5445,7 +5487,7 @@
       "full_war": 2.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 128,
+      "rank": 129,
       "age": 30
     },
     {
@@ -5487,7 +5529,7 @@
       "full_war": 3.2,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 129,
+      "rank": 130,
       "age": 27
     },
     {
@@ -5529,7 +5571,7 @@
       "full_war": 4.8,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 130,
+      "rank": 131,
       "age": 29
     },
     {
@@ -5571,7 +5613,7 @@
       "full_war": 3.8,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 131,
+      "rank": 132,
       "age": 32
     },
     {
@@ -5613,7 +5655,7 @@
       "full_war": 4.0,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 132,
+      "rank": 133,
       "age": 27
     },
     {
@@ -5655,7 +5697,7 @@
       "full_war": 3.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 133,
+      "rank": 134,
       "age": 25
     },
     {
@@ -5697,7 +5739,7 @@
       "full_war": 4.8,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 134,
+      "rank": 135,
       "age": 28
     },
     {
@@ -5739,50 +5781,8 @@
       "full_war": 3.6,
       "has_baserunning_data": true,
       "has_defense_data": true,
-      "rank": 135,
-      "age": 28
-    },
-    {
-      "mlb_id": 665019,
-      "name": "Kody Clemens",
-      "team": "MIN",
-      "position": "2B",
-      "games_played": 127,
-      "games_remaining": 9.2,
-      "ros_h": 7.3,
-      "full_h": 125.3,
-      "ros_2b": 1.3,
-      "full_2b": 22.3,
-      "ros_3b": 0.4,
-      "full_3b": 7.4,
-      "ros_hr": 2.1,
-      "full_hr": 28.1,
-      "ros_r": 4.7,
-      "full_r": 72.7,
-      "ros_rbi": 5.0,
-      "full_rbi": 81.0,
-      "ros_bb": 3.1,
-      "full_bb": 38.1,
-      "ros_k": 10.4,
-      "full_k": 128.4,
-      "ros_pa": 38.4,
-      "full_pa": 569.4,
-      "ros_bat_runs": 0.9,
-      "full_bat_runs": 23.4,
-      "ros_def_runs": 0.1,
-      "full_def_runs": 3.9,
-      "ros_bsr_runs": 0.0,
-      "full_bsr_runs": 0.4,
-      "ros_pos_runs": 0.2,
-      "full_pos_runs": 2.4,
-      "ros_replacement_runs": 1.3,
-      "full_replacement_runs": 19.0,
-      "ros_war": 0.2,
-      "full_war": 4.9,
-      "has_baserunning_data": true,
-      "has_defense_data": true,
       "rank": 136,
-      "age": 30
+      "age": 28
     },
     {
       "mlb_id": 690976,
@@ -11946,13 +11946,13 @@
       "ros_def_runs": -1.5,
       "full_def_runs": -42.1,
       "ros_bsr_runs": -0.0,
-      "full_bsr_runs": -0.3,
+      "full_bsr_runs": -0.1,
       "ros_pos_runs": 0.2,
       "full_pos_runs": 2.5,
       "ros_replacement_runs": 1.3,
       "full_replacement_runs": 20.1,
       "ros_war": 0.0,
-      "full_war": 0.3,
+      "full_war": 0.4,
       "has_baserunning_data": true,
       "has_defense_data": true,
       "rank": 283,
