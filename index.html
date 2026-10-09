@@ -350,12 +350,10 @@
   <button class="tab active" data-tab="games">Today's Games</button>
   <button class="tab" data-tab="pitchers">Pitcher Projections</button>
   <button class="tab" data-tab="hitters">Hitter Projections</button>
-  <!-- Power Rankings tab intentionally hidden for now (not removed — panel-rankings,
-       its JS, and the /api/rankings backend are all still fully intact and working;
-       just re-add the button below to bring it back). -->
+  <button class="tab" data-tab="rankings" style="display:none;">Power Rankings</button>
   <button class="tab" data-tab="accuracy">Performance</button>
   <button class="tab" data-tab="methodology">Methodology</button>
-  <button class="tab" data-tab="faq">FAQ</button>
+  <button class="tab" data-tab="faq" style="display:none;">FAQ</button>
   <button class="tab" data-tab="about">About</button>
 </nav>
 
@@ -646,7 +644,7 @@
               I studied Data Analytics at Baldwin Wallace University, where I also played baseball for the university's team, giving me a player's-eye view of the game alongside the technical toolkit (Python, R, SQL) to model it. I spent the 2025 season as a Data Analytics Intern for the Bristol Blues, scouting opposing hitters and pitchers, building predictive models in R, and shipping an interactive Shiny dashboard the coaching staff used in-season. InTheCount grew out of that work &mdash; a way to keep building MLB models at full scale after the internship ended.
             </p>
             <p>
-              I built InTheCount because I wanted to see whether public-data models could be honest about their own accuracy &mdash; not hide losing stretches, not market themselves as locks, and not claim to "beat Vegas." Every projection on this site is the same number the system generated at runtime, and every graded outcome is logged whether the model got it right or wrong.
+              I built InTheCount because I wanted to see whether public-data models could be honest about their own accuracy. Every projection on this site is the same number the system generated at runtime, and every graded outcome is logged whether the model got it right or wrong.
             </p>
           </div>
         </div>
@@ -722,12 +720,6 @@
           </div>
         </div>
         <div class="faq-item">
-          <div class="faq-question">Is this a betting site?</div>
-          <div class="faq-answer">
-            No. InTheCount is a free research and analytics site &mdash; projected winners, win probabilities, and player stat projections, with a public accuracy ledger. There are no accounts, no odds, and nothing for sale.
-          </div>
-        </div>
-        <div class="faq-item">
           <div class="faq-question">Can projections be wrong?</div>
           <div class="faq-answer">
             Yes. The model outputs probabilities, not certainties. The Performance tab shows the actual hit rate over the season &mdash; including the losing stretches. A model that's right 53% of the time is still wrong 47% of the time.
@@ -778,10 +770,10 @@
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
       <button onclick="switchTab('games')">Games</button>
-      <!-- Power Rankings link hidden for now, same as the top nav button -->
+      <button onclick="switchTab('rankings')" style="display:none;">Power Rankings</button>
       <button onclick="switchTab('accuracy')">Performance</button>
       <button onclick="switchTab('methodology')">Methodology</button>
-      <button onclick="switchTab('faq')">FAQ</button>
+      <button onclick="switchTab('faq')" style="display:none;">FAQ</button>
       <button onclick="switchTab('about')">About</button>
     </nav>
     <div class="footer-bar">
