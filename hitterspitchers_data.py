@@ -47,15 +47,6 @@ STRIKEOUT_EVENTS = {"strikeout", "strikeout_double_play"}
 WALK_EVENTS = {"walk", "intent_walk"}
 HR_EVENTS = {"home_run"}
 HIT_EVENTS = {"single", "double", "triple", "home_run"}
-# Base-stealing events. In raw Statcast pitch-level data these appear as
-# their own rows (attributed to the batter at the plate during that pitch)
-# even though they don't end that batter's PA - see the is_sb/is_cs comment
-# in event_flags() for how that's handled.
-STOLEN_BASE_EVENTS = {"stolen_base_2b", "stolen_base_3b", "stolen_base_home"}
-CAUGHT_STEALING_EVENTS = {
-    "caught_stealing_2b", "caught_stealing_3b", "caught_stealing_home",
-    "pickoff_caught_stealing_2b", "pickoff_caught_stealing_3b", "pickoff_caught_stealing_home",
-}
 OUT_EVENTS = {
     "field_out", "grounded_into_double_play", "force_out",
     "double_play", "triple_play", "fielders_choice_out",
@@ -69,7 +60,7 @@ ROLLING_WINDOWS = [7, 10, 14, 21, 30]
 def load_park_factors(filepath: str = "data/park_factors.csv") -> pd.DataFrame:
     path = Path(filepath)
     if not path.exists():
-        print(f"  [warn] {filepath} not found - using neutral park factor (100)")
+        print(f"  [warn] {filepath} not found — using neutral park factor (100)")
         return pd.DataFrame(columns=["team", "park_factor"])
 
     # utf-8-sig eats a leading BOM if present (Excel loves adding one on save).
@@ -149,11 +140,6 @@ NEEDED_COLS = {
     # derived / optional columns used in event_flags
     "post_bat_score", "bat_score",
     "pitcher_team", "batter_team", "opponent_team",
-    # identifiers / ordering. game_pk was previously NOT loaded, so the two
-    # games of a doubleheader collapsed into one "game" per player-date and
-    # the starter heuristic only found one starter per team per date.
-    "game_pk", "game_type", "game_year", "at_bat_number", "pitch_number",
-    "inning", "home_score", "away_score", "post_home_score", "post_away_score",
 }
 
 # Pitch type buckets for usage / velocity-by-type features.
@@ -163,32 +149,17 @@ PITCH_TYPE_BR    = {"SL", "CU", "KC", "CS", "SV"}  # slider, curve, sweeper
 PITCH_TYPE_OFF   = {"CH", "FS", "FO", "SC"}     # change, splitter, forkball
 
 
-def load_data(filepath) -> pd.DataFrame:
-    """Load pitch-level Statcast from a CSV path (or an in-memory DataFrame)
-    and derive pitcher_team / batter_team."""
-    if isinstance(filepath, pd.DataFrame):
-        df = filepath[[c for c in filepath.columns if str(c).lower() in NEEDED_COLS]].copy()
-        print(f"  {len(df):,} pitch rows in memory")
-    else:
-        print(f"Loading {filepath} ...")
-        # Read only the header first to find which needed columns actually exist
-        header = pd.read_csv(filepath, nrows=0, low_memory=False)
-        header.columns = header.columns.str.strip().str.lower()
-        usecols = [c for c in header.columns if c in NEEDED_COLS]
-        print(f"  Loading {len(usecols)} of {len(header.columns)} columns ...")
-        df = pd.read_csv(filepath, usecols=usecols, low_memory=False)
-        print(f"  {len(df):,} rows, {len(df.columns)} columns")
+def load_data(filepath: str) -> pd.DataFrame:
+    print(f"Loading {filepath} ...")
+    # Read only the header first to find which needed columns actually exist
+    header = pd.read_csv(filepath, nrows=0, low_memory=False)
+    header.columns = header.columns.str.strip().str.lower()
+    usecols = [c for c in header.columns if c in NEEDED_COLS]
+    print(f"  Loading {len(usecols)} of {len(header.columns)} columns ...")
+    df = pd.read_csv(filepath, usecols=usecols, low_memory=False)
+    print(f"  {len(df):,} rows, {len(df.columns)} columns")
 
     df.columns = df.columns.str.strip().str.lower()
-    # Only MLB competitive games feed the modelling tables (spring training /
-    # exhibitions excluded - see history_window.py).
-    if "game_type" in df.columns:
-        from history_window import COMPETITIVE_GAME_TYPES
-        gt = df["game_type"].astype("object").fillna("")
-        dropped = int((~gt.isin(COMPETITIVE_GAME_TYPES)).sum())
-        if dropped:
-            print(f"  dropping {dropped:,} spring-training / exhibition pitches")
-        df = df[gt.isin(COMPETITIVE_GAME_TYPES)].copy()
 
     date_col = COL["game_date"]
     if date_col not in df.columns:
@@ -233,20 +204,12 @@ def event_flags(df: pd.DataFrame) -> pd.DataFrame:
     df["is_out"] = ev.isin(OUT_EVENTS).astype(int)
     df["is_pa"] = ev.ne("").astype(int)
 
-    # Stolen base / caught stealing flags. These rows do NOT end the PA they
-    # occur during (is_pa above is unaffected either way - is_pa was already
-    # true/false based on whatever this row's `events` value is, independent
-    # of this new flag), so summing is_sb/is_cs per batter-game gives a clean
-    # attempt/success count without touching existing PA/H/HR/BB/K logic.
-    df["is_sb"] = ev.isin(STOLEN_BASE_EVENTS).astype(int)
-    df["is_cs"] = ev.isin(CAUGHT_STEALING_EVENTS).astype(int)
-
-    # -- Pitch-quality flags (per-pitch, summed per game later) -------------
+    # ── Pitch-quality flags (per-pitch, summed per game later) ─────────────
     # Statcast description vocabulary:
-    #   swinging_strike, swinging_strike_blocked, foul_tip -> whiff
-    #   called_strike                                       -> called strike
-    #   foul, foul_bunt, hit_into_play, *_into_play_*       -> swing
-    #   ball, blocked_ball, pitchout, hit_by_pitch          -> not a swing
+    #   swinging_strike, swinging_strike_blocked, foul_tip → whiff
+    #   called_strike                                       → called strike
+    #   foul, foul_bunt, hit_into_play, *_into_play_*       → swing
+    #   ball, blocked_ball, pitchout, hit_by_pitch          → not a swing
     desc = (
         df["description"].fillna("").astype(str).str.lower()
         if "description" in df.columns
@@ -320,7 +283,7 @@ def event_flags(df: pd.DataFrame) -> pd.DataFrame:
             df["fb_velocity"] = df["br_velocity"] = df["off_velocity"] = np.nan
 
         # Pitch-type × swing/whiff cross-flags. These decompose stuff in a
-        # way the aggregate whiff_rate can't - two pitchers with identical
+        # way the aggregate whiff_rate can't — two pitchers with identical
         # overall whiff_rate but completely different FB/BR profiles project
         # very differently against a fastball-heavy vs breaking-ball-heavy
         # lineup. This is the single highest-leverage K feature beyond the
@@ -377,20 +340,6 @@ def mark_actual_starters(df: pd.DataFrame) -> pd.DataFrame:
     if game_id_col is not None and game_id_col in df.columns:
         group_cols = [game_id_col, team_col]
 
-    # Preferred: the starter is the pitcher who threw the team's FIRST pitch
-    # of the game (lowest at_bat_number, then pitch_number). This does not
-    # depend on the order rows came back from Baseball Savant, which the old
-    # "last row" heuristic did (and which breaks once caches are concatenated
-    # or re-sorted).
-    if game_id_col is not None and {"at_bat_number", "pitch_number"}.issubset(df.columns):
-        order = df[[game_id_col, team_col, pitcher_col, "at_bat_number", "pitch_number"]].copy()
-        order = order.sort_values([game_id_col, team_col, "at_bat_number", "pitch_number"], kind="mergesort")
-        first = order.drop_duplicates(subset=[game_id_col, team_col], keep="first")
-        first = first[[game_id_col, team_col, pitcher_col]].rename(columns={pitcher_col: "_starter_pitcher"})
-        out = df.merge(first, on=[game_id_col, team_col], how="left")
-        out["is_actual_starter"] = (out[pitcher_col] == out["_starter_pitcher"]).astype(int)
-        return out.drop(columns=["_starter_pitcher"])
-
     temp = df.reset_index().rename(columns={"index": "_row_order"})
 
     starter_rows = (
@@ -408,18 +357,8 @@ def mark_actual_starters(df: pd.DataFrame) -> pd.DataFrame:
     return temp
 
 
-def _sort_keys(df: pd.DataFrame, key_col: str) -> list[str]:
-    # Audit fix: game_pk breaks same-date ties so doubleheader game 1 is
-    # ordered before game 2. Otherwise the original sort is unchanged.
-    keys = [key_col, COL["game_date"]]
-    gid = first_existing(df, ["game_pk", "game_id", "gamepk"])
-    if gid is not None:
-        keys.append(gid)
-    return keys
-
-
 def add_rolling(game_df: pd.DataFrame, player_col: str, stat_cols: list, windows: list = ROLLING_WINDOWS) -> pd.DataFrame:
-    game_df = game_df.sort_values(_sort_keys(game_df, player_col)).copy()
+    game_df = game_df.sort_values([player_col, COL["game_date"]]).copy()
 
     for w in windows:
         for col in stat_cols:
@@ -433,7 +372,7 @@ def add_rolling(game_df: pd.DataFrame, player_col: str, stat_cols: list, windows
 
 
 def season_to_date(game_df: pd.DataFrame, player_col: str, stat_cols: list) -> pd.DataFrame:
-    game_df = game_df.sort_values(_sort_keys(game_df, player_col)).copy()
+    game_df = game_df.sort_values([player_col, COL["game_date"]]).copy()
 
     for col in stat_cols:
         if col not in game_df.columns:
@@ -446,7 +385,7 @@ def season_to_date(game_df: pd.DataFrame, player_col: str, stat_cols: list) -> p
 
 
 def add_group_rolling(df: pd.DataFrame, group_col: str, stat_cols: list, windows: list = ROLLING_WINDOWS) -> pd.DataFrame:
-    df = df.sort_values(_sort_keys(df, group_col)).copy()
+    df = df.sort_values([group_col, COL["game_date"]]).copy()
 
     for w in windows:
         for col in stat_cols:
@@ -460,7 +399,7 @@ def add_group_rolling(df: pd.DataFrame, group_col: str, stat_cols: list, windows
 
 
 def add_group_std(df: pd.DataFrame, group_col: str, stat_cols: list) -> pd.DataFrame:
-    df = df.sort_values(_sort_keys(df, group_col)).copy()
+    df = df.sort_values([group_col, COL["game_date"]]).copy()
 
     for col in stat_cols:
         if col not in df.columns:
@@ -584,14 +523,14 @@ def build_pitcher_games(df: pd.DataFrame, team_batting_hand_ctx: pd.DataFrame) -
         H=("is_hit", "sum"),
         # R = total runs scored against this pitcher across the game. Statcast
         # does not natively expose ER (earned/unearned split needs the
-        # scorekeeper's call), so we use total runs as the proxy - across MLB
+        # scorekeeper's call), so we use total runs as the proxy — across MLB
         # the unearned-run rate is ~6%, so R is a close upper bound for ER.
         # `bat_runs_scored` is the per-pitch run-delta we computed in event_flags.
         R=("bat_runs_scored", "sum"),
         outs=("is_out", "sum"),
         avg_velocity=(vel_col, "mean"),
         avg_spin=(spin_col, "mean"),
-        # -- pitch-quality aggregations (highest-leverage K + hits features) --
+        # ── pitch-quality aggregations (highest-leverage K + hits features) ──
         swings=("is_swing", "sum"),
         whiffs=("is_whiff", "sum"),
         called_strikes=("is_called_strike", "sum"),
@@ -602,14 +541,14 @@ def build_pitcher_games(df: pd.DataFrame, team_batting_hand_ctx: pd.DataFrame) -
         hard_hits=("is_hard_hit", "sum"),
         barrels=("is_barrel", "sum"),
         avg_ev_allowed=("bip_ev", "mean"),
-        # -- pitch-mix + per-type velocity ------------------------------------
+        # ── pitch-mix + per-type velocity ────────────────────────────────────
         fb_pitches=("is_fb", "sum"),
         br_pitches=("is_br", "sum"),
         off_pitches=("is_off", "sum"),
         fb_velo=("fb_velocity", "mean"),
         br_velo=("br_velocity", "mean"),
         off_velo=("off_velocity", "mean"),
-        # -- pitch-type-specific whiff (stuff decomposition) -----------------
+        # ── pitch-type-specific whiff (stuff decomposition) ─────────────────
         swings_fb=("is_swing_fb",  "sum"),
         swings_br=("is_swing_br",  "sum"),
         swings_off=("is_swing_off", "sum"),
@@ -640,7 +579,7 @@ def build_pitcher_games(df: pd.DataFrame, team_batting_hand_ctx: pd.DataFrame) -
     agg["whiff_rate_br"]    = agg["whiffs_br"]   / agg["swings_br"].clip(lower=eps)
     agg["whiff_rate_off"]   = agg["whiffs_off"]  / agg["swings_off"].clip(lower=eps)
 
-    # Velocity differential (fastball − offspeed) - pitchers with a wider
+    # Velocity differential (fastball − offspeed) — pitchers with a wider
     # velo gap between fastball and changeup miss bats more (tunnel effect).
     agg["velo_sep_fb_off"]  = agg["fb_velo"] - agg["off_velo"]
     agg["velo_sep_fb_br"]   = agg["fb_velo"] - agg["br_velo"]
@@ -764,13 +703,8 @@ def build_pitcher_games(df: pd.DataFrame, team_batting_hand_ctx: pd.DataFrame) -
         "K_rate", "BB_rate", "HR_rate", "H_rate", "IP",
         "avg_velocity", "avg_spin",
         "BF", "outs", "pitches",
-        # raw counting stats - used as direct model targets
-        # "R" = runs allowed (proxy for earned runs; see the `bat_runs_scored`
-        # aggregation above - Statcast has no ER/unearned split). Included here
-        # so it gets the same rolling/season-to-date treatment as K/BB/HR/H,
-        # which is what lets hitterspitchers_train.py train a genuine "R"
-        # (earned-run) model instead of only the hand-tuned runs formula.
-        "K", "BB", "HR", "H", "R",
+        # raw counting stats — used as direct model targets
+        "K", "BB", "HR", "H",
         "BF_per_IP", "pitches_per_BF", "pitches_per_IP",
         # NEW: pitch-quality + pitch-mix features (highest-leverage signals)
         "whiff_rate", "csw_pct", "zone_pct", "f_strike_pct",
@@ -784,7 +718,7 @@ def build_pitcher_games(df: pd.DataFrame, team_batting_hand_ctx: pd.DataFrame) -
     agg = add_rolling(agg, pitcher_col, rate_cols)
     agg = season_to_date(agg, pitcher_col, rate_cols)
 
-    agg = agg.sort_values(_sort_keys(agg, pitcher_col)).copy()
+    agg = agg.sort_values([pitcher_col, date_col]).copy()
 
     agg["BF_last3"] = agg.groupby(pitcher_col)["BF"].transform(lambda x: x.shift(1).rolling(3, min_periods=1).mean())
     agg["outs_last3"] = agg.groupby(pitcher_col)["outs"].transform(lambda x: x.shift(1).rolling(3, min_periods=1).mean())
@@ -863,15 +797,11 @@ def build_hitter_games(df: pd.DataFrame, team_pitching_hand_ctx: pd.DataFrame) -
         "PA": ("is_pa", "sum"),
         "H": ("is_hit", "sum"),
         "HR": ("is_hr", "sum"),
-        "2B": ("is_2b", "sum"),
-        "3B": ("is_3b", "sum"),
         "TB": ("TB_event", "sum"),
         "BB": ("is_bb", "sum"),
         "K": ("is_k", "sum"),
-        "SB": ("is_sb", "sum"),
-        "CS": ("is_cs", "sum"),
         # RBI is approximated as the sum of `bat_runs_scored` over the
-        # batter's PA - that's literally "runs that resulted from this
+        # batter's PA — that's literally "runs that resulted from this
         # at-bat", which equals batter RBI on the vast majority of plays
         # (modern scorekeeping awards RBI for any run scored on a hit,
         # walk, HBP, sac, or productive out). Errors and wild pitches are
@@ -1006,11 +936,8 @@ def build_hitter_games(df: pd.DataFrame, team_pitching_hand_ctx: pd.DataFrame) -
 
     rate_cols = [
         "h_rate", "hr_rate", "bb_rate", "k_rate", "PA",
-        # raw counting stats - used as direct model targets
-        # "2B"/"3B" feed the new modeled wOBA (composed from H/2B/3B/HR/BB
-        # instead of just H/TB); "SB" is the new stolen-base target. Both are
-        # new - see hitterspitchers_train.py's HITTER_TARGETS comment.
-        "H", "HR", "BB", "K", "2B", "3B", "SB",
+        # raw counting stats — used as direct model targets
+        "H", "HR", "BB", "K",
         "avg_EV", "max_EV", "avg_LA", "avg_direction",
         "barrel_proxy", "hard_hit_proxy", "sweet_spot_proxy", "blast_proxy",
         "ev_la_interaction", "ev_spread", "times_on_base_rate", "xbh_proxy_rate",
@@ -1020,7 +947,7 @@ def build_hitter_games(df: pd.DataFrame, team_pitching_hand_ctx: pd.DataFrame) -
     agg = add_rolling(agg, batter_col, rate_cols)
     agg = season_to_date(agg, batter_col, rate_cols)
 
-    agg = agg.sort_values(_sort_keys(agg, batter_col)).copy()
+    agg = agg.sort_values([batter_col, date_col]).copy()
     agg["PA_last3"] = agg.groupby(batter_col)["PA"].transform(lambda x: x.shift(1).rolling(3, min_periods=1).mean())
     agg["PA_last7"] = agg.groupby(batter_col)["PA"].transform(lambda x: x.shift(1).rolling(7, min_periods=1).mean())
     agg["max_hr_rate_last10"] = agg.groupby(batter_col)["hr_rate"].transform(
@@ -1056,33 +983,6 @@ def build_hitter_games(df: pd.DataFrame, team_pitching_hand_ctx: pd.DataFrame) -
 
         if "team_x" in agg.columns:
             agg = agg.rename(columns={"team_x": "team"})
-
-    # Batting-order slot (lineup). Lineups are posted before first pitch, so the
-    # slot a batter STARTS in is pre-game information (at serving time it comes
-    # from the posted lineup). Starters = the first nine distinct batters of a
-    # team in a game, in order of first plate appearance. A substitute's slot is
-    # NOT known before the game, so it is left blank (the model pipelines impute
-    # blanks with the median and keep no missing-indicator, so a blank cannot
-    # reveal "came off the bench"). lineup_spot_last10 is the
-    # trailing mean of the batter's previous ten slots (shift(1), like every
-    # other trailing feature).
-    if game_id_col is not None and "at_bat_number" in df.columns and team_col in df.columns:
-        first = (df.dropna(subset=[batter_col])
-                   .groupby([game_id_col, team_col, batter_col], as_index=False)["at_bat_number"].min()
-                   .sort_values([game_id_col, team_col, "at_bat_number"]))
-        order = first.groupby([game_id_col, team_col]).cumcount() + 1
-        first["lineup_spot"] = order.where(order <= 9).astype(float)
-        agg = agg.merge(first[[game_id_col, batter_col, "lineup_spot"]], on=[game_id_col, batter_col], how="left")
-        agg = agg.sort_values(_sort_keys(agg, batter_col)).copy()
-        agg["lineup_spot_last10"] = agg.groupby(batter_col)["lineup_spot"].transform(
-            lambda x: x.shift(1).rolling(10, min_periods=1).mean())
-
-    if "SB" in agg.columns:
-        total_sb = pd.to_numeric(agg["SB"], errors="coerce").sum()
-        games_with_sb = int((pd.to_numeric(agg["SB"], errors="coerce") > 0).sum())
-        print(f"  SB coverage check: {total_sb:.0f} total steals across {games_with_sb:,} "
-              f"games ({len(agg):,} total games) - if this is 0, the input CSV likely "
-              f"doesn't carry stolen_base_* events and the SB model will train on all-zero data.")
 
     print(f"  Hitter games: {len(agg):,} rows, {len(agg.columns)} columns")
     return agg
@@ -1235,18 +1135,6 @@ def enrich_hitter_with_opp_starter(hitter_df: pd.DataFrame, pitcher_df: pd.DataF
         starter_cols.append(game_id_col)
 
     starter_cols = [c for c in starter_cols if c in starters.columns]
-
-    # LEAKAGE FIX: the un-windowed opp_sp_k_rate / bb / hr / h / ip columns
-    # used to be the opposing starter's results IN THIS VERY GAME (the merge
-    # is on the same game_pk). At serving time hitterspitchers_today fills
-    # them from the starter's most recent PRIOR start, so the honest training
-    # equivalent is the starter's previous start. Shift within pitcher.
-    p_id = COL["pitcher"] if COL["pitcher"] in starters.columns else None
-    if p_id is not None:
-        starters = starters.sort_values(_sort_keys(starters, p_id), kind="mergesort")
-        for c in ("K_rate", "BB_rate", "HR_rate", "H_rate", "IP"):
-            if c in starters.columns:
-                starters[c] = starters.groupby(p_id, sort=False)[c].shift(1)
     starters = starters[starter_cols].copy()
 
     rename_map = {
@@ -1351,72 +1239,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
-# ---------------------------------------------------------------------------
-# Windowed multi-season build (two-season player-history rule)
-# ---------------------------------------------------------------------------
-def build_tables(pitch_df: pd.DataFrame, enrich: bool = True) -> dict:
-    """Build every per-game table from ONE window of raw pitches.
-
-    Returns {"pitcher", "hitter", "team_batting_hand_ctx", "team_pitching_hand_ctx"}.
-    All trailing features are computed from rows strictly before each game
-    within this window, so callers control history purely by what they pass in."""
-    df = load_data(pitch_df)
-    df = event_flags(df)
-    df = mark_actual_starters(df)
-    park_factors = load_park_factors()
-
-    tb = build_team_batting_hand_context(df)
-    tp = build_team_pitching_hand_context(df)
-    pitcher_df = build_pitcher_games(df, tb)
-    hitter_df = build_hitter_games(df, tp)
-    hitter_df = enrich_hitter_with_opp_starter(hitter_df, pitcher_df)
-    pitcher_df = merge_park_factors(pitcher_df, park_factors)
-    hitter_df = merge_park_factors(hitter_df, park_factors)
-
-    if enrich:
-        from enrich_team_features import enrich_frame as _team
-        from enrich_lineup_features import enrich_frame as _lineup
-        from enrich_truetalent import enrich_frames as _tt
-        hitter_df = _team(hitter_df)
-        pitcher_df = _lineup(pitcher_df, hitter_df)
-        pitcher_df, hitter_df = _tt(pitcher_df, hitter_df)
-    return {"pitcher": pitcher_df, "hitter": hitter_df,
-            "team_batting_hand_ctx": tb, "team_pitching_hand_ctx": tp}
-
-
-def build_windowed_tables(pitches: pd.DataFrame, prediction_seasons: list[int],
-                          n_prior: int | None = None) -> dict:
-    """Build feature tables season by season under the two-season rule.
-
-    For each prediction season S the raw pitches are first restricted to
-    seasons S-2..S (history_window.window_pitches), the tables are built on
-    that window only, and only season-S rows are kept. Rows from different
-    windows are then concatenated. A `history_seasons` column records which
-    seasons were actually available to each row's window."""
-    import history_window as hw
-    n_prior = hw.N_PRIOR_SEASONS if n_prior is None else n_prior
-    available = sorted(set(hw.game_season(pitches).unique().tolist()))
-    parts: dict[str, list] = {"pitcher": [], "hitter": [],
-                              "team_batting_hand_ctx": [], "team_pitching_hand_ctx": []}
-    for S in prediction_seasons:
-        win = hw.window_pitches(pitches, S, n_prior)
-        hw.assert_window(win, S, n_prior)
-        if win.empty or not (hw.game_season(win) == S).any():
-            print(f"  [window {S}] no season-{S} pitches - skipped")
-            continue
-        info = hw.describe_window(S, available, n_prior)
-        print(f"\n===== Prediction season {S}: window {info['seasons_available']} "
-              f"(missing prior: {info['prior_seasons_missing'] or 'none'}) - {len(win):,} pitches =====")
-        tables = build_tables(win)
-        for k, t in tables.items():
-            if t is None or t.empty:
-                continue
-            yr = pd.to_datetime(t[COL["game_date"]], errors="coerce").dt.year
-            t = t[yr == S].copy()
-            t["prediction_season"] = S
-            t["history_seasons"] = "+".join(str(x) for x in info["seasons_available"])
-            parts[k].append(t)
-    return {k: (pd.concat(v, ignore_index=True, sort=False) if v else pd.DataFrame())
-            for k, v in parts.items()}

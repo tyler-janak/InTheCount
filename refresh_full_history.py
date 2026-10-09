@@ -1,312 +1,327 @@
 """
 refresh_full_history.py
 =======================
-Multi-season Statcast refresh. Pulls each season in the modelling window
-(by default the current season and the two before it - 2024, 2025, 2026)
-with `pybaseball.statcast()` into its own cache file, then rebuilds the
-per-game feature tables (build_features.py).
+Multi-season Statcast refresh: pulls 2025 (full season) + 2026 (year-to-date)
+into a unified pitch-level cache, then rebuilds the per-game feature tables
+on the combined data.
 
-    pitch_data_2024.csv   (pulled once, then cached)
-    pitch_data_2025.csv   (pulled once, then cached)
+Why this exists
+---------------
+`refresh_2026_data.py` only sees the partial 2026 season. As of mid-May that's
+~700 pitcher games — too few for the two-stage / xHits / team-PA models to
+generalize well. 2025 is a full season (~5000 pitcher games, ~30000 hitter
+games) and the underlying baseball game hasn't changed in any way that
+materially breaks transferability, so combining the two years gives the
+trainers ~7-8× more data.
+
+What it produces
+----------------
+Same four CSVs as the 2026 refresh, but built from the union of two seasons:
+
+    data/pitcher_game_data.csv      (~5700 rows once 2025 + 2026 are combined)
+    data/hitter_game_data.csv       (~33000 rows)
+    data/team_batting_hand_context.csv
+    data/team_pitching_hand_context.csv
+
+Caches each season's pitch data in its own file so re-pulls are incremental:
+
+    pitch_data_2025.csv   (only ever pulled once unless --rebuild-2025)
     pitch_data_2026.csv   (incremental, updated every cron tick)
+    pitch_data_combined.csv (re-built every run; not gitignored — wait, IS gitignored)
 
-Same approach the project already used for 2025 + 2026, with the season made
-a parameter so 2024 (or 2027 next year) needs no new code, plus two fixes:
-
-* Overlap: the current season re-pulls the last 3 cached days. Restarting at
-  "latest cached date + 1" skipped night games whenever the cache was
-  refreshed mid-day (it already held that day's afternoon games).
-* Timeout: each weekly request has a hard timeout and a sequential retry,
-  so a stalled Baseball Savant request can't hang the run.
+Rolling-window features (last_5, last_10, etc.) span both seasons in this
+build. That's correct: a pitcher's "last 10 starts" in April 2026 legitimately
+spans Sept 2025 + April 2026. Season-to-date `_std` features get reset per
+season inside the feature builder so they remain interpretable.
 
 Usage
 -----
-    python refresh_full_history.py                        # 2024 2025 2026 + features
-    python refresh_full_history.py --seasons 2024         # just collect 2024
-    python refresh_full_history.py --rebuild-history      # force re-pull of past seasons
-    python refresh_full_history.py --skip-2026            # don't touch the current season
-    python refresh_full_history.py --skip-features
-    python refresh_full_history.py --validate             # validation report only
+    python refresh_full_history.py
+    python refresh_full_history.py --rebuild-2025     # force re-pull 2025
+    python refresh_full_history.py --skip-2026         # skip the 2026 refresh
+                                                       # (training-only run)
 """
 
 from __future__ import annotations
 
 import argparse
-import json
 import sys
-import threading
-import time
-from datetime import date, datetime, timedelta
+import traceback
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import pandas as pd
 
-HERE = Path(__file__).resolve().parent
 ET = ZoneInfo("America/New_York")
-OVERLAP_DAYS = 3
-CHUNK_DAYS = 7
-CHUNK_TIMEOUT_S = 15 * 60
-PITCH_KEY = ["game_pk", "at_bat_number", "pitch_number"]
-VALIDATION_JSON = HERE / "outputs" / "model_evaluation" / "data_validation" / "statcast_validation.json"
+
+CACHE_2025 = Path("pitch_data_2025.csv")
+CACHE_2026 = Path("pitch_data_2026.csv")
+CACHE_COMBINED = Path("pitch_data_combined.csv")
+
+DATA_DIR = Path("data")
+
+SEASON_2025_START = "2025-03-01"
+SEASON_2025_END   = "2025-11-01"   # past final WS game
+SEASON_2026_START = "2026-03-01"
 
 
 # ---------------------------------------------------------------------------
-# Cache helpers (also used by build_features / the game runner / tests)
-# ---------------------------------------------------------------------------
-def current_season() -> int:
-    return datetime.now(ET).year
-
-
-def season_path(season: int) -> Path:
-    return HERE / f"pitch_data_{season}.csv"
-
-
-def cached_seasons() -> list[int]:
-    out = []
-    for p in HERE.glob("pitch_data_*.csv"):
-        tail = p.stem.split("_")[-1]
-        if tail.isdigit():
-            out.append(int(tail))
-    return sorted(out)
-
-
-def read_season(season: int, columns: list[str] | None = None) -> pd.DataFrame:
-    p = season_path(season)
-    if not p.exists():
-        return pd.DataFrame()
-    want = None if columns is None else {c.lower() for c in columns}
-    df = pd.read_csv(p, usecols=(lambda c: c.strip().lower() in want) if want else None, low_memory=False)
-    df.columns = df.columns.str.strip().str.lower()
-    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
-    return df
-
-
-def load_seasons(seasons: list[int], columns: list[str] | None = None) -> pd.DataFrame:
-    parts = [read_season(s, columns) for s in seasons]
-    parts = [p for p in parts if not p.empty]
-    if not parts:
-        return pd.DataFrame()
-    out = pd.concat(parts, ignore_index=True, sort=False)
-    keys = [c for c in PITCH_KEY if c in out.columns]
-    return out.drop_duplicates(subset=keys, keep="last") if len(keys) == 3 else out
-
-
-def _latest_cached_date(season: int) -> date | None:
-    p = season_path(season)
-    if not p.exists():
-        return None
-    d = pd.to_datetime(pd.read_csv(p, usecols=["game_date"])["game_date"], errors="coerce").max()
-    return None if pd.isna(d) else d.date()
-
-
-# ---------------------------------------------------------------------------
-# pybaseball pull
+# Statcast pull helpers
 # ---------------------------------------------------------------------------
 def _try_import_statcast():
     try:
         from pybaseball import statcast
         return statcast
     except ImportError as e:
-        print(f"WARNING:  pybaseball not available: {e}")
+        print(f"⚠️  pybaseball not available: {e}")
         return None
 
 
-def _with_timeout(fn, timeout, **kwargs):
-    box = {}
-
-    def run():
-        try:
-            box["v"] = fn(**kwargs)
-        except Exception as e:          # noqa: BLE001
-            box["e"] = e
-    t = threading.Thread(target=run, daemon=True)   # daemon: can't keep the process alive
-    t.start()
-    t.join(timeout)
-    if t.is_alive():
-        raise TimeoutError(f"no response within {timeout}s")
-    if "e" in box:
-        raise box["e"]
-    return box.get("v")
+def _today_et() -> str:
+    return datetime.now(ET).strftime("%Y-%m-%d")
 
 
-def _fetch_range(start: date, end: date, statcast_fn) -> pd.DataFrame:
-    """Pull [start, end] week by week. Attempt 1 uses pybaseball's parallel
-    requests; retries are sequential. Raises if a week can't be pulled."""
-    frames, cur = [], start
-    while cur <= end:
-        stop = min(cur + timedelta(days=CHUNK_DAYS - 1), end)
-        for attempt in (1, 2, 3):
-            try:
-                print(f"  -> Statcast {cur} -> {stop} (attempt {attempt})", flush=True)
-                df = _with_timeout(statcast_fn, CHUNK_TIMEOUT_S, start_dt=str(cur), end_dt=str(stop),
-                                   parallel=(attempt == 1))
-                break
-            except Exception as e:      # noqa: BLE001
-                print(f"     WARNING: {type(e).__name__}: {e}", flush=True)
-                time.sleep(5 * attempt)
-        else:
-            raise RuntimeError(f"Statcast pull failed for {cur} -> {stop}")
-        if df is not None and not df.empty:
-            frames.append(df)
-            print(f"     {len(df):,} pitches", flush=True)
-        cur = stop + timedelta(days=1)
-    return pd.concat(frames, ignore_index=True, sort=False) if frames else pd.DataFrame()
+def _fetch_range(start: str, end: str, statcast_fn) -> pd.DataFrame:
+    print(f"  → pulling Statcast for {start} → {end} (this can take a few minutes)…")
+    try:
+        df = statcast_fn(start_dt=start, end_dt=end)
+    except Exception as e:
+        print(f"⚠️  pybaseball error: {e}")
+        traceback.print_exc()
+        return pd.DataFrame()
+    if df is None or df.empty:
+        print("   (no rows returned)")
+        return pd.DataFrame()
+    print(f"   pulled {len(df):,} pitches")
+    return df
 
 
-def _save(df: pd.DataFrame, path: Path) -> None:
-    keys = [c for c in PITCH_KEY if c in df.columns]
-    if len(keys) == 3:
+def _latest_cached_date(cache: Path) -> str | None:
+    if not cache.exists():
+        return None
+    try:
+        df = pd.read_csv(cache, usecols=["game_date"], low_memory=False)
+        if df.empty:
+            return None
+        return pd.to_datetime(df["game_date"], errors="coerce").max().strftime("%Y-%m-%d")
+    except Exception:
+        return None
+
+
+def _save_cache(df: pd.DataFrame, path: Path) -> None:
+    dedupe_cols = [c for c in ("game_pk", "at_bat_number", "pitch_number") if c in df.columns]
+    if dedupe_cols:
         before = len(df)
-        df = df.drop_duplicates(subset=keys, keep="last")
+        df = df.drop_duplicates(subset=dedupe_cols, keep="last")
         if before != len(df):
             print(f"   deduped {before - len(df):,} duplicate pitches")
     df.to_csv(path, index=False)
-    print(f"   wrote {path.name} ({len(df):,} rows)")
+    print(f"   wrote {path} ({len(df):,} rows)")
 
 
-def refresh_season(season: int, rebuild: bool = False, end: str | None = None) -> Path | None:
-    """Make sure pitch_data_<season>.csv covers the season (through `end`)."""
-    path = season_path(season)
-    season_start, season_end = date(season, 3, 1), date(season, 11, 30)
-    today = datetime.now(ET).date()
-    end_d = min(datetime.strptime(end, "%Y-%m-%d").date() if end else season_end, today)
+# ---------------------------------------------------------------------------
+# 2025 — pull once, then cached forever
+# ---------------------------------------------------------------------------
+def refresh_2025(rebuild: bool = False) -> Path | None:
+    """Pull the full 2025 season if we don't already have it cached."""
     statcast = _try_import_statcast()
-    print(f"\n-- {season} ({path.name}, exists={path.exists()}) --")
-
-    if path.exists() and not rebuild:
-        latest = _latest_cached_date(season)
-        first = pd.to_datetime(pd.read_csv(path, usecols=["game_date"])["game_date"]).min().date()
-        complete = season_end < today and latest and latest >= date(season, 9, 25) and first <= date(season, 3, 31)
-        if complete or statcast is None:
-            print(f"   cached {first} -> {latest}; {'season complete' if complete else 'no pybaseball'} - no pull")
-            return path
-        frames = [pd.read_csv(path, low_memory=False)]
-        if first > date(season, 3, 31):                       # cache started late: fill the front gap
-            frames.append(_fetch_range(season_start, first - timedelta(days=1), statcast))
-        pull_start = max(season_start, latest - timedelta(days=OVERLAP_DAYS))
-        if pull_start <= end_d:
-            frames.append(_fetch_range(pull_start, end_d, statcast))
-        _save(pd.concat(frames, ignore_index=True, sort=False), path)
-        return path
-
     if statcast is None:
+        return CACHE_2025 if CACHE_2025.exists() else None
+
+    if CACHE_2025.exists() and not rebuild:
+        latest = _latest_cached_date(CACHE_2025)
+        if latest and latest >= SEASON_2025_END:
+            print(f"   2025 cache complete (through {latest}) — skipping pull.")
+            return CACHE_2025
+        # Cache exists but is incomplete — top it up
+        next_start = (pd.to_datetime(latest) + timedelta(days=1)).strftime("%Y-%m-%d") if latest else SEASON_2025_START
+        new = _fetch_range(next_start, SEASON_2025_END, statcast)
+        if not new.empty:
+            existing = pd.read_csv(CACHE_2025, low_memory=False)
+            combined = pd.concat([existing, new], ignore_index=True, sort=False)
+            _save_cache(combined, CACHE_2025)
+        return CACHE_2025
+
+    # Fresh pull (rebuild or no cache)
+    df = _fetch_range(SEASON_2025_START, SEASON_2025_END, statcast)
+    if df.empty:
+        return CACHE_2025 if CACHE_2025.exists() else None
+    _save_cache(df, CACHE_2025)
+    return CACHE_2025
+
+
+# ---------------------------------------------------------------------------
+# 2026 — delegate to the existing incremental refresh logic
+# ---------------------------------------------------------------------------
+def refresh_2026(rebuild: bool = False, end: str | None = None) -> Path | None:
+    try:
+        from refresh_2026_data import refresh_pitch_cache
+        return refresh_pitch_cache(start=None, end=end, rebuild=rebuild)
+    except Exception as e:
+        print(f"⚠️  2026 refresh failed: {e}")
+        return CACHE_2026 if CACHE_2026.exists() else None
+
+
+# ---------------------------------------------------------------------------
+# Concat 2025 + 2026 into a single pitch cache
+# ---------------------------------------------------------------------------
+def combine_caches() -> Path | None:
+    parts: list[pd.DataFrame] = []
+    for cache in (CACHE_2025, CACHE_2026):
+        if cache.exists():
+            print(f"   reading {cache}…")
+            try:
+                parts.append(pd.read_csv(cache, low_memory=False))
+            except Exception as e:
+                print(f"⚠️  couldn't read {cache}: {e}")
+    if not parts:
         return None
-    df = _fetch_range(season_start, end_d, statcast)
-    if df.empty:
-        print("   (no rows returned)")
-        return path if path.exists() else None
-    _save(df, path)
-    return path
+    combined = pd.concat(parts, ignore_index=True, sort=False)
+    dedupe_cols = [c for c in ("game_pk", "at_bat_number", "pitch_number") if c in combined.columns]
+    if dedupe_cols:
+        before = len(combined)
+        combined = combined.drop_duplicates(subset=dedupe_cols, keep="last")
+        if before != len(combined):
+            print(f"   deduped {before - len(combined):,} duplicate pitches across seasons")
+    _save_cache(combined, CACHE_COMBINED)
+    return CACHE_COMBINED
 
 
 # ---------------------------------------------------------------------------
-# Validation (per season, machine-readable)
+# Feature build over the combined cache
 # ---------------------------------------------------------------------------
-REQUIRED = ["game_pk", "game_date", "game_type", "game_year", "pitcher", "batter", "events",
-            "description", "stand", "p_throws", "home_team", "away_team", "inning_topbot",
-            "at_bat_number", "pitch_number", "bat_score", "post_bat_score",
-            "post_home_score", "post_away_score"]
+def build_features(pitch_csv: Path) -> bool:
+    try:
+        import hitterspitchers_data as hpd
+    except Exception as e:
+        print(f"⚠️  couldn't import hitterspitchers_data: {e}")
+        return False
 
+    print(f"\n── Building per-game features from {pitch_csv} ──")
+    DATA_DIR.mkdir(exist_ok=True)
 
-def validate_season(season: int) -> dict:
-    df = read_season(season)
-    r = {"season": season, "critical_failures": [], "warnings": []}
-    if df.empty:
-        r["critical_failures"].append("no data")
-        return r
-    fail = r["critical_failures"].append
-    reg = df[df["game_type"].astype(str) == "R"]
-    r.update(records=len(df), min_game_date=str(df["game_date"].min().date()),
-             max_game_date=str(df["game_date"].max().date()),
-             unique_games=int(df["game_pk"].nunique()), unique_players=int(pd.concat([df["pitcher"], df["batter"]]).nunique()),
-             records_by_game_type={str(k): int(v) for k, v in df["game_type"].value_counts().items()},
-             regular_season={"records": int(len(reg)), "games": int(reg["game_pk"].nunique()),
-                             "first_date": str(reg["game_date"].min().date()) if len(reg) else None,
-                             "last_date": str(reg["game_date"].max().date()) if len(reg) else None,
-                             "pitchers": int(reg["pitcher"].nunique()), "batters": int(reg["batter"].nunique())})
-    missing = [c for c in REQUIRED if c not in df.columns]
-    if missing:
-        fail(f"missing columns {missing}")
-    r["missing_rate"] = {c: round(float(df[c].isna().mean()), 4) for c in REQUIRED if c in df.columns}
-    for c in ("game_pk", "pitcher", "batter", "at_bat_number", "pitch_number", "home_team", "away_team"):
-        if c in df.columns and df[c].isna().any():
-            fail(f"{c} has missing values")
-    r["duplicate_pitch_keys"] = int(df.duplicated(PITCH_KEY).sum())
-    if r["duplicate_pitch_keys"]:
-        fail(f"{r['duplicate_pitch_keys']} duplicate pitches")
-    g = df.groupby("game_pk").agg(d=("game_date", "nunique"), h=("home_team", "nunique"), a=("away_team", "nunique"))
-    if ((g > 1).any(axis=1)).any():
-        fail("game_pk with more than one date/home/away")
-    multi_bat = int((df.groupby(["game_pk", "at_bat_number"])["batter"].nunique() > 1).sum())
-    if multi_bat > 50:
-        fail(f"{multi_bat} plate appearances with more than one batter")
-    if "game_year" in df.columns and set(df["game_year"].dropna().astype(int)) - {season}:
-        fail("game_year outside season")
-    teams = set(pd.concat([reg["home_team"], reg["away_team"]]).dropna())
-    if season < current_season() and len(teams) != 30:
-        fail(f"{len(teams)} regular-season teams")
-    if season < current_season() and not 2400 <= r["regular_season"]["games"] <= 2435:
-        fail(f"{r['regular_season']['games']} regular-season games (expected ~2430)")
-    if r["regular_season"]["first_date"] and r["regular_season"]["first_date"] > f"{season}-04-05":
-        fail(f"regular season starts {r['regular_season']['first_date']} (early weeks missing)")
-    days = pd.Series(sorted(reg["game_date"].unique()))
-    gaps = days[days.diff().dt.days > 4]
-    if len(gaps) > 2:
-        r["warnings"].append(f"gaps >4 days before {[str(d.date()) for d in gaps]}")
-    r["passed"] = not r["critical_failures"]
-    return r
+    df = hpd.load_data(str(pitch_csv))
+    df = hpd.event_flags(df)
+    df = hpd.mark_actual_starters(df)
 
+    park_factors = hpd.load_park_factors()
+    team_batting_hand_ctx = hpd.build_team_batting_hand_context(df)
+    team_pitching_hand_ctx = hpd.build_team_pitching_hand_context(df)
 
-def validate(seasons: list[int]) -> dict:
-    rep = {"generated": datetime.now(ET).isoformat(timespec="seconds"),
-           "source": "pybaseball.statcast", "seasons": {str(s): validate_season(s) for s in seasons}}
-    rep["all_passed"] = all(v.get("passed") for v in rep["seasons"].values())
-    VALIDATION_JSON.parent.mkdir(parents=True, exist_ok=True)
-    VALIDATION_JSON.write_text(json.dumps(rep, indent=2, default=str))
-    for s, v in rep["seasons"].items():
-        print(f"  {s}: {'PASS' if v.get('passed') else 'FAIL'} {v.get('records', 0):,} pitches "
-              f"{v.get('min_game_date')} -> {v.get('max_game_date')} {v['critical_failures'] or ''}")
-    return rep
+    pitcher_df = hpd.build_pitcher_games(df, team_batting_hand_ctx)
+    hitter_df = hpd.build_hitter_games(df, team_pitching_hand_ctx)
+    hitter_df = hpd.enrich_hitter_with_opp_starter(hitter_df, pitcher_df)
 
+    pitcher_df = hpd.merge_park_factors(pitcher_df, park_factors)
+    hitter_df = hpd.merge_park_factors(hitter_df, park_factors)
 
-# ---------------------------------------------------------------------------
-def refresh(seasons=None, rebuild_history=False, skip_current=False, skip_features=False,
-            end_current: str | None = None) -> bool:
-    cur = current_season()
-    seasons = seasons or [cur - 2, cur - 1, cur]
-    print("\n========== Multi-season Statcast refresh ==========")
-    for s in seasons:
-        if s == cur and skip_current:
-            print(f"\n-- {s}: skipped")
-            continue
-        try:
-            refresh_season(s, rebuild=(rebuild_history and s != cur), end=end_current if s == cur else None)
-        except Exception as e:          # one season failing never blocks the others
-            print(f"WARNING:  {s} refresh failed: {e}")
-    have = [s for s in seasons if season_path(s).exists()]
-    if have:
-        validate(have)
-    if skip_features or not have:
-        return bool(have)
-    import build_features as bf
-    bf.build(seasons=[s for s in seasons if s in cached_seasons()])
+    # float_format="%.4f" keeps the committed feature tables under GitHub's
+    # 100 MB limit (~195 float columns; full repr blows hitter_game_data.csv
+    # to 150 MB+). int64 ID columns are unaffected.
+    pitcher_df.to_csv(DATA_DIR / "pitcher_game_data.csv", index=False, float_format="%.4f")
+    hitter_df.to_csv(DATA_DIR / "hitter_game_data.csv", index=False, float_format="%.4f")
+    team_batting_hand_ctx.to_csv(DATA_DIR / "team_batting_hand_context.csv", index=False, float_format="%.4f")
+    team_pitching_hand_ctx.to_csv(DATA_DIR / "team_pitching_hand_context.csv", index=False, float_format="%.4f")
+
+    # Report year split so we know the trainer sample sizes
+    if "game_date" in pitcher_df.columns:
+        pitcher_df["game_date"] = pd.to_datetime(pitcher_df["game_date"], errors="coerce")
+        by_year = pitcher_df["game_date"].dt.year.value_counts().sort_index()
+        print(f"\n  Pitcher games by season: {by_year.to_dict()}")
+    if "game_date" in hitter_df.columns:
+        hitter_df["game_date"] = pd.to_datetime(hitter_df["game_date"], errors="coerce")
+        by_year_h = hitter_df["game_date"].dt.year.value_counts().sort_index()
+        print(f"  Hitter games by season:  {by_year_h.to_dict()}")
+
+    print("\nWrote:")
+    print(f"  {DATA_DIR/'pitcher_game_data.csv'}  ({len(pitcher_df):,} rows)")
+    print(f"  {DATA_DIR/'hitter_game_data.csv'}   ({len(hitter_df):,} rows)")
     return True
 
 
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
+def refresh(
+    rebuild_2025: bool = False,
+    skip_2026: bool = False,
+    end_2026: str | None = None,
+    skip_features: bool = False,
+) -> bool:
+    print(f"\n========== Multi-season Statcast refresh ==========")
+    print(f"   2025 cache: {CACHE_2025}  (exists={CACHE_2025.exists()})")
+    print(f"   2026 cache: {CACHE_2026}  (exists={CACHE_2026.exists()})")
+
+    print("\n── 2025 ────────────────────────────────────────")
+    refresh_2025(rebuild=rebuild_2025)
+
+    if not skip_2026:
+        print("\n── 2026 ────────────────────────────────────────")
+        refresh_2026(end=end_2026)
+    else:
+        print("\n── 2026 ────────────────────────────────────────")
+        print("   (skipped)")
+
+    print("\n── Combining ───────────────────────────────────")
+    combined = combine_caches()
+    if combined is None:
+        print("⚠️  No pitch data available for either season.")
+        return False
+
+    if skip_features:
+        print("Skipping feature build (--skip-features).")
+        return True
+
+    ok = build_features(combined)
+
+    # Run team-feature enrichment on top of the multi-season build
+    if ok:
+        try:
+            from enrich_team_features import enrich
+            enrich()
+        except Exception as e:
+            print(f"⚠️  team-feature enrichment failed: {e}")
+
+        # Lineup-feature enrichment — adds lineup_k_rate / lineup_bb_rate /
+        # lineup_avg_ev / etc. to pitcher_game_data.csv. Needs hitter rows
+        # built, so it runs AFTER the team feature pass.
+        try:
+            from enrich_lineup_features import enrich as enrich_lineup
+            enrich_lineup()
+        except Exception as e:
+            print(f"⚠️  lineup-feature enrichment failed: {e}")
+
+        # True-talent (empirical-Bayes shrunk rates) + log5 lineup matchup.
+        # Runs last — needs hitter rows built so the hitter shrunk rates exist
+        # before the pitcher-side matchup aggregation.
+        try:
+            from enrich_truetalent import enrich as enrich_truetalent
+            enrich_truetalent()
+        except Exception as e:
+            print(f"⚠️  true-talent enrichment failed: {e}")
+
+    return ok
+
+
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--seasons", nargs="+", type=int, default=None)
-    ap.add_argument("--rebuild-history", "--rebuild-2025", dest="rebuild_history", action="store_true")
-    ap.add_argument("--skip-2026", "--skip-current", dest="skip_current", action="store_true")
-    ap.add_argument("--end-2026", default=None)
-    ap.add_argument("--skip-features", action="store_true")
-    ap.add_argument("--validate", action="store_true")
-    a = ap.parse_args()
-    if a.validate:
-        rep = validate(a.seasons or cached_seasons())
-        sys.exit(0 if rep["all_passed"] else 2)
-    ok = refresh(a.seasons, a.rebuild_history, a.skip_current, a.skip_features, a.end_2026)
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--rebuild-2025", action="store_true",
+                   help="Force a fresh re-pull of the full 2025 season.")
+    p.add_argument("--skip-2026", action="store_true",
+                   help="Skip the 2026 refresh — useful for retraining-only runs.")
+    p.add_argument("--end-2026", default=None,
+                   help="Last date YYYY-MM-DD for the 2026 pull (default: today ET).")
+    p.add_argument("--skip-features", action="store_true",
+                   help="Only refresh caches; skip the per-game feature build.")
+    args = p.parse_args()
+
+    ok = refresh(
+        rebuild_2025=args.rebuild_2025,
+        skip_2026=args.skip_2026,
+        end_2026=args.end_2026,
+        skip_features=args.skip_features,
+    )
     sys.exit(0 if ok else 1)
 
 

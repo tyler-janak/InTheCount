@@ -14,7 +14,7 @@ honest signal for pitcher prop projection:
      (computed with .shift(1) so the current game is excluded), and `k` is the
      stabilization constant for that stat (≈ the opportunities at which the
      rate is half-regressed). This turns noisy 5-start rolling rates into
-     stable, predictive inputs - the classic "Marcel beats fancy models" win.
+     stable, predictive inputs — the classic "Marcel beats fancy models" win.
 
   2. log5 lineup matchup  (#2 from the roadmap)
      For each pitcher-game, the opposing lineup's mean true-talent rate
@@ -23,7 +23,7 @@ honest signal for pitcher prop projection:
 
          matchup = (p*b/lg) / ( p*b/lg + (1-p)(1-b)/(1-lg) )
 
-     This is the honest version of the opponent signal - the same idea as the
+     This is the honest version of the opponent signal — the same idea as the
      leaked `team_k_rate_vs_hand`, but built from each side's trailing talent
      instead of the current game's realized rate.
 
@@ -71,44 +71,23 @@ def _first_col(df: pd.DataFrame, candidates) -> str | None:
     return next((c for c in candidates if c in df.columns), None)
 
 
-DEFAULT_LEAGUE = {"k": 0.225, "bb": 0.085, "h": 0.220, "hr": 0.031}
-LEAGUE_PRIOR_PA = 5000.0
-
-
-def league_rates_by_date(hdf: pd.DataFrame) -> pd.DataFrame:
-    """League per-PA rates using ONLY games on earlier dates.
-
-    The previous version used one league rate computed over the whole file,
-    which put future seasons' run environment into every row's prior. Here
-    the rate for date d is (sum over dates < d + prior) / (PA < d + prior)."""
-    h = hdf.copy()
-    h["game_date"] = pd.to_datetime(h["game_date"], errors="coerce")
-    daily = h.groupby("game_date")[["K", "BB", "H", "HR", "PA"]].sum(min_count=1).fillna(0).sort_index()
-    cum = daily.cumsum().shift(1).fillna(0)
-    out = pd.DataFrame(index=daily.index)
-    for s, raw in [("k", "K"), ("bb", "BB"), ("h", "H"), ("hr", "HR")]:
-        out[s] = (cum[raw] + LEAGUE_PRIOR_PA * DEFAULT_LEAGUE[s]) / (cum["PA"] + LEAGUE_PRIOR_PA)
-    return out
-
-
 def _cum_shrunk(df: pd.DataFrame, group_col: str, num_col: str,
-                den_col: str, k_const: float, league_rate) -> pd.Series:
+                den_col: str, k_const: float, league_rate: float) -> pd.Series:
     """Empirical-Bayes shrunk rate using ONLY prior games (shift(1))."""
     g = df.groupby(group_col, sort=False)
     cum_num = g[num_col].transform(lambda s: pd.to_numeric(s, errors="coerce").shift(1).expanding().sum())
     cum_den = g[den_col].transform(lambda s: pd.to_numeric(s, errors="coerce").shift(1).expanding().sum())
     cum_num = cum_num.fillna(0.0)
     cum_den = cum_den.fillna(0.0)
-    lg = np.asarray(league_rate, dtype=float) if np.ndim(league_rate) else float(league_rate)
-    rate = (cum_num + k_const * lg) / (cum_den + k_const)
+    rate = (cum_num + k_const * league_rate) / (cum_den + k_const)
     return rate.clip(EPS, 1 - EPS)
 
 
-def _log5(p, b, lg):
+def _log5(p: pd.Series | np.ndarray, b: pd.Series | np.ndarray, lg: float):
     """Combine pitcher rate p and batter rate b relative to league lg."""
     p = np.clip(np.asarray(p, dtype=float), EPS, 1 - EPS)
     b = np.clip(np.asarray(b, dtype=float), EPS, 1 - EPS)
-    lg = np.clip(np.asarray(lg, dtype=float), EPS, 1 - EPS)
+    lg = min(max(float(lg), EPS), 1 - EPS)
     num = (p * b) / lg
     den = num + ((1 - p) * (1 - b)) / (1 - lg)
     out = np.where(den > 0, num / den, lg)
@@ -121,31 +100,20 @@ def _league_rate(df: pd.DataFrame, num_col: str, den_col: str) -> float:
     return float(n / d) if d and d > 0 else 0.1
 
 
-def _row_league(df: pd.DataFrame, leagues, stat: str):
-    """League rate aligned to each row: by game_date if `leagues` is the
-    per-date table from league_rates_by_date, else a scalar (legacy)."""
-    if isinstance(leagues, pd.DataFrame):
-        d = pd.to_datetime(df["game_date"], errors="coerce")
-        s = leagues[stat].reindex(d.values)
-        return s.fillna(DEFAULT_LEAGUE[stat]).to_numpy()
-    return leagues[stat]
-
-
 # ---------------------------------------------------------------------------
 def add_hitter_truetalent(hdf: pd.DataFrame, leagues: dict) -> pd.DataFrame:
     out = hdf.drop(columns=[c for c in HITTER_TT_COLS if c in hdf.columns], errors="ignore").copy()
     out["game_date"] = pd.to_datetime(out.get("game_date"), errors="coerce")
     bat_col = _first_col(out, ("batter", "batter_id", "mlb_id", "player_id"))
     if bat_col is None or "PA" not in out.columns:
-        print("WARNING:  hitter true-talent: missing batter id or PA column - skipping")
+        print("⚠️  hitter true-talent: missing batter id or PA column — skipping")
         return out
-    sort = [bat_col, "game_date"] + (["game_pk"] if "game_pk" in out.columns else [])
-    out = out.sort_values(sort, kind="mergesort").reset_index(drop=True)
+    out = out.sort_values([bat_col, "game_date"]).reset_index(drop=True)
     for stat, raw in [("k", "K"), ("bb", "BB"), ("h", "H"), ("hr", "HR")]:
         if raw not in out.columns:
             continue
-        lg = _row_league(out, leagues, stat)
-        out[f"h_tt_{stat}"] = _cum_shrunk(out, bat_col, raw, "PA", STAB[stat], lg)
+        out[f"h_tt_{stat}"] = _cum_shrunk(out, bat_col, raw, "PA",
+                                          STAB[stat], leagues[stat])
     return out
 
 
@@ -155,15 +123,14 @@ def add_pitcher_truetalent(pdf: pd.DataFrame, leagues: dict) -> pd.DataFrame:
     p_col = _first_col(out, ("pitcher", "pitcher_id", "mlb_id", "player_id"))
     den_col = "BF" if "BF" in out.columns else ("PA" if "PA" in out.columns else None)
     if p_col is None or den_col is None:
-        print("WARNING:  pitcher true-talent: missing pitcher id or BF column - skipping")
+        print("⚠️  pitcher true-talent: missing pitcher id or BF column — skipping")
         return out
-    sort = [p_col, "game_date"] + (["game_pk"] if "game_pk" in out.columns else [])
-    out = out.sort_values(sort, kind="mergesort").reset_index(drop=True)
+    out = out.sort_values([p_col, "game_date"]).reset_index(drop=True)
     for stat, raw in [("k", "K"), ("bb", "BB"), ("h", "H"), ("hr", "HR")]:
         if raw not in out.columns:
             continue
-        lg = _row_league(out, leagues, stat)
-        out[f"p_tt_{stat}"] = _cum_shrunk(out, p_col, raw, den_col, STAB[stat], lg)
+        out[f"p_tt_{stat}"] = _cum_shrunk(out, p_col, raw, den_col,
+                                          STAB[stat], leagues[stat])
     return out
 
 
@@ -177,7 +144,7 @@ def add_lineup_matchup(pdf: pd.DataFrame, hdf: pd.DataFrame, leagues: dict) -> p
     p_team_col = _first_col(out, ("team", "pitcher_team"))
     h_opp_col = _first_col(hdf, ("opponent", "opponent_team", "pitcher_team"))
     if p_team_col is None or h_opp_col is None:
-        print("WARNING:  lineup matchup: missing team/opponent columns - skipping")
+        print("⚠️  lineup matchup: missing team/opponent columns — skipping")
         for c in LINEUP_COLS + MATCHUP_COLS:
             out[c] = np.nan
         return out
@@ -192,17 +159,16 @@ def add_lineup_matchup(pdf: pd.DataFrame, hdf: pd.DataFrame, leagues: dict) -> p
 
     have_tt = [s for s in ("k", "bb", "h", "hr") if f"h_tt_{s}" in h.columns]
     if not have_tt:
-        print("WARNING:  lineup matchup: hitter true-talent columns missing - run add_hitter_truetalent first")
+        print("⚠️  lineup matchup: hitter true-talent columns missing — run add_hitter_truetalent first")
         for c in LINEUP_COLS + MATCHUP_COLS:
             out[c] = np.nan
         return out
 
-    use_pk = "game_pk" in h.columns and "game_pk" in out.columns
-    groups = h.groupby(["game_pk" if use_pk else "game_date", "opponent"], sort=False)
+    groups = h.groupby(["game_date", "opponent"], sort=False)
 
     lineup_vals: dict[str, list] = {s: [] for s in ("k", "bb", "h", "hr")}
     for _, prow in out.iterrows():
-        key = (prow.get("game_pk") if use_pk else prow.get("game_date"), prow.get("team"))
+        key = (prow.get("game_date"), prow.get("team"))
         try:
             sub = groups.get_group(key)
         except KeyError:
@@ -225,34 +191,35 @@ def add_lineup_matchup(pdf: pd.DataFrame, hdf: pd.DataFrame, leagues: dict) -> p
         if p_col in out.columns:
             out[f"matchup_{s}"] = _log5(out[p_col],
                                         pd.Series(lineup_vals[s], index=out.index),
-                                        _row_league(out, leagues, s))
+                                        leagues[s])
         else:
             out[f"matchup_{s}"] = np.nan
     return out
-
-
-def enrich_frames(pdf: pd.DataFrame, hdf: pd.DataFrame):
-    """In-memory true-talent + log5 enrichment (used by the windowed build)."""
-    leagues = league_rates_by_date(hdf)
-    hdf = add_hitter_truetalent(hdf, leagues)
-    pdf = add_pitcher_truetalent(pdf, leagues)
-    pdf = add_lineup_matchup(pdf, hdf, leagues)
-    return pdf, hdf
 
 
 def enrich(pitcher_csv: Path = DATA_DIR / "pitcher_game_data.csv",
            hitter_csv: Path = DATA_DIR / "hitter_game_data.csv",
            write_back: bool = True) -> None:
     if not pitcher_csv.exists() or not hitter_csv.exists():
-        print(f"WARNING:  Missing input - pitcher: {pitcher_csv.exists()}, hitter: {hitter_csv.exists()}")
+        print(f"⚠️  Missing input — pitcher: {pitcher_csv.exists()}, hitter: {hitter_csv.exists()}")
         return
 
-    print(f"\n-- True-talent + log5 matchup enrichment --")
+    print(f"\n── True-talent + log5 matchup enrichment ──")
     pdf = pd.read_csv(pitcher_csv, low_memory=False)
     hdf = pd.read_csv(hitter_csv, low_memory=False)
 
-    # League per-PA rates from PRIOR dates only (see league_rates_by_date)
-    pdf, hdf = enrich_frames(pdf, hdf)
+    # League per-PA rates (from hitter table — the natural per-opportunity base)
+    leagues = {
+        "k":  _league_rate(hdf, "K", "PA"),
+        "bb": _league_rate(hdf, "BB", "PA"),
+        "h":  _league_rate(hdf, "H", "PA"),
+        "hr": _league_rate(hdf, "HR", "PA"),
+    }
+    print(f"  League per-PA rates: " + ", ".join(f"{k}={v:.3f}" for k, v in leagues.items()))
+
+    hdf = add_hitter_truetalent(hdf, leagues)
+    pdf = add_pitcher_truetalent(pdf, leagues)
+    pdf = add_lineup_matchup(pdf, hdf, leagues)
 
     for c in MATCHUP_COLS:
         if c in pdf.columns:
