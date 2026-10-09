@@ -25,6 +25,66 @@ def load_model(path):
     return data, list(data.feature_names_in_)
 
 
+def load_bundle(path) -> dict:
+    with open(path, "rb") as f:
+        data = pickle.load(f)
+    if not isinstance(data, dict):
+        data = {"model": data, "features": list(data.feature_names_in_)}
+    return data
+
+
+def is_v2(bundle: dict) -> bool:
+    """v2 = model trained on build_game_features.py (Statcast, pre-game, one row
+    per game). v1 = the legacy 2025_model_data.csv snapshot model."""
+    return bundle.get("feature_builder") == "statcast_v2"
+
+
+def model_version(bundle: dict) -> str:
+    if is_v2(bundle):
+        return f"v2:{bundle.get('candidate', 'model')}:through_{bundle.get('trained_through', '?')}"
+    return "v1:2025_model_data_snapshot"
+
+
+V2_TABLE = Path("data") / "game_model_data.csv"
+
+
+def v2_features_for_games(games_df: pd.DataFrame, features: list) -> pd.DataFrame:
+    """Pre-game features for scheduled/finished games under the v2 builder.
+
+    Completed games are looked up in data/game_model_data.csv (every row there
+    was computed from games strictly before it). Games not in that table -
+    today's slate - are built on the fly by build_game_features.build_slate_features
+    from the cached Statcast seasons, using only data before the slate date."""
+    out = games_df.copy()
+    known = pd.DataFrame()
+    if V2_TABLE.exists():
+        t = pd.read_csv(V2_TABLE, low_memory=False)
+        known = t[t["game_pk"].isin(out["game_pk"])]
+    missing = out[~out["game_pk"].isin(known["game_pk"])] if len(known) else out
+    parts = [known]
+    if len(missing):
+        try:
+            import build_game_features as bgf
+            import history_window as hw
+            import refresh_full_history as rfh
+            d0 = pd.to_datetime(missing["game_date"]).min()
+            seasons = [s for s in hw.eligible_seasons(int(d0.year)) if rfh.season_path(s).exists()]
+            pitches = rfh.load_seasons(seasons, columns=bgf.NEEDED)
+            slate = missing[["game_pk", "game_date", "home_team", "away_team",
+                             "home_starter_id", "away_starter_id"]]
+            parts.append(bgf.build_slate_features(pitches, slate))
+        except Exception as e:
+            print(f"  [v2 features] slate build failed: {e}")
+    feats = pd.concat([p for p in parts if len(p)], ignore_index=True) if any(len(p) for p in parts) else pd.DataFrame(columns=["game_pk"])
+    keep = ["game_pk"] + [f for f in features if f in feats.columns]
+    out = out.merge(feats[keep], on="game_pk", how="left")
+    for f in features:
+        if f not in out.columns:
+            out[f] = np.nan
+    out["home_field"] = 1
+    return out
+
+
 # -------------------------------
 # SCRAPE GAMES / RESULTS
 # -------------------------------
@@ -80,6 +140,8 @@ def get_games_for_date(date):
 
             home_prob = home_info.get("probablePitcher", {}) or {}
             away_prob = away_info.get("probablePitcher", {}) or {}
+            if g.get("gameType") not in (None, "R", "F", "D", "L", "W"):
+                continue                      # spring training / exhibition
 
             home_score = home_info.get("score")
             away_score = away_info.get("score")
@@ -101,6 +163,8 @@ def get_games_for_date(date):
                     "away_team": away_team.get("abbreviation"),
                     "home_starter": home_prob.get("fullName"),
                     "away_starter": away_prob.get("fullName"),
+                    "home_starter_id": home_prob.get("id"),
+                    "away_starter_id": away_prob.get("id"),
                     "home_score": home_score,
                     "away_score": away_score,
                     "status": status,
@@ -338,6 +402,7 @@ def append_today_picks(preds, picks_file="mlb_pick_log.csv"):
         "predicted_winner",
         "home_win_prob",
         "away_win_prob",
+        "model_version",
     ]
 
     for c in keep_cols:
@@ -351,6 +416,9 @@ def append_today_picks(preds, picks_file="mlb_pick_log.csv"):
         old = pd.read_csv(picks_file)
         if "game_date" in old.columns:
             old["game_date"] = pd.to_datetime(old["game_date"], errors="coerce")
+        # rows written before model versioning came from the v1 snapshot model
+        old["model_version"] = old["model_version"] if "model_version" in old.columns else np.nan
+        old["model_version"] = old["model_version"].fillna("v1:2025_model_data_snapshot")
         out = pd.concat([old, picks], ignore_index=True)
         out = out.drop_duplicates(subset=["game_pk"], keep="last")
     else:
@@ -500,14 +568,17 @@ def backfill_season(
     picks_file="mlb_pick_log.csv",
     sleep_seconds=1.0,
 ):
-    model, features = load_model(model_path)
+    bundle = load_bundle(model_path)
+    model, features = bundle["model"], bundle["features"]
+    v2 = is_v2(bundle)
+    version = model_version(bundle)
 
-    hist = pd.read_csv(history_path)
-    hist["game_date"] = pd.to_datetime(hist["game_date"], errors="coerce")
-    hist = hist[hist["game_date"] >= pd.to_datetime("2025-01-01")].copy()
-
-    if "home_win" not in hist.columns:
-        raise ValueError("Historical file must contain a 'home_win' column.")
+    if not v2:
+        hist = pd.read_csv(history_path)
+        hist["game_date"] = pd.to_datetime(hist["game_date"], errors="coerce")
+        hist = hist[hist["game_date"] >= pd.to_datetime("2025-01-01")].copy()
+        if "home_win" not in hist.columns:
+            raise ValueError("Historical file must contain a 'home_win' column.")
 
     already_done = set()
     if os.path.exists(picks_file):
@@ -517,7 +588,8 @@ def backfill_season(
             already_done = set(existing["game_date"].dropna().dt.strftime("%Y-%m-%d").unique())
 
     start_dt = pd.to_datetime(season_start).date()
-    yesterday = (datetime.today() - timedelta(days=1)).date()
+    from zoneinfo import ZoneInfo                # ET, not the CI runner's UTC clock
+    yesterday = (datetime.now(ZoneInfo("America/New_York")) - timedelta(days=1)).date()
 
     date_range = []
     cur = start_dt
@@ -548,7 +620,15 @@ def backfill_season(
                 time.sleep(sleep_seconds)
                 continue
 
-            feats = build_features(finished, hist, features)
+            if v2:
+                trained_through = pd.to_datetime(bundle.get("trained_through"))
+                if pd.notna(trained_through) and pd.to_datetime(date_str) <= trained_through:
+                    # never write an in-sample "prediction" into the public log
+                    print(f"  {date_str} - inside the model's training window, skipped.")
+                    continue
+                feats = v2_features_for_games(finished, features)
+            else:
+                feats = build_features(finished, hist, features)
 
             if "home_win" not in feats.columns:
                 feats["home_win"] = finished["home_win"].values
@@ -569,6 +649,7 @@ def backfill_season(
                 preds["away_team"]
             )
 
+            preds["model_version"] = version
             preds["actual_winner"] = finished["actual_winner"].values
             preds["home_score"] = finished["home_score"].values
             preds["away_score"] = finished["away_score"].values
@@ -585,6 +666,7 @@ def backfill_season(
                 "predicted_winner",
                 "home_win_prob",
                 "away_win_prob",
+                "model_version",
                 "actual_winner",
                 "home_score",
                 "away_score",
@@ -629,15 +711,15 @@ def run(
     save_today_csv=True,
     save_pick_log=True,
     picks_file="mlb_pick_log.csv",
+    alias_name="today_predictions.csv",
 ):
-    model, features = load_model(model_path)
-
-    hist = pd.read_csv(history_path)
-    hist["game_date"] = pd.to_datetime(hist["game_date"], errors="coerce")
-    hist = hist[hist["game_date"] >= pd.to_datetime("2025-01-01")].copy()
-
-    if "home_win" not in hist.columns:
-        raise ValueError("Your historical file must contain a 'home_win' column.")
+    """alias_name: the undated file the site reads. The evening runs also call
+    this for TOMORROW with alias_name="next_day_predictions.csv" and
+    save_pick_log=False, so the site can switch to the new slate at midnight ET
+    even when GitHub starts the morning run hours late."""
+    bundle = load_bundle(model_path)
+    model, features = bundle["model"], bundle["features"]
+    v2 = is_v2(bundle)
 
     today_games = get_games_for_date(date)
 
@@ -645,7 +727,15 @@ def run(
         print(f"No games found for {date}")
         return pd.DataFrame()
 
-    today_features = build_features(today_games, hist, features)
+    if v2:
+        today_features = v2_features_for_games(today_games, features)
+    else:
+        hist = pd.read_csv(history_path)
+        hist["game_date"] = pd.to_datetime(hist["game_date"], errors="coerce")
+        hist = hist[hist["game_date"] >= pd.to_datetime("2025-01-01")].copy()
+        if "home_win" not in hist.columns:
+            raise ValueError("Your historical file must contain a 'home_win' column.")
+        today_features = build_features(today_games, hist, features)
 
     if "home_win" not in today_features.columns:
         today_features["home_win"] = np.nan
@@ -664,6 +754,7 @@ def run(
     preds["predicted_winner"] = np.where(
         preds["predicted_home_win"] == 1, preds["home_team"], preds["away_team"]
     )
+    preds["model_version"] = model_version(bundle)
 
     if "game_pk" not in preds.columns and "game_pk" in today_games.columns:
         preds["game_pk"] = today_games["game_pk"].values
@@ -674,7 +765,7 @@ def run(
         output_dir = Path("outputs")
         output_dir.mkdir(parents=True, exist_ok=True)
 
-        preds.to_csv(output_dir / "today_predictions.csv", index=False)
+        preds.to_csv(output_dir / alias_name, index=False)
         preds.to_csv(output_dir / f"today_predictions_{date}.csv", index=False)
 
     if save_pick_log:

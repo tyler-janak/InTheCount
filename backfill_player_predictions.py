@@ -358,6 +358,9 @@ def _project_past_date(date_str: str, sleep_seconds: float = 0.2) -> Optional[pd
 
     out = pd.concat([pitcher_proj, hitter_proj], ignore_index=True, sort=False)
     out["game_date"] = date_str
+    # A past date scored with models whose training data already contains
+    # that date is IN-SAMPLE; grading flags it so public accuracy excludes it.
+    out["model_trained_through"] = hpt.model_trained_through()
     return out
 
 

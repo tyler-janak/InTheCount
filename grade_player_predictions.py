@@ -405,6 +405,13 @@ def grade_player_predictions(
         "lineup_status", "lineup_spot", "confidence", "confidence_score",
         "used_fallback", "status", "played",
     ]
+    # in_sample: the projection was produced by a model whose training data
+    # already included this game (e.g. a forced re-backfill after retraining).
+    # Unknown (NaN) for snapshots written before models were stamped.
+    if "model_trained_through" in graded.columns:
+        mtt = pd.to_datetime(graded["model_trained_through"], errors="coerce")
+        gd = pd.to_datetime(graded["game_date"], errors="coerce")
+        graded["in_sample"] = np.where(mtt.isna(), np.nan, (gd <= mtt).astype(float))
     cols = [c for c in preferred if c in graded.columns]
     extras = [c for c in graded.columns if c not in cols]
     graded = graded[cols + extras]
