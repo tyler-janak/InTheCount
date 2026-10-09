@@ -1,0 +1,54 @@
+area,check,passed,critical,detail
+temporal,pitcher_model_selection_fit_data_before_test,True,True,0 model fits with data on/after 2026-07-01
+temporal,pitcher_model_selection_selected_on_validation,True,True,ok
+temporal,hitter_model_selection_fit_data_before_test,True,True,0 model fits with data on/after 2026-07-01
+temporal,hitter_model_selection_selected_on_validation,True,True,ok
+game,required_columns,True,True,ok
+game,probabilities_in_unit_interval,True,True,"{'p_xgb_isotonic': 0, 'p_rf_isotonic': 0, 'p_rf_raw': 0, 'p_logistic': 0, 'p_stack_even': 0, 'p_stack_opt': 0, 'p_baseline_home_rate': 0, 'p_baseline_coin_flip': 0, 'p_baseline_winpct_logit': 0, 'p_selected': 0}"
+game,no_duplicate_games,True,True,0 duplicate game_pk
+game,binary_target,True,True,"[0, 1]"
+game,predicted_label_matches_probability,True,True,threshold 0.5
+game,correct_flag_consistent,True,True,ok
+game,winner_matches_label,True,True,ok
+game,home_away_distinct,True,True,ok
+game,rows_inside_test_window,True,True,0 rows before 2026-07-01
+game,sample_size,True,False,n=1148
+player:pitcher,required_columns,True,True,ok
+player:pitcher,no_duplicate_player_game_target,True,True,0 duplicates
+player:pitcher,predictions_finite,True,True,{}
+player:pitcher,predictions_non_negative,True,True,{}
+player:pitcher,actuals_present,True,True,0 missing
+player:pitcher,actuals_plausible,True,True,{}
+player:pitcher,residual_convention_predicted_minus_actual,True,True,max deviation 1.00e-05
+player:pitcher,rows_inside_test_window,True,True,0 rows before 2026-07-01
+player:pitcher,two_season_history_rule,True,True,"0 (season, history) combinations outside S-2..S"
+player:pitcher,prediction_season_matches_game_year,True,True,ok
+player:pitcher,sample_size_BB,True,False,n=2330
+player:pitcher,sample_size_H,True,False,n=2330
+player:pitcher,sample_size_HR,True,False,n=2330
+player:pitcher,sample_size_IP,True,False,n=2330
+player:pitcher,sample_size_K,True,False,n=2330
+player:pitcher,sample_size_R,True,False,n=2330
+player:hitter,required_columns,True,True,ok
+player:hitter,no_duplicate_player_game_target,True,True,0 duplicates
+player:hitter,predictions_finite,True,True,{}
+player:hitter,predictions_non_negative,True,True,{}
+player:hitter,actuals_present,True,True,0 missing
+player:hitter,actuals_plausible,True,True,{}
+player:hitter,residual_convention_predicted_minus_actual,True,True,max deviation 8.88e-16
+player:hitter,rows_inside_test_window,True,True,0 rows before 2026-07-01
+player:hitter,two_season_history_rule,True,True,"0 (season, history) combinations outside S-2..S"
+player:hitter,prediction_season_matches_game_year,True,True,ok
+player:hitter,hits_not_above_pa,True,True,0 player-games with H > PA
+player:hitter,sample_size_2B,True,False,n=22765
+player:hitter,sample_size_3B,True,False,n=22765
+player:hitter,sample_size_BB,True,False,n=22765
+player:hitter,sample_size_H,True,False,n=22765
+player:hitter,sample_size_HR,True,False,n=22765
+player:hitter,sample_size_K,True,False,n=22765
+player:hitter,sample_size_PA,True,False,n=22765
+player:hitter,sample_size_TB,True,False,n=22765
+features:hitter,two_season_history_rule,True,True,"0 (season, history) combinations outside S-2..S"
+features:hitter,prediction_season_matches_game_year,True,True,ok
+features,H_last10_excludes_current_game_and_pre_window_seasons,True,True,max |recomputed - stored| = 5.55e-17 over 25 hitters
+features,H_std_is_prior_games_in_window,True,True,max |recomputed - stored| = 2.22e-16

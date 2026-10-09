@@ -1,0 +1,139 @@
+feature,vif,family,construct
+times_on_base_rate_last10,15415.835619058129,batted_ball,contact quality
+h_rate_last10,11380.773617430501,rolling,hit skill
+times_on_base_rate_std,10540.143006655237,batted_ball,contact quality
+h_rate_std,7087.177059959345,expanding,hit skill
+bb_rate_last10,6430.526754629699,rolling,walk skill
+bb_rate_std,5193.890455502734,expanding,walk skill
+max_EV_std,324.73693106038,batted_ball,contact quality
+avg_EV_std,154.51701376242525,batted_ball,contact quality
+ev_spread_std,147.92967279073943,batted_ball,contact quality
+max_EV_last10,145.80622615607015,batted_ball,contact quality
+PA_last21,124.9590426965077,opportunity,playing time / workload
+ev_la_interaction_std,116.39587745301228,batted_ball,contact quality
+H_last21,113.06028193471587,rolling,hit skill
+avg_LA_std,111.01899389430066,batted_ball,contact quality
+PA_last30,107.85612127422301,opportunity,playing time / workload
+K_last21,107.76644238669034,rolling,strikeout skill
+k_rate_last21,104.20190426335454,rolling,strikeout skill
+H_last30,97.74555245018836,rolling,hit skill
+K_last30,96.04002426739955,rolling,strikeout skill
+avg_EV_last10,95.47200026548084,batted_ball,contact quality
+k_rate_last30,95.4224167848259,rolling,strikeout skill
+H_last14,93.10759261671181,rolling,hit skill
+PA_last14,91.2831262274559,opportunity,playing time / workload
+H_last10,87.51485790556646,rolling,hit skill
+HR_last21,86.61222570883123,rolling,home-run skill
+K_last14,84.79379157870956,rolling,strikeout skill
+BB_last21,83.20019083055254,rolling,walk skill
+ev_spread_last10,82.53046953488894,batted_ball,contact quality
+hr_rate_last21,82.38625151913439,rolling,home-run skill
+k_rate_last14,79.88696520229952,rolling,strikeout skill
+K_last10,76.6423077138446,rolling,strikeout skill
+PA_last10,76.26089407823406,opportunity,playing time / workload
+HR_last30,74.57263198785476,rolling,home-run skill
+HR_last14,73.46995794914727,rolling,home-run skill
+k_rate_last10,72.91498490866061,rolling,strikeout skill
+hr_rate_last30,72.61334447229012,rolling,home-run skill
+HR_last10,72.11039540958464,rolling,home-run skill
+BB_last30,71.87532829452701,rolling,walk skill
+ev_la_interaction_last10,69.77649935162046,batted_ball,contact quality
+hr_rate_last14,69.20387571184297,rolling,home-run skill
+H_std,67.40254045623405,expanding,hit skill
+avg_LA_last10,67.3474939095135,batted_ball,contact quality
+bb_rate_last21,66.5946169837032,rolling,walk skill
+PA_std,66.17253438023282,opportunity,playing time / workload
+h_rate_last21,65.89700962503686,rolling,hit skill
+BB_last14,65.69629372001228,rolling,walk skill
+BB_last10,60.33335118033055,rolling,walk skill
+h_rate_last14,58.034789766622104,rolling,hit skill
+bb_rate_last30,57.858342244560845,rolling,walk skill
+K_std,57.140694344033065,expanding,strikeout skill
+h_rate_last30,53.90474060697143,rolling,hit skill
+bb_rate_last14,53.394637612871094,rolling,walk skill
+k_rate_std,47.938725451444625,expanding,strikeout skill
+H_last7,43.42139758998901,rolling,hit skill
+BB_std,43.416094476520364,expanding,walk skill
+HR_std,37.936259690573706,expanding,home-run skill
+K_last7,36.27296126470338,rolling,strikeout skill
+HR_last7,35.60754480222144,rolling,home-run skill
+PA_last7,35.06898118716611,opportunity,playing time / workload
+k_rate_last7,33.91572666793567,rolling,strikeout skill
+hr_rate_last7,33.765154121692724,rolling,home-run skill
+h_rate_last7,30.154575867566386,rolling,hit skill
+BB_last7,29.81885794853218,rolling,walk skill
+bb_rate_last7,25.364948779076766,rolling,walk skill
+hr_rate_last10,19.429534843853943,rolling,home-run skill
+xbh_proxy_rate_last10,19.42953484375787,batted_ball,contact quality
+h_tt_k,13.585266203265821,true_talent,strikeout skill
+h_tt_h,8.986031287876513,true_talent,hit skill
+2B_last21,8.880722075230274,rolling,extra-base hits
+2B_last10,8.546560680677096,rolling,extra-base hits
+2B_last14,8.440988090064304,rolling,extra-base hits
+h_tt_bb,7.969638418933196,true_talent,walk skill
+h_tt_hr,7.6351035477897735,true_talent,home-run skill
+hitter_k_rate_vs_hand_std_R,7.630281860574453,handedness,strikeout skill
+3B_last21,7.562317846522363,rolling,extra-base hits
+hr_rate_std,7.255291256203273,expanding,home-run skill
+xbh_proxy_rate_std,7.255291256155045,batted_ball,contact quality
+3B_last14,6.9343269837297195,rolling,extra-base hits
+3B_last10,6.934283250341874,rolling,extra-base hits
+2B_last30,6.769072236258776,rolling,extra-base hits
+3B_last30,5.8184164627241275,rolling,extra-base hits
+hitter_hr_rate_vs_hand_std_R,5.5101540658635715,handedness,home-run skill
+hitter_bb_rate_vs_hand_std_R,5.48092202477225,handedness,walk skill
+opp_sp_k_rate_std,5.115591249463001,team/opponent,opponent
+hitter_h_rate_vs_hand_std_R,5.111080523375124,handedness,hit skill
+opp_sp_k_rate_last10,5.107373581397449,team/opponent,opponent
+2B_last7,4.669638836947314,rolling,extra-base hits
+hitter_k_rate_vs_hand_last10_R,4.65436989579112,handedness,strikeout skill
+lineup_spot_last10,4.569180082318169,lineup,lineup slot
+hard_hit_proxy_std,4.472205731936428,batted_ball,contact quality
+opp_sp_h_rate_std,4.293665816926854,team/opponent,opponent
+opp_sp_ip_last10,4.221101370987762,team/opponent,opponent
+max_hr_rate_last10,4.214873481116043,rolling,home-run skill
+opp_sp_bb_rate_last10,4.101473672584156,team/opponent,opponent
+opp_sp_h_rate_last10,4.035957776917356,team/opponent,opponent
+opp_sp_bb_rate_std,3.9274971170411437,team/opponent,opponent
+hitter_h_rate_vs_hand_last10_R,3.83455610317612,handedness,hit skill
+hitter_bb_rate_vs_hand_last10_R,3.815812942972609,handedness,walk skill
+3B_last7,3.7755122388547315,rolling,extra-base hits
+hitter_hr_rate_vs_hand_last10_R,3.6321621317272443,handedness,home-run skill
+opp_sp_ip_std,3.606711722471937,team/opponent,opponent
+PA_last3,3.5726539374295676,opportunity,playing time / workload
+barrel_proxy_std,3.3716262341118446,batted_ball,contact quality
+lineup_spot,3.293155471221093,lineup,lineup slot
+hitter_k_rate_vs_hand_std_L,3.037746820221689,handedness,strikeout skill
+opp_sp_hr_rate_std,3.003427550331181,team/opponent,opponent
+opp_sp_hr_rate_last10,2.9908391159113012,team/opponent,opponent
+hard_hit_proxy_last10,2.9077570899725433,batted_ball,contact quality
+blast_proxy_std,2.8423918935609764,batted_ball,contact quality
+2B_std,2.8422463964841387,expanding,extra-base hits
+hitter_h_rate_vs_hand_std_L,2.6144840415877653,handedness,hit skill
+hitter_k_rate_vs_hand_last10_L,2.585830060288222,handedness,strikeout skill
+opp_sp_ip,2.4929189687557383,team/opponent,opponent
+team_allowed_h_rate_vs_hand_std,2.475955948964844,team/opponent,opponent
+team_allowed_k_rate_vs_hand_std,2.443429358048442,team/opponent,opponent
+hitter_bb_rate_vs_hand_std_L,2.3745402291561857,handedness,walk skill
+sweet_spot_proxy_std,2.314400390841077,batted_ball,contact quality
+hitter_hr_rate_vs_hand_std_L,2.2873308615209216,handedness,home-run skill
+hitter_h_rate_vs_hand_last10_L,2.279573344461155,handedness,hit skill
+opp_sp_h_rate,2.2341033791233227,team/opponent,opponent
+3B_std,2.2097236614333315,expanding,extra-base hits
+max_h_rate_last10,2.1975945444128264,rolling,hit skill
+barrel_proxy_last10,2.1904937743903234,batted_ball,contact quality
+hitter_bb_rate_vs_hand_last10_L,2.1041419612316115,handedness,walk skill
+hitter_hr_rate_vs_hand_last10_L,2.0309600751780863,handedness,home-run skill
+blast_proxy_last10,1.81562972104178,batted_ball,contact quality
+opp_sp_bb_rate,1.7821957428840578,team/opponent,opponent
+team_allowed_bb_rate_vs_hand_std,1.6732414994039582,team/opponent,opponent
+team_allowed_h_rate_vs_hand_last10,1.6098348017214943,team/opponent,opponent
+opp_sp_k_rate,1.6068252302851829,team/opponent,opponent
+sweet_spot_proxy_last10,1.553763081387585,batted_ball,contact quality
+team_allowed_k_rate_vs_hand_last10,1.5394533731574092,team/opponent,opponent
+team_allowed_bb_rate_vs_hand_last10,1.3735854608344509,team/opponent,opponent
+opp_sp_hr_rate,1.3546683177940264,team/opponent,opponent
+team_allowed_hr_rate_vs_hand_last10,1.2547388092115108,team/opponent,opponent
+team_allowed_hr_rate_vs_hand_std,1.2168950630643556,team/opponent,opponent
+park_factor,1.0718610282305199,park,park
+days_since_game,1.0197051291550683,opportunity,playing time / workload

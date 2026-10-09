@@ -17,10 +17,10 @@ Source data
 Park factors below are 3-year averages (2022-2024) blended from FanGraphs
 Guts! and Baseball Savant. They cover the four stat families our props use:
 
-    * RUNS    — affects proj_runs, proj_runs_allowed, proj_rbi
-    * HR      — affects proj_hr (home-run rate)
-    * HITS    — affects proj_hits, proj_hits_allowed (BABIP-adjacent)
-    * K       — affects proj_strikeouts (umpire-zone proxy by park)
+    * RUNS    - affects proj_runs, proj_runs_allowed, proj_rbi
+    * HR      - affects proj_hr (home-run rate)
+    * HITS    - affects proj_hits, proj_hits_allowed (BABIP-adjacent)
+    * K       - affects proj_strikeouts (umpire-zone proxy by park)
 
 A factor of 1.00 means league-neutral; 1.10 means 10% above league average for
 that stat in that park. Multiplying a projection by the factor for the player's
@@ -33,7 +33,7 @@ Usage
     df = apply_park_factors(df, kind="hitter")     # operates on home_team / opponent
     df = apply_park_factors(df, kind="pitcher")
 
-Both `home_team` and `opponent` columns are expected on the projections df —
+Both `home_team` and `opponent` columns are expected on the projections df -
 the function infers which park the game is played in (hitter's `home_team` if
 they're at home, else `opponent`'s park).
 """
@@ -47,10 +47,10 @@ import pandas as pd
 
 
 # ---------------------------------------------------------------------------
-# Static factor table — keys are MLB team abbreviations matching our scraper.
+# Static factor table - keys are MLB team abbreviations matching our scraper.
 # Rows: (RUNS, HR, HITS, K) factor, 1.00 = neutral.
 # ---------------------------------------------------------------------------
-# Lightweight 3-year avg (2022-24) from public FanGraphs/Savant — keep in sync
+# Lightweight 3-year avg (2022-24) from public FanGraphs/Savant - keep in sync
 # with `data/park_factors.csv` if we ever want to load dynamically.
 PARK_FACTORS: dict[str, dict[str, float]] = {
     # --- Hitter-friendly extreme ---
@@ -104,7 +104,7 @@ PITCHER_SCALE = {
     "proj_hits_allowed":  "hits",
     "proj_runs_allowed":  "runs",
     "proj_strikeouts":    "k",
-    # IP and walks have weak park signal — leave alone
+    # IP and walks have weak park signal - leave alone
 }
 
 # Don't shift > this fraction in either direction. Coors is the only park that
@@ -146,7 +146,7 @@ def apply_park_factors(
 ) -> pd.DataFrame:
     """
     Multiply each projection column by the park factor of the game's host park.
-    `kind` is 'hitter' or 'pitcher' — selects which projection columns to
+    `kind` is 'hitter' or 'pitcher' - selects which projection columns to
     scale. Rows with no resolvable park team are left unchanged.
     """
     if df is None or df.empty:
@@ -161,7 +161,7 @@ def apply_park_factors(
     if "home_team" not in out.columns:
         # Without a resolvable host team, we can't apply factors safely.
         if verbose:
-            print(f"  park_factors: skipped {kind} — no home_team column")
+            print(f"  park_factors: skipped {kind} - no home_team column")
         return out
 
     parks = out["home_team"].astype(str).str.upper()

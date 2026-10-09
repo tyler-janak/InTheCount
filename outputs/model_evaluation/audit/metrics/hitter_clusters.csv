@@ -1,0 +1,66 @@
+model,threshold,cluster,size,representative,members
+hitter,0.8,8,2,opp_sp_k_rate_last10,opp_sp_k_rate_last10 | opp_sp_k_rate_std
+hitter,0.8,25,2,bb_rate_last7,bb_rate_last7 | BB_last7
+hitter,0.8,26,4,BB_last10,bb_rate_last10 | bb_rate_last14 | BB_last10 | BB_last14
+hitter,0.8,28,4,bb_rate_std,bb_rate_std | BB_std | hitter_bb_rate_vs_hand_std_R | h_tt_bb
+hitter,0.8,29,4,BB_last21,bb_rate_last21 | bb_rate_last30 | BB_last21 | BB_last30
+hitter,0.8,34,2,ev_la_interaction_std,avg_LA_std | ev_la_interaction_std
+hitter,0.8,35,2,ev_la_interaction_last10,avg_LA_last10 | ev_la_interaction_last10
+hitter,0.8,47,2,hr_rate_last7,hr_rate_last7 | HR_last7
+hitter,0.8,48,4,hr_rate_last10,hr_rate_last10 | HR_last10 | max_hr_rate_last10 | xbh_proxy_rate_last10
+hitter,0.8,49,2,hr_rate_last14,hr_rate_last14 | HR_last14
+hitter,0.8,51,4,HR_last21,hr_rate_last21 | hr_rate_last30 | HR_last21 | HR_last30
+hitter,0.8,52,5,hr_rate_std,hr_rate_std | HR_std | xbh_proxy_rate_std | hitter_hr_rate_vs_hand_std_R | h_tt_hr
+hitter,0.8,53,2,h_rate_last7,h_rate_last7 | H_last7
+hitter,0.8,54,2,H_last10,H_last10 | H_last14
+hitter,0.8,55,2,h_rate_last10,h_rate_last10 | h_rate_last14
+hitter,0.8,61,4,h_tt_k,k_rate_std | K_std | hitter_k_rate_vs_hand_std_R | h_tt_k
+hitter,0.8,62,2,k_rate_last7,k_rate_last7 | K_last7
+hitter,0.8,63,2,K_last21,K_last21 | K_last30
+hitter,0.8,64,2,K_last10,K_last10 | K_last14
+hitter,0.8,65,2,k_rate_last21,k_rate_last21 | k_rate_last30
+hitter,0.8,66,2,k_rate_last10,k_rate_last10 | k_rate_last14
+hitter,0.8,68,2,2B_last10,2B_last10 | 2B_last14
+hitter,0.8,70,2,2B_last21,2B_last21 | 2B_last30
+hitter,0.8,72,3,PA_last10,PA_last7 | PA_last10 | PA_last14
+hitter,0.8,76,3,PA_last30,PA_std | PA_last21 | PA_last30
+hitter,0.8,79,2,lineup_spot_last10,lineup_spot | lineup_spot_last10
+hitter,0.8,81,3,h_rate_std,h_rate_std | hitter_h_rate_vs_hand_std_R | h_tt_h
+hitter,0.8,82,2,H_last21,H_last21 | H_last30
+hitter,0.8,83,2,h_rate_last21,h_rate_last21 | h_rate_last30
+hitter,0.8,85,2,3B_last21,3B_last21 | 3B_last30
+hitter,0.8,86,2,3B_last10,3B_last10 | 3B_last14
+hitter,0.9,26,2,bb_rate_last7,bb_rate_last7 | BB_last7
+hitter,0.9,27,2,bb_rate_last10,bb_rate_last10 | BB_last10
+hitter,0.9,28,2,bb_rate_last14,bb_rate_last14 | BB_last14
+hitter,0.9,30,3,bb_rate_std,bb_rate_std | BB_std | h_tt_bb
+hitter,0.9,32,2,BB_last21,BB_last21 | BB_last30
+hitter,0.9,33,2,bb_rate_last21,bb_rate_last21 | bb_rate_last30
+hitter,0.9,38,2,ev_la_interaction_std,avg_LA_std | ev_la_interaction_std
+hitter,0.9,39,2,ev_la_interaction_last10,avg_LA_last10 | ev_la_interaction_last10
+hitter,0.9,51,2,hr_rate_last7,hr_rate_last7 | HR_last7
+hitter,0.9,52,3,hr_rate_last10,hr_rate_last10 | HR_last10 | xbh_proxy_rate_last10
+hitter,0.9,54,2,hr_rate_last14,hr_rate_last14 | HR_last14
+hitter,0.9,56,2,hr_rate_last21,hr_rate_last21 | HR_last21
+hitter,0.9,57,2,hr_rate_last30,hr_rate_last30 | HR_last30
+hitter,0.9,58,4,hr_rate_std,hr_rate_std | HR_std | xbh_proxy_rate_std | h_tt_hr
+hitter,0.9,71,3,k_rate_std,k_rate_std | hitter_k_rate_vs_hand_std_R | h_tt_k
+hitter,0.9,75,2,K_last21,K_last21 | K_last30
+hitter,0.9,76,2,K_last10,K_last10 | K_last14
+hitter,0.9,77,2,k_rate_last21,k_rate_last21 | k_rate_last30
+hitter,0.9,78,2,k_rate_last10,k_rate_last10 | k_rate_last14
+hitter,0.9,86,3,PA_last10,PA_last7 | PA_last10 | PA_last14
+hitter,0.9,90,2,PA_last21,PA_last21 | PA_last30
+hitter,0.9,97,2,h_tt_h,h_rate_std | h_tt_h
+hitter,0.9,99,2,H_last21,H_last21 | H_last30
+hitter,0.95,45,2,ev_la_interaction_std,avg_LA_std | ev_la_interaction_std
+hitter,0.95,46,2,ev_la_interaction_last10,avg_LA_last10 | ev_la_interaction_last10
+hitter,0.95,58,2,hr_rate_last7,hr_rate_last7 | HR_last7
+hitter,0.95,59,3,hr_rate_last10,hr_rate_last10 | HR_last10 | xbh_proxy_rate_last10
+hitter,0.95,61,2,hr_rate_last14,hr_rate_last14 | HR_last14
+hitter,0.95,63,2,hr_rate_last21,hr_rate_last21 | HR_last21
+hitter,0.95,64,2,hr_rate_last30,hr_rate_last30 | HR_last30
+hitter,0.95,65,3,hr_rate_std,hr_rate_std | HR_std | xbh_proxy_rate_std
+hitter,0.95,79,2,h_tt_k,k_rate_std | h_tt_k
+hitter,0.95,99,2,PA_last10,PA_last10 | PA_last14
+hitter,0.95,104,2,PA_last21,PA_last21 | PA_last30

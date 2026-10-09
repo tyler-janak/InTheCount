@@ -1,0 +1,8 @@
+{
+  "selected_on_valid": "logistic",
+  "stack_opt_weights": "xgb_isotonic=0.00, rf_isotonic=0.35, rf_raw=0.00, logistic=0.65",
+  "n_train": 4859,
+  "n_valid": 1281,
+  "n_test": 1148,
+  "train_home_rate": 0.5322082733072648
+}

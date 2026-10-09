@@ -1,0 +1,78 @@
+model,threshold,cluster,size,representative,members
+pitcher,0.8,15,3,avg_velocity_last10,avg_velocity_std | avg_velocity_last7 | avg_velocity_last10
+pitcher,0.8,19,2,p_tt_h,p_tt_h | matchup_h
+pitcher,0.8,20,2,H_rate_last7,H_rate_last7 | H_rate_last10
+pitcher,0.8,21,4,H_rate_last30,H_rate_std | H_rate_last14 | H_rate_last21 | H_rate_last30
+pitcher,0.8,26,6,K_last21,K_std | K_last7 | K_last10 | K_last14 | K_last21 | K_last30
+pitcher,0.8,27,2,p_tt_k,p_tt_k | matchup_k
+pitcher,0.8,28,2,pitcher_k_rate_vs_hand_last10_R,pitcher_k_rate_vs_hand_last10_R | pitcher_k_rate_vs_hand_std_R
+pitcher,0.8,29,3,K_rate_last30,K_rate_std | K_rate_last21 | K_rate_last30
+pitcher,0.8,30,3,K_rate_last10,K_rate_last7 | K_rate_last10 | K_rate_last14
+pitcher,0.8,33,2,p_tt_hr,p_tt_hr | matchup_hr
+pitcher,0.8,34,2,HR_rate_last7,HR_rate_last7 | HR_last7
+pitcher,0.8,36,4,HR_rate_last30,HR_rate_std | HR_rate_last14 | HR_rate_last21 | HR_rate_last30
+pitcher,0.8,37,3,HR_last30,HR_std | HR_last21 | HR_last30
+pitcher,0.8,38,2,HR_last10,HR_last10 | HR_last14
+pitcher,0.8,43,3,H_last30,H_std | H_last21 | H_last30
+pitcher,0.8,44,3,H_last10,H_last7 | H_last10 | H_last14
+pitcher,0.8,45,2,R_last7,R_last7 | R_last10
+pitcher,0.8,46,4,R_last30,R_std | R_last14 | R_last21 | R_last30
+pitcher,0.8,49,2,BF_last3,BF_last3 | outs_last3
+pitcher,0.8,51,2,starter_pct_last5,starter_pct_last5 | starter_pct_last10
+pitcher,0.8,52,3,pitches_last30,pitches_std | pitches_last21 | pitches_last30
+pitcher,0.8,53,9,IP_last30,IP_std | IP_last21 | IP_last30 | BF_std | outs_std | BF_last21 | outs_last21 | BF_last30 | outs_last30
+pitcher,0.8,54,3,pitches_last10,pitches_last7 | pitches_last10 | pitches_last14
+pitcher,0.8,55,3,outs_last7,IP_last7 | BF_last7 | outs_last7
+pitcher,0.8,56,6,outs_last14,IP_last10 | IP_last14 | BF_last10 | outs_last10 | BF_last14 | outs_last14
+pitcher,0.8,59,2,BB_last7,BB_last7 | BB_last10
+pitcher,0.8,60,2,BB_rate_last7,BB_rate_last7 | BB_rate_last10
+pitcher,0.8,61,4,BB_last30,BB_std | BB_last14 | BB_last21 | BB_last30
+pitcher,0.8,62,2,p_tt_bb,p_tt_bb | matchup_bb
+pitcher,0.8,63,4,BB_rate_last30,BB_rate_std | BB_rate_last14 | BB_rate_last21 | BB_rate_last30
+pitcher,0.8,66,2,BF_per_IP_last10,BF_per_IP_last10 | pitches_per_IP_last10
+pitcher,0.9,15,3,avg_velocity_last10,avg_velocity_std | avg_velocity_last7 | avg_velocity_last10
+pitcher,0.9,19,2,p_tt_h,p_tt_h | matchup_h
+pitcher,0.9,22,2,H_rate_std,H_rate_std | H_rate_last30
+pitcher,0.9,23,2,H_rate_last14,H_rate_last14 | H_rate_last21
+pitcher,0.9,28,2,K_last7,K_last7 | K_last10
+pitcher,0.9,29,4,K_last21,K_std | K_last14 | K_last21 | K_last30
+pitcher,0.9,34,3,K_rate_last30,K_rate_std | K_rate_last21 | K_rate_last30
+pitcher,0.9,35,2,K_rate_last10,K_rate_last10 | K_rate_last14
+pitcher,0.9,41,2,HR_rate_last7,HR_rate_last7 | HR_last7
+pitcher,0.9,43,2,HR_rate_std,HR_rate_std | HR_rate_last30
+pitcher,0.9,46,3,HR_last30,HR_std | HR_last21 | HR_last30
+pitcher,0.9,47,2,HR_last10,HR_last10 | HR_last14
+pitcher,0.9,52,3,H_last30,H_std | H_last21 | H_last30
+pitcher,0.9,53,2,H_last10,H_last10 | H_last14
+pitcher,0.9,57,2,R_std,R_std | R_last30
+pitcher,0.9,58,2,R_last14,R_last14 | R_last21
+pitcher,0.9,66,3,pitches_last30,pitches_std | pitches_last21 | pitches_last30
+pitcher,0.9,67,6,IP_last30,IP_std | IP_last21 | IP_last30 | outs_std | outs_last21 | outs_last30
+pitcher,0.9,68,3,BF_last30,BF_std | BF_last21 | BF_last30
+pitcher,0.9,69,2,pitches_last10,pitches_last10 | pitches_last14
+pitcher,0.9,71,2,IP_last7,IP_last7 | outs_last7
+pitcher,0.9,73,4,outs_last10,IP_last10 | IP_last14 | outs_last10 | outs_last14
+pitcher,0.9,74,2,BF_last10,BF_last10 | BF_last14
+pitcher,0.9,77,2,BB_last7,BB_last7 | BB_last10
+pitcher,0.9,78,2,BB_rate_last7,BB_rate_last7 | BB_rate_last10
+pitcher,0.9,79,2,BB_std,BB_std | BB_last30
+pitcher,0.9,80,2,BB_last14,BB_last14 | BB_last21
+pitcher,0.9,83,2,BB_rate_std,BB_rate_std | BB_rate_last30
+pitcher,0.9,84,2,BB_rate_last14,BB_rate_last14 | BB_rate_last21
+pitcher,0.95,15,3,avg_velocity_last10,avg_velocity_std | avg_velocity_last7 | avg_velocity_last10
+pitcher,0.95,33,2,K_std,K_std | K_last30
+pitcher,0.95,34,2,K_last14,K_last14 | K_last21
+pitcher,0.95,39,2,K_rate_std,K_rate_std | K_rate_last30
+pitcher,0.95,51,2,HR_rate_std,HR_rate_std | HR_rate_last30
+pitcher,0.95,54,2,HR_std,HR_std | HR_last30
+pitcher,0.95,62,2,H_std,H_std | H_last30
+pitcher,0.95,69,2,R_std,R_std | R_last30
+pitcher,0.95,79,2,pitches_std,pitches_std | pitches_last30
+pitcher,0.95,81,2,IP_last21,IP_last21 | outs_last21
+pitcher,0.95,82,4,IP_last30,IP_std | IP_last30 | outs_std | outs_last30
+pitcher,0.95,83,2,BF_std,BF_std | BF_last30
+pitcher,0.95,88,2,IP_last7,IP_last7 | outs_last7
+pitcher,0.95,90,2,IP_last14,IP_last14 | outs_last14
+pitcher,0.95,91,2,IP_last10,IP_last10 | outs_last10
+pitcher,0.95,100,2,BB_std,BB_std | BB_last30
+pitcher,0.95,105,2,BB_rate_std,BB_rate_std | BB_rate_last30

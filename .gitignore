@@ -43,3 +43,19 @@ models/hitter_bb_per_pa.pkl
 models/hitter_k_per_pa.pkl
 models/hitter_BB_per_PA.pkl
 models/hitter_K_per_PA.pkl
+
+# --- Statcast Parquet caches + windowed feature tables (Actions cache, not git) ---
+data/features/
+logs/
+pitch_data_*.csv
+
+# --- local-only folders (never pushed) ---
+_to_delete/
+backups/
+branding/Video Output/
+*.mp4
+# --- large evaluation artifacts (regenerable; keep metrics/figures/report) ---
+outputs/model_evaluation/**/*_test_predictions.csv
+experiments/original_methodology/data/
+.venv/
+__pycache__/

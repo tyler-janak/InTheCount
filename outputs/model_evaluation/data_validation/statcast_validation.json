@@ -1,0 +1,152 @@
+{
+  "generated": "2026-10-07T00:05:57-04:00",
+  "source": "pybaseball.statcast",
+  "seasons": {
+    "2024": {
+      "season": 2024,
+      "critical_failures": [],
+      "warnings": [],
+      "records": 760249,
+      "min_game_date": "2024-03-15",
+      "max_game_date": "2024-10-30",
+      "unique_games": 2629,
+      "unique_players": 2558,
+      "records_by_game_type": {
+        "R": 711899,
+        "S": 35482,
+        "D": 5216,
+        "L": 3568,
+        "F": 2495,
+        "W": 1589
+      },
+      "regular_season": {
+        "records": 711899,
+        "games": 2429,
+        "first_date": "2024-03-20",
+        "last_date": "2024-09-30",
+        "pitchers": 855,
+        "batters": 651
+      },
+      "missing_rate": {
+        "game_pk": 0.0,
+        "game_date": 0.0,
+        "game_type": 0.0,
+        "game_year": 0.0,
+        "pitcher": 0.0,
+        "batter": 0.0,
+        "events": 0.7396,
+        "description": 0.0,
+        "stand": 0.0,
+        "p_throws": 0.0,
+        "home_team": 0.0,
+        "away_team": 0.0,
+        "inning_topbot": 0.0,
+        "at_bat_number": 0.0,
+        "pitch_number": 0.0,
+        "bat_score": 0.0,
+        "post_bat_score": 0.0,
+        "post_home_score": 0.0,
+        "post_away_score": 0.0
+      },
+      "duplicate_pitch_keys": 0,
+      "passed": true
+    },
+    "2025": {
+      "season": 2025,
+      "critical_failures": [],
+      "warnings": [],
+      "records": 770795,
+      "min_game_date": "2025-03-15",
+      "max_game_date": "2025-11-01",
+      "unique_games": 2626,
+      "unique_players": 2562,
+      "records_by_game_type": {
+        "R": 712528,
+        "S": 44022,
+        "D": 5534,
+        "F": 3171,
+        "L": 3111,
+        "W": 2429
+      },
+      "regular_season": {
+        "records": 712528,
+        "games": 2430,
+        "first_date": "2025-03-18",
+        "last_date": "2025-09-28",
+        "pitchers": 873,
+        "batters": 673
+      },
+      "missing_rate": {
+        "game_pk": 0.0,
+        "game_date": 0.0,
+        "game_type": 0.0,
+        "game_year": 0.0,
+        "pitcher": 0.0,
+        "batter": 0.0,
+        "events": 0.7429,
+        "description": 0.0,
+        "stand": 0.0,
+        "p_throws": 0.0,
+        "home_team": 0.0,
+        "away_team": 0.0,
+        "inning_topbot": 0.0,
+        "at_bat_number": 0.0,
+        "pitch_number": 0.0,
+        "bat_score": 0.0,
+        "post_bat_score": 0.0,
+        "post_home_score": 0.0,
+        "post_away_score": 0.0
+      },
+      "duplicate_pitch_keys": 0,
+      "passed": true
+    },
+    "2026": {
+      "season": 2026,
+      "critical_failures": [],
+      "warnings": [],
+      "records": 759545,
+      "min_game_date": "2026-03-15",
+      "max_game_date": "2026-10-05",
+      "unique_games": 2576,
+      "unique_players": 2543,
+      "records_by_game_type": {
+        "R": 716658,
+        "S": 37997,
+        "F": 2604,
+        "D": 2286
+      },
+      "regular_season": {
+        "records": 716658,
+        "games": 2429,
+        "first_date": "2026-03-25",
+        "last_date": "2026-09-27",
+        "pitchers": 868,
+        "batters": 662
+      },
+      "missing_rate": {
+        "game_pk": 0.0,
+        "game_date": 0.0,
+        "game_type": 0.0,
+        "game_year": 0.0,
+        "pitcher": 0.0,
+        "batter": 0.0,
+        "events": 0.743,
+        "description": 0.0,
+        "stand": 0.0,
+        "p_throws": 0.0,
+        "home_team": 0.0,
+        "away_team": 0.0,
+        "inning_topbot": 0.0,
+        "at_bat_number": 0.0,
+        "pitch_number": 0.0,
+        "bat_score": 0.0,
+        "post_bat_score": 0.0,
+        "post_home_score": 0.0,
+        "post_away_score": 0.0
+      },
+      "duplicate_pitch_keys": 0,
+      "passed": true
+    }
+  },
+  "all_passed": true
+}

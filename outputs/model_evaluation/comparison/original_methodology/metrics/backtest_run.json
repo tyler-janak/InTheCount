@@ -1,0 +1,16 @@
+{
+  "run_utc": "2026-10-07T06:18:04+00:00",
+  "valid_start": "2026-03-01",
+  "test_start": "2026-07-01",
+  "calibrate": true,
+  "protocol": "model family selected on validation RMSE; chosen family refit on train+validation; test scored once",
+  "hyperparameters": "XGB presets reused from models/*.pkl (tuned on data ending before the test window)",
+  "pitcher_training_seasons": [
+    2025,
+    2026
+  ],
+  "hitter_training_seasons": [
+    2025,
+    2026
+  ]
+}

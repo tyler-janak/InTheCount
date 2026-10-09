@@ -17,7 +17,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import cross_val_score
 from sklearn.pipeline import Pipeline
-from sklearn.neural_network import MLPRegressor
+from sklearn.linear_model import PoissonRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.compose import TransformedTargetRegressor
 
@@ -29,7 +29,7 @@ try:
     HAS_XGB = True
 except ImportError:
     HAS_XGB = False
-    warnings.warn("xgboost not installed — skipping XGBoost models. pip install xgboost")
+    warnings.warn("xgboost not installed - skipping XGBoost models. pip install xgboost")
 
 warnings.filterwarnings("ignore")
 
@@ -50,7 +50,7 @@ def _inv_logit_transform(z):
 
 def clean_hitter_training_rows(df: pd.DataFrame) -> pd.DataFrame:
     work = df.copy()
-    for c in ["PA", "H", "HR", "BB", "K",
+    for c in ["PA", "H", "HR", "BB", "K", "2B", "3B", "SB",
               "h_rate", "hr_rate", "bb_rate", "k_rate"]:
         if c in work.columns:
             work[c] = pd.to_numeric(work[c], errors="coerce")
@@ -66,6 +66,20 @@ def clean_hitter_training_rows(df: pd.DataFrame) -> pd.DataFrame:
     if {"HR", "H"}.issubset(work.columns):
         work = work[(work["HR"] <= work["H"]) | work["HR"].isna() | work["H"].isna()].copy()
         work = work[(work["HR"] >= 0) | work["HR"].isna()].copy()
+    # 2B/3B sanity: non-negative, and no single game can have more doubles (or
+    # triples, or extra-base hits overall) than total hits.
+    for xbh_col in ["2B", "3B"]:
+        if xbh_col in work.columns:
+            work = work[(work[xbh_col] >= 0) | work[xbh_col].isna()].copy()
+            if "H" in work.columns:
+                work = work[(work[xbh_col] <= work["H"]) | work[xbh_col].isna() | work["H"].isna()].copy()
+    if {"2B", "3B", "HR", "H"}.issubset(work.columns):
+        xbh_total = (pd.to_numeric(work["2B"], errors="coerce").fillna(0)
+                     + pd.to_numeric(work["3B"], errors="coerce").fillna(0)
+                     + pd.to_numeric(work["HR"], errors="coerce").fillna(0))
+        work = work[(xbh_total <= work["H"]) | work["H"].isna()].copy()
+    if "SB" in work.columns:
+        work = work[(work["SB"] >= 0) | work["SB"].isna()].copy()
     for c in ["BB", "K"]:
         if c in work.columns and "PA" in work.columns:
             work = work[(work[c] <= work["PA"]) | work[c].isna() | work["PA"].isna()].copy()
@@ -97,29 +111,50 @@ def report_hitter_feature_coverage(df: pd.DataFrame):
 
 
 
-# Predict counting stats directly — reduces compounding variance vs rate→count
-PITCHER_TARGETS = ["K", "BB", "HR", "H", "IP"]
-HITTER_TARGETS  = ["H", "HR", "BB", "K", "PA", "TB"]
+# Predict counting stats directly - reduces compounding variance vs rate->count
+# "R" = runs allowed per game (proxy for earned runs - Statcast has no ER/
+# unearned split; see the comment on the R aggregation in
+# hitterspitchers_data.py). Training R directly is what lets FIP/WAR be
+# composed from genuine model outputs at scoring time instead of the old
+# hand-tuned estimate_pitcher_runs() formula.
+PITCHER_TARGETS = ["K", "BB", "HR", "H", "IP", "R"]
+# "2B"/"3B" let wOBA be composed from real modeled extra-base-hit splits
+# instead of only H/TB (TB can't distinguish "4 singles" from "1 double +
+# 2 singles"). "SB" is a new stolen-base target - see the SB feature-
+# engineering note in hitterspitchers_data.py (is_sb/is_cs). DRS was
+# explicitly dropped (no free/scrapeable historical dataset exists) and OAA
+# is NOT here - it needs fielding-chance data this per-batting-event
+# pipeline doesn't have; the real Statcast OAA leaderboard fetch already
+# used by player_rankings.py remains the source for OAA.
+HITTER_TARGETS  = ["H", "HR", "BB", "K", "PA", "TB", "2B", "3B", "SB"]
 
-# RATE TARGETS — trained alongside counts so hitterspitchers_today.py can
+# RATE TARGETS - trained alongside counts so hitterspitchers_today.py can
 # ensemble them at scoring time:  final_K = 0.5 * direct_K + 0.5 * (K_per_9 * IP/9)
 # The rate side leverages the fact that IP / PA predictions are already at
 # book benchmark; the gap is per-opportunity efficiency, which a rate model
 # learns more cleanly than a count model trying to fit volume + rate at once.
-PITCHER_RATE_TARGETS = ["K_per_9", "BB_per_9", "H_per_9", "HR_per_9"]
-HITTER_RATE_TARGETS  = ["H_per_PA", "HR_per_PA", "BB_per_PA", "K_per_PA", "TB_per_PA"]
+PITCHER_RATE_TARGETS = ["K_per_9", "BB_per_9", "H_per_9", "HR_per_9", "R_per_9"]
+HITTER_RATE_TARGETS  = ["H_per_PA", "HR_per_PA", "BB_per_PA", "K_per_PA", "TB_per_PA",
+                        "2B_per_PA", "3B_per_PA", "SB_per_PA"]
 
 # Rate-target sanity caps (per-game). 1 IP × 5 K -> K9=45 destroys training.
+# R_per_9 gets a slightly higher ceiling than the other rates - a short,
+# disastrous outing (e.g. 1 IP, 6 R) is rarer than a hot-K game but still
+# real, and runs allowed has no natural cap the way K/BB/H do per batter faced.
 PITCHER_RATE_CAP = {"K_per_9": 27.0, "BB_per_9": 18.0,
-                    "H_per_9": 27.0, "HR_per_9":  9.0}
+                    "H_per_9": 27.0, "HR_per_9":  9.0,
+                    "R_per_9": 30.0}
 
-# Count targets — non-negative integers. XGB uses Poisson loss on these
+# Count targets - non-negative integers. XGB uses Poisson loss on these
 # (correct loss for count data, especially sparse ones like HR where ~85% of
-# rows are zero). Other model types (RF/NN) still get the log1p wrapper.
+# rows are zero). Random forest still gets the log1p wrapper.
 COUNT_TARGETS = {"H", "HR", "BB", "K",        # hitter counts
                  "PA",                         # plate appearances
                  "IP",                         # innings pitched
                  "TB",                         # total bases
+                 "2B", "3B",                   # extra-base-hit splits (wOBA)
+                 "SB",                         # stolen bases
+                 "R",                          # runs allowed (ER proxy)
                  "BF", "outs", "pitches"}      # pitcher misc counts
 
 
@@ -128,7 +163,8 @@ def _attach_pitcher_rates(df: pd.DataFrame) -> pd.DataFrame:
     out = df.copy()
     ip = pd.to_numeric(out.get("IP"), errors="coerce").clip(lower=0.1)
     for raw, rate in [("K", "K_per_9"), ("BB", "BB_per_9"),
-                      ("H", "H_per_9"), ("HR", "HR_per_9")]:
+                      ("H", "H_per_9"), ("HR", "HR_per_9"),
+                      ("R", "R_per_9")]:
         if raw in out.columns:
             v = pd.to_numeric(out[raw], errors="coerce") / ip * 9.0
             out[rate] = v.clip(lower=0.0, upper=PITCHER_RATE_CAP[rate])
@@ -142,18 +178,26 @@ def _attach_hitter_rates(df: pd.DataFrame) -> pd.DataFrame:
     pa = pd.to_numeric(out.get("PA"), errors="coerce").clip(lower=1.0)
     for raw, rate, cap in [("H", "H_per_PA", 1.0), ("HR", "HR_per_PA", 1.0),
                             ("BB", "BB_per_PA", 1.0), ("K", "K_per_PA", 1.0),
-                            ("TB", "TB_per_PA", 4.0)]:
+                            ("TB", "TB_per_PA", 4.0),
+                            ("2B", "2B_per_PA", 1.0), ("3B", "3B_per_PA", 1.0),
+                            # SB isn't naturally "per PA" (steals happen per
+                            # times-on-base opportunity, not per plate
+                            # appearance) but per-PA keeps this consistent
+                            # with every other rate target's architecture -
+                            # the cap just needs to be generous since SB/PA
+                            # is normally tiny (<0.05).
+                            ("SB", "SB_per_PA", 1.0)]:
         if raw in out.columns:
             v = pd.to_numeric(out[raw], errors="coerce") / pa
             out[rate] = v.clip(lower=0.0, upper=cap)
     return out
 
 PITCHER_FEATURES = [
-    # ── season-to-date rates (stable baselines) ──────────────────────────
+    # -- season-to-date rates (stable baselines) --------------------------
     "K_rate_std", "BB_rate_std", "HR_rate_std", "H_rate_std",
     "IP_std", "avg_velocity_std", "avg_spin_std",
 
-    # ── rate rolling windows ──────────────────────────────────────────────
+    # -- rate rolling windows ----------------------------------------------
     "K_rate_last5",  "BB_rate_last5",  "HR_rate_last5",  "H_rate_last5",  "IP_last5",
     "K_rate_last7",  "BB_rate_last7",  "HR_rate_last7",  "H_rate_last7",  "IP_last7",
     "K_rate_last10", "BB_rate_last10", "HR_rate_last10", "H_rate_last10", "IP_last10",
@@ -162,13 +206,14 @@ PITCHER_FEATURES = [
     "K_rate_last30", "BB_rate_last30", "HR_rate_last30", "H_rate_last30", "IP_last30",
     "avg_velocity_last5", "avg_velocity_last7", "avg_velocity_last10",
 
-    # ── RAW COUNT rolling windows (direct target history) ─────────────────
+    # -- RAW COUNT rolling windows (direct target history) -----------------
     "K_std",   "K_last5",  "K_last7",  "K_last10", "K_last14", "K_last21", "K_last30",
     "BB_std",  "BB_last5", "BB_last7", "BB_last10","BB_last14","BB_last21","BB_last30",
     "HR_std",  "HR_last5", "HR_last7", "HR_last10","HR_last14","HR_last21","HR_last30",
     "H_std",   "H_last5",  "H_last7",  "H_last10", "H_last14", "H_last21", "H_last30",
+    "R_std",   "R_last5",  "R_last7",  "R_last10", "R_last14", "R_last21", "R_last30",
 
-    # ── workload / usage ──────────────────────────────────────────────────
+    # -- workload / usage --------------------------------------------------
     "BF_std", "outs_std", "pitches_std",
     "BF_last3", "outs_last3", "pitches_last3",
     "BF_last5", "outs_last5", "pitches_last5",
@@ -187,9 +232,9 @@ PITCHER_FEATURES = [
     "starter_pct_last5",
     "starter_pct_last10",
 
-    # ── platoon splits ────────────────────────────────────────────────────
-    # NO-WINDOW platoon splits removed — they hold the CURRENT game's per-hand
-    # rate (leakage; see diagnose_leakage.py — corr ~0.5-0.6 with the target,
+    # -- platoon splits ----------------------------------------------------
+    # NO-WINDOW platoon splits removed - they hold the CURRENT game's per-hand
+    # rate (leakage; see diagnose_leakage.py - corr ~0.5-0.6 with the target,
     # and they're overwritten with trailing values at serving so the model
     # falls apart live). Only the trailing _last5/_last10/_std windows are kept.
     "pitcher_k_rate_vs_hand_last5_R",  "pitcher_bb_rate_vs_hand_last5_R",
@@ -207,8 +252,8 @@ PITCHER_FEATURES = [
     "pitcher_k_rate_vs_hand_std_L",  "pitcher_bb_rate_vs_hand_std_L",
     "pitcher_hr_rate_vs_hand_std_L", "pitcher_h_rate_vs_hand_std_L",
 
-    # ── opponent team context ─────────────────────────────────────────────
-    # NO-WINDOW team context removed — it's the CURRENT game's realized
+    # -- opponent team context ---------------------------------------------
+    # NO-WINDOW team context removed - it's the CURRENT game's realized
     # opponent rate (leakage; corr ~0.7-0.8 with the target). Trailing kept.
     "team_k_rate_vs_hand_last5",  "team_bb_rate_vs_hand_last5",
     "team_hr_rate_vs_hand_last5", "team_h_rate_vs_hand_last5",
@@ -221,7 +266,7 @@ PITCHER_FEATURES = [
     "team_k_rate_vs_hand_std",    "team_bb_rate_vs_hand_std",
     "team_hr_rate_vs_hand_std",   "team_h_rate_vs_hand_std",
 
-    # ── true-talent (empirical-Bayes shrunk) + log5 lineup matchup ──
+    # -- true-talent (empirical-Bayes shrunk) + log5 lineup matchup --
     # Honest, leakage-free signal from enrich_truetalent.py: the pitcher's
     # sample-size-regressed rates, the opposing lineup's shrunk rates, and the
     # two combined via the log5 odds-ratio. This is the legitimate version of
@@ -234,11 +279,14 @@ PITCHER_FEATURES = [
 ]
 
 HITTER_FEATURES = [
-    # ── season-to-date rates (stable baselines) ──────────────────────────
+    # -- lineup: today's batting-order slot (posted pre-game) + recent slots --
+    "lineup_spot", "lineup_spot_last10",
+
+    # -- season-to-date rates (stable baselines) --------------------------
     "h_rate_std", "hr_rate_std", "bb_rate_std", "k_rate_std",
     "PA_std", "avg_EV_std", "max_EV_std", "avg_LA_std", "avg_direction_std",
 
-    # ── rate rolling windows ──────────────────────────────────────────────
+    # -- rate rolling windows ----------------------------------------------
     "h_rate_last5",  "hr_rate_last5",  "bb_rate_last5",  "k_rate_last5",  "PA_last5",
     "h_rate_last7",  "hr_rate_last7",  "bb_rate_last7",  "k_rate_last7",  "PA_last7",
     "h_rate_last10", "hr_rate_last10", "bb_rate_last10", "k_rate_last10", "PA_last10",
@@ -248,18 +296,21 @@ HITTER_FEATURES = [
     "avg_EV_last5", "max_EV_last5", "avg_LA_last5",
     "avg_EV_last10", "max_EV_last10", "avg_LA_last10",
 
-    # ── RAW COUNT rolling windows (direct target history) ─────────────────
+    # -- RAW COUNT rolling windows (direct target history) -----------------
     "H_std",  "H_last5",  "H_last7",  "H_last10", "H_last14", "H_last21", "H_last30",
     "HR_std", "HR_last5", "HR_last7", "HR_last10","HR_last14","HR_last21","HR_last30",
     "BB_std", "BB_last5", "BB_last7", "BB_last10","BB_last14","BB_last21","BB_last30",
     "K_std",  "K_last5",  "K_last7",  "K_last10", "K_last14", "K_last21", "K_last30",
+    "2B_std", "2B_last5", "2B_last7", "2B_last10","2B_last14","2B_last21","2B_last30",
+    "3B_std", "3B_last5", "3B_last7", "3B_last10","3B_last14","3B_last21","3B_last30",
+    "SB_std", "SB_last5", "SB_last7", "SB_last10","SB_last14","SB_last21","SB_last30",
 
-    # ── PA convenience features ───────────────────────────────────────────
+    # -- PA convenience features -------------------------------------------
     "PA_last3",
     "max_hr_rate_last10", "max_h_rate_last10",
     "days_since_game",
 
-    # ── batted-ball quality ───────────────────────────────────────────────
+    # -- batted-ball quality -----------------------------------------------
     "barrel_proxy_std", "hard_hit_proxy_std", "sweet_spot_proxy_std", "blast_proxy_std",
     "ev_la_interaction_std", "ev_spread_std",
     "times_on_base_rate_std", "xbh_proxy_rate_std",
@@ -272,8 +323,8 @@ HITTER_FEATURES = [
     "ev_la_interaction_last10", "ev_spread_last10",
     "times_on_base_rate_last10", "xbh_proxy_rate_last10",
 
-    # ── platoon splits ────────────────────────────────────────────────────
-    # NO-WINDOW platoon splits removed — current game's per-hand rate
+    # -- platoon splits ----------------------------------------------------
+    # NO-WINDOW platoon splits removed - current game's per-hand rate
     # (leakage, same pattern as the pitcher side). Trailing windows kept.
     "hitter_h_rate_vs_hand_last5_R",  "hitter_hr_rate_vs_hand_last5_R",
     "hitter_bb_rate_vs_hand_last5_R", "hitter_k_rate_vs_hand_last5_R",
@@ -290,8 +341,8 @@ HITTER_FEATURES = [
     "hitter_h_rate_vs_hand_std_L",  "hitter_hr_rate_vs_hand_std_L",
     "hitter_bb_rate_vs_hand_std_L", "hitter_k_rate_vs_hand_std_L",
 
-    # ── opponent pitching team context ────────────────────────────────────
-    # NO-WINDOW opponent-pitching context removed — current game's realized
+    # -- opponent pitching team context ------------------------------------
+    # NO-WINDOW opponent-pitching context removed - current game's realized
     # rate (leakage). Trailing versions kept.
     "team_allowed_k_rate_vs_hand_last5",  "team_allowed_bb_rate_vs_hand_last5",
     "team_allowed_hr_rate_vs_hand_last5", "team_allowed_h_rate_vs_hand_last5",
@@ -304,7 +355,11 @@ HITTER_FEATURES = [
     "team_allowed_k_rate_vs_hand_std",    "team_allowed_bb_rate_vs_hand_std",
     "team_allowed_hr_rate_vs_hand_std",   "team_allowed_h_rate_vs_hand_std",
 
-    # ── opposing starter ──────────────────────────────────────────────────
+    # -- opposing starter --------------------------------------------------
+    # AUDIT FIX: these five used to be the opposing starter's results in THIS
+    # game (same game_pk merge) - direct leakage into every hitter target.
+    # hitterspitchers_data.enrich_hitter_with_opp_starter now fills them with
+    # the starter's PREVIOUS start, which is exactly what serving uses.
     "opp_sp_k_rate", "opp_sp_bb_rate", "opp_sp_hr_rate", "opp_sp_h_rate", "opp_sp_ip",
     "opp_sp_k_rate_last5",  "opp_sp_bb_rate_last5",  "opp_sp_hr_rate_last5",
     "opp_sp_h_rate_last5",  "opp_sp_ip_last5",
@@ -313,7 +368,7 @@ HITTER_FEATURES = [
     "opp_sp_k_rate_std",    "opp_sp_bb_rate_std",    "opp_sp_hr_rate_std",
     "opp_sp_h_rate_std",    "opp_sp_ip_std",
 
-    # ── hitter true-talent (empirical-Bayes shrunk per-PA rates) ──
+    # -- hitter true-talent (empirical-Bayes shrunk per-PA rates) --
     "h_tt_k", "h_tt_bb", "h_tt_h", "h_tt_hr",
 
     "park_factor",
@@ -329,7 +384,7 @@ TUNE_ITER_DEFAULT = 24      # randomized-search samples per (target, xgb)
 CALIB_FRAC = 0.15           # tail of the train window held out to fit a + b
 
 # Randomized-search space for XGBoost. Centred on the regularised defaults the
-# project already uses (shallow trees, strong reg) — with ~1-5k pitcher rows
+# project already uses (shallow trees, strong reg) - with ~1-5k pitcher rows
 # and ~45k hitter rows, deep/under-regularised trees overfit hot/cold streaks,
 # so the grid deliberately keeps depth low and reg high.
 XGB_TUNE_GRID = {
@@ -353,7 +408,7 @@ def _tune_xgb(X_train, y_train, target: str, n_iter: int = TUNE_ITER_DEFAULT,
     """Randomized hyperparameter search for an XGB model on one target.
 
     Uses a CHRONOLOGICAL inner split of the (already date-sorted) training
-    window — the last 20% of train rows act as the validation fold. Random
+    window - the last 20% of train rows act as the validation fold. Random
     K-fold is intentionally avoided: these are game logs, and shuffling lets
     a row's future leak into its own training set, producing optimistic params
     that fall apart out-of-sample.
@@ -419,17 +474,17 @@ def select_features(df: pd.DataFrame, candidate_features: list) -> list:
 
 def build_sklearn_model(model_type: str = "rf", target_name: str | None = None,
                         params: dict | None = None) -> Pipeline:
-    """Build an (imputer → model) pipeline, optionally target-transformed.
+    """Build an (imputer -> model) pipeline, optionally target-transformed.
 
-    `params`, when given, overrides the default XGBoost hyperparameters — this
+    `params`, when given, overrides the default XGBoost hyperparameters - this
     is how the randomized search in `_tune_xgb` evaluates candidate configs and
-    how the winning config is rebuilt for the final fit. It's ignored for rf/nn.
+    how the winning config is rebuilt for the final fit. It's ignored for rf/lin.
     """
     imputer = SimpleImputer(strategy="median")
 
     if model_type == "rf":
         if target_name == "PA":
-            # PA is relatively smooth — slightly deeper tree is OK
+            # PA is relatively smooth - slightly deeper tree is OK
             model = RandomForestRegressor(
                 n_estimators=400,
                 max_depth=5,
@@ -469,7 +524,7 @@ def build_sklearn_model(model_type: str = "rf", target_name: str | None = None,
             )
         else:
             # Strong regularisation: forces regression toward mean,
-            # prevents learning "hot streak → predict high counts".
+            # prevents learning "hot streak -> predict high counts".
             xgb_kwargs = dict(
                 n_estimators=400,
                 max_depth=3,
@@ -489,7 +544,7 @@ def build_sklearn_model(model_type: str = "rf", target_name: str | None = None,
         # Continuous / rate targets keep the default reg:squarederror.
         if target_name in COUNT_TARGETS:
             xgb_kwargs["objective"] = "count:poisson"
-            # Counts are integers ≥ 0 — tighter min_child_weight than the
+            # Counts are integers ≥ 0 - tighter min_child_weight than the
             # default lets the model fit the long tail (e.g. 2-HR games)
             # without overfitting; Poisson loss already regularises strongly.
             xgb_kwargs.setdefault("max_delta_step", 0.7)
@@ -502,20 +557,12 @@ def build_sklearn_model(model_type: str = "rf", target_name: str | None = None,
         model = XGBRegressor(**xgb_kwargs)
         base = Pipeline([("imputer", imputer), ("model", model)])
 
-    elif model_type == "nn":
-        model = MLPRegressor(
-            hidden_layer_sizes=(128, 64),
-            activation="relu",
-            solver="adam",
-            alpha=0.0005,
-            batch_size=256,
-            learning_rate_init=0.001,
-            max_iter=300,
-            early_stopping=True,
-            validation_fraction=0.10,
-            n_iter_no_change=20,
-            random_state=RANDOM_STATE,
-        )
+    elif model_type == "lin":
+        # Linear model. Every player target is a non-negative count or rate, so
+        # this is a Poisson GLM (linear on the log scale): predictions can't go
+        # negative and the loss matches the Poisson deviance used in evaluation.
+        # Light L2 penalty on standardised features (many of them overlap).
+        model = PoissonRegressor(alpha=0.05, max_iter=1000)
         base = Pipeline([
             ("imputer", imputer),
             ("scaler", StandardScaler()),
@@ -534,14 +581,14 @@ def build_sklearn_model(model_type: str = "rf", target_name: str | None = None,
             check_inverse=False,
         )
 
-    # Counting-stat targets — non-negative integers.
+    # Counting-stat targets - non-negative integers.
     # XGB with objective='count:poisson' already outputs ≥ 0 in count space
     # (the link function does the exp internally), so NO log1p wrapper.
-    # RF and NN have no Poisson option, so they keep the log1p wrapper as
+    # RF has no Poisson option, so it keeps the log1p wrapper as
     # a way to enforce non-negativity and stabilise variance.
     if target_name in COUNT_TARGETS:
-        if model_type == "xgb" and HAS_XGB:
-            return base   # Poisson XGB — predictions already in count space
+        if (model_type == "xgb" and HAS_XGB) or model_type == "lin":
+            return base   # Poisson XGB / Poisson GLM - predictions already in count space
         return TransformedTargetRegressor(
             regressor=base,
             func=np.log1p,
@@ -564,8 +611,9 @@ def feature_importance(pipeline, feature_names: list) -> pd.DataFrame:
     else:
         model = fitted
 
-    if hasattr(model, "feature_importances_"):
-        imp = model.feature_importances_
+    if hasattr(model, "feature_importances_") or hasattr(model, "coef_"):
+        # linear model: |coefficient| on standardised features
+        imp = model.feature_importances_ if hasattr(model, "feature_importances_") else np.abs(model.coef_)
         return (
             pd.DataFrame({"feature": feature_names, "importance": imp})
             .sort_values("importance", ascending=False)
@@ -600,67 +648,68 @@ def validate_pitcher_training_data(df: pd.DataFrame):
         )
 
 
-def train_one_target(
-    train_df: pd.DataFrame,
-    test_df: pd.DataFrame,
-    features: list,
-    target: str,
-    model_type: str = "rf",
-    tune: bool = False,
-    n_iter: int = TUNE_ITER_DEFAULT,
-    calibrate: bool = False,
-    preset_params: dict | None = None,
-) -> dict:
-    if target not in train_df.columns:
-        print(f"    [skip] '{target}' not in data")
-        return {}
+# ---------------------------------------------------------------------------
+# Chronological train / validation / test protocol
+# ---------------------------------------------------------------------------
+# Audit changes (see docs in outputs/model_evaluation/report):
+#   * The model family (RF / XGB / NN) used to be chosen by TEST-set RMSE, so
+#     the reported "test" error was the minimum over three looks at the test
+#     set. Selection now happens on a chronological VALIDATION window; the
+#     test window (when one is requested) is touched once, after selection.
+#   * cross_val_score() with default (unshuffled K-fold) trained on future
+#     folds to predict past ones. It was diagnostic-only and is replaced by
+#     the validation window.
+#   * The production models were fit on the first 75% of dates only and never
+#     saw the most recent quarter of data. After selection the chosen family
+#     is now refit on train + validation (everything before the test window,
+#     or everything available in production).
+#   * Every feature list passes leakage_guard.assert_pregame_features().
+from leakage_guard import assert_pregame_features
+import model_stacking as stk
 
-    feats = select_features(train_df, features)
-    if not feats:
-        print(f"    [skip] No usable features for '{target}'")
-        return {}
+VALID_FRAC = 0.15
+# The MLP ("nn") was removed: weakest family on validation for every target and a
+# large share of training time (see the technical report, section 7).
+MODEL_TYPES = ["rf"] + (["xgb"] if HAS_XGB else []) + ["lin"]
 
-    train_work = train_df[feats + [target]].copy()
-    test_work = test_df[feats + [target]].copy()
+PITCHER_ID_COLS = ["game_date", "game_pk", "pitcher", "pitcher_name", "team", "opponent_team",
+                   "prediction_season", "history_seasons"]
+HITTER_ID_COLS = ["game_date", "game_pk", "batter", "batter_name", "team", "pitcher_team",
+                  "opp_sp_name", "prediction_season", "history_seasons"]
 
-    train_work = train_work[train_work[target].notna()].copy()
-    test_work = test_work[test_work[target].notna()].copy()
 
-    if train_work.empty or test_work.empty:
-        print(f"    [skip] '{target}' has empty train/test after dropping missing targets")
-        return {}
+def date_split(df: pd.DataFrame, date_col: str, valid_start=None, test_start=None,
+               valid_frac: float = VALID_FRAC):
+    """Split by calendar date: train < valid_start <= valid < test_start <= test.
 
-    X_train = train_work[feats]
-    y_train = train_work[target]
+    Without explicit dates the validation window is the most recent
+    `valid_frac` of distinct dates before the test window (production mode:
+    no test window)."""
+    work = df[df[date_col].notna()].copy()
+    work[date_col] = pd.to_datetime(work[date_col], errors="coerce")
+    work = work.sort_values(date_col, kind="mergesort").reset_index(drop=True)
+    d = work[date_col].dt.normalize()
+    if test_start is not None:
+        test_mask = d >= pd.Timestamp(test_start)
+    else:
+        test_mask = pd.Series(False, index=work.index)
+    pool = work[~test_mask]
+    if valid_start is None:
+        dates = sorted(pool[date_col].dt.normalize().unique())
+        cut = dates[max(1, int(len(dates) * (1 - valid_frac)))] if len(dates) > 2 else dates[-1]
+        valid_start = cut
+    vs = pd.Timestamp(valid_start)
+    train = work[(d < vs) & ~test_mask].copy()
+    valid = work[(d >= vs) & ~test_mask].copy()
+    test = work[test_mask].copy()
+    return train, valid, test
 
-    X_test = test_work[feats]
-    y_test = test_work[target]
 
-    # ── 1. Hyperparameter selection (xgb only) ───────────────────────────
-    # Priority: caller-supplied preset_params (e.g. the daily refit reusing
-    # hyperparameters tuned in an earlier offline run) → otherwise a fresh
-    # randomized search when tune=True → otherwise the hand-tuned defaults.
-    # train_df arrives chronologically sorted from chronological_split, so the
-    # inner validation fold inside _tune_xgb is a genuine "future" hold-out.
-    best_params: dict = {}
-    if model_type == "xgb" and HAS_XGB:
-        if preset_params:
-            best_params = dict(preset_params)
-            print(f"      [preset {target}] reusing tuned params "
-                  f"(depth={best_params.get('max_depth')}, n_est={best_params.get('n_estimators')})")
-        elif tune:
-            best_params = _tune_xgb(X_train, y_train, target, n_iter=n_iter)
-
-    # ── 2. Prediction calibration ────────────────────────────────────────
-    # Fit calibration on the most-recent CALIB_FRAC of the training window,
-    # using a model trained only on the earlier rows (so the calibration
-    # slice is unseen). Try isotonic first (handles curved bias) and fall
-    # back to linear if isotonic's holdout MAE is worse — calibration must
-    # never make the raw model worse. Final (a, b, iso) is baked into the
-    # CalibratedRegressor that gets pickled.
-    calib_a, calib_b = 0.0, 1.0
-    calib_iso = None
-    floor = 0.0  # all targets (counts / IP / PA) are non-negative
+def _fit_calibrated(X_train, y_train, target, model_type, best_params, calibrate):
+    """Fit one model family exactly as the original pipeline did (optional
+    tail-of-train linear/isotonic calibration, then a full fit)."""
+    calib_a, calib_b, calib_iso = 0.0, 1.0, None
+    floor = 0.0
     if calibrate and len(X_train) >= 200:
         k = int(len(X_train) * (1.0 - CALIB_FRAC))
         if k >= 60 and (len(X_train) - k) >= 30:
@@ -668,357 +717,281 @@ def train_one_target(
             cal_fit.fit(X_train.iloc[:k], y_train.iloc[:k])
             cal_pred = cal_fit.predict(X_train.iloc[k:])
             y_holdout = y_train.iloc[k:]
-
-            # Linear baseline
             calib_a, calib_b = fit_linear_calibration(y_holdout, cal_pred)
             mae_raw = float(np.mean(np.abs(y_holdout - cal_pred)))
-            mae_lin = float(np.mean(np.abs(
-                y_holdout - np.clip(calib_a + calib_b * cal_pred, floor, None)
-            )))
-
-            # Try isotonic — only adopt if it beats both raw and linear on
-            # the SAME holdout slice it was fit on (this is in-sample for
-            # isotonic, so we apply a small safety margin to prevent
-            # overfit-to-calibration-slice from winning by noise).
+            mae_lin = float(np.mean(np.abs(y_holdout - np.clip(calib_a + calib_b * cal_pred, floor, None))))
             iso = fit_isotonic_calibration(y_holdout, cal_pred)
             if iso is not None:
                 iso_pred = np.clip(iso.predict(cal_pred), floor, None)
                 mae_iso = float(np.mean(np.abs(y_holdout - iso_pred)))
                 if mae_iso < min(mae_lin, mae_raw) - 0.002:
                     calib_iso = iso
-                    # zero out a/b so they aren't used; iso path takes over
                     calib_a, calib_b = 0.0, 1.0
-
-    # ── 3. Final fit on the full training window, then wrap with calibration
     pipe = build_sklearn_model(model_type, target_name=target, params=best_params)
     pipe.fit(X_train, y_train)
-    model = CalibratedRegressor(pipe, a=calib_a, b=calib_b, floor=floor,
-                                iso=calib_iso)
+    model = CalibratedRegressor(pipe, a=calib_a, b=calib_b, floor=floor, iso=calib_iso)
+    kind = "iso" if calib_iso is not None else ("lin" if (calib_a, calib_b) != (0.0, 1.0) else "none")
+    return model, pipe, {"a": calib_a, "b": calib_b, "kind": kind}
 
-    train_pred = model.predict(X_train)
-    test_pred = model.predict(X_test)
-    # Raw (pre-calibration) test MAE, for transparency in the log
-    test_pred_raw = np.clip(np.asarray(pipe.predict(X_test), dtype=float), floor, None)
-    test_mae_raw = float(mean_absolute_error(y_test, test_pred_raw))
 
-    cv_n = min(CV_FOLDS, len(X_train))
-    if cv_n >= 3:
-        cv_scores = cross_val_score(
-            pipe, X_train, y_train,
-            cv=cv_n,
-            scoring="neg_root_mean_squared_error"
-        )
-        cv_rmse_mean = float(-cv_scores.mean())
-        cv_rmse_std = float(cv_scores.std())
+def _metric_block(y, p, prefix):
+    y = np.asarray(y, float); p = np.asarray(p, float)
+    if len(y) == 0:
+        return {}
+    return {f"{prefix}_mae": float(np.mean(np.abs(p - y))),
+            f"{prefix}_rmse": float(np.sqrt(np.mean((p - y) ** 2))),
+            f"{prefix}_bias": float(np.mean(p - y)),
+            f"{prefix}_n": int(len(y)),
+            f"{prefix}_actual_mean": float(np.mean(y)),
+            f"{prefix}_pred_mean": float(np.mean(p))}
+
+
+def train_one_target(train_df, valid_df, test_df, features, target, id_cols,
+                     model_types=None, tune=False, n_iter=TUNE_ITER_DEFAULT,
+                     calibrate=False, preset_params=None, compare_on_test=False) -> dict:
+    model_types = model_types or MODEL_TYPES
+    if target not in train_df.columns:
+        print(f"    [skip] '{target}' not in data")
+        return {}
+    feats = select_features(train_df, features)
+    if not feats:
+        return {}
+    assert_pregame_features(feats, context=f"target {target}")
+
+    tr = train_df[train_df[target].notna()]
+    va = valid_df[valid_df[target].notna()]
+    te = test_df[test_df[target].notna()] if test_df is not None and len(test_df) else test_df
+    if tr.empty or va.empty:
+        print(f"    [skip] '{target}' has empty train/validation")
+        return {}
+    X_tr, y_tr = tr[feats], tr[target]
+    X_va, y_va = va[feats], va[target]
+
+    best_params = {}
+    if HAS_XGB and "xgb" in model_types:
+        if preset_params:
+            best_params = dict(preset_params)
+        elif tune:
+            best_params = _tune_xgb(X_tr, y_tr, target, n_iter=n_iter)   # train window only
+
+    # 1) model-family selection on the validation window
+    per_type = {}
+    has_test = te is not None and len(te) > 0
+    for mt in model_types:
+        try:
+            m, _, cal = _fit_calibrated(X_tr, y_tr, target, mt, best_params if mt == "xgb" else {}, calibrate)
+            pv = np.asarray(m.predict(X_va), float)
+            per_type[mt] = {"valid_pred": pv, "calibration": cal, **_metric_block(y_va, pv, "valid")}
+            if compare_on_test and has_test:
+                # family comparison on the test window with every family fit
+                # identically on the TRAIN window only (reporting, never selection)
+                per_type[mt]["test_pred_trainonly"] = np.asarray(m.predict(te[feats]), float)
+                per_type[mt].update(_metric_block(te[target], per_type[mt]["test_pred_trainonly"], "test_trainonly"))
+        except Exception as e:
+            print(f"    [{target}/{mt}] failed: {e}")
+    if not per_type:
+        return {}
+
+    # 1b) stacking: even-weight and optimised-weight averages of the families.
+    # Weights come from validation predictions only; the optimised stack is
+    # scored for selection with cross-fitted (out-of-fold) predictions.
+    fams = [mt for mt in model_types if mt in per_type]
+    if len(fams) >= 2:
+        yv = y_va.to_numpy(float)
+        P_va = np.column_stack([per_type[mt]["valid_pred"] for mt in fams])
+        w_opt = stk.fit_weights(P_va, yv, "rmse")
+        for name, w, pv_sel in (("stack_even", stk.even_weights(len(fams)), None),
+                                ("stack_opt", w_opt, stk.crossfit_predictions(P_va, yv, "rmse"))):
+            pv = np.clip(P_va @ w, 0, None)
+            score = pv if pv_sel is None else np.clip(pv_sel, 0, None)
+            per_type[name] = {"valid_pred": pv, "members": fams, "weights": w,
+                              "calibration": {"kind": "stack", "weights": stk.describe(fams, w)},
+                              **_metric_block(yv, score, "valid")}
+            if compare_on_test and has_test and all("test_pred_trainonly" in per_type[mt] for mt in fams):
+                T = np.column_stack([per_type[mt]["test_pred_trainonly"] for mt in fams])
+                per_type[name]["test_pred_trainonly"] = np.clip(T @ w, 0, None)
+                per_type[name].update(_metric_block(te[target], per_type[name]["test_pred_trainonly"], "test_trainonly"))
+
+    chosen = min(per_type, key=lambda k: per_type[k]["valid_rmse"])
+
+    # 2) refit the chosen model (or every member of a chosen stack) on
+    #    train + validation; score the test window once
+    full = pd.concat([tr, va])
+    X_full, y_full = full[feats], full[target]
+    test_preds = {}
+    if chosen.startswith("stack_"):
+        members, pipes = [], []
+        for mt in per_type[chosen]["members"]:
+            m, pipe, _ = _fit_calibrated(X_full, y_full, target, mt, best_params if mt == "xgb" else {}, calibrate)
+            members.append(m); pipes.append(pipe)
+        w = per_type[chosen]["weights"]
+        final_model = stk.StackedRegressor(members, w, per_type[chosen]["members"])
+        final_pipe = pipes[int(np.argmax(w))]                 # importance from the heaviest member
+        final_cal = per_type[chosen]["calibration"]
     else:
-        cv_rmse_mean = np.nan
-        cv_rmse_std = np.nan
+        final_model, final_pipe, final_cal = _fit_calibrated(
+            X_full, y_full, target, chosen, best_params if chosen == "xgb" else {}, calibrate)
+    if te is not None and len(te):
+        test_preds[chosen] = np.asarray(final_model.predict(te[feats]), float)
+        per_type[chosen].update(_metric_block(te[target], test_preds[chosen], "test"))
 
-    calibrated = (calib_iso is not None) or ((calib_a, calib_b) != (0.0, 1.0))
-    calib_kind = "iso" if calib_iso is not None else (
-        "lin" if (calib_a, calib_b) != (0.0, 1.0) else "none"
-    )
-    metrics = {
-        "target": target,
-        "model": model_type,
-        "train_rmse": rmse(y_train, train_pred),
-        "test_rmse": rmse(y_test, test_pred),
-        "test_mae": float(mean_absolute_error(y_test, test_pred)),
-        "test_mae_raw": test_mae_raw,
-        "cv_rmse_mean": cv_rmse_mean,
-        "cv_rmse_std": cv_rmse_std,
-        "n_train": int(len(X_train)),
-        "n_test": int(len(X_test)),
-        "features_used": feats,
-        "tuned": bool(best_params),
-        "calibrated": calibrated,
-        "calib_a": calib_a,
-        "calib_b": calib_b,
-        "best_params": best_params,
-        "test_actual_mean": float(np.mean(y_test)),
-        "test_pred_mean": float(np.mean(test_pred)),
-        "test_actual_std": float(np.std(y_test)),
-        "test_pred_std": float(np.std(test_pred)),
-    }
+    metrics_rows = []
+    for mt, r in per_type.items():
+        row = {"target": target, "model": mt, "selected": mt == chosen,
+               "selection_metric": "valid_rmse", "n_train": int(len(tr)),
+               "n_train_plus_valid": int(len(full)), "tuned": bool(best_params) and mt == "xgb",
+               "calibration": r["calibration"]["kind"],
+               "stack_weights": r["calibration"].get("weights", ""),
+               "selection_score": "cross-fitted" if mt == "stack_opt" else "validation",
+               "train_start": str(tr["game_date"].min().date()), "train_end": str(tr["game_date"].max().date()),
+               "valid_start": str(va["game_date"].min().date()), "valid_end": str(va["game_date"].max().date())}
+        row.update({k: v for k, v in r.items() if k.startswith(("valid_", "test_")) and k not in ("valid_pred", "test_pred_trainonly")})
+        metrics_rows.append(row)
+        flag = " <= selected" if mt == chosen else ""
+        tmsg = f"  test MAE={r['test_mae']:.4f}" if "test_mae" in r else (
+            f"  test MAE(train-only fit)={r['test_trainonly_mae']:.4f}" if "test_trainonly_mae" in r else "")
+        print(f"    {target:<12} {mt.upper():<10} valid RMSE={r['valid_rmse']:.4f} MAE={r['valid_mae']:.4f}{tmsg}{flag}")
 
-    imp_df = feature_importance(pipe, feats)
+    pred_df = None
+    if te is not None and len(te) and test_preds:
+        keep = [c for c in id_cols if c in te.columns]
+        pred_df = te[keep].copy()
+        pred_df["target"] = target
+        pred_df["actual"] = te[target].to_numpy(float)
+        for mt, r in per_type.items():
+            if "test_pred_trainonly" in r:
+                pred_df[f"pred_{mt}"] = r["test_pred_trainonly"]     # train-window fit, comparison only
+        pred_df["pred_selected"] = test_preds[chosen]                # train+validation refit
+        pred_df["selected_model"] = chosen
 
-    cal_note = ""
-    if calibrated:
-        if calib_iso is not None:
-            cal_note = f"  cal[iso]:{test_mae_raw:.4f}→{metrics['test_mae']:.4f}"
-        else:
-            cal_note = f"  cal[lin]:{test_mae_raw:.4f}→{metrics['test_mae']:.4f}(a={calib_a:.2f},b={calib_b:.2f})"
-    print(
-        f"    {target:<22} | {model_type.upper():<3} | "
-        f"test RMSE={metrics['test_rmse']:.4f}  "
-        f"MAE={metrics['test_mae']:.4f}  "
-        f"cv={metrics['cv_rmse_mean']:.4f}±{metrics['cv_rmse_std']:.4f}  "
-        f"pred_mean={metrics['test_pred_mean']:.4f}"
-        f"{'  [tuned]' if best_params else ''}{cal_note}"
-    )
-
-    return {
-        "pipeline": model,          # calibration baked in → scores correctly at inference
-        "raw_pipeline": pipe,       # uncalibrated, kept for diagnostics
-        "metrics": metrics,
-        "importance": imp_df,
-        "features": feats,
-        "calibration": {"a": calib_a, "b": calib_b},
-    }
+    return {"pipeline": final_model, "raw_pipeline": final_pipe, "features": feats,
+            "model_type": chosen, "calibration": final_cal, "best_params": best_params,
+            "metrics_rows": metrics_rows, "predictions": pred_df,
+            "importance": feature_importance(final_pipe, feats),
+            "trained_through": str(full["game_date"].max().date())}
 
 
-def train_pitcher_models(df: pd.DataFrame, model_dir: Path,
-                         tune: bool = False, n_iter: int = TUNE_ITER_DEFAULT,
-                         calibrate: bool = False,
-                         preset_params: dict | None = None) -> dict:
-    print("\n" + "=" * 60)
-    print("PITCHER MODELS")
-    print("=" * 60)
+def _save_bundle(path: Path, res: dict, extra: dict | None = None):
+    bundle = {"pipeline": res["pipeline"], "features": res["features"],
+              "model_type": res["model_type"], "calibration": res["calibration"],
+              "best_params": res["best_params"], "trained_through": res["trained_through"],
+              "selected_on": "chronological validation window",
+              "history_rule": "previous two seasons + current season before game date"}
+    bundle.update(extra or {})
+    with open(path, "wb") as f:
+        pickle.dump(bundle, f)
 
-    date_col = next((c for c in ["game_date", "date"] if c in df.columns), None)
-    if not date_col:
-        raise ValueError("No date column found in pitcher data")
 
+def _train_group(df, model_dir, prefix, count_targets, rate_targets, attach_rates, features,
+                 id_cols, tune, n_iter, calibrate, preset_params, valid_start, test_start,
+                 save_models, compare_on_test, rate_kind):
+    date_col = "game_date"
     df = df.copy()
     df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+    train_df, valid_df, test_df = date_split(df, date_col, valid_start, test_start)
+    print(f"  Train: {len(train_df):,} ({train_df[date_col].min().date()} -> {train_df[date_col].max().date()})  "
+          f"|  Valid: {len(valid_df):,} ({valid_df[date_col].min().date()} -> {valid_df[date_col].max().date()})  "
+          f"|  Test: {len(test_df):,}")
+    results, metrics, preds = {}, [], []
+    for target_list, kind in ((count_targets, None), (rate_targets, rate_kind)):
+        if kind:
+            train_df, valid_df, test_df = attach_rates(train_df), attach_rates(valid_df), attach_rates(test_df)
+            print(f"\n  -- RATE TARGETS ({kind}) --")
+        for target in target_list:
+            print(f"\n  Target: {target}")
+            res = train_one_target(train_df, valid_df, test_df, features, target, id_cols,
+                                   tune=tune, n_iter=n_iter, calibrate=calibrate,
+                                   preset_params=(preset_params or {}).get(target),
+                                   compare_on_test=compare_on_test)
+            if not res:
+                continue
+            results[target] = res
+            metrics.extend(res["metrics_rows"])
+            if res["predictions"] is not None:
+                preds.append(res["predictions"])
+            if save_models:
+                _save_bundle(model_dir / f"{prefix}_{target}.pkl", res,
+                             {"target_kind": kind} if kind else None)
+    if save_models and metrics:
+        pd.DataFrame(metrics).to_csv(model_dir / f"{prefix}_metrics.csv", index=False)
+        imp = [r["importance"].assign(target=t) for t, r in results.items() if not r["importance"].empty]
+        if imp:
+            pd.concat(imp, ignore_index=True).to_csv(model_dir / f"{prefix}_importance.csv", index=False)
+    return {"results": results, "metrics": pd.DataFrame(metrics),
+            "predictions": pd.concat(preds, ignore_index=True) if preds else pd.DataFrame()}
 
+
+def train_pitcher_models(df: pd.DataFrame, model_dir: Path, tune: bool = False,
+                         n_iter: int = TUNE_ITER_DEFAULT, calibrate: bool = False,
+                         preset_params: dict | None = None, valid_start=None, test_start=None,
+                         save_models: bool = True, compare_on_test: bool = False) -> dict:
+    print("\n" + "=" * 60 + "\nPITCHER MODELS\n" + "=" * 60)
+    df = df.copy()
     if "is_actual_starter" in df.columns:
-        df = df[pd.to_numeric(df["is_actual_starter"], errors="coerce").fillna(0) == 1].copy()
-
-    train_df, test_df = chronological_split(df, date_col)
-    print(f"  Train: {len(train_df):,}  |  Test: {len(test_df):,}")
-
-    all_results = {}
-    all_metrics = []
-    model_types = ["rf"] + (["xgb"] if HAS_XGB else []) + ["nn"]
-
-    for target in PITCHER_TARGETS:
-        print(f"\n  Target: {target}")
-        best = None
-
-        preset = (preset_params or {}).get(target)
-        for mt in model_types:
-            res = train_one_target(train_df, test_df, PITCHER_FEATURES, target, mt,
-                                   tune=tune, n_iter=n_iter, calibrate=calibrate,
-                                   preset_params=preset)
-            if not res:
-                continue
-
-            all_metrics.append(res["metrics"])
-
-            if best is None or res["metrics"]["test_rmse"] < best["metrics"]["test_rmse"]:
-                best = res
-
-        if best:
-            all_results[target] = best
-            with open(model_dir / f"pitcher_{target}.pkl", "wb") as f:
-                pickle.dump(
-                    {
-                        "pipeline": best["pipeline"],
-                        "features": best["features"],
-                        "model_type": best["metrics"].get("model"),
-                        "calibration": best.get("calibration"),
-                        "best_params": best["metrics"].get("best_params"),
-                    },
-                    f,
-                )
-
-    # ─── RATE TARGETS ──────────────────────────────────────────────────────
-    # Train per-9-IP rate models (K_per_9, BB_per_9, H_per_9, HR_per_9). At
-    # inference these get multiplied by the IP prediction and blended 50/50
-    # with the direct count models — the two-angle ensemble usually beats
-    # either one alone, especially on stats where opportunity (IP) is already
-    # accurate but per-opportunity efficiency is the noisy part.
-    print("\n  ── RATE TARGETS (per-9 IP) — for inference-time ensemble ──")
-    train_df_r = _attach_pitcher_rates(train_df)
-    test_df_r  = _attach_pitcher_rates(test_df)
-    for target in PITCHER_RATE_TARGETS:
-        if target not in train_df_r.columns:
-            continue
-        print(f"\n  Rate target: {target}")
-        best = None
-        preset = (preset_params or {}).get(target)
-        for mt in model_types:
-            res = train_one_target(train_df_r, test_df_r, PITCHER_FEATURES,
-                                   target, mt, tune=tune, n_iter=n_iter,
-                                   calibrate=calibrate, preset_params=preset)
-            if not res:
-                continue
-            all_metrics.append(res["metrics"])
-            if best is None or res["metrics"]["test_rmse"] < best["metrics"]["test_rmse"]:
-                best = res
-        if best:
-            all_results[target] = best
-            with open(model_dir / f"pitcher_{target}.pkl", "wb") as f:
-                pickle.dump(
-                    {
-                        "pipeline":    best["pipeline"],
-                        "features":    best["features"],
-                        "model_type":  best["metrics"].get("model"),
-                        "calibration": best.get("calibration"),
-                        "best_params": best["metrics"].get("best_params"),
-                        "target_kind": "rate_per_9",
-                    },
-                    f,
-                )
-
-    metrics_df = pd.DataFrame(all_metrics)
-    if not metrics_df.empty:
-        metrics_df.to_csv(model_dir / "pitcher_metrics.csv", index=False)
-
-    imp_frames = []
-    for target, res in all_results.items():
-        if not res["importance"].empty:
-            tmp = res["importance"].copy()
-            tmp["target"] = target
-            imp_frames.append(tmp)
-    if imp_frames:
-        pd.concat(imp_frames, ignore_index=True).to_csv(model_dir / "pitcher_importance.csv", index=False)
-
-    print(f"\n  Pitcher models saved to {model_dir}")
-    return all_results
+        df = df[pd.to_numeric(df["is_actual_starter"], errors="coerce").fillna(0) == 1]
+    return _train_group(df, Path(model_dir), "pitcher", PITCHER_TARGETS, PITCHER_RATE_TARGETS,
+                        _attach_pitcher_rates, PITCHER_FEATURES, PITCHER_ID_COLS, tune, n_iter,
+                        calibrate, preset_params, valid_start, test_start, save_models,
+                        compare_on_test, "rate_per_9")
 
 
-def train_hitter_models(df: pd.DataFrame, model_dir: Path,
-                        tune: bool = False, n_iter: int = TUNE_ITER_DEFAULT,
-                        calibrate: bool = False,
-                        preset_params: dict | None = None) -> dict:
-    print("\n" + "=" * 60)
-    print("HITTER MODELS")
-    print("=" * 60)
-
-    date_col = next((c for c in ["game_date", "date"] if c in df.columns), None)
-    if not date_col:
-        raise ValueError("No date column found in hitter data")
-
+def train_hitter_models(df: pd.DataFrame, model_dir: Path, tune: bool = False,
+                        n_iter: int = TUNE_ITER_DEFAULT, calibrate: bool = False,
+                        preset_params: dict | None = None, valid_start=None, test_start=None,
+                        save_models: bool = True, compare_on_test: bool = False) -> dict:
+    print("\n" + "=" * 60 + "\nHITTER MODELS\n" + "=" * 60)
     df = clean_hitter_training_rows(df)
-    df = df.copy()
-    df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
-    train_df, test_df = chronological_split(df, date_col)
-    print(f"  Train: {len(train_df):,}  |  Test: {len(test_df):,}")
+    return _train_group(df, Path(model_dir), "hitter", HITTER_TARGETS, HITTER_RATE_TARGETS,
+                        _attach_hitter_rates, HITTER_FEATURES, HITTER_ID_COLS, tune, n_iter,
+                        calibrate, preset_params, valid_start, test_start, save_models,
+                        compare_on_test, "rate_per_PA")
 
-    all_results = {}
-    all_metrics = []
-    model_types = ["rf"] + (["xgb"] if HAS_XGB else []) + ["nn"]
 
-    for target in HITTER_TARGETS:
-        print(f"\n  Target: {target}")
-        best = None
-
-        preset = (preset_params or {}).get(target)
-        for mt in model_types:
-            res = train_one_target(train_df, test_df, HITTER_FEATURES, target, mt,
-                                   tune=tune, n_iter=n_iter, calibrate=calibrate,
-                                   preset_params=preset)
-            if not res:
-                continue
-
-            all_metrics.append(res["metrics"])
-
-            if best is None or res["metrics"]["test_rmse"] < best["metrics"]["test_rmse"]:
-                best = res
-
-        if best:
-            all_results[target] = best
-            with open(model_dir / f"hitter_{target}.pkl", "wb") as f:
-                pickle.dump(
-                    {
-                        "pipeline": best["pipeline"],
-                        "features": best["features"],
-                        "model_type": best["metrics"].get("model"),
-                        "calibration": best.get("calibration"),
-                        "best_params": best["metrics"].get("best_params"),
-                    },
-                    f,
-                )
-
-    # ─── RATE TARGETS ──────────────────────────────────────────────────────
-    # Per-PA rates (H_per_PA, HR_per_PA, BB_per_PA, K_per_PA). Ensembled at
-    # inference with the direct count models — your PA prediction is already
-    # at book benchmark, so combining rate × PA with direct count usually
-    # narrows the count MAE on noisier stats like hits.
-    print("\n  ── RATE TARGETS (per-PA) — for inference-time ensemble ──")
-    train_df_r = _attach_hitter_rates(train_df)
-    test_df_r  = _attach_hitter_rates(test_df)
-    for target in HITTER_RATE_TARGETS:
-        if target not in train_df_r.columns:
-            continue
-        print(f"\n  Rate target: {target}")
-        best = None
-        preset = (preset_params or {}).get(target)
-        for mt in model_types:
-            res = train_one_target(train_df_r, test_df_r, HITTER_FEATURES,
-                                   target, mt, tune=tune, n_iter=n_iter,
-                                   calibrate=calibrate, preset_params=preset)
-            if not res:
-                continue
-            all_metrics.append(res["metrics"])
-            if best is None or res["metrics"]["test_rmse"] < best["metrics"]["test_rmse"]:
-                best = res
-        if best:
-            all_results[target] = best
-            with open(model_dir / f"hitter_{target}.pkl", "wb") as f:
-                pickle.dump(
-                    {
-                        "pipeline":    best["pipeline"],
-                        "features":    best["features"],
-                        "model_type":  best["metrics"].get("model"),
-                        "calibration": best.get("calibration"),
-                        "best_params": best["metrics"].get("best_params"),
-                        "target_kind": "rate_per_PA",
-                    },
-                    f,
-                )
-
-    metrics_df = pd.DataFrame(all_metrics)
-    if not metrics_df.empty:
-        metrics_df.to_csv(model_dir / "hitter_metrics.csv", index=False)
-
-    imp_frames = []
-    for target, res in all_results.items():
-        if not res["importance"].empty:
-            tmp = res["importance"].copy()
-            tmp["target"] = target
-            imp_frames.append(tmp)
-    if imp_frames:
-        pd.concat(imp_frames, ignore_index=True).to_csv(model_dir / "hitter_importance.csv", index=False)
-
-    print(f"\n  Hitter models saved to {model_dir}")
-    return all_results
+def load_training_tables(seasons: list[int] | None = None):
+    """Feature tables for training. Prefers the windowed multi-season build
+    (data/features/*_games.csv from build_features.py); falls back to the
+    committed current-season CSVs."""
+    feat_dir = Path("data/features")
+    pf, hf = feat_dir / "pitcher_games.csv", feat_dir / "hitter_games.csv"
+    if pf.exists() and hf.exists():
+        p, h = pd.read_csv(pf, low_memory=False), pd.read_csv(hf, low_memory=False)
+    elif (feat_dir / "pitcher_games.parquet").exists() and (feat_dir / "hitter_games.parquet").exists():  # legacy cache
+        p, h = pd.read_parquet(feat_dir / "pitcher_games.parquet"), pd.read_parquet(feat_dir / "hitter_games.parquet")
+    else:
+        p = pd.read_csv("data/pitcher_game_data.csv", low_memory=False)
+        h = pd.read_csv("data/hitter_game_data.csv", low_memory=False)
+    if seasons:
+        p = p[pd.to_datetime(p["game_date"], errors="coerce").dt.year.isin(seasons)]
+        h = h[pd.to_datetime(h["game_date"], errors="coerce").dt.year.isin(seasons)]
+    return p, h
 
 
 def main():
     parser = argparse.ArgumentParser(description="Train MLB hitter + pitcher projection models")
-    parser.add_argument("--pitcher-data", default="data/pitcher_game_data.csv", help="Pitcher game-level CSV")
-    parser.add_argument("--hitter-data", default="data/hitter_game_data.csv", help="Hitter game-level CSV")
     parser.add_argument("--model-dir", default="models", help="Directory to save trained models")
-    parser.add_argument("--no-tune", action="store_true",
-                        help="Disable XGBoost hyperparameter search (on by default).")
-    parser.add_argument("--no-calibrate", action="store_true",
-                        help="Disable post-hoc linear prediction calibration (on by default).")
-    parser.add_argument("--tune-iter", type=int, default=TUNE_ITER_DEFAULT,
-                        help="Randomized-search samples per tuned target.")
+    parser.add_argument("--tune", action="store_true",
+                        help="Fresh randomized XGB search on the TRAIN window (default: reuse tuned presets).")
+    parser.add_argument("--no-calibrate", action="store_true")
+    parser.add_argument("--tune-iter", type=int, default=TUNE_ITER_DEFAULT)
+    parser.add_argument("--train-seasons", nargs="+", type=int, default=None,
+                        help="Seasons whose rows are used as training examples (default: all built).")
+    parser.add_argument("--valid-start", default=None, help="YYYY-MM-DD (default: last 15%% of dates)")
     args = parser.parse_args()
 
-    tune = not args.no_tune
-    calibrate = not args.no_calibrate
-    print(f"Tuning: {'ON' if tune else 'OFF'}  (iter={args.tune_iter})   "
-          f"Calibration: {'ON' if calibrate else 'OFF'}")
-
-    model_dir = Path(args.model_dir)
-    model_dir.mkdir(parents=True, exist_ok=True)
-
-    pitcher_df = pd.read_csv(args.pitcher_data, low_memory=False)
-    hitter_df = pd.read_csv(args.hitter_data, low_memory=False)
-
+    model_dir = Path(args.model_dir); model_dir.mkdir(parents=True, exist_ok=True)
+    pitcher_df, hitter_df = load_training_tables(args.train_seasons)
+    if args.train_seasons is None:
+        from run_backtest import training_seasons      # earliest of >=3 cached seasons = history only
+        pitcher_df = pitcher_df[pd.to_datetime(pitcher_df["game_date"]).dt.year.isin(training_seasons(pitcher_df))]
+        hitter_df = hitter_df[pd.to_datetime(hitter_df["game_date"]).dt.year.isin(training_seasons(hitter_df))]
     validate_pitcher_training_data(pitcher_df)
-
-    train_pitcher_models(pitcher_df, model_dir,
-                         tune=tune, n_iter=args.tune_iter, calibrate=calibrate)
-    train_hitter_models(hitter_df, model_dir,
-                        tune=tune, n_iter=args.tune_iter, calibrate=calibrate)
-
+    from daily_update import _load_preset_params
+    pp = None if args.tune else _load_preset_params("pitcher", PITCHER_TARGETS + PITCHER_RATE_TARGETS)
+    hp = None if args.tune else _load_preset_params("hitter", HITTER_TARGETS + HITTER_RATE_TARGETS)
+    train_pitcher_models(pitcher_df, model_dir, tune=args.tune, n_iter=args.tune_iter,
+                         calibrate=not args.no_calibrate, preset_params=pp, valid_start=args.valid_start)
+    train_hitter_models(hitter_df, model_dir, tune=args.tune, n_iter=args.tune_iter,
+                        calibrate=not args.no_calibrate, preset_params=hp, valid_start=args.valid_start)
     print("\nDone.")
 
 

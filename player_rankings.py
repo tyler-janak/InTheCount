@@ -5,66 +5,66 @@ Season player power rankings for the Power Rankings tab.
 
 HITTERS are ranked by a projected rest-of-season WAR built from three
 separate sub-models. In real WAR these would be denominated in the same
-currency (runs above average/replacement) and just added — no component
+currency (runs above average/replacement) and just added - no component
 gets a "weight" multiplier, because a run is a run regardless of whether
 it came from a double or a diving catch. THIS VERSION DELIBERATELY BREAKS
 FROM THAT, per explicit direction: Def is weighted DEF_RUNS_WEIGHT (1.15x)
-relative to Bat. There is NO positional adjustment — removed per explicit
+relative to Bat. There is NO positional adjustment - removed per explicit
 direction (an earlier version applied one; see git history if you ever
 want it back). That makes this a house-rules scoring system, not textbook
-fWAR/bWAR — worth knowing if you're ever comparing these numbers to
+fWAR/bWAR - worth knowing if you're ever comparing these numbers to
 FanGraphs or Baseball-Reference. In particular: without a positional
 adjustment, a bat-only DH-type player's WAR is NOT penalized for
 providing no defensive value most nights the way real WAR would penalize
-it — Def itself (see below) still reflects only their thin, occasional
+it - Def itself (see below) still reflects only their thin, occasional
 fielding chances.
 
-    Bat   — real wOBA -> wRAA, the same two-step FanGraphs uses: wOBA
+    Bat   - real wOBA -> wRAA, the same two-step FanGraphs uses: wOBA
             (H/2B/3B/HR/BB weighted by WOBA_WEIGHTS, FanGraphs' own
-            published Guts! constants) is a rate stat, not runs — it's
+            published Guts! constants) is a rate stat, not runs - it's
             converted to runs above average via wRAA = ((player wOBA −
             league wOBA) / WOBA_SCALE) * PA. League wOBA is the PA-
             weighted average across this same hitter pool (self-
-            consistent — no external lgwOBA constant needed); WOBA_SCALE
+            consistent - no external lgwOBA constant needed); WOBA_SCALE
             itself is a published external constant (see the comment
             above WOBA_WEIGHTS). HBP isn't tracked by this pipeline's
             box-score log so it's dropped from the wOBA numerator, and PA
             stands in for the technically-correct AB+BB-IBB+SF+HBP
-            denominator — both standard, sub-1%-impact simplifications.
-    Def   — fielding runs. DEFAULTS to Statcast's own official Fielding
+            denominator - both standard, sub-1%-impact simplifications.
+    Def   - fielding runs. DEFAULTS to Statcast's own official Fielding
             Run Value leaderboard, fetched directly from baseballsavant.
-            mlb.com (see fetch_statcast_fielding_run_value) — real range/
+            mlb.com (see fetch_statcast_fielding_run_value) - real range/
             positioning-based defensive value computed by MLBAM from
             actual player-tracking data (hang time, distance covered,
             etc.), not modeled by this pipeline at all. This replaced an
             earlier in-house model that regressed exit velocity + launch
-            angle + hit_location against expected run value — that
+            angle + hit_location against expected run value - that
             approach went through several rounds of real, measured bias
             (outfielders systematically over-credited relative to
             infielders/catchers because a 3-feature model can't tell a
             trivial fly-ball out from a genuinely tough one as precisely
-            in the outfield as closer to the plate — see
+            in the outfield as closer to the plate - see
             build_defense_model's docstring for the full history and the
             shrinkage/normalization steps that were built to patch around
             it) before landing on "just use Statcast's own number instead
             of re-deriving a worse version of it." That in-house model is
-            kept as a FALLBACK — build_defense_model() only runs if the
+            kept as a FALLBACK - build_defense_model() only runs if the
             Statcast fetch fails (network issue, or Statcast changes their
-            page's columns) — see defense_source in the output bundle's
+            page's columns) - see defense_source in the output bundle's
             data_availability for which one actually supplied a given
             run's numbers.
-    BsR   — baserunning runs = SB/CS value (this pipeline's own run-
+    BsR   - baserunning runs = SB/CS value (this pipeline's own run-
             expectancy-matrix-derived run values applied to real SB/CS
             counts from the MLB Stats API, unchanged from before) PLUS
             extra-bases-taken value fetched directly from Statcast's own
             Baserunning / Extra Bases Run Value leaderboard (see
-            fetch_statcast_baserunning_run_value) — taking the extra base
+            fetch_statcast_baserunning_run_value) - taking the extra base
             on a hit, scoring from 1st on a double, tagging up, etc.,
             computed by MLBAM from real tracking data. Falls back to SB/CS
-            -only if that second fetch fails — see baserunning_extra_bases
+            -only if that second fetch fails - see baserunning_extra_bases
             in data_availability. Double-play avoidance (wGDP) is still
             NOT implemented (would need a batter ID on every pitch, which
-            this pipeline's pitch_data_<year>.csv doesn't carry — a
+            this pipeline's pitch_data_<year>.csv doesn't carry - a
             possible future addition upstream in the Statcast pull, not
             related to the Statcast leaderboard fetches above). The SB/CS
             counts themselves are re-fetched every run (official box
@@ -75,15 +75,15 @@ fielding chances.
     WAR = (Bat + Def*DEF_RUNS_WEIGHT + BsR + Replacement) / RUNS_PER_WIN
     Replacement = 20 runs / 600 PA (standard replacement-level constant).
 
-This is a WAR *structure* — three components combined into wins above
-replacement — customized in one way per explicit direction: Def gets a
+This is a WAR *structure* - three components combined into wins above
+replacement - customized in one way per explicit direction: Def gets a
 1.15x weight relative to Bat. Bat is computed fresh every run (it's
-cheap — just this run's own projected stats). Def and the SB/CS run
+cheap - just this run's own projected stats). Def and the SB/CS run
 values are trained/derived from this pipeline's own data too, but only
 once per season (cached under models/, like the hitter/pitcher
-projection models), not re-trained on every cron tick — see "Model
+projection models), not re-trained on every cron tick - see "Model
 caching" below. Only the raw SB/CS event counts and player ages come
-from an outside feed (MLB's official Stats API — factual box-score
+from an outside feed (MLB's official Stats API - factual box-score
 data, not someone else's model). Def and BsR are both best-effort: if
 the local pitch data or the Stats API is unavailable on a given run,
 those components degrade to 0 for the affected players rather than
@@ -91,11 +91,11 @@ failing the whole build (see `data_availability` in the output bundle).
 
 Model caching: the defense regression model and the baserunning run-
 values are expensive-ish to (re)build (they load the season's full
-Statcast pitch file) but change slowly — real defensive/baserunning
+Statcast pitch file) but change slowly - real defensive/baserunning
 value doesn't meaningfully shift from one cron tick to the next. So
 both are trained once and cached to disk (models/defense_run_value_
 model.pkl, models/baserunning_re_weights.json) the first time this
-runs each season, then just loaded on every subsequent run — the same
+runs each season, then just loaded on every subsequent run - the same
 pattern the hitter/pitcher stat models already use for their own
 tuned hyperparameters. Pass retrain_models=True to build_rankings()
 (or --retrain-defense on the CLI, or set BULLPEN_RETRAIN_DEFENSE=force)
@@ -111,14 +111,14 @@ rather than FIP-based:
 
 league_RA9 is the IP-weighted average across this pitcher pool, computed
 fresh from this pipeline's own data every run (self-consistent, same
-pattern as the hitters' league-average Bat rate — no external league
+pattern as the hitters' league-average Bat rate - no external league
 constant). PITCHER_REPLACEMENT_RA9_MULTIPLIER is NOT derived from this
-pipeline's data — it's a standard, published sabermetric convention
+pipeline's data - it's a standard, published sabermetric convention
 (replacement-level pitching ≈ .380 win%, which via the Pythagorean
 win% relationship works out to allowing runs at roughly 1.28x the
 league rate). FIP-based WAR (the more standard approach) would need
 home-runs-allowed and hit-by-pitch counts, which the accuracy log
-doesn't track yet — RA9-based is the best available with today's data.
+doesn't track yet - RA9-based is the best available with today's data.
 "ER" here is actually total runs allowed (the accuracy log doesn't
 separate earned from unearned), a pre-existing simplification.
 
@@ -128,8 +128,8 @@ separate earned from unearned), a pre-existing simplification.
 Every stat and score below is computed BOTH ways and shipped side by side
 so the front end can offer it as a toggle:
 
-    ros_*   — rest-of-season only: per-game rate x games remaining.
-    full_*  — full season: real accumulated season-to-date totals (actual
+    ros_*   - rest-of-season only: per-game rate x games remaining.
+    full_*  - full season: real accumulated season-to-date totals (actual
               box scores) PLUS the same rest-of-season projection. The
               "already happened" portion is ground truth, not rate*gp.
 
@@ -161,7 +161,7 @@ ACC_CSV = HERE / "2026_player_accuracy.csv"
 OUT_JSON = HERE / "outputs" / "player_rankings.json"
 AGE_CACHE = HERE / "data" / "player_ages.json"
 MODELS_DIR = HERE / "models"
-# Cached artifacts for the in-house defense/baserunning models — trained
+# Cached artifacts for the in-house defense/baserunning models - trained
 # once per season (see the "Model caching" note above), not every run.
 DEFENSE_MODEL_CACHE = MODELS_DIR / "defense_run_value_model.pkl"
 BASERUNNING_WEIGHTS_CACHE = MODELS_DIR / "baserunning_re_weights.json"
@@ -177,25 +177,25 @@ def _resolve_retrain_defense(explicit: bool) -> bool:
     asked (--retrain-defense / build_rankings(retrain_models=True)), or if
     BULLPEN_RETRAIN_DEFENSE=force is set in the environment (same override
     pattern daily_update.py already uses for BULLPEN_RETRAIN, but distinct
-    — these models retrain once per SEASON by default, not once per day)."""
+    - these models retrain once per SEASON by default, not once per day)."""
     if explicit:
         return True
     return os.environ.get("BULLPEN_RETRAIN_DEFENSE", "auto").lower() == "force"
 
 DEFAULT_SEASON_GAMES = 162
 AGE_CUTOFF = 25
-# Only fetch/attach ages for the top N by WAR / power score — deep-bench
+# Only fetch/attach ages for the top N by WAR / power score - deep-bench
 # players are noise for a "power rankings" spotlight feature and this
 # keeps MLB Stats API calls bounded.
 TOP_N_HITTERS_FOR_AGE = 400
 TOP_N_PITCHERS_FOR_AGE = 300
 # Baserunning (SB/CS) is a per-player MLB Stats API lookup, so it's bounded
-# the same way — top N hitters by projected Bat runs get real SB/CS,
+# the same way - top N hitters by projected Bat runs get real SB/CS,
 # everyone else defaults to BsR = 0.
 TOP_N_HITTERS_FOR_BASERUNNING = 400
 
 PITCHER_WEIGHTS = {"IP": 3.0, "K": 1.0, "ER": -1.0, "H": -0.5, "BB": -0.5}
-# Old production-points formula — still computed and shipped (ros/full_
+# Old production-points formula - still computed and shipped (ros/full_
 # power_score) for reference, but WAR (below) is now the primary pitcher
 # ranking metric.
 
@@ -204,19 +204,19 @@ PITCHER_WEIGHTS = {"IP": 3.0, "K": 1.0, "ER": -1.0, "H": -0.5, "BB": -0.5}
 # allowing runs at PITCHER_REPLACEMENT_RA9_MULTIPLIER x the league rate.
 # This is a standard published sabermetric convention (replacement level
 # ≈ .380 win%, which via the Pythagorean win%-expectation relationship
-# — win% = RS^2/(RS^2+RA^2) — works out to RA/RS ≈ 1.28 when RS is held
+# - win% = RS^2/(RS^2+RA^2) - works out to RA/RS ≈ 1.28 when RS is held
 # at the league rate), NOT something derived from this pipeline's own
 # data, unlike league_RA9 itself (which IS computed fresh from this
 # pitcher pool every run).
 PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
 
 # Positional adjustment was removed per explicit direction (an earlier
-# version applied a runs/162-games-by-position table on top of Def — see
+# version applied a runs/162-games-by-position table on top of Def - see
 # git history if you ever want it back). WAR below has no positional
 # term at all: a bat-only DH-type player's WAR is NOT penalized for
 # playing no real defense the way textbook WAR would penalize it.
 
-# Def is weighted slightly higher than Bat, per explicit request — a
+# Def is weighted slightly higher than Bat, per explicit request - a
 # deliberate departure from real WAR, where every component is worth
 # exactly 1 run per run with no multiplier (that's what makes it WAR
 # instead of a house-rules score in the first place). Applied directly
@@ -228,43 +228,43 @@ DEF_RUNS_WEIGHT = 1.15
 #
 # Two SEPARATE weight tables, for two purposes that must not share one set
 # of numbers (an earlier version of this file conflated them, which is what
-# was inflating Bat runs — see below):
+# was inflating Bat runs - see below):
 #
 # WOBA_WEIGHTS / WOBA_SCALE: the real wOBA -> wRAA pipeline (Offense),
 # published each year by FanGraphs' Guts! page (fangraphs.com/guts.aspx).
 # Values below are the 2025 constants (checked via web search when this was
-# implemented — re-check the Guts page each new season and update if they've
+# implemented - re-check the Guts page each new season and update if they've
 # moved). wOBA itself is just a rate stat: wOBA = (wBB*BB + w1B*1B + w2B*2B +
-# w3B*3B + wHR*HR) / PA (HBP is dropped from the numerator — not tracked by
-# this pipeline's box-score log — and PA is used in place of the technically
+# w3B*3B + wHR*HR) / PA (HBP is dropped from the numerator - not tracked by
+# this pipeline's box-score log - and PA is used in place of the technically
 # -correct AB+BB-IBB+SF+HBP denominator for the same reason; both are
 # standard, sub-1%-impact simplifications when HBP/SF/IBB aren't available).
-# wOBA on its own is NOT in run units — converting it to actual runs above
+# wOBA on its own is NOT in run units - converting it to actual runs above
 # average (wRAA) requires dividing by WOBA_SCALE:
 #     wRAA = ((player_wOBA - league_wOBA) / WOBA_SCALE) * PA
 # league_wOBA is computed self-consistently from this pipeline's own hitter
-# pool (PA-weighted average), same as the old league_bat_rate approach — no
+# pool (PA-weighted average), same as the old league_bat_rate approach - no
 # external lgwOBA constant needed. WOBA_SCALE itself, unlike lgwOBA, can't
 # be self-derived without modeling the league's full run environment, so
 # it's a published external constant, same footing as RUNS_PER_WIN below.
 #
 # DEFENSE_RUN_VALUE_WEIGHTS: true ABSOLUTE run values (classic Palmer-style
-# Linear Weights — "runs above an out"), used ONLY as the training target
+# Linear Weights - "runs above an out"), used ONLY as the training target
 # for the in-house defense model (see build_defense_model / _outcome_run_
-# value) — it needs every outcome, including an out, priced in the same
+# value) - it needs every outcome, including an out, priced in the same
 # real-runs units with no separate scale step, which is exactly what wOBA's
 # coefficients are NOT designed for (they only mean something once divided
-# by WOBA_SCALE, and even then have no "OUT" term at all — outs are implicit
-# in wOBA, not priced directly). Mixing the two tables up — using wOBA's
+# by WOBA_SCALE, and even then have no "OUT" term at all - outs are implicit
+# in wOBA, not priced directly). Mixing the two tables up - using wOBA's
 # coefficients as if they were absolute run values, paired with a real Out
-# value from this table — is exactly what was inflating Bat runs (and
+# value from this table - is exactly what was inflating Bat runs (and
 # therefore WAR) for high-power/high-BB hitters before this fix: their hit
 # events were valued ~1.5-2x too high relative to the Out penalty.
 #
 # REPLACEMENT_RUNS_PER_600PA and RUNS_PER_WIN are standard replacement-
 # level / win-conversion constants (see the replacement-level derivation
 # note further down for where the 20.0 figure comes from). SB_RUN / CS_RUN
-# are only a FALLBACK — the real per-run values are derived from this
+# are only a FALLBACK - the real per-run values are derived from this
 # pipeline's own play-by-play data (pooled across this season + last
 # season) in build_run_expectancy_and_baserunning_weights(), cached, and
 # reused all season; these fixed numbers only kick in if that derivation
@@ -279,15 +279,15 @@ DEFENSE_RUN_VALUE_WEIGHTS = {
     "BB": 0.33, "1B": 0.47, "2B": 0.78, "3B": 1.09, "HR": 1.40, "OUT": -0.25,
 }
 FALLBACK_SB_RUN, FALLBACK_CS_RUN = 0.20, -0.40
-# Replacement level ≈ 20 runs below average per 600 PA — the standard,
+# Replacement level ≈ 20 runs below average per 600 PA - the standard,
 # widely-cited rounding of FanGraphs' actual derivation: a replacement-level
 # team wins ~.294 (about 47-48 games/162), which nets to roughly 1,000 wins
 # above replacement leaguewide/season, ~57% (570) of which goes to position
 # players; spread across a league-PA-weighted share of that, a full-time
 # 600-PA regular's slice comes out close to 18-20 runs depending on the
-# season's exact run environment and total league PA — see
+# season's exact run environment and total league PA - see
 # https://library.fangraphs.com/misc/war/replacement-level/. Applied
-# uniformly regardless of position — this pipeline has no positional-
+# uniformly regardless of position - this pipeline has no positional-
 # adjustment term at all (removed per explicit direction), unlike real
 # WAR, which would normally handle position separately from replacement.
 REPLACEMENT_RUNS_PER_600PA = 20.0
@@ -345,7 +345,7 @@ def _hitter_totals(group: pd.DataFrame) -> dict:
     """Real season-to-date accumulated counting stats (sums, not
     averages) from actual box scores. All zero if the player hasn't
     played yet. Used as the "already happened" half of a full-season
-    projection — the rest-of-season rate estimate covers the other half."""
+    projection - the rest-of-season rate estimate covers the other half."""
     played = group[group["actual_pa"].notna()]
     if played.empty:
         return {"H": 0.0, "HR": 0.0, "BB": 0.0, "K": 0.0, "R": 0.0,
@@ -421,16 +421,16 @@ def _remaining_games(games_played: int, team_games: int, season_games: int) -> f
 
 
 # ---------------------------------------------------------------------------
-# Batting runs (offense component of WAR) — real wOBA -> wRAA, the same
+# Batting runs (offense component of WAR) - real wOBA -> wRAA, the same
 # two-step FanGraphs uses (see the WOBA_WEIGHTS / WOBA_SCALE comment above).
 # ---------------------------------------------------------------------------
 def _woba(rate: dict) -> float:
     """wOBA for a per-game rate dict with H/2B/3B/HR/BB/PA keys (season-
-    to-date or projected rate — a rate stat, so per-game vs per-season
+    to-date or projected rate - a rate stat, so per-game vs per-season
     inputs give the same ratio). HBP is dropped from the numerator (not
     tracked by this pipeline's box-score log) and PA stands in for the
     technically-correct AB+BB-IBB+SF+HBP denominator (IBB/SF aren't
-    tracked either) — both are standard, sub-1%-impact simplifications."""
+    tracked either) - both are standard, sub-1%-impact simplifications."""
     pa = rate.get("PA") or 0.0
     if pa <= 0:
         return 0.0
@@ -444,10 +444,10 @@ def _woba(rate: dict) -> float:
 
 
 def _league_avg_woba(per_game_by_player: list[dict]) -> float:
-    """PA-weighted league-average wOBA across the current hitter pool —
+    """PA-weighted league-average wOBA across the current hitter pool -
     makes "above average" self-consistent without needing an external
-    lgwOBA constant (WOBA_SCALE still has to come from FanGraphs — see
-    above — but the league baseline itself doesn't)."""
+    lgwOBA constant (WOBA_SCALE still has to come from FanGraphs - see
+    above - but the league baseline itself doesn't)."""
     total_num, total_pa = 0.0, 0.0
     for rate in per_game_by_player:
         pa = rate.get("PA") or 0.0
@@ -466,25 +466,69 @@ def _wraa_per_pa(rate: dict, league_woba: float) -> float:
 
 
 # ---------------------------------------------------------------------------
-# Defense — in-house model, trained once per season (cached) on pooled
+# Slash-line stats (BA/OBP/SLG/OPS) for the Season Player Projections page.
+# None of this changes WAR - it's purely for display. Same rate dict shape
+# as _woba above (H/2B/3B/HR/BB/PA keys), so it works for both a per-game
+# rate and a season-total dict.
+#
+# AB is not tracked by this pipeline (no HBP/SF/SH in the box-score log -
+# same gap _woba's docstring already notes), so AB is approximated as
+# PA - BB throughout. That slightly overstates AB (real AB also excludes
+# HBP and sac bunts/flies), a standard, small (<1%) simplification
+# consistent with how PA already stands in for the true wOBA denominator
+# elsewhere in this file. OBP is likewise (H+BB)/PA rather than the
+# technically-correct (H+BB+HBP)/(AB+BB+HBP+SF) - HBP/SF aren't tracked.
+# ---------------------------------------------------------------------------
+def _at_bats(rate: dict) -> float:
+    return max(0.0, (rate.get("PA") or 0.0) - (rate.get("BB") or 0.0))
+
+
+def _total_bases(rate: dict) -> float:
+    h, doubles, triples, hr = rate.get("H", 0.0), rate.get("2B", 0.0), rate.get("3B", 0.0), rate.get("HR", 0.0)
+    singles = max(0.0, h - doubles - triples - hr)
+    return singles + 2 * doubles + 3 * triples + 4 * hr
+
+
+def _batting_average(rate: dict) -> float | None:
+    ab = _at_bats(rate)
+    return (rate.get("H", 0.0) / ab) if ab > 0 else None
+
+
+def _on_base_pct(rate: dict) -> float | None:
+    pa = rate.get("PA") or 0.0
+    return ((rate.get("H", 0.0) + rate.get("BB", 0.0)) / pa) if pa > 0 else None
+
+
+def _slugging_pct(rate: dict) -> float | None:
+    ab = _at_bats(rate)
+    return (_total_bases(rate) / ab) if ab > 0 else None
+
+
+def _ops(rate: dict) -> float | None:
+    obp, slg = _on_base_pct(rate), _slugging_pct(rate)
+    return (obp + slg) if (obp is not None and slg is not None) else None
+
+
+# ---------------------------------------------------------------------------
+# Defense - in-house model, trained once per season (cached) on pooled
 # multi-year Statcast batted-ball data, then scored against just the
 # current season's chances. Best-effort, never raises.
 # ---------------------------------------------------------------------------
 def _load_pitch_data(season_year: int, columns: list[str]) -> pd.DataFrame | None:
     path = _pitch_data_csv(season_year)
     if not path.exists():
-        print(f"⚠️  {path.name} not found, skipping model(s) that need it.")
+        print(f"WARNING:  {path.name} not found, skipping model(s) that need it.")
         return None
     try:
         return pd.read_csv(path, usecols=columns, low_memory=False)
     except Exception as e:
-        print(f"⚠️  Failed to load {path.name}: {e}")
+        print(f"WARNING:  Failed to load {path.name}: {e}")
         return None
 
 
 def _load_multi_year_pitch_data(years: list[int], columns: list[str]) -> pd.DataFrame | None:
     """Pools pitch_data_<year>.csv across several years (e.g. this season
-    plus last season) into one DataFrame for training — a bigger, more
+    plus last season) into one DataFrame for training - a bigger, more
     stable sample than this season alone, especially early in the year.
     Years whose file doesn't exist are silently skipped (best-effort);
     returns None only if none of the years have data available."""
@@ -504,14 +548,14 @@ def _shrink_defense_runs(scored: pd.DataFrame) -> dict[int, float]:
 
     Why this is necessary: the defense model has only 3 coarse features
     (exit velo, launch angle, hit_location) to predict a play's expected
-    value — nowhere near enough to explain everything about whether a
+    value - nowhere near enough to explain everything about whether a
     given ball becomes a hit or an out, so a large share of every single
     play's residual is irreducible noise, not fielder skill. Verified
     directly against this pipeline's own data: simulating a "zero true
     skill difference" null with the SAME per-play noise level and chance
     counts as the real scored data regularly produces top-of-pool summed
     values (~9-11 runs from 200 trials) statistically indistinguishable
-    from what the unshrunk model was crediting real fielders — i.e. the
+    from what the unshrunk model was crediting real fielders - i.e. the
     raw sums were mostly noise dressed up as "runs saved." Real UZR/DRS
     are known to be this noisy over a single season too, which is why
     they get heavily regressed / why analysts caution against reading
@@ -520,7 +564,7 @@ def _shrink_defense_runs(scored: pd.DataFrame) -> dict[int, float]:
     This uses the classic one-way random-effects ANOVA method-of-moments
     variance-component estimator to split "true between-fielder variance"
     from "within-fielder (noise) variance" directly from this season's
-    own play-level residuals — self-consistent, no external constant,
+    own play-level residuals - self-consistent, no external constant,
     same "derive it from our own data" approach as the SB/CS run values.
     A fielder with more chances (more evidence) gets less shrinkage; one
     with few chances gets pulled hard toward 0, same as everyone else,
@@ -548,7 +592,7 @@ def _shrink_defense_runs(scored: pd.DataFrame) -> dict[int, float]:
     # method of moments (reduces to the common group size when n is equal).
     n0 = (total_n - float((n ** 2).sum()) / total_n) / df_b if df_b > 0 else float(n.mean())
 
-    # True between-fielder variance — clipped at 0 (can't be negative;
+    # True between-fielder variance - clipped at 0 (can't be negative;
     # a negative method-of-moments estimate just means the data can't
     # statistically distinguish any real skill differences at all this
     # season, in which case everyone shrinks fully to the grand mean).
@@ -565,7 +609,7 @@ def _shrink_defense_runs(scored: pd.DataFrame) -> dict[int, float]:
 
 def _outcome_run_value(events) -> float | None:
     """Maps a Statcast `events` value to this file's own absolute-run-
-    value table (DEFENSE_RUN_VALUE_WEIGHTS — NOT the wOBA weights used
+    value table (DEFENSE_RUN_VALUE_WEIGHTS - NOT the wOBA weights used
     for Bat runs; see the comment above WOBA_WEIGHTS/DEFENSE_RUN_VALUE_
     WEIGHTS for why those two tables have to stay separate), or None for
     outcomes we don't want in the defense model's training set (still
@@ -573,7 +617,7 @@ def _outcome_run_value(events) -> float | None:
     if events in _HIT_EVENT_WEIGHT_KEY:
         return DEFENSE_RUN_VALUE_WEIGHTS[_HIT_EVENT_WEIGHT_KEY[events]]
     if events == "field_error":
-        # Batter reaches, most commonly at 1st — treated as roughly
+        # Batter reaches, most commonly at 1st - treated as roughly
         # single-equivalent. An approximation; the alternative (excluding
         # errors from training entirely) would bias the model toward
         # thinking every hard-hit ball in that zone was fielded cleanly.
@@ -606,7 +650,7 @@ def _train_defense_model(season_year: int, min_training_rows: int, train_years: 
     try:
         from sklearn.ensemble import HistGradientBoostingRegressor
     except Exception as e:
-        print(f"⚠️  scikit-learn unavailable, skipping defense model: {e}")
+        print(f"WARNING:  scikit-learn unavailable, skipping defense model: {e}")
         return None
 
     raw = _load_multi_year_pitch_data(train_years, _DEFENSE_RAW_COLS)
@@ -614,7 +658,7 @@ def _train_defense_model(season_year: int, min_training_rows: int, train_years: 
         return None
     train = _prep_batted_ball_rows(raw)
     if len(train) < min_training_rows:
-        print(f"⚠️  Only {len(train)} usable batted-ball rows across {train_years}, "
+        print(f"WARNING:  Only {len(train)} usable batted-ball rows across {train_years}, "
               f"skipping defense model (need >= {min_training_rows}).")
         return None
 
@@ -636,7 +680,7 @@ def _train_defense_model(season_year: int, min_training_rows: int, train_years: 
               f"(years={train_years}, rows={len(train):,}). Reused every run until "
               f"--retrain-defense / BULLPEN_RETRAIN_DEFENSE=force.")
     except Exception as e:
-        print(f"⚠️  Trained defense model but failed to cache it "
+        print(f"WARNING:  Trained defense model but failed to cache it "
               f"(will retrain every run until this succeeds): {e}")
 
     return model
@@ -653,8 +697,8 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     position on that specific play (via the fielder_<N> / pitcher
     columns Statcast already tags each pitch with). A fielder's season
     Def is the empirical-Bayes-SHRUNK sum of their residuals (see
-    _shrink_defense_runs) — save more hits than the model expects for
-    that zone/contact quality, gain runs; allow more, lose them — but
+    _shrink_defense_runs) - save more hits than the model expects for
+    that zone/contact quality, gain runs; allow more, lose them - but
     pulled toward 0 in proportion to how few chances back it up, since a
     3-feature model has a lot of per-play noise it can't explain and an
     unshrunk sum over a partial season is mostly that noise, not skill
@@ -668,13 +712,13 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     season plus last season, for a bigger/more stable sample) and cached
     to DEFENSE_MODEL_CACHE; subsequent calls just load the cached model
     and re-score it against the current season's own chances, so a
-    player's Def total always reflects only THIS season's fielding —
+    player's Def total always reflects only THIS season's fielding -
     last season's data improves the model's accuracy, it doesn't leak
     into anyone's credited runs. Pass retrain=True (or set
     BULLPEN_RETRAIN_DEFENSE=force) to force a fresh fit.
 
     This intentionally conditions on hit_location (the fielding zone),
-    not just contact quality — so a shortstop is compared to the league's
+    not just contact quality - so a shortstop is compared to the league's
     shortstops, not to first basemen. That alone isn't sufficient, though:
     conditioning the MODEL on zone doesn't guarantee its residuals end up
     on a comparable SCALE across zones (see the per-zone normalization
@@ -709,7 +753,7 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
             print(f"   Using cached defense model (years={meta.get('train_years')}, "
                   f"rows={meta.get('training_rows')}, trained {meta.get('trained_at')})")
         except Exception as e:
-            print(f"⚠️  Failed to load cached defense model, retraining: {e}")
+            print(f"WARNING:  Failed to load cached defense model, retraining: {e}")
             model = None
 
     if model is None:
@@ -731,18 +775,18 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
     # own scored data: with only 3 crude features, the model's predictions
     # are compressed toward the mean far more in outfield zones than
     # infield ones (measured per-play residual std: ~0.27 for LF/CF/RF vs.
-    # ~0.16-0.23 for C/1B/2B/3B/SS) — every "make the routine play" out in
+    # ~0.16-0.23 for C/1B/2B/3B/SS) - every "make the routine play" out in
     # an outfield zone was picking up roughly 2x the credit of an
     # equivalent infield out, purely from this scale mismatch, not real
     # skill. That's a genuine per-zone MISCALIBRATION, not sampling
-    # noise — it doesn't shrink away with _shrink_defense_runs (the ANOVA
+    # noise - it doesn't shrink away with _shrink_defense_runs (the ANOVA
     # method reads a whole position's shared bias as real between-fielder
     # variance, since it's consistent across everyone in that zone), which
     # is exactly why outfielders alone kept dominating Def even after
     # shrinkage. Z-scoring each play's residual within its own zone (mean
     # 0, std 1) and rescaling by the POOLED overall std keeps the result
     # in interpretable "runs" units while removing the zone-to-zone scale
-    # mismatch — verified: this alone brings SS/3B/2B/1B back into the
+    # mismatch - verified: this alone brings SS/3B/2B/1B back into the
     # top of the pool alongside (not displaced by) genuinely strong
     # defensive outfielders. zone_std of 0/NaN (a near-empty zone) falls
     # back to mean-centering only, rather than dividing by ~0.
@@ -776,7 +820,7 @@ def build_defense_model(season_year: int, min_training_rows: int = 500,
 
 # ---------------------------------------------------------------------------
 # Baserunning: run-expectancy matrix (in-house) + SB/CS counts (MLB Stats
-# API — official box score data, not a model to build).
+# API - official box score data, not a model to build).
 # ---------------------------------------------------------------------------
 def build_run_expectancy_and_baserunning_weights(
     season_year: int, min_state_sample: int = 30,
@@ -788,7 +832,7 @@ def build_run_expectancy_and_baserunning_weights(
     play-by-play Statcast data across `train_years` (default: this
     season plus last season, for a bigger/more stable sample), then
     derives the stolen-base and caught-stealing run values from it
-    directly — the same "marginal change in run expectancy" derivation
+    directly - the same "marginal change in run expectancy" derivation
     that produced the published SB=0.20 / CS=-0.40 constants in the
     first place, just run on this pipeline's own data instead of reusing
     a decades-old number:
@@ -800,14 +844,14 @@ def build_run_expectancy_and_baserunning_weights(
     have enough samples to trust.
 
     Like build_defense_model(), this is trained ONCE PER SEASON, not
-    every call — the result is cached to BASERUNNING_WEIGHTS_CACHE and
+    every call - the result is cached to BASERUNNING_WEIGHTS_CACHE and
     just reloaded on subsequent runs. Pass retrain=True (or set
     BULLPEN_RETRAIN_DEFENSE=force) to force a fresh derivation.
 
     Known simplification: a run that scores mid-plate-appearance (e.g. a
     wild pitch before the ball is put in play) is attributed to whichever
     plate appearance's own before/after score it shows up on, which can
-    occasionally undercount runs charged to an earlier state — a minor
+    occasionally undercount runs charged to an earlier state - a minor
     approximation, not a structural one.
 
     Returns (sb_run_value, cs_run_value, built_from_data: bool). Falls
@@ -825,7 +869,7 @@ def build_run_expectancy_and_baserunning_weights(
                   f"SB={cached['sb_run_value']:.3f} CS={cached['cs_run_value']:.3f}")
             return cached["sb_run_value"], cached["cs_run_value"], cached["built_from_data"]
         except Exception as e:
-            print(f"⚠️  Failed to load cached baserunning weights, recomputing: {e}")
+            print(f"WARNING:  Failed to load cached baserunning weights, recomputing: {e}")
 
     years = train_years or [season_year - 1, season_year]
     cols = ["game_pk", "inning", "inning_topbot", "at_bat_number", "events",
@@ -885,7 +929,7 @@ def build_run_expectancy_and_baserunning_weights(
               f"(years={years}): SB={sb_run_value:.3f} CS={cs_run_value:.3f}. Reused every "
               f"run until --retrain-defense / BULLPEN_RETRAIN_DEFENSE=force.")
     except Exception as e:
-        print(f"⚠️  Derived baserunning weights but failed to cache them "
+        print(f"WARNING:  Derived baserunning weights but failed to cache them "
               f"(will recompute every run until this succeeds): {e}")
 
     return sb_run_value, cs_run_value, True
@@ -893,20 +937,20 @@ def build_run_expectancy_and_baserunning_weights(
 
 # ---------------------------------------------------------------------------
 # Statcast's OWN official leaderboards (baseballsavant.mlb.com), fetched
-# directly — replaces the in-house defense model as the primary Def source,
+# directly - replaces the in-house defense model as the primary Def source,
 # and supplements the SB/CS-only baserunning model with real extra-bases-
 # taken value. Both are MLBAM-computed from actual player-tracking data
 # (hang time, distance covered, etc.) that this pipeline's own pitch_data
-# CSVs don't contain — categorically more accurate than anything buildable
+# CSVs don't contain - categorically more accurate than anything buildable
 # from exit velo/launch angle/hit_location alone (see build_defense_model's
 # docstring for the long history of trying to patch around that gap).
 #
-# Both are best-effort and network-only (no local cache — these leaderboard
+# Both are best-effort and network-only (no local cache - these leaderboard
 # numbers already reflect the season to date, refreshed by MLB itself, so
 # there's nothing to train/retrain here). build_rankings() falls back to
 # the in-house model / SB-CS-only model respectively if either of these
 # returns empty (network failure, or Statcast changes their page's exact
-# CSV columns — this fetch was written and tested from an environment that
+# CSV columns - this fetch was written and tested from an environment that
 # cannot itself reach baseballsavant.mlb.com, so the column-matching below
 # is defensive: it tries several likely column names and, if none match,
 # prints the actual columns it got back so they can be corrected quickly
@@ -926,14 +970,14 @@ def _find_column(columns, candidates: tuple[str, ...], contains: tuple[str, ...]
 def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
                                        timeout: float = 15.0) -> dict[int, float]:
     """{mlb_id: fielding run value} straight from Statcast's official
-    Fielding Run Value leaderboard — real range/positioning-based defensive
+    Fielding Run Value leaderboard - real range/positioning-based defensive
     value, not modeled here at all. One request covers every position
     (position="" = "All" in the leaderboard's own UI). min_innings=20 is a
     deliberately low bar (the leaderboard's own default is 100) so more of
     this pipeline's hitter pool gets covered even mid-season; Statcast's
     model is far more reliable than this file's old one even in smaller
     samples, since it has real tracking data instead of 3 crude features.
-    Best-effort: returns {} on any network/parsing failure — the caller
+    Best-effort: returns {} on any network/parsing failure - the caller
     should fall back to build_defense_model() in that case."""
     url = ("https://baseballsavant.mlb.com/leaderboard/fielding-run-value"
            f"?gameType=Regular&seasonStart={season_year}&seasonEnd={season_year}"
@@ -943,7 +987,7 @@ def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
         r.raise_for_status()
         df = pd.read_csv(io.StringIO(r.text))
     except Exception as e:
-        print(f"⚠️  Statcast fielding run value fetch failed ({e}); "
+        print(f"WARNING:  Statcast fielding run value fetch failed ({e}); "
               f"falling back to the in-house defense model.")
         return {}
 
@@ -955,7 +999,7 @@ def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
     value_col = _find_column(df.columns, ("total_runs", "frv", "fielding_run_value"),
                               contains=("run_value",))
     if id_col is None or value_col is None or df.empty:
-        print(f"⚠️  Statcast fielding run value: expected columns not found "
+        print(f"WARNING:  Statcast fielding run value: expected columns not found "
               f"(got {list(df.columns)}). Falling back to the in-house "
               f"defense model. If this keeps happening, paste this column "
               f"list back so the matching can be fixed.")
@@ -974,12 +1018,12 @@ def fetch_statcast_fielding_run_value(season_year: int, min_innings: int = 20,
 def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: int = 5,
                                           timeout: float = 15.0) -> dict[int, float]:
     """{mlb_id: extra-bases-taken run value} from Statcast's Baserunning /
-    "Extra Bases" Run Value leaderboard — taking the extra base on a hit,
+    "Extra Bases" Run Value leaderboard - taking the extra base on a hit,
     scoring from 1st on a double, tagging up, etc. This is ADDED on top of
     (not instead of) the existing SB/CS-derived BsR component, on the
     assumption that "extra bases taken on a batted ball" and "stolen
     bases" are genuinely separate skills Statcast tracks separately, not
-    two views of the same value — that assumption is NOT independently
+    two views of the same value - that assumption is NOT independently
     verified (this environment can't reach baseballsavant.mlb.com to
     check), so if a burner's BsR ever looks implausibly huge after this,
     that's the first thing to double-check for double-counting. Best-
@@ -993,13 +1037,13 @@ def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: in
         r.raise_for_status()
         df = pd.read_csv(io.StringIO(r.text))
     except Exception as e:
-        print(f"⚠️  Statcast baserunning run value fetch failed ({e}); "
+        print(f"WARNING:  Statcast baserunning run value fetch failed ({e}); "
               f"keeping the SB/CS-only baserunning value.")
         return {}
 
     # Confirmed against a real fetch (season 2026): Baseball Savant's
     # baserunning-run-value CSV uses "player_id" (as guessed) but the value
-    # column is "runner_runs_XB" — the extra-bases-taken component
+    # column is "runner_runs_XB" - the extra-bases-taken component
     # specifically. "runner_runs_tot" (the leaderboard's grand total) is
     # deliberately NOT used here: it already folds in "runner_runs_SBX" /
     # "runner_runs_SB2" / "runner_runs_SB3" (stolen-base value), which would
@@ -1011,7 +1055,7 @@ def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: in
                               ("runner_runs_xb", "runvalue", "runner_runvalue"),
                               contains=("run_value",))
     if id_col is None or value_col is None or df.empty:
-        print(f"⚠️  Statcast baserunning run value: expected columns not "
+        print(f"WARNING:  Statcast baserunning run value: expected columns not "
               f"found (got {list(df.columns)}). Keeping the SB/CS-only "
               f"baserunning value. If this keeps happening, paste this "
               f"column list back so the matching can be fixed.")
@@ -1027,9 +1071,57 @@ def fetch_statcast_baserunning_run_value(season_year: int, min_opportunities: in
     return {int(k): float(v) for k, v in out.items()}
 
 
+def fetch_statcast_oaa(season_year: int, min_attempts: int = 10,
+                        timeout: float = 15.0) -> dict[int, float]:
+    """{mlb_id: Outs Above Average} from Statcast's official OAA
+    leaderboard - a DIFFERENT metric from fielding-run-value above (OAA is
+    denominated in outs, not dollarized runs; FRV/total_runs is Statcast's
+    own runs conversion of the same underlying range/positioning data).
+    Added for the Season Player Projections page, which shows OAA as its
+    own column rather than reusing Def/total_runs.
+
+    Same caveat as the other two Statcast fetches in this file: this
+    sandbox can't reach baseballsavant.mlb.com, so the URL params and
+    column names below are a best-effort guess from the leaderboard's
+    public URL shape, NOT independently verified like fielding-run-value
+    and baserunning-run-value were (those got corrected once real column
+    lists came back from an actual run - see git history / this
+    function's the same fate is expected here if the guess is off).
+    Best-effort: returns {} on any failure or column mismatch, in which
+    case the caller should just leave OAA blank for every player rather
+    than guess."""
+    url = ("https://baseballsavant.mlb.com/leaderboard/outs_above_average"
+           f"?type=Fielder&startYear={season_year}&endYear={season_year}"
+           f"&split=no&team=&range=year&min={min_attempts}&pos=&roles=&viz=hide&csv=true")
+    try:
+        r = requests.get(url, timeout=timeout, headers={"User-Agent": "Mozilla/5.0"})
+        r.raise_for_status()
+        df = pd.read_csv(io.StringIO(r.text))
+    except Exception as e:
+        print(f"WARNING:  Statcast OAA fetch failed ({e}); OAA will be blank for every player.")
+        return {}
+
+    id_col = _find_column(df.columns, ("player_id", "id", "mlbamid", "mlb_id", "playerid"))
+    value_col = _find_column(df.columns, ("outs_above_average", "oaa"), contains=("outs_above",))
+    if id_col is None or value_col is None or df.empty:
+        print(f"WARNING:  Statcast OAA: expected columns not found "
+              f"(got {list(df.columns)}). OAA will be blank for every "
+              f"player. Paste this column list back so the matching can "
+              f"be fixed.")
+        return {}
+
+    sub = df[[id_col, value_col]].copy()
+    sub[id_col] = pd.to_numeric(sub[id_col], errors="coerce")
+    sub[value_col] = pd.to_numeric(sub[value_col], errors="coerce")
+    sub = sub.dropna()
+    out = sub.groupby(sub[id_col].astype(int))[value_col].sum().to_dict()
+    print(f"   Fetched Statcast OAA for {len(out)} players (season={season_year}).")
+    return {int(k): float(v) for k, v in out.items()}
+
+
 def fetch_baserunning(ids: set[int], season: int, throttle: float = 0.05) -> dict[int, dict]:
     """{mlb_id: {"sb": int, "cs": int}} via the MLB Stats API season
-    hitting stats endpoint. No persistent cache — unlike age, SB/CS
+    hitting stats endpoint. No persistent cache - unlike age, SB/CS
     change every day the player plays, so this is re-fetched fresh on
     every run for the bounded top-N pool. Best-effort per player."""
     out: dict[int, dict] = {}
@@ -1056,7 +1148,7 @@ def fetch_baserunning(ids: set[int], season: int, throttle: float = 0.05) -> dic
 # ---------------------------------------------------------------------------
 # Official games-played-by-position from the MLB Stats API, bounded to the
 # same top-N pool as baserunning. NOTE: this no longer feeds a positional-
-# adjustment WAR component (removed per explicit direction) — it's kept
+# adjustment WAR component (removed per explicit direction) - it's kept
 # only to label each hitter with their real primary position (more
 # reliable than build_defense_model's Statcast-chance-based guess, which
 # undercounts a good defender who simply doesn't get many balls hit their
@@ -1064,12 +1156,12 @@ def fetch_baserunning(ids: set[int], season: int, throttle: float = 0.05) -> dic
 # ---------------------------------------------------------------------------
 def fetch_position_games(ids: set[int], season: int, throttle: float = 0.05) -> dict[int, dict[str, float]]:
     """{mlb_id: {position_abbrev: games_played}} via the MLB Stats API
-    season fielding-stats-by-position endpoint — OFFICIAL games-played
+    season fielding-stats-by-position endpoint - OFFICIAL games-played
     counts (one split per position a player appeared at), not inferred
     from Statcast batted-ball chances the way build_defense_model's
     primary_position guess is (which undercounts a good defender who
     simply doesn't get many balls hit their way). This endpoint DOES
-    include an explicit "DH" split (confirmed against real data — 0
+    include an explicit "DH" split (confirmed against real data - 0
     fielding chances, but a real gamesPlayed count), so use it directly
     downstream rather than re-deriving DH games from (total games played)
     − (sum of fielded games), which would double-count the DH split's
@@ -1116,7 +1208,7 @@ def _ra9(rate: dict) -> float | None:
 
 
 def _league_avg_ra9(per_game_by_pitcher: list[dict]) -> float:
-    """IP-weighted league-average RA9 across the current pitcher pool —
+    """IP-weighted league-average RA9 across the current pitcher pool -
     self-consistent, no external league constant, same pattern as
     _league_avg_woba for hitters."""
     total_er, total_ip = 0.0, 0.0
@@ -1141,7 +1233,7 @@ def _pitching_runs_above_avg(rate: dict, league_ra9: float) -> float:
 
 def _pitching_replacement_runs(rate: dict, league_ra9: float) -> float:
     """The extra runs-above-average a REPLACEMENT-level pitcher (not an
-    average one) would have allowed in the same IP — the piece that
+    average one) would have allowed in the same IP - the piece that
     turns runs-above-average into runs-above-replacement when added to
     _pitching_runs_above_avg. See PITCHER_REPLACEMENT_RA9_MULTIPLIER."""
     ip = rate.get("IP") or 0.0
@@ -1155,7 +1247,7 @@ def _pitcher_dynamic_runs_per_win(pitcher_ra9: float, league_ra9: float,
     """Runs-per-win for THIS pitcher, not a flat league-wide constant.
 
     FanGraphs does not divide every pitcher's runs-above-replacement by
-    the same ~10 used for hitters — it computes an individual runs-per-win
+    the same ~10 used for hitters - it computes an individual runs-per-win
     per pitcher, specifically because a truly dominant pitcher creates a
     LOWER-scoring environment in their own starts (fewer runs are needed
     to win a 1-0 game than a 6-5 game), so each run they save is worth
@@ -1163,7 +1255,7 @@ def _pitcher_dynamic_runs_per_win(pitcher_ra9: float, league_ra9: float,
     https://library.fangraphs.com/misc/war/converting-runs-to-wins/ and
     https://library.fangraphs.com/war/calculating-war-pitchers/ (verified
     2026-08-25). Their real formula uses FIPR9; this pipeline only has
-    RA9 (see the module docstring's note on why — no HR/HBP tracked), so
+    RA9 (see the module docstring's note on why - no HR/HBP tracked), so
     RA9 is substituted directly for FIPR9 below, same substitution this
     file already makes everywhere else for pitcher runs:
 
@@ -1171,11 +1263,11 @@ def _pitcher_dynamic_runs_per_win(pitcher_ra9: float, league_ra9: float,
 
     IP/G ("innings per game/appearance") is clamped to [1, 9] so a tiny or
     garbage-innings sample (an injury-shortened stint, a long-relief
-    cameo) can't produce a wild multiplier — a real appearance is always
+    cameo) can't produce a wild multiplier - a real appearance is always
     within that range anyway. For a pitcher whose RA9 is close to league
     average this reduces to ~9.5-10.5 (matches the flat RUNS_PER_WIN this
     file previously used for every pitcher), so this only meaningfully
-    moves the number for real outliers — better AND worse — which is
+    moves the number for real outliers - better AND worse - which is
     exactly the case (an "unthinkable" season) where a flat conversion
     under-credits how much those runs are actually worth.
     """
@@ -1230,7 +1322,7 @@ def get_player_ages(ids: set[int], throttle: float = 0.05) -> dict[int, dict]:
     """Return {mlb_id: {age, birth_date, name}} for `ids`. Uses
     data/player_ages.json as a persistent cache and only hits the MLB
     Stats API for IDs not already cached. Network failures degrade
-    gracefully — missing IDs just don't get an age in the result.
+    gracefully - missing IDs just don't get an age in the result.
     """
     cache = _load_age_cache()
     needs_save = False
@@ -1317,7 +1409,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         p["full_bat_runs"] = wraa_rate * p["full"]["PA"]
 
     # Bound the per-player baserunning / positional-adjustment lookups to
-    # the top N by Bat runs — this is what "power" hitters look like
+    # the top N by Bat runs - this is what "power" hitters look like
     # before defense/baserunning/position are folded in, and keeps the
     # MLB Stats API call volume sane.
     prelim.sort(key=lambda p: p["ros_bat_runs"], reverse=True)
@@ -1333,10 +1425,10 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         extra_bases_by_player = fetch_statcast_baserunning_run_value(season_year)
 
     # Def: try Statcast's own official Fielding Run Value leaderboard
-    # first — real range/positioning-based value, not modeled from 3 crude
+    # first - real range/positioning-based value, not modeled from 3 crude
     # features. Only fall back to the in-house model (build_defense_model)
     # if that fetch comes back empty (network failure, or Statcast changed
-    # their page — see fetch_statcast_fielding_run_value's docstring).
+    # their page - see fetch_statcast_fielding_run_value's docstring).
     defense_runs_by_player, position_by_player = {}, {}
     defense_source = None
     if fetch_defense:
@@ -1348,6 +1440,16 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                 season_year, retrain=retrain_models)
             if defense_runs_by_player:
                 defense_source = "in_house_model_fallback"
+
+    # OAA (Outs Above Average) - separate from defense_runs_by_player above:
+    # this is Statcast's own outs-denominated metric, purely for display on
+    # the Season Player Projections page. Not used in the WAR formula at
+    # all (Def/DEF_RUNS_WEIGHT above already carries the fielding value
+    # that counts toward WAR) - this is display-only, so a failed/empty
+    # fetch just means the OAA column is blank, nothing else is affected.
+    oaa_by_player = {}
+    if fetch_defense:
+        oaa_by_player = fetch_statcast_oaa(season_year)
 
     position_games_data = {}
     if fetch_official_positions:
@@ -1369,7 +1471,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             full_sb_cs_runs = 0.0
 
         # Extra-bases-taken value from Statcast's own leaderboard (see
-        # fetch_statcast_baserunning_run_value) — a season-to-date total,
+        # fetch_statcast_baserunning_run_value) - a season-to-date total,
         # same treatment as Def: extrapolate at the same per-game rate for
         # the rest-of-season projection. Added ON TOP OF the SB/CS-derived
         # value above (see that function's docstring for the not-fully-
@@ -1389,7 +1491,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         full_def_runs = season_def_runs + ros_def_runs
 
         # No positional-adjustment WAR component (removed per explicit
-        # direction — WAR here is Bat + Def*DEF_RUNS_WEIGHT + BsR +
+        # direction - WAR here is Bat + Def*DEF_RUNS_WEIGHT + BsR +
         # Replacement, nothing else). position_games_data is still fetched
         # (see fetch_official_positions) purely to label each hitter with
         # their real primary position below.
@@ -1402,13 +1504,39 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
 
         # Prefer the MLB Stats API's official primary position (most games
         # actually played there) over the defense model's Statcast-chance
-        # inference — official is more reliable and this pool already has
+        # inference - official is more reliable and this pool already has
         # it (fetched above for exactly this purpose).
         raw_positions = position_games_data.get(mid, {})
         if raw_positions:
             official_position = max(raw_positions.items(), key=lambda kv: kv[1])[0]
         else:
             official_position = None
+
+        # Raw SB count (not just its run value, already folded into BsR
+        # above) - for the Season Player Projections page's SB column.
+        if br and gp > 0:
+            ros_sb = br["sb"] / gp * gr
+            full_sb = br["sb"] + ros_sb
+        else:
+            ros_sb, full_sb = 0.0, 0.0
+
+        # OAA - display-only, see fetch_statcast_oaa. Same season-to-date-
+        # rate extrapolation treatment as Def/extra-bases above.
+        season_oaa = oaa_by_player.get(mid)
+        if season_oaa is not None and gp > 0:
+            ros_oaa = season_oaa / gp * gr
+            full_oaa = season_oaa + ros_oaa
+        else:
+            ros_oaa, full_oaa = None, None
+
+        # Slash-line stats (BA/OBP/SLG/OPS/wOBA) - display only, for the
+        # Season Player Projections page. See _at_bats/_batting_average/
+        # etc.'s docstring for the AB-is-approximated-as-PA-minus-BB caveat.
+        ros_ba, full_ba = _batting_average(ros), _batting_average(full)
+        ros_obp, full_obp = _on_base_pct(ros), _on_base_pct(full)
+        ros_slg, full_slg = _slugging_pct(ros), _slugging_pct(full)
+        ros_ops, full_ops = _ops(ros), _ops(full)
+        ros_woba, full_woba = _woba(ros), _woba(full)
 
         hitter_rows.append({
             "mlb_id": mid, "name": p["name"], "team": p["team"],
@@ -1430,6 +1558,19 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "ros_replacement_runs": round(ros_replacement_runs, 1),
             "full_replacement_runs": round(full_replacement_runs, 1),
             "ros_war": round(ros_war, 1), "full_war": round(full_war, 1),
+            "ros_sb": round(ros_sb, 1), "full_sb": round(full_sb, 1),
+            "ros_oaa": round(ros_oaa, 1) if ros_oaa is not None else None,
+            "full_oaa": round(full_oaa, 1) if full_oaa is not None else None,
+            "ros_ba":  round(ros_ba, 3)  if ros_ba  is not None else None,
+            "full_ba": round(full_ba, 3) if full_ba is not None else None,
+            "ros_obp":  round(ros_obp, 3)  if ros_obp  is not None else None,
+            "full_obp": round(full_obp, 3) if full_obp is not None else None,
+            "ros_slg":  round(ros_slg, 3)  if ros_slg  is not None else None,
+            "full_slg": round(full_slg, 3) if full_slg is not None else None,
+            "ros_ops":  round(ros_ops, 3)  if ros_ops  is not None else None,
+            "full_ops": round(full_ops, 3) if full_ops is not None else None,
+            "ros_woba":  round(ros_woba, 3),  "full_woba": round(full_woba, 3),
+            "has_oaa_data": season_oaa is not None,
             "has_baserunning_data": mid in baserunning_data,
             "has_defense_data": mid in defense_runs_by_player,
         })
@@ -1468,7 +1609,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         full_replacement_runs = _pitching_replacement_runs(full, league_ra9)
 
         # Dynamic, per-pitcher runs-per-win (see _pitcher_dynamic_runs_per_win)
-        # instead of the flat RUNS_PER_WIN used for hitters — this is what
+        # instead of the flat RUNS_PER_WIN used for hitters - this is what
         # FanGraphs' own pitcher WAR does, and it's the piece that was
         # under-crediting truly dominant ("unthinkable year") pitchers: a
         # flat ~10 runs/win treats a 1.75-RA9 ace's saved runs the same as
@@ -1477,13 +1618,27 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
         established_ra9 = _ra9(p["per_game"])
         ip_per_appearance = p["per_game"].get("IP") or 0.0
         if established_ra9 is None or ip_per_appearance <= 0:
-            dynamic_rpw = RUNS_PER_WIN  # no innings on record yet — safe flat fallback
+            dynamic_rpw = RUNS_PER_WIN  # no innings on record yet - safe flat fallback
         else:
             dynamic_rpw = _pitcher_dynamic_runs_per_win(
                 established_ra9, league_ra9, ip_per_appearance)
 
         ros_war = (ros_pitching_runs + ros_replacement_runs) / dynamic_rpw
         full_war = (full_pitching_runs + full_replacement_runs) / dynamic_rpw
+
+        # K/9, BB/9 - trivial from tracked totals, for the Season Player
+        # Projections page. HR/9, FIP, and a real (earned-runs-only) ERA
+        # are NOT computable yet: this pipeline doesn't track home-runs-
+        # allowed or the earned/unearned split (see the pitcher docstring
+        # above - "ER" here is actually total runs allowed). Those need a
+        # daily_update.py data-collection addition before they can be real
+        # numbers instead of a guess; ros_ra9/full_ra9 above is the closest
+        # honest stand-in for ERA until then.
+        ros_k9  = (ros["K"] * 9.0 / ros["IP"]) if ros["IP"] > 0 else None
+        full_k9 = (full["K"] * 9.0 / full["IP"]) if full["IP"] > 0 else None
+        ros_bb9  = (ros["BB"] * 9.0 / ros["IP"]) if ros["IP"] > 0 else None
+        full_bb9 = (full["BB"] * 9.0 / full["IP"]) if full["IP"] > 0 else None
+
         pitcher_rows.append({
             "mlb_id": p["mlb_id"],
             "name": p["name"], "team": p["team"],
@@ -1496,6 +1651,12 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "ros_er": round(ros["ER"], 1),   "full_er": round(full["ER"], 1),
             "ros_ra9":  round(r, 2) if (r := _ra9(ros)) is not None else None,
             "full_ra9": round(r, 2) if (r := _ra9(full)) is not None else None,
+            "ros_k9":  round(ros_k9, 2)  if ros_k9  is not None else None,
+            "full_k9": round(full_k9, 2) if full_k9 is not None else None,
+            "ros_bb9":  round(ros_bb9, 2)  if ros_bb9  is not None else None,
+            "full_bb9": round(full_bb9, 2) if full_bb9 is not None else None,
+            "ros_hr9": None, "full_hr9": None,   # pending: HR-allowed not tracked yet
+            "ros_fip": None, "full_fip": None,   # pending: needs HR-allowed + HBP
             "ros_pitching_runs": round(ros_pitching_runs, 1),
             "full_pitching_runs": round(full_pitching_runs, 1),
             "ros_replacement_runs": round(ros_replacement_runs, 1),
@@ -1513,7 +1674,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
     # hitter_rows and pitcher_rows are built from two completely separate
     # groupbys (player_type == "hitter" vs "pitcher" in the accuracy log),
     # so a two-way player's mlb_id shows up in BOTH lists with only HALF
-    # their value in each row — e.g. Ohtani's hitter row WAR is his batting
+    # their value in each row - e.g. Ohtani's hitter row WAR is his batting
     # value only, and his pitcher row WAR (usually far down that list) is
     # his pitching value only. Neither row alone represents his true total
     # value, and nothing above ever adds them together. Fix: find IDs
@@ -1569,6 +1730,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
             "baserunning_weights_from_own_data": re_matrix_built,
             "baserunning_extra_bases": bool(extra_bases_by_player),
             "official_position_labels": bool(position_games_data),
+            "oaa": bool(oaa_by_player),
         },
         "scoring": {
             "type": "war_v7_custom",
@@ -1584,10 +1746,10 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                 "replacement_runs_per_600pa": REPLACEMENT_RUNS_PER_600PA,
                 "runs_per_win": RUNS_PER_WIN,
                 "note": "Rest-of-season / full-season WAR-style projection "
-                        "— CUSTOMIZED, not textbook WAR: Def is weighted "
+                        "- CUSTOMIZED, not textbook WAR: Def is weighted "
                         f"{DEF_RUNS_WEIGHT}x relative to Bat (def_runs_"
                         "weight above), and there is NO positional "
-                        "adjustment (removed per explicit direction — an "
+                        "adjustment (removed per explicit direction - an "
                         "earlier version had one). That means a bat-only "
                         "DH-type player's WAR is not penalized for playing "
                         "no real defense the way textbook WAR would "
@@ -1597,7 +1759,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "their score. Bat runs are real wOBA -> wRAA "
                         "(woba_weights / woba_scale "
                         "above are FanGraphs' published 2025 Guts! "
-                        "constants — re-check fangraphs.com/guts.aspx "
+                        "constants - re-check fangraphs.com/guts.aspx "
                         "each season), compared against this hitter "
                         "pool's own PA-weighted average wOBA (self-"
                         "consistent, no external league-average needed). "
@@ -1606,17 +1768,17 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "same as before) PLUS extra-bases-taken value "
                         "fetched directly from Statcast's own Baserunning "
                         "/ Extra Bases Run Value leaderboard (see "
-                        "fetch_statcast_baserunning_run_value) — real "
+                        "fetch_statcast_baserunning_run_value) - real "
                         "MLBAM-computed baserunning value (taking the "
                         "extra base, scoring from 1st on a double, tagging "
                         "up, etc.), not modeled in-house. The assumption "
                         "that these two don't double-count the same value "
                         "is not independently verified from this "
                         "environment (can't reach baseballsavant.mlb.com "
-                        "to check) — see baserunning_extra_bases in "
+                        "to check) - see baserunning_extra_bases in "
                         "data_availability; falls back to SB/CS-only if "
                         "the fetch fails. Def defaults to Statcast's own "
-                        "official Fielding Run Value leaderboard — real "
+                        "official Fielding Run Value leaderboard - real "
                         "range/positioning-based defensive value computed "
                         "by MLBAM from actual player-tracking data (hang "
                         "time, distance covered), not this file's old "
@@ -1624,7 +1786,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "data_availability for which one actually supplied "
                         "this run's numbers: 'statcast_fielding_run_value' "
                         "(the good case) or 'in_house_model_fallback' (the "
-                        "Statcast fetch failed — see build_defense_model's "
+                        "Statcast fetch failed - see build_defense_model's "
                         "docstring for that model's own history of biases "
                         "and the shrinkage/normalization steps that patch "
                         "around them, none of which are needed when the "
@@ -1636,7 +1798,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "values are derived from a run-expectancy matrix "
                         "built from pooled this-season + last-season play-"
                         "by-play data, cached "
-                        "(models/baserunning_re_weights.json) — see "
+                        "(models/baserunning_re_weights.json) - see "
                         "baserunning_weights_used above for what was "
                         "actually applied this run. Def and BsR both "
                         "degrade gracefully to 0 if no data is available "
@@ -1657,7 +1819,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "sabermetric convention (~.380 win% ≈ allowing "
                         "runs at 1.28x league rate via the Pythagorean "
                         "win%-expectation relationship) rather than "
-                        "something derived from this pipeline's data — "
+                        "something derived from this pipeline's data - "
                         "see replacement_ra9_multiplier above. This is "
                         "RA9-based, not FIP-based: the accuracy log "
                         "doesn't track home-runs-allowed or hit-by-pitch "
@@ -1673,7 +1835,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "pitcher with no innings on record yet). This "
                         "mirrors FanGraphs' own pitcher WAR, which "
                         "explicitly does NOT use a flat runs-per-win for "
-                        "pitchers the way it does for hitters — a truly "
+                        "pitchers the way it does for hitters - a truly "
                         "dominant pitcher creates a lower-scoring "
                         "environment in their own starts, so each run "
                         "saved is worth more wins (verified against "
@@ -1683,7 +1845,7 @@ def build_rankings(season_games: int = DEFAULT_SEASON_GAMES,
                         "average RA9 pitcher this reduces to about the "
                         "same ~9.5-10.5 the flat constant would have given; "
                         "it only meaningfully moves the number for real "
-                        "outliers, in both directions — which is exactly "
+                        "outliers, in both directions - which is exactly "
                         "the case (a historically dominant or historically "
                         "bad season) where a flat conversion was under- or "
                         "over-crediting the runs involved. The old "
@@ -1715,7 +1877,7 @@ def main() -> None:
     ap.add_argument("--no-official-positions", action="store_true",
                     help="Skip the per-player games-by-position fetch (position labels fall "
                          "back to the defense model's Statcast-chance-based guess). Purely "
-                         "cosmetic — there's no positional-adjustment WAR component to affect.")
+                         "cosmetic - there's no positional-adjustment WAR component to affect.")
     ap.add_argument("--retrain-defense", action="store_true",
                     help="Force retraining the in-house defense model and re-deriving the "
                          "baserunning run-expectancy weights instead of reusing the cached "
@@ -1752,18 +1914,18 @@ def main() -> None:
 
     print(f"\nTop 5 hitters by projected ROS WAR (full-season WAR alongside):")
     for r in bundle["hitters"][:5]:
-        print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4} {r.get('position') or '—':<3} "
-              f"age={r.get('age','—')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
+        print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4} {r.get('position') or '-':<3} "
+              f"age={r.get('age','-')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
               f"(bat={r['ros_bat_runs']:>5.1f} def={r['ros_def_runs']:>5.1f} "
               f"bsr={r['ros_bsr_runs']:>4.1f})")
     print(f"\nTop 5 pitchers by projected ROS WAR (full-season WAR alongside):")
     for r in bundle["pitchers"][:5]:
         print(f"  {r['rank']:>2}. {r['name']:<25} {r['team']:<4}  "
-              f"age={r.get('age','—')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
+              f"age={r.get('age','-')}  ROS_WAR={r['ros_war']:>5.1f}  FULL_WAR={r['full_war']:>5.1f}  "
               f"(RA9={r['ros_ra9']})")
 
     if bundle["two_way_players"]:
-        print(f"\nTwo-way players (hitting + pitching WAR combined — each half "
+        print(f"\nTwo-way players (hitting + pitching WAR combined - each half "
               f"is also shown separately in the hitters/pitchers WAR above, "
               f"which on its own understates a two-way player's true value):")
         for r in bundle["two_way_players"]:

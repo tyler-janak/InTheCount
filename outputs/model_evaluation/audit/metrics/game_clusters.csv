@@ -1,0 +1,6 @@
+model,threshold,cluster,size,representative,members
+game,0.8,1,2,diff_team_winpct,diff_team_winpct | diff_team_run_diff
+game,0.8,3,2,diff_runs_scored_10g,diff_runs_scored_10g | diff_OPS_10g
+game,0.8,5,2,diff_BP_ERA_proxy_14g,diff_BP_ERA_proxy_14g | diff_BP_WHIP_14g
+game,0.8,9,2,diff_SP_KBB_pct_10,diff_SP_KBB_pct_10 | diff_SP_KBB_pct_season
+game,0.8,10,2,diff_SP_FIP_10,diff_SP_FIP_10 | diff_SP_FIP_season

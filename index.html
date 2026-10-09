@@ -350,7 +350,9 @@
   <button class="tab active" data-tab="games">Today's Games</button>
   <button class="tab" data-tab="pitchers">Pitcher Projections</button>
   <button class="tab" data-tab="hitters">Hitter Projections</button>
-  <button class="tab" data-tab="rankings">Power Rankings</button>
+  <!-- Power Rankings tab intentionally hidden for now (not removed — panel-rankings,
+       its JS, and the /api/rankings backend are all still fully intact and working;
+       just re-add the button below to bring it back). -->
   <button class="tab" data-tab="accuracy">Performance</button>
   <button class="tab" data-tab="methodology">Methodology</button>
   <button class="tab" data-tab="faq">FAQ</button>
@@ -776,7 +778,7 @@
     </div>
     <nav class="footer-nav" aria-label="Footer navigation">
       <button onclick="switchTab('games')">Games</button>
-      <button onclick="switchTab('rankings')">Power Rankings</button>
+      <!-- Power Rankings link hidden for now, same as the top nav button -->
       <button onclick="switchTab('accuracy')">Performance</button>
       <button onclick="switchTab('methodology')">Methodology</button>
       <button onclick="switchTab('faq')">FAQ</button>

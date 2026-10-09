@@ -1,0 +1,48 @@
+{
+  "generated_utc": "2026-10-09T01:48:01+00:00",
+  "excluded_targets": {
+    "SB": "Statcast pitch events carry no stolen-base rows; SB actuals are all zero"
+  },
+  "figures": {
+    "game": {
+      "roc": "figures/game_roc_curve.png",
+      "confusion": "figures/game_confusion_matrix.png",
+      "prob_vs_outcome": "figures/game_probability_by_outcome.png",
+      "buckets": "figures/game_probability_buckets.png",
+      "over_time": "figures/game_performance_over_time.png",
+      "comparison": "figures/game_model_comparison.png"
+    },
+    "pitcher": {
+      "pred_vs_actual": {
+        "K": "figures/pitcher_pred_vs_actual_K.png",
+        "BB": "figures/pitcher_pred_vs_actual_BB.png",
+        "H": "figures/pitcher_pred_vs_actual_H.png",
+        "HR": "figures/pitcher_pred_vs_actual_HR.png",
+        "IP": "figures/pitcher_pred_vs_actual_IP.png",
+        "R": "figures/pitcher_pred_vs_actual_R.png"
+      },
+      "residuals": "figures/pitcher_residuals.png",
+      "error_dist": "figures/pitcher_error_distributions.png",
+      "ranges": "figures/pitcher_projection_ranges.png",
+      "comparison": "figures/pitcher_model_comparison.png",
+      "binned": "figures/pitcher_binned_pred_vs_actual.png",
+      "window_totals": "figures/pitcher_test_window_totals.png"
+    },
+    "hitter": {
+      "pred_vs_actual": {
+        "H": "figures/hitter_pred_vs_actual_H.png",
+        "HR": "figures/hitter_pred_vs_actual_HR.png",
+        "TB": "figures/hitter_pred_vs_actual_TB.png",
+        "BB": "figures/hitter_pred_vs_actual_BB.png",
+        "K": "figures/hitter_pred_vs_actual_K.png",
+        "PA": "figures/hitter_pred_vs_actual_PA.png"
+      },
+      "residuals": "figures/hitter_residuals.png",
+      "error_dist": "figures/hitter_error_distributions.png",
+      "ranges": "figures/hitter_projection_ranges.png",
+      "comparison": "figures/hitter_model_comparison.png",
+      "binned": "figures/hitter_binned_pred_vs_actual.png",
+      "window_totals": "figures/hitter_test_window_totals.png"
+    }
+  }
+}

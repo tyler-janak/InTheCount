@@ -1,0 +1,382 @@
+group,feature,family,construct,stem,used,coverage_train,coverage_valid,coverage_test,coverage_gap_train_test,in_saved_bundles
+pitcher,K_rate_std,expanding,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_std,expanding,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_std,expanding,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_std,expanding,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_std,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,avg_velocity_std,velocity/pitch_mix,stuff / pitch mix,avg_velocity,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,avg_spin_std,velocity/pitch_mix,stuff / pitch mix,avg_spin,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_rate_last5,rolling,strikeout skill,K_rate,False,0.0,0.0,0.0,0.0,0.0
+pitcher,BB_rate_last5,rolling,walk skill,BB_rate,False,0.0,0.0,0.0,0.0,0.0
+pitcher,HR_rate_last5,rolling,home-run skill,HR_rate,False,0.0,0.0,0.0,0.0,0.0
+pitcher,H_rate_last5,rolling,hit skill,H_rate,False,0.0,0.0,0.0,0.0,0.0
+pitcher,IP_last5,opportunity,playing time / workload,IP,False,0.0,0.0,0.0,0.0,0.0
+pitcher,K_rate_last7,rolling,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_last7,rolling,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_last7,rolling,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_last7,rolling,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_last7,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_rate_last10,rolling,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_last10,rolling,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_last10,rolling,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_last10,rolling,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_last10,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_rate_last14,rolling,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_last14,rolling,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_last14,rolling,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_last14,rolling,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_last14,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_rate_last21,rolling,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_last21,rolling,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_last21,rolling,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_last21,rolling,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_last21,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_rate_last30,rolling,strikeout skill,K_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_rate_last30,rolling,walk skill,BB_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_rate_last30,rolling,home-run skill,HR_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_rate_last30,rolling,hit skill,H_rate,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,IP_last30,opportunity,playing time / workload,IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,avg_velocity_last5,velocity/pitch_mix,stuff / pitch mix,avg_velocity,False,0.0,0.0,0.0,0.0,0.0
+pitcher,avg_velocity_last7,velocity/pitch_mix,stuff / pitch mix,avg_velocity,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,avg_velocity_last10,velocity/pitch_mix,stuff / pitch mix,avg_velocity,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_std,expanding,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_last5,rolling,strikeout skill,K,False,0.0,0.0,0.0,0.0,0.0
+pitcher,K_last7,rolling,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_last10,rolling,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_last14,rolling,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_last21,rolling,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,K_last30,rolling,strikeout skill,K,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_std,expanding,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_last5,rolling,walk skill,BB,False,0.0,0.0,0.0,0.0,0.0
+pitcher,BB_last7,rolling,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_last10,rolling,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_last14,rolling,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_last21,rolling,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BB_last30,rolling,walk skill,BB,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_std,expanding,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_last5,rolling,home-run skill,HR,False,0.0,0.0,0.0,0.0,0.0
+pitcher,HR_last7,rolling,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_last10,rolling,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_last14,rolling,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_last21,rolling,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,HR_last30,rolling,home-run skill,HR,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_std,expanding,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_last5,rolling,hit skill,H,False,0.0,0.0,0.0,0.0,0.0
+pitcher,H_last7,rolling,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_last10,rolling,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_last14,rolling,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_last21,rolling,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,H_last30,rolling,hit skill,H,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_std,expanding,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_last5,rolling,runs allowed,R,False,0.0,0.0,0.0,0.0,0.0
+pitcher,R_last7,rolling,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_last10,rolling,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_last14,rolling,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_last21,rolling,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,R_last30,rolling,runs allowed,R,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_std,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_std,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_std,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last3,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last3,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last3,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last5,opportunity,playing time / workload,BF,False,0.0,0.0,0.0,0.0,0.0
+pitcher,outs_last5,opportunity,playing time / workload,outs,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitches_last5,opportunity,playing time / workload,pitches,False,0.0,0.0,0.0,0.0,0.0
+pitcher,BF_last7,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last7,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last7,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last10,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last10,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last10,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last14,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last14,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last14,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last21,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last21,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last21,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_last30,opportunity,playing time / workload,BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,outs_last30,opportunity,playing time / workload,outs,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_last30,opportunity,playing time / workload,pitches,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_per_IP_std,opportunity,playing time / workload,BF_per_IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_per_BF_std,opportunity,playing time / workload,pitches_per_BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_per_IP_std,opportunity,playing time / workload,pitches_per_IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,BF_per_IP_last5,opportunity,playing time / workload,BF_per_IP,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitches_per_BF_last5,opportunity,playing time / workload,pitches_per_BF,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitches_per_IP_last5,opportunity,playing time / workload,pitches_per_IP,False,0.0,0.0,0.0,0.0,0.0
+pitcher,BF_per_IP_last10,opportunity,playing time / workload,BF_per_IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_per_BF_last10,opportunity,playing time / workload,pitches_per_BF,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitches_per_IP_last10,opportunity,playing time / workload,pitches_per_IP,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,max_ip_last5,opportunity,playing time / workload,max_ip,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,max_ip_last10,opportunity,playing time / workload,max_ip,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,days_rest,opportunity,playing time / workload,days_rest,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,starter_pct_last5,opportunity,playing time / workload,starter_pct,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,starter_pct_last10,opportunity,playing time / workload,starter_pct,True,0.9884941461445296,0.9910226385636222,0.996137339055794,-0.0076431929112643,1.0
+pitcher,pitcher_k_rate_vs_hand_last5_R,handedness,strikeout skill,pitcher_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_bb_rate_vs_hand_last5_R,handedness,walk skill,pitcher_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_hr_rate_vs_hand_last5_R,handedness,home-run skill,pitcher_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_h_rate_vs_hand_last5_R,handedness,hit skill,pitcher_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_k_rate_vs_hand_last5_L,handedness,strikeout skill,pitcher_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_bb_rate_vs_hand_last5_L,handedness,walk skill,pitcher_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_hr_rate_vs_hand_last5_L,handedness,home-run skill,pitcher_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_h_rate_vs_hand_last5_L,handedness,hit skill,pitcher_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,pitcher_k_rate_vs_hand_last10_R,handedness,strikeout skill,pitcher_k_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_bb_rate_vs_hand_last10_R,handedness,walk skill,pitcher_bb_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_hr_rate_vs_hand_last10_R,handedness,home-run skill,pitcher_hr_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_h_rate_vs_hand_last10_R,handedness,hit skill,pitcher_h_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_k_rate_vs_hand_last10_L,handedness,strikeout skill,pitcher_k_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_bb_rate_vs_hand_last10_L,handedness,walk skill,pitcher_bb_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_hr_rate_vs_hand_last10_L,handedness,home-run skill,pitcher_hr_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_h_rate_vs_hand_last10_L,handedness,hit skill,pitcher_h_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_k_rate_vs_hand_std_R,handedness,strikeout skill,pitcher_k_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_bb_rate_vs_hand_std_R,handedness,walk skill,pitcher_bb_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_hr_rate_vs_hand_std_R,handedness,home-run skill,pitcher_hr_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_h_rate_vs_hand_std_R,handedness,hit skill,pitcher_h_rate_vs_hand,True,0.985062575696407,0.9847775175644028,0.9927038626609442,-0.0076412869645372,1.0
+pitcher,pitcher_k_rate_vs_hand_std_L,handedness,strikeout skill,pitcher_k_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_bb_rate_vs_hand_std_L,handedness,walk skill,pitcher_bb_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_hr_rate_vs_hand_std_L,handedness,home-run skill,pitcher_hr_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,pitcher_h_rate_vs_hand_std_L,handedness,hit skill,pitcher_h_rate_vs_hand,True,0.9652805813484052,0.9836065573770492,0.9909871244635192,-0.025706543115114,1.0
+pitcher,team_k_rate_vs_hand_last5,team/opponent,opponent,team_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_bb_rate_vs_hand_last5,team/opponent,opponent,team_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_hr_rate_vs_hand_last5,team/opponent,opponent,team_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_h_rate_vs_hand_last5,team/opponent,opponent,team_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_k_rate_vs_hand_last7,team/opponent,opponent,team_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_bb_rate_vs_hand_last7,team/opponent,opponent,team_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_hr_rate_vs_hand_last7,team/opponent,opponent,team_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_h_rate_vs_hand_last7,team/opponent,opponent,team_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_k_rate_vs_hand_last10,team/opponent,opponent,team_k_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_bb_rate_vs_hand_last10,team/opponent,opponent,team_bb_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_hr_rate_vs_hand_last10,team/opponent,opponent,team_hr_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_h_rate_vs_hand_last10,team/opponent,opponent,team_h_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_k_rate_vs_hand_last14,team/opponent,opponent,team_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_bb_rate_vs_hand_last14,team/opponent,opponent,team_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_hr_rate_vs_hand_last14,team/opponent,opponent,team_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_h_rate_vs_hand_last14,team/opponent,opponent,team_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+pitcher,team_k_rate_vs_hand_std,team/opponent,opponent,team_k_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_bb_rate_vs_hand_std,team/opponent,opponent,team_bb_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_hr_rate_vs_hand_std,team/opponent,opponent,team_hr_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,team_h_rate_vs_hand_std,team/opponent,opponent,team_h_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+pitcher,p_tt_k,true_talent,strikeout skill,p_tt_k,True,1.0,1.0,1.0,0.0,1.0
+pitcher,p_tt_bb,true_talent,walk skill,p_tt_bb,True,1.0,1.0,1.0,0.0,1.0
+pitcher,p_tt_h,true_talent,hit skill,p_tt_h,True,1.0,1.0,1.0,0.0,1.0
+pitcher,p_tt_hr,true_talent,home-run skill,p_tt_hr,True,1.0,1.0,1.0,0.0,1.0
+pitcher,lineup_tt_k,matchup,opponent,lineup_tt_k,True,1.0,1.0,1.0,0.0,1.0
+pitcher,lineup_tt_bb,matchup,opponent,lineup_tt_bb,True,1.0,1.0,1.0,0.0,1.0
+pitcher,lineup_tt_h,matchup,opponent,lineup_tt_h,True,1.0,1.0,1.0,0.0,1.0
+pitcher,lineup_tt_hr,matchup,opponent,lineup_tt_hr,True,1.0,1.0,1.0,0.0,1.0
+pitcher,matchup_k,matchup,matchup (log5),matchup_k,True,1.0,1.0,1.0,0.0,1.0
+pitcher,matchup_bb,matchup,matchup (log5),matchup_bb,True,1.0,1.0,1.0,0.0,1.0
+pitcher,matchup_h,matchup,matchup (log5),matchup_h,True,1.0,1.0,1.0,0.0,1.0
+pitcher,matchup_hr,matchup,matchup (log5),matchup_hr,True,1.0,1.0,1.0,0.0,1.0
+pitcher,park_factor,park,park,park_factor,True,1.0,1.0,1.0,0.0,1.0
+hitter,lineup_spot,lineup,lineup slot,lineup_spot,True,0.9132887369723405,0.9029305499799277,0.8973863386777948,0.01590239829454565,0.5
+hitter,lineup_spot_last10,lineup,lineup slot,lineup_spot,True,0.9963092666764527,0.9970293054997993,0.9974961563804086,-0.0011868897039558624,0.5
+hitter,h_rate_std,expanding,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_std,expanding,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_std,expanding,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_std,expanding,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_std,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,avg_EV_std,batted_ball,contact quality,avg_EV,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,max_EV_std,batted_ball,contact quality,max_EV,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,avg_LA_std,batted_ball,contact quality,avg_LA,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,avg_direction_std,batted_ball,contact quality,avg_direction,False,0.0,0.0,0.0,0.0,0.0
+hitter,h_rate_last5,rolling,hit skill,h_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,hr_rate_last5,rolling,home-run skill,hr_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,bb_rate_last5,rolling,walk skill,bb_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,k_rate_last5,rolling,strikeout skill,k_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,PA_last5,opportunity,playing time / workload,PA,False,0.0,0.0,0.0,0.0,0.0
+hitter,h_rate_last7,rolling,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_last7,rolling,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_last7,rolling,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_last7,rolling,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last7,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,h_rate_last10,rolling,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_last10,rolling,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_last10,rolling,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_last10,rolling,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last10,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,h_rate_last14,rolling,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_last14,rolling,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_last14,rolling,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_last14,rolling,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last14,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,h_rate_last21,rolling,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_last21,rolling,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_last21,rolling,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_last21,rolling,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last21,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,h_rate_last30,rolling,hit skill,h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hr_rate_last30,rolling,home-run skill,hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,bb_rate_last30,rolling,walk skill,bb_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,k_rate_last30,rolling,strikeout skill,k_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last30,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,avg_EV_last5,batted_ball,contact quality,avg_EV,False,0.0,0.0,0.0,0.0,0.0
+hitter,max_EV_last5,batted_ball,contact quality,max_EV,False,0.0,0.0,0.0,0.0,0.0
+hitter,avg_LA_last5,batted_ball,contact quality,avg_LA,False,0.0,0.0,0.0,0.0,0.0
+hitter,avg_EV_last10,batted_ball,contact quality,avg_EV,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,max_EV_last10,batted_ball,contact quality,max_EV,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,avg_LA_last10,batted_ball,contact quality,avg_LA,True,0.9971480697045316,0.9973906061822562,0.998111135515045,-0.0009630658105134193,1.0
+hitter,H_std,expanding,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,H_last5,rolling,hit skill,H,False,0.0,0.0,0.0,0.0,0.0
+hitter,H_last7,rolling,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,H_last10,rolling,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,H_last14,rolling,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,H_last21,rolling,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,H_last30,rolling,hit skill,H,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_std,expanding,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_last5,rolling,home-run skill,HR,False,0.0,0.0,0.0,0.0,0.0
+hitter,HR_last7,rolling,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_last10,rolling,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_last14,rolling,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_last21,rolling,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,HR_last30,rolling,home-run skill,HR,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_std,expanding,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_last5,rolling,walk skill,BB,False,0.0,0.0,0.0,0.0,0.0
+hitter,BB_last7,rolling,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_last10,rolling,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_last14,rolling,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_last21,rolling,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,BB_last30,rolling,walk skill,BB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_std,expanding,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_last5,rolling,strikeout skill,K,False,0.0,0.0,0.0,0.0,0.0
+hitter,K_last7,rolling,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_last10,rolling,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_last14,rolling,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_last21,rolling,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,K_last30,rolling,strikeout skill,K,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_std,expanding,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_last5,rolling,extra-base hits,2B,False,0.0,0.0,0.0,0.0,0.0
+hitter,2B_last7,rolling,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_last10,rolling,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_last14,rolling,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_last21,rolling,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,2B_last30,rolling,extra-base hits,2B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_std,expanding,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_last5,rolling,extra-base hits,3B,False,0.0,0.0,0.0,0.0,0.0
+hitter,3B_last7,rolling,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_last10,rolling,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_last14,rolling,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_last21,rolling,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,3B_last30,rolling,extra-base hits,3B,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_std,expanding,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_last5,rolling,stolen bases,SB,False,0.0,0.0,0.0,0.0,0.0
+hitter,SB_last7,rolling,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_last10,rolling,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_last14,rolling,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_last21,rolling,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,SB_last30,rolling,stolen bases,SB,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,PA_last3,opportunity,playing time / workload,PA,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,max_hr_rate_last10,rolling,home-run skill,max_hr_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,max_h_rate_last10,rolling,hit skill,max_h_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,days_since_game,opportunity,playing time / workload,days_since_game,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,barrel_proxy_std,batted_ball,contact quality,barrel_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hard_hit_proxy_std,batted_ball,contact quality,hard_hit_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,sweet_spot_proxy_std,batted_ball,contact quality,sweet_spot_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,blast_proxy_std,batted_ball,contact quality,blast_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,ev_la_interaction_std,batted_ball,contact quality,ev_la_interaction,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,ev_spread_std,batted_ball,contact quality,ev_spread,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,times_on_base_rate_std,batted_ball,contact quality,times_on_base_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,xbh_proxy_rate_std,batted_ball,contact quality,xbh_proxy_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,barrel_proxy_last5,batted_ball,contact quality,barrel_proxy,False,0.0,0.0,0.0,0.0,0.0
+hitter,hard_hit_proxy_last5,batted_ball,contact quality,hard_hit_proxy,False,0.0,0.0,0.0,0.0,0.0
+hitter,sweet_spot_proxy_last5,batted_ball,contact quality,sweet_spot_proxy,False,0.0,0.0,0.0,0.0,0.0
+hitter,blast_proxy_last5,batted_ball,contact quality,blast_proxy,False,0.0,0.0,0.0,0.0,0.0
+hitter,ev_la_interaction_last5,batted_ball,contact quality,ev_la_interaction,False,0.0,0.0,0.0,0.0,0.0
+hitter,ev_spread_last5,batted_ball,contact quality,ev_spread,False,0.0,0.0,0.0,0.0,0.0
+hitter,times_on_base_rate_last5,batted_ball,contact quality,times_on_base_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,xbh_proxy_rate_last5,batted_ball,contact quality,xbh_proxy_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,barrel_proxy_last10,batted_ball,contact quality,barrel_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hard_hit_proxy_last10,batted_ball,contact quality,hard_hit_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,sweet_spot_proxy_last10,batted_ball,contact quality,sweet_spot_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,blast_proxy_last10,batted_ball,contact quality,blast_proxy,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,ev_la_interaction_last10,batted_ball,contact quality,ev_la_interaction,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,ev_spread_last10,batted_ball,contact quality,ev_spread,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,times_on_base_rate_last10,batted_ball,contact quality,times_on_base_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,xbh_proxy_rate_last10,batted_ball,contact quality,xbh_proxy_rate,True,0.9972319500073396,0.9974307507025291,0.9981550625960904,-0.0009231125887508851,1.0
+hitter,hitter_h_rate_vs_hand_last5_R,handedness,hit skill,hitter_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_hr_rate_vs_hand_last5_R,handedness,home-run skill,hitter_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_bb_rate_vs_hand_last5_R,handedness,walk skill,hitter_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_k_rate_vs_hand_last5_R,handedness,strikeout skill,hitter_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_h_rate_vs_hand_last5_L,handedness,hit skill,hitter_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_hr_rate_vs_hand_last5_L,handedness,home-run skill,hitter_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_bb_rate_vs_hand_last5_L,handedness,walk skill,hitter_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_k_rate_vs_hand_last5_L,handedness,strikeout skill,hitter_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,hitter_h_rate_vs_hand_last10_R,handedness,hit skill,hitter_h_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_hr_rate_vs_hand_last10_R,handedness,home-run skill,hitter_hr_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_bb_rate_vs_hand_last10_R,handedness,walk skill,hitter_bb_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_k_rate_vs_hand_last10_R,handedness,strikeout skill,hitter_k_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_h_rate_vs_hand_last10_L,handedness,hit skill,hitter_h_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_hr_rate_vs_hand_last10_L,handedness,home-run skill,hitter_hr_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_bb_rate_vs_hand_last10_L,handedness,walk skill,hitter_bb_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_k_rate_vs_hand_last10_L,handedness,strikeout skill,hitter_k_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_h_rate_vs_hand_std_R,handedness,hit skill,hitter_h_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_hr_rate_vs_hand_std_R,handedness,home-run skill,hitter_hr_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_bb_rate_vs_hand_std_R,handedness,walk skill,hitter_bb_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_k_rate_vs_hand_std_R,handedness,strikeout skill,hitter_k_rate_vs_hand,True,0.9110029987208254,0.9065837013247692,0.8922468701954755,0.018756128525349802,1.0
+hitter,hitter_h_rate_vs_hand_std_L,handedness,hit skill,hitter_h_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_hr_rate_vs_hand_std_L,handedness,home-run skill,hitter_hr_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_bb_rate_vs_hand_std_L,handedness,walk skill,hitter_bb_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,hitter_k_rate_vs_hand_std_L,handedness,strikeout skill,hitter_k_rate_vs_hand,True,0.5356596137312055,0.5569650742673625,0.593762354491544,-0.0581027407603385,1.0
+hitter,team_allowed_k_rate_vs_hand_last5,team/opponent,opponent,team_allowed_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_bb_rate_vs_hand_last5,team/opponent,opponent,team_allowed_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_hr_rate_vs_hand_last5,team/opponent,opponent,team_allowed_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_h_rate_vs_hand_last5,team/opponent,opponent,team_allowed_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_k_rate_vs_hand_last7,team/opponent,opponent,team_allowed_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_bb_rate_vs_hand_last7,team/opponent,opponent,team_allowed_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_hr_rate_vs_hand_last7,team/opponent,opponent,team_allowed_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_h_rate_vs_hand_last7,team/opponent,opponent,team_allowed_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_k_rate_vs_hand_last10,team/opponent,opponent,team_allowed_k_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_bb_rate_vs_hand_last10,team/opponent,opponent,team_allowed_bb_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_hr_rate_vs_hand_last10,team/opponent,opponent,team_allowed_hr_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_h_rate_vs_hand_last10,team/opponent,opponent,team_allowed_h_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_k_rate_vs_hand_last14,team/opponent,opponent,team_allowed_k_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_bb_rate_vs_hand_last14,team/opponent,opponent,team_allowed_bb_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_hr_rate_vs_hand_last14,team/opponent,opponent,team_allowed_hr_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_h_rate_vs_hand_last14,team/opponent,opponent,team_allowed_h_rate_vs_hand,False,0.0,0.0,0.0,0.0,0.0
+hitter,team_allowed_k_rate_vs_hand_std,team/opponent,opponent,team_allowed_k_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_bb_rate_vs_hand_std,team/opponent,opponent,team_allowed_bb_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_hr_rate_vs_hand_std,team/opponent,opponent,team_allowed_hr_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,team_allowed_h_rate_vs_hand_std,team/opponent,opponent,team_allowed_h_rate_vs_hand,True,1.0,1.0,1.0,0.0,1.0
+hitter,opp_sp_k_rate,team/opponent,opponent,opp_sp_k_rate,True,0.9713339065154025,0.9764753111200322,0.979573907313859,-0.008240000798456437,1.0
+hitter,opp_sp_bb_rate,team/opponent,opponent,opp_sp_bb_rate,True,0.9713339065154025,0.9764753111200322,0.979573907313859,-0.008240000798456437,1.0
+hitter,opp_sp_hr_rate,team/opponent,opponent,opp_sp_hr_rate,True,0.9713339065154025,0.9764753111200322,0.979573907313859,-0.008240000798456437,1.0
+hitter,opp_sp_h_rate,team/opponent,opponent,opp_sp_h_rate,True,0.9713339065154025,0.9764753111200322,0.979573907313859,-0.008240000798456437,1.0
+hitter,opp_sp_ip,team/opponent,opponent,opp_sp_ip,True,0.9713339065154025,0.9764753111200322,0.979573907313859,-0.008240000798456437,1.0
+hitter,opp_sp_k_rate_last5,team/opponent,opponent,opp_sp_k_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,opp_sp_bb_rate_last5,team/opponent,opponent,opp_sp_bb_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,opp_sp_hr_rate_last5,team/opponent,opponent,opp_sp_hr_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,opp_sp_h_rate_last5,team/opponent,opponent,opp_sp_h_rate,False,0.0,0.0,0.0,0.0,0.0
+hitter,opp_sp_ip_last5,team/opponent,opponent,opp_sp_ip,False,0.0,0.0,0.0,0.0,0.0
+hitter,opp_sp_k_rate_last10,team/opponent,opponent,opp_sp_k_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_bb_rate_last10,team/opponent,opponent,opp_sp_bb_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_hr_rate_last10,team/opponent,opponent,opp_sp_hr_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_h_rate_last10,team/opponent,opponent,opp_sp_h_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_ip_last10,team/opponent,opponent,opp_sp_ip,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_k_rate_std,team/opponent,opponent,opp_sp_k_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_bb_rate_std,team/opponent,opponent,opp_sp_bb_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_hr_rate_std,team/opponent,opponent,opp_sp_hr_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_h_rate_std,team/opponent,opponent,opp_sp_h_rate,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,opp_sp_ip_std,team/opponent,opponent,opp_sp_ip,True,0.9885922788181265,0.9908069048574869,0.9960904897869537,-0.00749821096882719,1.0
+hitter,h_tt_k,true_talent,strikeout skill,h_tt_k,True,1.0,1.0,1.0,0.0,1.0
+hitter,h_tt_bb,true_talent,walk skill,h_tt_bb,True,1.0,1.0,1.0,0.0,1.0
+hitter,h_tt_h,true_talent,hit skill,h_tt_h,True,1.0,1.0,1.0,0.0,1.0
+hitter,h_tt_hr,true_talent,home-run skill,h_tt_hr,True,1.0,1.0,1.0,0.0,1.0
+hitter,park_factor,park,park,park_factor,True,1.0,1.0,1.0,0.0,1.0
+game,diff_runs_scored_10g,rolling,offense (10g),diff_runs_scored_10g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_runs_allowed_10g,rolling,run prevention (10g),diff_runs_allowed_10g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_OPS_10g,rolling,offense (10g),diff_OPS_10g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_K_rate_10g,rolling,offense (10g),diff_K_rate_10g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_BB_rate_10g,rolling,offense (10g),diff_BB_rate_10g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_SP_FIP_10,rolling,starting pitcher,diff_SP_FIP_10,True,0.9112986211154559,0.9547228727556596,0.9590592334494773,-0.0477606123340214,
+game,diff_SP_KBB_pct_10,rolling,starting pitcher,diff_SP_KBB_pct_10,True,0.9112986211154559,0.9547228727556596,0.9590592334494773,-0.0477606123340214,
+game,diff_SP_HR9_10,rolling,starting pitcher,diff_SP_HR9_10,True,0.9112986211154559,0.9547228727556596,0.9590592334494773,-0.0477606123340214,
+game,diff_SP_FIP_season,expanding,starting pitcher,diff_SP_FIP_season,True,0.8787816423132332,0.8274785323965652,0.9294425087108014,-0.05066086639756817,
+game,diff_SP_KBB_pct_season,expanding,starting pitcher,diff_SP_KBB_pct_season,True,0.8787816423132332,0.8274785323965652,0.9294425087108014,-0.05066086639756817,
+game,diff_BP_ERA_proxy_14g,rolling,bullpen,diff_BP_ERA_proxy_14g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_BP_WHIP_14g,rolling,bullpen,diff_BP_WHIP_14g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_BP_KBB_pct_14g,rolling,bullpen,diff_BP_KBB_pct_14g,True,0.9967071413871167,1.0,1.0,-0.0032928586128833093,
+game,diff_team_winpct,expanding,team strength (season),diff_team_winpct,True,0.9934142827742334,0.9882903981264637,1.0,-0.0065857172257666186,
+game,diff_team_run_diff,expanding,team strength (season),diff_team_run_diff,True,0.9934142827742334,0.9882903981264637,1.0,-0.0065857172257666186,
+game,diff_season_OPS,expanding,team strength (season),diff_season_OPS,True,0.9934142827742334,0.9882903981264637,1.0,-0.0065857172257666186,
+game,home_field,other,home field / hand,home_field,True,1.0,1.0,1.0,0.0,
+game,diff_starter_hand,handedness,home field / hand,diff_starter_hand,True,1.0,1.0,1.0,0.0,

@@ -46,6 +46,11 @@ OUTPUT_DIR = BASE_DIR / "outputs"
 DATA_DIR = BASE_DIR / "data"
 PREDS_PATH = OUTPUT_DIR / "today_predictions.csv"
 PROJ_PATH = OUTPUT_DIR / "hitterspitchers_today.csv"
+# Written by the evening runs for TOMORROW's slate. After midnight ET they are
+# the right files to show until the day's first run lands (GitHub often starts
+# scheduled runs hours late), so the site never shows yesterday's slate.
+NEXT_PREDS_PATH = OUTPUT_DIR / "next_day_predictions.csv"
+NEXT_PROJ_PATH = OUTPUT_DIR / "next_day_projections.csv"
 PICKS_PATH = BASE_DIR / "2026_picks_accuracy.csv"
 PLAYER_ACC_PATH = BASE_DIR / "2026_player_accuracy.csv"
 HITTER_GAMES_PATH = DATA_DIR / "hitter_game_data.csv"
@@ -130,10 +135,30 @@ def _conf_label(c) -> str:
 
 
 # ───── PAYLOAD BUILDERS ─────────────────────────────────────
+def _file_date(path: Path) -> str | None:
+    try:
+        d = pd.read_csv(path, usecols=["game_date"], low_memory=False)["game_date"].dropna()
+        return str(d.iloc[0])[:10] if len(d) else None
+    except Exception:
+        return None
+
+
+def _slate_path(today_path: Path, next_path: Path) -> Path:
+    """The file whose games are on today's ET date: the day-of file once the
+    morning run has landed, otherwise last evening's next-day file."""
+    today_et = datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
+    if today_path.exists() and _file_date(today_path) == today_et:
+        return today_path
+    if next_path.exists() and _file_date(next_path) == today_et:
+        return next_path
+    return today_path
+
+
 def games_payload() -> list[dict]:
-    if not PREDS_PATH.exists():
+    path = _slate_path(PREDS_PATH, NEXT_PREDS_PATH)
+    if not path.exists():
         return []
-    df = pd.read_csv(PREDS_PATH, low_memory=False)
+    df = pd.read_csv(path, low_memory=False)
     rows: list[dict] = []
     for _, r in df.iterrows():
         home = _safe(r.get("home_team"), "")
@@ -175,9 +200,10 @@ def _grade(v, default=50) -> int:
 
 
 def pitchers_payload() -> list[dict]:
-    if not PROJ_PATH.exists():
+    path = _slate_path(PROJ_PATH, NEXT_PROJ_PATH)
+    if not path.exists():
         return []
-    df = pd.read_csv(PROJ_PATH, low_memory=False)
+    df = pd.read_csv(path, low_memory=False)
     df = df[df["player_type"].astype(str).str.lower() == "pitcher"]
     rows: list[dict] = []
     for _, r in df.iterrows():
@@ -198,9 +224,10 @@ def pitchers_payload() -> list[dict]:
 
 
 def hitters_payload() -> list[dict]:
-    if not PROJ_PATH.exists():
+    path = _slate_path(PROJ_PATH, NEXT_PROJ_PATH)
+    if not path.exists():
         return []
-    df = pd.read_csv(PROJ_PATH, low_memory=False)
+    df = pd.read_csv(path, low_memory=False)
     df = df[df["player_type"].astype(str).str.lower() == "hitter"]
     rows: list[dict] = []
     for _, r in df.iterrows():
@@ -477,6 +504,9 @@ def player_accuracy_payload() -> dict:
 
     df["played"] = df["played"].astype(str).str.lower().isin({"true", "1", "1.0"})
     graded = df[df["played"] == True].copy()  # noqa: E712
+    # Never report in-sample projections (re-scored history) as accuracy.
+    if "in_sample" in graded.columns:
+        graded = graded[pd.to_numeric(graded["in_sample"], errors="coerce").fillna(0) != 1]
     if graded.empty:
         return empty
 
@@ -925,9 +955,10 @@ def health():
     proj_row_count = None
     proj_status = "missing_file"
     server_today_et = datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
-    if PROJ_PATH.exists():
+    slate = _slate_path(PROJ_PATH, NEXT_PROJ_PATH)
+    if slate.exists():
         try:
-            df = pd.read_csv(PROJ_PATH, usecols=["game_date"], low_memory=False)
+            df = pd.read_csv(slate, usecols=["game_date"], low_memory=False)
             if df.empty:
                 proj_status = "empty_file"
             else:

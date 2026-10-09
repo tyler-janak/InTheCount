@@ -1,0 +1,11 @@
+{
+  "run_utc": "2026-10-09T01:50:39+00:00",
+  "valid_start": "2026-03-01",
+  "test_start": "2026-07-01",
+  "quick": false,
+  "groups": [
+    "pitcher",
+    "hitter"
+  ],
+  "minutes": 1.9
+}

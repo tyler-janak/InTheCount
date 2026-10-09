@@ -1,0 +1,18 @@
+feature,vif,family,construct
+diff_SP_FIP_10,33.60284866760894,rolling,starting pitcher
+diff_SP_HR9_10,20.78409565967479,rolling,starting pitcher
+diff_SP_KBB_pct_10,15.186009023258192,rolling,starting pitcher
+diff_SP_KBB_pct_season,6.361034504699497,expanding,starting pitcher
+diff_OPS_10g,5.024711322622156,rolling,offense (10g)
+diff_runs_scored_10g,4.880528411431314,rolling,offense (10g)
+diff_BP_WHIP_14g,4.075224080067748,rolling,bullpen
+diff_BP_ERA_proxy_14g,3.7219152671119384,rolling,bullpen
+diff_SP_FIP_season,3.200368691795831,expanding,starting pitcher
+diff_team_winpct,2.657180774332244,expanding,team strength (season)
+diff_season_OPS,2.54837318831549,expanding,team strength (season)
+diff_runs_allowed_10g,1.9992353202292237,rolling,run prevention (10g)
+diff_BP_KBB_pct_14g,1.6739583997420828,rolling,bullpen
+diff_team_run_diff,1.6665792126959922,expanding,team strength (season)
+diff_K_rate_10g,1.2665212068568432,rolling,offense (10g)
+diff_BB_rate_10g,1.1537766829938487,rolling,offense (10g)
+diff_starter_hand,1.0016875143849011,handedness,home field / hand

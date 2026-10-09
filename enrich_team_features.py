@@ -4,12 +4,12 @@ enrich_team_features.py
 Post-processing pass over `data/hitter_game_data.csv` that adds the
 missing team-level context columns the team-PA hitter trainer expects:
 
-    team_obp_std           — team's season-to-date on-base rate
-    team_obp_last10        — rolling 10-game on-base rate
-    team_pa_avg_std        — team's season-to-date avg PA per game
-    team_pa_avg_last10     — rolling 10-game avg PA per game
-    opp_sp_ip_avg          — opposing starter's season-to-date IP avg
-                             (just an alias for the existing _std column —
+    team_obp_std           - team's season-to-date on-base rate
+    team_obp_last10        - rolling 10-game on-base rate
+    team_pa_avg_std        - team's season-to-date avg PA per game
+    team_pa_avg_last10     - rolling 10-game avg PA per game
+    opp_sp_ip_avg          - opposing starter's season-to-date IP avg
+                             (just an alias for the existing _std column -
                              named differently in the trainer's pool)
 
 Why this is a separate script
@@ -67,7 +67,7 @@ def _team_game_table(hitter_df: pd.DataFrame) -> pd.DataFrame:
     )
     # OBP ≈ (H + BB) / (PA). We don't have HBP at the team-game level here
     # (it's not aggregated separately in the per-hitter file), so this is
-    # OBP-without-HBP — typically ~0.5% lower than true OBP, immaterial for
+    # OBP-without-HBP - typically ~0.5% lower than true OBP, immaterial for
     # use as a feature.
     team_game["team_OBP"] = (
         (team_game["team_H"] + team_game["team_BB"]).clip(lower=0)
@@ -101,17 +101,34 @@ def _rolling_features(team_game: pd.DataFrame) -> pd.DataFrame:
 
 
 # ---------------------------------------------------------------------------
-# Public entry point
+# Public entry points
 # ---------------------------------------------------------------------------
+ENRICH_COLS = ("team_obp_std", "team_obp_last10", "team_pa_avg_std",
+               "team_pa_avg_last10", "opp_sp_ip_avg")
+
+
+def enrich_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """In-memory version of enrich() used by the windowed feature build."""
+    n_before = len(df)
+    df = df.drop(columns=[c for c in ENRICH_COLS if c in df.columns]).copy()
+    df["game_date"] = pd.to_datetime(df["game_date"], errors="coerce")
+    rolling = _rolling_features(_team_game_table(df))
+    df = df.merge(rolling, on=["team", "game_date"], how="left")
+    if "opp_sp_ip_std" in df.columns:
+        df["opp_sp_ip_avg"] = df["opp_sp_ip_std"]
+    assert len(df) == n_before, "enrichment changed row count - bug!"
+    return df
+
+
 def enrich(
     hitter_csv: Path = DATA_DIR / "hitter_game_data.csv",
     write_back: bool = True,
 ) -> pd.DataFrame:
     if not hitter_csv.exists():
-        print(f"⚠️  {hitter_csv} not found — skipping team feature enrichment.")
+        print(f"WARNING:  {hitter_csv} not found - skipping team feature enrichment.")
         return pd.DataFrame()
 
-    print(f"\n── Enriching team features in {hitter_csv.name} ──")
+    print(f"\n-- Enriching team features in {hitter_csv.name} --")
     df = pd.read_csv(hitter_csv, low_memory=False)
     n_before = len(df)
     cols_before = set(df.columns)
@@ -131,7 +148,7 @@ def enrich(
     rolling = _rolling_features(team_game)
     df = df.merge(rolling, on=["team", "game_date"], how="left")
 
-    # opp_sp_ip_avg — pure alias for opp_sp_ip_std if present, so the trainer
+    # opp_sp_ip_avg - pure alias for opp_sp_ip_std if present, so the trainer
     # finds it under whichever name it looks for. We populate both.
     if "opp_sp_ip_std" in df.columns and "opp_sp_ip_avg" not in df.columns:
         df["opp_sp_ip_avg"] = df["opp_sp_ip_std"]
@@ -141,12 +158,12 @@ def enrich(
     print(f"  team_obp_std coverage: {df['team_obp_std'].notna().mean():.1%}")
     print(f"  team_pa_avg_std coverage: {df['team_pa_avg_std'].notna().mean():.1%}")
 
-    assert len(df) == n_before, "enrichment changed row count — bug!"
+    assert len(df) == n_before, "enrichment changed row count - bug!"
 
     if write_back:
         # %.4f keeps the in-place rewrite under GitHub's 100 MB limit.
         df.to_csv(hitter_csv, index=False, float_format="%.4f")
-        print(f"  Wrote {len(df):,} rows back → {hitter_csv}")
+        print(f"  Wrote {len(df):,} rows back -> {hitter_csv}")
     return df
 
 

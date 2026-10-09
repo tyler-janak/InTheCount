@@ -1,0 +1,134 @@
+feature,vif,family,construct
+BF_last30,18082.355286661605,opportunity,playing time / workload
+BF_std,14554.215116474508,opportunity,playing time / workload
+BF_last21,9164.286239844962,opportunity,playing time / workload
+BF_last14,5639.782190351053,opportunity,playing time / workload
+BF_last10,4480.868607331653,opportunity,playing time / workload
+IP_last30,2261.078402410213,opportunity,playing time / workload
+outs_last30,2261.078401593389,opportunity,playing time / workload
+H_last30,1763.9260641426708,rolling,hit skill
+outs_std,1723.2807982902598,opportunity,playing time / workload
+IP_std,1723.2807973493848,opportunity,playing time / workload
+BF_last7,1587.0746048828132,opportunity,playing time / workload
+pitches_std,1492.4516592987252,opportunity,playing time / workload
+H_std,1465.077078351284,expanding,hit skill
+pitches_last30,1440.8739325362108,opportunity,playing time / workload
+outs_last21,1154.2796252101593,opportunity,playing time / workload
+IP_last21,1154.2796251926131,opportunity,playing time / workload
+matchup_h,952.3813763455868,matchup,matchup (log5)
+H_last21,939.9325459429288,rolling,hit skill
+pitches_last21,876.0332836244718,opportunity,playing time / workload
+p_tt_h,848.2181280885436,true_talent,hit skill
+outs_last14,726.1712563323966,opportunity,playing time / workload
+IP_last14,726.1712562948748,opportunity,playing time / workload
+pitches_last10,698.6422596692878,opportunity,playing time / workload
+H_last14,601.3669585214335,rolling,hit skill
+outs_last10,559.7120445961342,opportunity,playing time / workload
+IP_last10,559.7120445891455,opportunity,playing time / workload
+pitches_last14,527.7074601498341,opportunity,playing time / workload
+K_last30,518.5304290795953,rolling,strikeout skill
+H_last10,490.313610361989,rolling,hit skill
+BB_last30,428.8249048212175,rolling,walk skill
+K_std,375.12039031419994,expanding,strikeout skill
+K_last21,339.21431443176135,rolling,strikeout skill
+BB_std,338.1969098338151,expanding,walk skill
+matchup_k,294.21272324307984,matchup,matchup (log5)
+BB_last21,262.0241654556379,rolling,walk skill
+p_tt_k,253.30947209936906,true_talent,strikeout skill
+pitches_per_IP_std,235.92191398287852,opportunity,playing time / workload
+K_last14,217.8522298596401,rolling,strikeout skill
+HR_last30,217.7616555661541,rolling,home-run skill
+IP_last7,206.88646714774234,opportunity,playing time / workload
+outs_last7,206.88646714066178,opportunity,playing time / workload
+H_last7,206.20669244862782,rolling,hit skill
+BB_rate_last30,195.49212949394877,rolling,walk skill
+K_rate_last30,194.54602405544156,rolling,strikeout skill
+pitches_per_IP_last10,192.2944674762459,opportunity,playing time / workload
+BF_per_IP_std,189.55694096696527,opportunity,playing time / workload
+K_last10,189.40693571643303,rolling,strikeout skill
+BB_last14,180.4338265179989,rolling,walk skill
+BB_rate_std,177.14085690554407,expanding,walk skill
+matchup_bb,173.64795141053958,matchup,matchup (log5)
+pitches_last7,171.68495682773704,opportunity,playing time / workload
+HR_std,157.49525474749208,expanding,home-run skill
+BB_last10,155.92352616213853,rolling,walk skill
+BF_per_IP_last10,154.90945252422998,opportunity,playing time / workload
+HR_rate_last30,152.8615744071345,rolling,home-run skill
+p_tt_bb,150.4019799381429,true_talent,walk skill
+H_rate_last30,149.78988815638124,rolling,hit skill
+K_rate_std,149.65649675214024,expanding,strikeout skill
+avg_velocity_last10,145.03639656776485,velocity/pitch_mix,stuff / pitch mix
+R_last30,143.74604185707892,rolling,runs allowed
+K_rate_last21,139.9871820181602,rolling,strikeout skill
+BB_rate_last21,136.89436513212905,rolling,walk skill
+lineup_tt_h,128.70610430207896,matchup,opponent
+HR_last21,125.10927433915386,rolling,home-run skill
+H_rate_std,122.94420619864077,expanding,hit skill
+HR_rate_std,120.56079892328881,expanding,home-run skill
+matchup_hr,108.04084094929932,matchup,matchup (log5)
+K_rate_last10,107.63401849385832,rolling,strikeout skill
+avg_velocity_last7,107.36514278302384,velocity/pitch_mix,stuff / pitch mix
+H_rate_last21,104.13353784081983,rolling,hit skill
+BB_rate_last10,103.39173600148743,rolling,walk skill
+R_std,101.92179480213606,expanding,runs allowed
+K_rate_last14,93.31065739793956,rolling,strikeout skill
+HR_rate_last21,91.21675194149674,rolling,home-run skill
+BB_rate_last14,88.80913279137937,rolling,walk skill
+H_rate_last10,83.18956316401247,rolling,hit skill
+p_tt_hr,81.75168606433768,true_talent,home-run skill
+R_last21,80.18048322301284,rolling,runs allowed
+K_last7,75.15941820178726,rolling,strikeout skill
+BB_last7,67.9301855486323,rolling,walk skill
+H_rate_last14,67.72714719532163,rolling,hit skill
+lineup_tt_k,67.06734513343636,matchup,opponent
+HR_last14,66.11724546003342,rolling,home-run skill
+pitches_per_BF_std,63.48685968437548,opportunity,playing time / workload
+pitches_per_BF_last10,56.58926530393904,opportunity,playing time / workload
+R_last14,52.29504047328419,rolling,runs allowed
+HR_last10,51.44625673709992,rolling,home-run skill
+HR_rate_last14,47.77217442361079,rolling,home-run skill
+HR_rate_last10,42.942988778885294,rolling,home-run skill
+R_last10,40.36733116525296,rolling,runs allowed
+K_rate_last7,39.267000186919695,rolling,strikeout skill
+BB_rate_last7,37.49590671187855,rolling,walk skill
+H_rate_last7,35.62433236401563,rolling,hit skill
+BF_last3,34.575469065204366,opportunity,playing time / workload
+lineup_tt_bb,32.48303420874897,matchup,opponent
+lineup_tt_hr,31.922011813328872,matchup,opponent
+HR_last7,28.8983116777654,rolling,home-run skill
+pitches_last3,25.38414964812571,opportunity,playing time / workload
+avg_velocity_std,23.778516314792025,velocity/pitch_mix,stuff / pitch mix
+HR_rate_last7,22.65767340505091,rolling,home-run skill
+starter_pct_last10,20.907759689523967,opportunity,playing time / workload
+pitcher_k_rate_vs_hand_std_R,20.791971681574267,handedness,strikeout skill
+R_last7,19.262471856893363,rolling,runs allowed
+pitcher_h_rate_vs_hand_std_R,15.504794948674238,handedness,hit skill
+pitcher_k_rate_vs_hand_last10_R,15.434113695497182,handedness,strikeout skill
+starter_pct_last5,15.04559775937937,opportunity,playing time / workload
+outs_last3,14.653619901995132,opportunity,playing time / workload
+pitcher_bb_rate_vs_hand_std_R,14.604042652912812,handedness,walk skill
+pitcher_k_rate_vs_hand_std_L,13.37671002072221,handedness,strikeout skill
+pitcher_bb_rate_vs_hand_last10_R,12.97658897856751,handedness,walk skill
+pitcher_bb_rate_vs_hand_std_L,11.982657175099531,handedness,walk skill
+pitcher_h_rate_vs_hand_last10_R,11.954823047710942,handedness,hit skill
+pitcher_hr_rate_vs_hand_std_R,11.85293683335716,handedness,home-run skill
+pitcher_h_rate_vs_hand_std_L,10.88210989577035,handedness,hit skill
+pitcher_k_rate_vs_hand_last10_L,10.4245565787154,handedness,strikeout skill
+pitcher_hr_rate_vs_hand_last10_R,9.895290402225784,handedness,home-run skill
+pitcher_bb_rate_vs_hand_last10_L,9.25400278487308,handedness,walk skill
+pitcher_h_rate_vs_hand_last10_L,9.08678177739288,handedness,hit skill
+pitcher_hr_rate_vs_hand_std_L,8.287665391466945,handedness,home-run skill
+pitcher_hr_rate_vs_hand_last10_L,7.076879218622577,handedness,home-run skill
+max_ip_last5,6.890718040382106,opportunity,playing time / workload
+max_ip_last10,6.653101044620448,opportunity,playing time / workload
+team_k_rate_vs_hand_std,2.980416698814915,team/opponent,opponent
+team_h_rate_vs_hand_std,2.8330545436379246,team/opponent,opponent
+team_hr_rate_vs_hand_std,2.65916378808454,team/opponent,opponent
+team_bb_rate_vs_hand_std,1.9421290922870467,team/opponent,opponent
+team_k_rate_vs_hand_last10,1.6150716754575853,team/opponent,opponent
+team_h_rate_vs_hand_last10,1.57883342018825,team/opponent,opponent
+team_hr_rate_vs_hand_last10,1.412952142310379,team/opponent,opponent
+park_factor,1.297041708454905,park,park
+avg_spin_std,1.2486519669726068,velocity/pitch_mix,stuff / pitch mix
+team_bb_rate_vs_hand_last10,1.2319472987439868,team/opponent,opponent
+days_rest,1.0675943432143804,opportunity,playing time / workload
