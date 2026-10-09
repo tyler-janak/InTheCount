@@ -28,7 +28,7 @@ DATA_DIR = Path("data")
 OUT_DIR = Path("outputs")
 
 # Hybrid model inference helpers. Imports are wrapped so the module still
-# loads if either trainer file is removed or has a syntax error - the
+# loads if either trainer file is removed or has a syntax error — the
 # legacy direct-target flow remains the default fallback inside score_*.
 try:
     from train_pitcher_two_stage import predict_two_stage, load_two_stage_models
@@ -76,15 +76,9 @@ except Exception:
 
 # Preferred: count-stat models trained by hitterspitchers_train.py
 # Fallback:  legacy rate models (used until retraining is done)
-# "R" = runs allowed (earned-run proxy) - see hitterspitchers_data.py /
-# hitterspitchers_train.py comments. Feeds proj_er_model / FIP / WAR below.
-PITCHER_TARGETS = ["K", "BB", "HR", "H", "IP", "R"]
+PITCHER_TARGETS = ["K", "BB", "HR", "H", "IP"]
 
-# "2B"/"3B" (extra-base-hit splits) feed the new modeled wOBA (proj_woba
-# below); "SB" is the new stolen-base target. See the matching comments in
-# hitterspitchers_train.py / hitterspitchers_data.py. OAA/DRS are NOT here -
-# they need fielding-chance data this batting-event pipeline doesn't have.
-HITTER_TARGETS  = ["H", "HR", "BB", "K", "PA", "TB", "2B", "3B", "SB"]
+HITTER_TARGETS  = ["H", "HR", "BB", "K", "PA", "TB"]
 
 TEAM_MAP = {
     "Arizona Diamondbacks": "AZ",
@@ -166,7 +160,7 @@ def normalize_name(name) -> str:
         return ""
     s = str(name).strip().lower()
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
-    # Strip name suffixes - intentionally excludes "v" because it is far too
+    # Strip name suffixes — intentionally excludes "v" because it is far too
     # common as an abbreviated first initial (V. Guerrero, V. Pasquantino, etc.)
     # and would silently collapse "V. Lastname" to just "Lastname", breaking
     # the two-token flexible matcher.
@@ -395,46 +389,6 @@ def _inv_log1p_transform(z):
     return _log1p_inverse(z)
 
 
-def _single_thread(obj, _seen=None) -> None:
-    """Serving scores one player at a time. A forest/booster trained with
-    n_jobs=-1 would start a worker pool for every single-row predict, which
-    costs far more than the prediction (and floods the log with joblib
-    warnings). Walk the fitted pipeline / calibration / stack wrappers and set
-    n_jobs=1 on every estimator. Predictions are identical."""
-    _seen = _seen if _seen is not None else set()
-    if obj is None or id(obj) in _seen or isinstance(obj, (str, bytes, int, float, np.ndarray, pd.DataFrame)):
-        return
-    _seen.add(id(obj))
-    if hasattr(obj, "n_jobs"):
-        try:
-            obj.n_jobs = 1
-        except Exception:
-            pass
-    if hasattr(obj, "set_params") and hasattr(obj, "get_params"):
-        try:
-            if "n_jobs" in obj.get_params(deep=False):
-                obj.set_params(n_jobs=1)
-        except Exception:
-            pass
-    children = []
-    if isinstance(obj, dict):
-        children = list(obj.values())
-    elif isinstance(obj, (list, tuple)):
-        children = list(obj)
-    else:
-        for name in ("steps", "named_steps", "regressor_", "regressor", "base", "models", "estimators_",
-                     "estimator", "calibrated_classifiers_", "pipeline"):
-            v = getattr(obj, name, None)
-            if v is not None:
-                children.append(v.values() if isinstance(v, dict) else v)
-    for c in children:
-        if isinstance(c, (list, tuple)) or hasattr(c, "__iter__") and not hasattr(c, "predict"):
-            for x in list(c):
-                _single_thread(x[1] if isinstance(x, tuple) and len(x) == 2 else x, _seen)
-        else:
-            _single_thread(c, _seen)
-
-
 def load_models_count_only(prefix: str, targets: list[str]) -> dict:
     models = {}
 
@@ -445,23 +399,9 @@ def load_models_count_only(prefix: str, targets: list[str]) -> dict:
 
         with open(path, "rb") as f:
             models[t] = pickle.load(f)
-        _single_thread(models[t])
 
     print(f"[{prefix}] Loaded COUNT models: {targets}")
     return models
-
-
-def model_trained_through() -> str | None:
-    """Last game date in the training data of the deployed player models
-    (written by hitterspitchers_train since the audit). Stamped on every
-    snapshot so grading can separate genuine out-of-sample projections from
-    re-scored (in-sample) history."""
-    try:
-        with open(MODEL_DIR / "pitcher_K.pkl", "rb") as f:
-            b = pickle.load(f)
-        return b.get("trained_through") if isinstance(b, dict) else None
-    except Exception:
-        return None
 
 
 def predict_model(model_obj: dict, feature_row: pd.Series) -> float | None:
@@ -503,54 +443,17 @@ def infer_league_means(pitcher_game_df: pd.DataFrame, hitter_game_df: pd.DataFra
         if stat in hitter_game_df.columns:
             means[f"hitter_{stat}"] = float(pd.to_numeric(hitter_game_df[stat], errors="coerce").mean())
 
-    # Per-PA rates for the new 2B/3B/SB targets (used only as a fallback when
-    # a direct model prediction is missing - same role h_rate/hr_rate/etc.
-    # already play above).
-    if "PA" in hitter_game_df.columns:
-        pa_sum = pd.to_numeric(hitter_game_df["PA"], errors="coerce").sum()
-        if pa_sum and pa_sum > 0:
-            for stat, key in [("2B", "hitter_2b_rate"), ("3B", "hitter_3b_rate"), ("SB", "hitter_sb_rate")]:
-                if stat in hitter_game_df.columns:
-                    means[key] = float(pd.to_numeric(hitter_game_df[stat], errors="coerce").sum() / pa_sum)
-
-    # League runs-allowed-per-9 (RA9) and the matching FIP constant, used by
-    # compute_fip_war() below. Computed from innings-weighted sums (not a
-    # mean of per-game rates) so a 1-IP disaster doesn't count the same as a
-    # 7-IP start. FIP_constant anchors FIP to the same run-scoring
-    # environment as league_ra9 (which stands in for league ERA - Statcast
-    # has no earned/unearned split, see the R-column comments), the same way
-    # FanGraphs anchors FIP to league ERA each season.
-    if {"R", "HR", "BB", "K", "IP"}.issubset(pitcher_game_df.columns):
-        r_sum  = pd.to_numeric(pitcher_game_df["R"],  errors="coerce").sum()
-        hr_sum = pd.to_numeric(pitcher_game_df["HR"], errors="coerce").sum()
-        bb_sum = pd.to_numeric(pitcher_game_df["BB"], errors="coerce").sum()
-        k_sum  = pd.to_numeric(pitcher_game_df["K"],  errors="coerce").sum()
-        ip_sum = pd.to_numeric(pitcher_game_df["IP"], errors="coerce").sum()
-        if ip_sum and ip_sum > 0:
-            league_ra9 = float(9.0 * r_sum / ip_sum)
-            means["pitcher_league_ra9"] = league_ra9
-            means["pitcher_fip_constant"] = float(
-                league_ra9 - (13.0 * hr_sum + 3.0 * bb_sum - 2.0 * k_sum) / ip_sum
-            )
-
     defaults = {
         "pitcher_K_rate": 0.225,
         "pitcher_BB_rate": 0.085,
         "pitcher_HR_rate": 0.030,
         "pitcher_H_rate": 0.215,
         "pitcher_IP": 4.90,
-        "pitcher_league_ra9": 4.30,
-        # 2022-2025 MLB FIP constants have hovered ~3.10-3.20; used only when
-        # the real per-season value above can't be computed from the data.
-        "pitcher_fip_constant": 3.15,
         "hitter_h_rate": 0.205,
         "hitter_hr_rate": 0.032,
         "hitter_bb_rate": 0.082,
         "hitter_k_rate": 0.225,
         "hitter_PA": 3.95,
-        "hitter_2b_rate": 0.045,
-        "hitter_3b_rate": 0.005,
-        "hitter_sb_rate": 0.018,
     }
 
     for k, v in defaults.items():
@@ -583,10 +486,10 @@ def fetch_schedule(target_date: str) -> list[dict]:
             last_err = e
             wait = 2 ** attempt   # 2s, 4s, 8s, 16s
             print(f"  [schedule] attempt {attempt}/4 failed ({type(e).__name__}: "
-                  f"{str(e)[:120]}), retrying in {wait}s...")
+                  f"{str(e)[:120]}), retrying in {wait}s…")
             time.sleep(wait)
     if last_err is not None:
-        # All retries exhausted - re-raise so step 8 in daily_update.py logs
+        # All retries exhausted — re-raise so step 8 in daily_update.py logs
         # the actual problem instead of silently keeping today.csv stale.
         raise last_err
 
@@ -804,68 +707,6 @@ def scrape_rotowire_lineups(schedule_games: list[dict]) -> pd.DataFrame:
 
     out["norm_name"] = out["player_name"].apply(normalize_name)
     return out.drop_duplicates(subset=["team", "player_name", "lineup_spot"])
-
-
-def parse_mlb_lineups(schedule_json: dict) -> pd.DataFrame:
-    """Official batting orders from the MLB Stats API schedule (hydrate=lineups).
-    These are tied to the game's date, so they can never show a previous day's
-    lineup. Teams whose lineup is not posted yet are simply absent."""
-    rows = []
-    for d in schedule_json.get("dates", []):
-        for g in d.get("games", []):
-            teams = g.get("teams", {})
-            abbr = {side: team_to_abbr((teams.get(side, {}).get("team", {}) or {}).get("abbreviation"))
-                    for side in ("away", "home")}
-            lu = g.get("lineups", {}) or {}
-            for side, key in (("away", "awayPlayers"), ("home", "homePlayers")):
-                opp = abbr["home" if side == "away" else "away"]
-                for spot, pl in enumerate(lu.get(key, []) or [], start=1):
-                    name = pl.get("fullName")
-                    rows.append({"player_type": "hitter", "team": abbr[side], "opponent": opp,
-                                 "lineup_spot": spot,
-                                 "pos": ((pl.get("primaryPosition") or {}).get("abbreviation")) or "",
-                                 "lineup_status": "Confirmed Lineup", "player_name": name,
-                                 "norm_name": normalize_name(name), "mlb_id": pl.get("id"),
-                                 "roster_name": name, "game_pk": g.get("gamePk")})
-    return pd.DataFrame(rows)
-
-
-def fetch_mlb_lineups(target_date: str) -> pd.DataFrame:
-    url = (f"https://statsapi.mlb.com/api/v1/schedule?sportId=1&date={target_date}"
-           f"&hydrate=lineups,team")
-    try:
-        r = requests.get(url, timeout=30)
-        r.raise_for_status()
-        return parse_mlb_lineups(r.json())
-    except Exception as e:
-        print(f"  [lineups] MLB API lineups unavailable ({type(e).__name__}: {str(e)[:100]})")
-        return pd.DataFrame()
-
-
-def get_lineups(target_str: str, schedule_games: list[dict], roster_maps: dict) -> pd.DataFrame:
-    """Official MLB lineups for target_date first; Rotowire's expected/confirmed
-    lineups fill teams without an official one - but only for TODAY (ET) and
-    not in the small hours, because Rotowire's page has no date in it and can
-    still be showing the previous day's games (the 'lineups lag a day' bug)."""
-    from datetime import datetime
-    from zoneinfo import ZoneInfo
-    now_et = datetime.now(ZoneInfo("America/New_York"))
-    official = fetch_mlb_lineups(target_str)
-    have = set(official["team"]) if not official.empty else set()
-    use_rotowire = target_str == now_et.strftime("%Y-%m-%d") and now_et.hour >= 6
-    if use_rotowire:
-        try:
-            rw = scrape_rotowire_lineups(schedule_games)
-            if not rw.empty:
-                rw = rw[~rw["team"].isin(have)]
-                rw = map_lineups_to_rosters(rw, roster_maps) if not rw.empty else rw
-                official = pd.concat([official, rw], ignore_index=True, sort=False)
-        except Exception as e:
-            print(f"  [lineups] Rotowire scrape failed ({type(e).__name__}: {str(e)[:100]})")
-    else:
-        print(f"  [lineups] Rotowire skipped for {target_str} (only used for today's slate after 6 AM ET)")
-    print(f"  [lineups] official MLB: {len(have)} teams | total hitters: {len(official)}")
-    return official
 
 
 def map_lineups_to_rosters(lineups: pd.DataFrame, roster_maps: dict) -> pd.DataFrame:
@@ -1155,22 +996,22 @@ def estimate_hitter_runs_rbi(hits: float, hr: float, bb: float, lineup_spot: int
     return runs, rbi
 
 
-# -------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────
 # RAW MODEL MODE
-# -------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────
 # When True, score_pitchers / score_hitters emit the model's raw prediction
-# verbatim (only a >=0 clamp) - NO league-baseline blend, IP/K/walk floors,
-# realistic caps, or park multipliers - and run_projections skips the
+# verbatim (only a >=0 clamp) — NO league-baseline blend, IP/K/walk floors,
+# realistic caps, or park multipliers — and run_projections skips the
 # weather/umpire/market context layers, and daily_update skips display
 # calibration. diagnose_train_serve_gap.py showed the post-processing/serving
-# stack was the entire source of the ~0.7 -> ~2.0 train->live MAE gap, so we
+# stack was the entire source of the ~0.7 → ~2.0 train→live MAE gap, so we
 # surface the model output directly and let the grader measure it.
 RAW_MODEL_ONLY = True
 
 # Ensemble blend with per-opportunity rate models. Per-stat weights below.
 # For each stat: final = (1 - α) * direct_count + α * (rate * opportunity).
 # Weights were tuned from the holdout/live MAE comparison after the first
-# blend pass - pitcher rate models amplify IP noise so they get less weight
+# blend pass — pitcher rate models amplify IP noise so they get less weight
 # than the direct count; hitter per-PA rates are bounded by PA so they're
 # strictly informative and get equal weight. Set a key to 0 to disable that
 # stat's blend entirely; set RATE_ENSEMBLE_BLEND_GLOBAL = 0 to disable all.
@@ -1181,39 +1022,17 @@ PITCHER_BLEND_WEIGHTS = {
     "BB": 0.25,   # direct count clearly better, blend lightly
     "H":  0.20,   # direct count better (BABIP noise), blend lightly
     "HR": 0.30,   # direct count slightly better
-    "R":  0.30,   # new target - same starting weight as HR until graded
 }
 HITTER_BLEND_WEIGHTS = {
     "H":  0.55,   # rate × PA clearly better, lean rate
     "HR": 0.50,
     "BB": 0.50,
     "K":  0.50,
-    "TB": 0.55,   # same family as H - rate model expected to be slightly better
-    "2B": 0.50,   # new targets - starting weight until graded
-    "3B": 0.50,
-    "SB": 0.50,
+    "TB": 0.55,   # same family as H — rate model expected to be slightly better
 }
 
-PITCHER_RATE_TARGETS = ["K_per_9", "BB_per_9", "H_per_9", "HR_per_9", "R_per_9"]
-HITTER_RATE_TARGETS  = ["H_per_PA", "HR_per_PA", "BB_per_PA", "K_per_PA", "TB_per_PA",
-                        "2B_per_PA", "3B_per_PA", "SB_per_PA"]
-
-# wOBA linear weights - must match player_rankings.py's WOBA_WEIGHTS exactly
-# (duplicated as a local constant, not imported, so this script and
-# player_rankings.py stay independently runnable; keep the two in sync by
-# hand if either changes). HBP dropped from the numerator - same
-# simplification player_rankings.py already documents (not tracked by this
-# pipeline's box-score log).
-HITTER_WOBA_WEIGHTS = {
-    "BB": 0.691, "1B": 0.882, "2B": 1.252, "3B": 1.584, "HR": 2.037,
-}
-
-# Same replacement-level assumption player_rankings.py uses for its season
-# WAR (a replacement pitcher allows runs at 1.28x the league rate) - kept as
-# a local constant rather than an import so this script and player_rankings.py
-# stay independently runnable, but the two numbers must be kept in sync by
-# hand if either changes.
-PITCHER_REPLACEMENT_RA9_MULTIPLIER = 1.28
+PITCHER_RATE_TARGETS = ["K_per_9", "BB_per_9", "H_per_9", "HR_per_9"]
+HITTER_RATE_TARGETS  = ["H_per_PA", "HR_per_PA", "BB_per_PA", "K_per_PA", "TB_per_PA"]
 
 
 def score_pitchers(
@@ -1243,18 +1062,14 @@ def score_pitchers(
 
     rows = []
 
-    # ---------------------------------------------
+    # ─────────────────────────────────────────────
     # LEAGUE BASELINES (stabilizers)
-    # ---------------------------------------------
+    # ─────────────────────────────────────────────
     lg_k_per_ip   = league_means.get("pitcher_k_per_ip", 0.85)
     lg_bb_per_ip  = league_means.get("pitcher_bb_per_ip", 0.30)
     lg_h_per_ip   = league_means.get("pitcher_h_per_ip", 1.05)
     lg_hr_per_ip  = league_means.get("pitcher_hr_per_ip", 0.12)
     lg_r_per_ip   = league_means.get("pitcher_r_per_ip", 0.45)
-    # Used below for the new FIP / single-start WAR composition - see
-    # infer_league_means() for how these are derived from real game data.
-    league_ra9    = league_means.get("pitcher_league_ra9", 4.30)
-    fip_constant  = league_means.get("pitcher_fip_constant", 3.15)
 
     for _, row in pitchers_today.iterrows():
 
@@ -1300,9 +1115,9 @@ def score_pitchers(
             ],
         )
 
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         # INNINGS PITCHED (ANCHOR) + RAW COUNT TARGETS
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         # Hybrid scoring: two-stage model for IP/K/BB/H (cuts the compounding
         # error from a noisy IP estimate), direct model for HR (won in
         # holdout MAE). Any failure in the two-stage path falls back to the
@@ -1324,16 +1139,10 @@ def score_pitchers(
                 if hr_raw is None:
                     raise ValueError("legacy HR model returned None")
                 hr_raw = float(hr_raw)
-                # R (earned-run proxy) has no two-stage equivalent - always
-                # sourced from the direct model, same as HR above.
-                r_raw = predict_model(pitcher_models["R"], feat)
-                if r_raw is None:
-                    raise ValueError("legacy R model returned None")
-                r_raw = float(r_raw)
                 used_two_stage = True
             except Exception as e:
                 print(f"  [score_pitchers] two-stage failed for "
-                      f"{row.get('player_name','?')}: {type(e).__name__}: {e} - using legacy")
+                      f"{row.get('player_name','?')}: {type(e).__name__}: {e} — using legacy")
                 used_two_stage = False
 
         if not used_two_stage:
@@ -1345,25 +1154,22 @@ def score_pitchers(
             bb_raw = predict_model(pitcher_models["BB"], feat)
             h_raw  = predict_model(pitcher_models["H"], feat)
             hr_raw = predict_model(pitcher_models["HR"], feat)
-            r_raw  = predict_model(pitcher_models["R"], feat)
-            if any(v is None for v in [k_raw, bb_raw, h_raw, hr_raw, r_raw]):
+            if any(v is None for v in [k_raw, bb_raw, h_raw, hr_raw]):
                 continue
             k_raw  = float(k_raw)
             bb_raw = float(bb_raw)
             h_raw  = float(h_raw)
             hr_raw = float(hr_raw)
-            r_raw  = float(r_raw)
 
         if RAW_MODEL_ONLY:
             # Emit the raw model predictions verbatim (only a >=0 sanity clamp).
             # No IP floor, league blend, K/walk floors, park multipliers, or
-            # caps - the grader measures the model directly.
+            # caps — the grader measures the model directly.
             ip = max(0.0, ip)
             proj_strikeouts   = max(0.0, k_raw)
             proj_walks        = max(0.0, bb_raw)
             proj_hits_allowed = max(0.0, h_raw)
             proj_hr_allowed   = max(0.0, hr_raw)
-            proj_er_model     = max(0.0, r_raw)
 
             # Track the blend COMPONENTS separately so tune_blend.py can grid-
             # search the optimal per-stat α post-hoc against graded outcomes.
@@ -1371,10 +1177,9 @@ def score_pitchers(
             direct_BB = proj_walks
             direct_H  = proj_hits_allowed
             direct_HR = proj_hr_allowed
-            direct_R  = proj_er_model
-            rate_K = rate_BB = rate_H = rate_HR = rate_R = float("nan")
+            rate_K = rate_BB = rate_H = rate_HR = float("nan")
 
-            # -- RATE × IP/9 ENSEMBLE BLEND --------------------------------
+            # ── RATE × IP/9 ENSEMBLE BLEND ────────────────────────────────
             # Two predictions of the same count from different angles. The
             # direct count model is what it is; the rate model is trained on
             # per-9-IP efficiency and gets multiplied by the IP prediction
@@ -1387,8 +1192,7 @@ def score_pitchers(
                 for proj_var, rate_key in (("K",  "K_per_9"),
                                             ("BB", "BB_per_9"),
                                             ("H",  "H_per_9"),
-                                            ("HR", "HR_per_9"),
-                                            ("R",  "R_per_9")):
+                                            ("HR", "HR_per_9")):
                     a = PITCHER_BLEND_WEIGHTS.get(proj_var, 0.5) * RATE_ENSEMBLE_BLEND_GLOBAL
                     if a <= 0:
                         continue
@@ -1403,38 +1207,30 @@ def score_pitchers(
                     elif proj_var == "BB": rate_BB = rate_count; proj_walks        = (1 - a) * proj_walks        + a * rate_count
                     elif proj_var == "H":  rate_H  = rate_count; proj_hits_allowed = (1 - a) * proj_hits_allowed + a * rate_count
                     elif proj_var == "HR": rate_HR = rate_count; proj_hr_allowed   = (1 - a) * proj_hr_allowed   + a * rate_count
-                    elif proj_var == "R":  rate_R  = rate_count; proj_er_model     = (1 - a) * proj_er_model     + a * rate_count
 
-            # Kept for backward compatibility with existing consumers of
-            # proj_runs_allowed (e.g. player_rankings.py's per-game fallback,
-            # which reads this column when a player has too few logged games
-            # to compute a real rate). proj_er_model above - a genuinely
-            # trained "R" model, not a hand-tuned formula - is the new,
-            # generally-better alternative; see the FIP/WAR block below and
-            # the PITCHER_TARGETS comment for why it exists.
             proj_runs_allowed = max(0.0, estimate_pitcher_runs(
                 hits=proj_hits_allowed, walks=proj_walks, hr=proj_hr_allowed))
         else:
             # IP floor: keep at 3.0 for both flows. The earlier 1.0 floor for the
             # two-stage model was supposed to capture opener / early-hook outings
             # but the two-stage model (trained on 684 games) doesn't yet have
-            # enough signal on those short outings - letting the prediction go to
+            # enough signal on those short outings — letting the prediction go to
             # 1.0 IP just introduced large misses on real 5+ IP starts. Bring back
             # the conservative 3.0 floor; we can relax again once the two-stage
             # model has 2000+ training games.
             ip = min(max(ip, 3.0), 8.5)
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # LEAGUE EXPECTED BASE (IP * rate)
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             k_base  = ip * lg_k_per_ip
             bb_base = ip * lg_bb_per_ip
             h_base  = ip * lg_h_per_ip
             hr_base = ip * lg_hr_per_ip
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # BLENDED PROJECTIONS (MODEL + BASELINE)
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # 60/40 model:baseline blend for both flows. The 85/15 split for the
             # two-stage model assumed it was sample-rich enough to project on its
             # own; in practice the May-2026 training set is too small for that.
@@ -1446,35 +1242,35 @@ def score_pitchers(
             proj_hits_allowed = model_w * h_raw  + base_w * h_base
             proj_hr_allowed   = model_w * hr_raw + base_w * hr_base
 
-            # ---------------------------------------------
-            # STRIKEOUT SAFETY FLOOR - back to 5.5 K/9
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
+            # STRIKEOUT SAFETY FLOOR — back to 5.5 K/9
+            # ─────────────────────────────────────────────
             # The looser 3.5 K/9 floor for the two-stage model allowed projections
             # that were too low for the empirical distribution. League-min K/9 is
             # ~5.5 for starters going 4+ IP; we floor there as a backstop and let
             # the model still drive within that constraint.
             proj_strikeouts = max(proj_strikeouts, ip * 0.55)
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # PARK FACTOR
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             park_mult_hits = park_multiplier(base_feat.get("park_factor", 100.0), shrink=0.20)
             park_mult_hr   = park_multiplier(base_feat.get("park_factor", 100.0), shrink=0.30)
 
             proj_hits_allowed *= park_mult_hits
             proj_hr_allowed   *= park_mult_hr
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # REALISTIC CAPS
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             proj_strikeouts   = min(proj_strikeouts, 15.0)
             proj_walks        = min(proj_walks, 7.0)
             proj_hits_allowed = min(proj_hits_allowed, 12.0)
             proj_hr_allowed   = min(proj_hr_allowed, 3.0)
 
-            # ---------------------------------------------
-            # WALK FLOOR - enforced for both flows
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
+            # WALK FLOOR — enforced for both flows
+            # ─────────────────────────────────────────────
             # The two-stage BB9 model is too noisy on the small May-2026 training
             # set to reliably project control-artist outliers correctly. Bring
             # back the floor for both flows; once we have ~2000+ pitcher games of
@@ -1484,9 +1280,9 @@ def score_pitchers(
             if ip >= 5.5:
                 proj_walks = max(proj_walks, 0.80)
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # RUNS ALLOWED MODEL
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             proj_runs_allowed = max(0.0, estimate_pitcher_runs(
                 hits=proj_hits_allowed,
                 walks=proj_walks,
@@ -1498,38 +1294,7 @@ def score_pitchers(
             direct_BB = proj_walks
             direct_H  = proj_hits_allowed
             direct_HR = proj_hr_allowed
-            direct_R  = max(0.0, r_raw)
-            rate_K = rate_BB = rate_H = rate_HR = rate_R = float("nan")
-            # This legacy path predates the R model / FIP / WAR composition
-            # and isn't the active flow (RAW_MODEL_ONLY = True today) - pass
-            # the raw R prediction through unblended rather than leaving it
-            # undefined.
-            proj_er_model = direct_R
-
-        # -- FIP + single-start WAR contribution -----------------------------
-        # FIP needs only HR/BB/K/IP - all four are already genuine model
-        # outputs above, so no separate "FIP model" is trained, just the
-        # standard formula (HBP dropped - no HBP tracked anywhere in this
-        # pipeline, the same simplification already used for wOBA in
-        # player_rankings.py). WAR mirrors that file's RA9 methodology
-        # (_pitcher_dynamic_runs_per_win / PITCHER_REPLACEMENT_RA9_MULTIPLIER)
-        # at the single-game level, fed by proj_er_model instead of a
-        # season's worth of realized rate. This is a marginal, single-start
-        # WAR value (typically a small fraction of a win) - NOT a season
-        # total; it answers "how many wins was this one start worth".
-        if ip > 0:
-            proj_fip = round(
-                (13.0 * proj_hr_allowed + 3.0 * proj_walks - 2.0 * proj_strikeouts) / ip
-                + fip_constant, 2)
-            pitcher_ra9 = proj_er_model / ip * 9.0
-            ipg = min(9.0, max(1.0, ip))
-            dyn_rpw = (((18.0 - ipg) * league_ra9 + ipg * pitcher_ra9) / 18.0 + 2.0) * 1.5
-            runs_above_avg = (league_ra9 - pitcher_ra9) * (ip / 9.0)
-            replacement_runs = league_ra9 * (PITCHER_REPLACEMENT_RA9_MULTIPLIER - 1.0) * (ip / 9.0)
-            proj_war_contribution = round((runs_above_avg + replacement_runs) / dyn_rpw, 3)
-        else:
-            proj_fip = np.nan
-            proj_war_contribution = np.nan
+            rate_K = rate_BB = rate_H = rate_HR = float("nan")
 
         rows.append({
             "player_type": "pitcher",
@@ -1550,14 +1315,6 @@ def score_pitchers(
             "proj_hits_allowed": round(proj_hits_allowed, 2),
             "proj_strikeouts": round(proj_strikeouts, 2),
             "proj_walks": round(proj_walks, 2),
-            "proj_hr_allowed": round(proj_hr_allowed, 2),
-
-            # New genuinely-trained "R" (earned-run proxy) model output, plus
-            # FIP/WAR composed from it and the existing K/BB/HR/IP models -
-            # see PITCHER_TARGETS and the FIP/WAR block above.
-            "proj_er_model": round(float(proj_er_model), 2),
-            "proj_fip": None if pd.isna(proj_fip) else round(float(proj_fip), 2),
-            "proj_war_contribution": None if pd.isna(proj_war_contribution) else round(float(proj_war_contribution), 3),
 
             # Blend components (for tune_blend.py post-hoc α grid search)
             "direct_K":  round(float(direct_K),  3),
@@ -1568,8 +1325,6 @@ def score_pitchers(
             "rate_H":    None if pd.isna(rate_H)  else round(float(rate_H),  3),
             "direct_HR": round(float(direct_HR), 3),
             "rate_HR":   None if pd.isna(rate_HR) else round(float(rate_HR), 3),
-            "direct_R":  round(float(direct_R),  3),
-            "rate_R":    None if pd.isna(rate_R)  else round(float(rate_R),  3),
 
             "proj_hits": np.nan,
             "proj_runs": np.nan,
@@ -1579,7 +1334,7 @@ def score_pitchers(
         })
 
     df = pd.DataFrame(rows)
-    # Apply park factors as a multiplicative adjustment - small but free lift
+    # Apply park factors as a multiplicative adjustment — small but free lift
     # the model misses because it trains on each pitcher's career mix of
     # parks but inference has to score them in TODAY's specific park.
     # Skipped in RAW_MODEL_ONLY mode so the output is the model verbatim.
@@ -1772,16 +1527,13 @@ def score_hitters(
     else:
         hitter_game_df["_norm_name_lookup"] = ""
 
-    # ---------------------------------------------
+    # ─────────────────────────────────────────────
     # LEAGUE BASELINES (STABILITY LAYER)
-    # ---------------------------------------------
+    # ─────────────────────────────────────────────
     lg_h_per_pa  = league_means.get("hitter_h_rate", 0.205)
     lg_hr_per_pa = league_means.get("hitter_hr_rate", 0.032)
     lg_bb_per_pa = league_means.get("hitter_bb_rate", 0.082)
     lg_k_per_pa  = league_means.get("hitter_k_rate", 0.225)
-    lg_2b_per_pa = league_means.get("hitter_2b_rate", 0.045)
-    lg_3b_per_pa = league_means.get("hitter_3b_rate", 0.005)
-    lg_sb_per_pa = league_means.get("hitter_sb_rate", 0.018)
 
     lg_r_per_pa  = league_means.get("hitter_r_rate", 0.12)
     lg_rbi_per_pa = league_means.get("hitter_rbi_rate", 0.10)
@@ -1861,13 +1613,6 @@ def score_hitters(
                 "team_allowed_h_rate_vs_hand",
             ],
         )
-        # Today's batting-order slot from the posted lineup (pre-game
-        # information; the model was trained on the slot each batter started in).
-        try:
-            _ls = int(float(row.get("lineup_spot")))
-            feat["lineup_spot"] = float(_ls) if 1 <= _ls <= 9 else np.nan
-        except (TypeError, ValueError):
-            feat["lineup_spot"] = np.nan
 
         starter_row = get_today_probable_pitcher_features(
             hitters_today_pitchers,
@@ -1883,9 +1628,9 @@ def score_hitters(
 
         lineup_spot = safe_int(row.get("lineup_spot"))
 
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         # PA MODEL (ANCHOR) + RAW COUNT TARGETS
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         # Hybrid scoring: if team-PA decomposition models are available,
         # predict team_PA once per team (cached) and decompose into
         # per-hitter PA via lineup-spot share × per-PA rates. Falls back
@@ -1924,7 +1669,7 @@ def score_hitters(
                 used_team_pa = True
             except Exception as e:
                 print(f"  [score_hitters] team-PA failed for "
-                      f"{lookup_name}: {type(e).__name__}: {e} - using legacy")
+                      f"{lookup_name}: {type(e).__name__}: {e} — using legacy")
                 used_team_pa = False
 
         if not used_team_pa:
@@ -1935,9 +1680,6 @@ def score_hitters(
             bb_raw = predict_model(hitter_models["BB"], feat)
             k_raw  = predict_model(hitter_models["K"], feat)
             tb_raw = predict_model(hitter_models["TB"], feat) if "TB" in hitter_models else None
-            h2b_raw = predict_model(hitter_models["2B"], feat) if "2B" in hitter_models else None
-            h3b_raw = predict_model(hitter_models["3B"], feat) if "3B" in hitter_models else None
-            sb_raw  = predict_model(hitter_models["SB"], feat) if "SB" in hitter_models else None
 
         if RAW_MODEL_ONLY:
             # Emit raw model predictions verbatim (only a >=0 clamp); fall back
@@ -1949,23 +1691,17 @@ def score_hitters(
             bb   = max(0.0, float(bb_raw)) if bb_raw is not None else pa * lg_bb_per_pa
             k    = max(0.0, float(k_raw))  if k_raw  is not None else pa * lg_k_per_pa
             # Fallback for TB: if no direct TB model, estimate as 1.4 * hits
-            # (league average TB/H ≈ 1.4 - singles plus average extra bases)
+            # (league average TB/H ≈ 1.4 — singles plus average extra bases)
             tb   = (max(0.0, float(tb_raw)) if tb_raw is not None
                     else hits * 1.4)
-            # Fallbacks for the new targets: league per-PA rate × PA, same
-            # pattern as hits/hr/bb/k above.
-            h2b  = max(0.0, float(h2b_raw)) if h2b_raw is not None else pa * lg_2b_per_pa
-            h3b  = max(0.0, float(h3b_raw)) if h3b_raw is not None else pa * lg_3b_per_pa
-            sb   = max(0.0, float(sb_raw))  if sb_raw  is not None else pa * lg_sb_per_pa
 
             # Track blend components so tune_blend.py can find optimal α
             direct_h_hit = hits; direct_hr_hit = hr; direct_bb_hit = bb
             direct_k_hit = k;    direct_tb_hit = tb
-            direct_2b_hit = h2b; direct_3b_hit = h3b; direct_sb_hit = sb
             rate_h_hit = rate_hr_hit = rate_bb_hit = rate_k_hit = float("nan")
-            rate_tb_hit = rate_2b_hit = rate_3b_hit = rate_sb_hit = float("nan")
+            rate_tb_hit = float("nan")
 
-            # -- RATE × PA ENSEMBLE BLEND ----------------------------------
+            # ── RATE × PA ENSEMBLE BLEND ──────────────────────────────────
             # Direct count model blended with (per-PA rate × PA prediction).
             # PA is already at book benchmark, so routing through the rate
             # side gives a second, independent estimate of each count to
@@ -1975,10 +1711,7 @@ def score_hitters(
                                             ("HR", "HR_per_PA"),
                                             ("BB", "BB_per_PA"),
                                             ("K",  "K_per_PA"),
-                                            ("TB", "TB_per_PA"),
-                                            ("2B", "2B_per_PA"),
-                                            ("3B", "3B_per_PA"),
-                                            ("SB", "SB_per_PA")):
+                                            ("TB", "TB_per_PA")):
                     a = HITTER_BLEND_WEIGHTS.get(proj_var, 0.5) * RATE_ENSEMBLE_BLEND_GLOBAL
                     if a <= 0:
                         continue
@@ -1994,52 +1727,38 @@ def score_hitters(
                     elif proj_var == "BB": rate_bb_hit = rate_count; bb   = (1 - a) * bb   + a * rate_count
                     elif proj_var == "K":  rate_k_hit  = rate_count; k    = (1 - a) * k    + a * rate_count
                     elif proj_var == "TB": rate_tb_hit = rate_count; tb   = (1 - a) * tb   + a * rate_count
-                    elif proj_var == "2B": rate_2b_hit = rate_count; h2b  = (1 - a) * h2b  + a * rate_count
-                    elif proj_var == "3B": rate_3b_hit = rate_count; h3b  = (1 - a) * h3b  + a * rate_count
-                    elif proj_var == "SB": rate_sb_hit = rate_count; sb   = (1 - a) * sb   + a * rate_count
-
-            # 2B/3B can't individually exceed hits, and together with HR can't
-            # exceed hits either - clamp so a noisy model can't imply more
-            # extra-base hits happened than hits themselves (this also keeps
-            # the wOBA composition below sane).
-            h2b = min(h2b, hits)
-            h3b = min(h3b, max(0.0, hits - h2b))
-            if h2b + h3b + hr > hits:
-                scale = hits / (h2b + h3b + hr) if (h2b + h3b + hr) > 0 else 0.0
-                h2b *= scale
-                h3b *= scale
         else:
             pa_floor   = 2.2 if (lineup_spot and 1 <= lineup_spot <= 9) else 1.0
             pa_ceiling = 5.0 if (lineup_spot and 1 <= lineup_spot <= 9) else 4.5
             pa = min(max(pa, pa_floor), pa_ceiling)
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # LEAGUE EXPECTED BASES
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             h_base  = pa * lg_h_per_pa
             hr_base = pa * lg_hr_per_pa
             bb_base = pa * lg_bb_per_pa
             k_base  = pa * lg_k_per_pa
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # BLENDED PROJECTIONS
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             hits = 0.60 * (float(h_raw)  if h_raw  is not None else h_base)  + 0.40 * h_base
             hr   = 0.60 * (float(hr_raw) if hr_raw is not None else hr_base) + 0.40 * hr_base
             bb   = 0.60 * (float(bb_raw) if bb_raw is not None else bb_base) + 0.40 * bb_base
             k    = 0.60 * (float(k_raw)  if k_raw  is not None else k_base)  + 0.40 * k_base
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # HARD FLOOR (PREVENT UNDERPROJECTION)
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             hits = max(hits, pa * 0.12)
             hr   = max(hr, pa * 0.01)
             bb   = max(bb, pa * 0.03)
             k    = max(k, pa * 0.10)
 
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             # REALISTIC CAPS
-            # ---------------------------------------------
+            # ─────────────────────────────────────────────
             hits = min(hits, pa * 0.42, 2.2)
             hr   = min(hr, hits * 0.40, 0.55)
             bb   = min(bb, pa * 0.28, 1.5)
@@ -2047,22 +1766,14 @@ def score_hitters(
 
             # Else-branch components for blend-tuning logging
             tb = (max(0.0, float(tb_raw)) if tb_raw is not None else hits * 1.4)
-            # This legacy path predates the 2B/3B/SB targets and isn't the
-            # active flow (RAW_MODEL_ONLY = True today) - league-rate
-            # fallback only, no model wiring, same as the other legacy
-            # league-blend stats above.
-            h2b = pa * lg_2b_per_pa
-            h3b = pa * lg_3b_per_pa
-            sb  = pa * lg_sb_per_pa
             direct_h_hit = hits; direct_hr_hit = hr; direct_bb_hit = bb
             direct_k_hit = k;    direct_tb_hit = tb
-            direct_2b_hit = h2b; direct_3b_hit = h3b; direct_sb_hit = sb
             rate_h_hit = rate_hr_hit = rate_bb_hit = rate_k_hit = float("nan")
-            rate_tb_hit = rate_2b_hit = rate_3b_hit = rate_sb_hit = float("nan")
+            rate_tb_hit = float("nan")
 
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         # RUNS / RBI
-        # ---------------------------------------------
+        # ─────────────────────────────────────────────
         runs, rbi = estimate_hitter_runs_rbi(
             hits=hits,
             hr=hr,
@@ -2070,20 +1781,6 @@ def score_hitters(
             lineup_spot=(lineup_spot or 5),
             pa=pa,
         )
-
-        # -- wOBA, composed from the modeled H/2B/3B/HR/BB split -------------
-        # No separate "wOBA model" is trained - every input (hits, the new
-        # 2B/3B splits, HR, BB, PA) already exists as a genuine per-game
-        # model output above, so wOBA is just the standard linear-weights
-        # formula (HBP dropped - see HITTER_WOBA_WEIGHTS comment).
-        singles = max(0.0, hits - h2b - h3b - hr)
-        if pa > 0:
-            woba_num = (HITTER_WOBA_WEIGHTS["BB"] * bb + HITTER_WOBA_WEIGHTS["1B"] * singles +
-                        HITTER_WOBA_WEIGHTS["2B"] * h2b + HITTER_WOBA_WEIGHTS["3B"] * h3b +
-                        HITTER_WOBA_WEIGHTS["HR"] * hr)
-            proj_woba = round(woba_num / pa, 3)
-        else:
-            proj_woba = np.nan
 
         if used_fallback and not any_history:
             used_starter_context = False
@@ -2121,13 +1818,6 @@ def score_hitters(
 
             "proj_tb":   round(float(tb), 2),
 
-            # New genuinely-trained targets, plus wOBA composed from them -
-            # see HITTER_TARGETS / HITTER_WOBA_WEIGHTS comments.
-            "proj_2b": round(float(h2b), 2),
-            "proj_3b": round(float(h3b), 2),
-            "proj_sb": round(float(sb), 2),
-            "proj_woba": None if pd.isna(proj_woba) else round(float(proj_woba), 3),
-
             # Blend components (for tune_blend.py post-hoc α grid search)
             "direct_K":  round(float(direct_k_hit),  3),
             "rate_K":    None if pd.isna(rate_k_hit)  else round(float(rate_k_hit),  3),
@@ -2139,19 +1829,13 @@ def score_hitters(
             "rate_HR":   None if pd.isna(rate_hr_hit) else round(float(rate_hr_hit), 3),
             "direct_TB": round(float(direct_tb_hit), 3),
             "rate_TB":   None if pd.isna(rate_tb_hit) else round(float(rate_tb_hit), 3),
-            "direct_2B": round(float(direct_2b_hit), 3),
-            "rate_2B":   None if pd.isna(rate_2b_hit) else round(float(rate_2b_hit), 3),
-            "direct_3B": round(float(direct_3b_hit), 3),
-            "rate_3B":   None if pd.isna(rate_3b_hit) else round(float(rate_3b_hit), 3),
-            "direct_SB": round(float(direct_sb_hit), 3),
-            "rate_SB":   None if pd.isna(rate_sb_hit) else round(float(rate_sb_hit), 3),
 
             "used_fallback": used_fallback,
             **conf,
         })
 
     df = pd.DataFrame(rows)
-    # Apply park factors as a multiplicative adjustment - Coors gives a real
+    # Apply park factors as a multiplicative adjustment — Coors gives a real
     # +10% boost to hits/HR that the per-hitter model can't see at inference.
     # Skipped in RAW_MODEL_ONLY mode so the output is the model verbatim.
     if not RAW_MODEL_ONLY:
@@ -2199,13 +1883,8 @@ def merge_fanduel_lines(proj_df: pd.DataFrame, props_df: pd.DataFrame) -> pd.Dat
     return merged
 
 
-def run_projections(target_date: str | None = None,
-                    out_name: str = "hitterspitchers_today.csv") -> pd.DataFrame:
-    if not target_date:                         # the slate date is Eastern, not the runner's clock (UTC on CI)
-        from datetime import datetime
-        from zoneinfo import ZoneInfo
-        target_date = datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
-    target_ts = pd.Timestamp(target_date)
+def run_projections(target_date: str | None = None) -> pd.DataFrame:
+    target_ts = pd.Timestamp(target_date) if target_date else pd.Timestamp(date.today())
     target_str = str(target_ts.date())
 
     print(f"\nGenerating projections for: {target_str}")
@@ -2236,10 +1915,10 @@ def run_projections(target_date: str | None = None,
         if hitter_rate_models:
             print(f"  Hitter  rate models loaded: {list(hitter_rate_models.keys())}")
 
-    # -- Projection model selection --------------------------------------
-    # Use the DIRECT counting-stat models - pitcher_K/BB/HR/H/IP and
+    # ── Projection model selection ──────────────────────────────────────
+    # Use the DIRECT counting-stat models — pitcher_K/BB/HR/H/IP and
     # hitter_H/HR/BB/K/PA, now hyperparameter-tuned + calibrated in
-    # hitterspitchers_train.py - rather than the two-stage per-9 / team-PA
+    # hitterspitchers_train.py — rather than the two-stage per-9 / team-PA
     # per-rate decompositions and the xHits per-9 blend. The direct models
     # predict the actual stat in one shot and score better overall on the
     # combined-season data, so the decomposition paths are turned OFF here.
@@ -2279,7 +1958,8 @@ def run_projections(target_date: str | None = None,
     pitchers_today = build_today_pitchers(schedule_games)
     print(f"  Pitchers found: {len(pitchers_today)}")
 
-    hitters_today = get_lineups(target_str, schedule_games, roster_maps)
+    hitters_raw = scrape_rotowire_lineups(schedule_games)
+    hitters_today = map_lineups_to_rosters(hitters_raw, roster_maps) if not hitters_raw.empty else hitters_raw
     print(f"  Hitters found:  {len(hitters_today)}")
 
     pitcher_proj = score_pitchers(
@@ -2311,12 +1991,12 @@ def run_projections(target_date: str | None = None,
     print(f"  Hitters projected:  {len(hitter_proj)}")
     print(f"  Hitters dropped:    {max(0, len(hitters_today) - len(hitter_proj))}")
 
-    # ---------------------------------------------------------------------
-    # CONTEXT LAYER STACK - applied in order, each step is opt-in (no-op
+    # ─────────────────────────────────────────────────────────────────────
+    # CONTEXT LAYER STACK — applied in order, each step is opt-in (no-op
     # if data missing). Pipeline order matches the architecture document:
-    #   Raw model -> Park (already inside score_*) -> Weather -> Umpire
-    #     -> xHits blend -> Market calibration -> Bias calibration (later)
-    # ---------------------------------------------------------------------
+    #   Raw model → Park (already inside score_*) → Weather → Umpire
+    #     → xHits blend → Market calibration → Bias calibration (later)
+    # ─────────────────────────────────────────────────────────────────────
 
     # Weather: pull once per slate, then apply to both projection DFs.
     if (not RAW_MODEL_ONLY) and _fetch_weather is not None and _apply_weather is not None:
@@ -2361,7 +2041,7 @@ def run_projections(target_date: str | None = None,
 
     # xHits: blend the H-allowed projection with the smoothed-target xH9
     # prediction (BABIP-noise dampened). This is a per-9 rate model, so it's
-    # disabled alongside the other decomposition models - the direct
+    # disabled alongside the other decomposition models — the direct
     # pitcher_H model is used as-is. Gated on USE_DECOMPOSITION_MODELS.
     xh_bundle = _load_xh() if (USE_DECOMPOSITION_MODELS and _load_xh is not None) else None
     if xh_bundle is not None and not pitcher_proj.empty and "proj_ip" in pitcher_proj.columns:
@@ -2416,27 +2096,24 @@ def run_projections(target_date: str | None = None,
         print(f"  Hitters using fallback: {fallback_count}")
 
     out = pd.concat([pitcher_proj, hitter_proj], ignore_index=True, sort=False)
-    out["model_trained_through"] = model_trained_through()
 
-    # -- Merge FanDuel sportsbook lines ------------------------------------
+    # ── Merge FanDuel sportsbook lines ────────────────────────────────────
     fanduel_props = load_fanduel_props()
     if not fanduel_props.empty:
         out = merge_fanduel_lines(out, fanduel_props)
         fd_cols = [c for c in out.columns if c.startswith("fd_")]
         print(f"  FanDuel prop columns merged: {fd_cols}")
     else:
-        print("  FanDuel props not found - run fanduel_props.py first (optional)")
+        print("  FanDuel props not found — run fanduel_props.py first (optional)")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    if "game_date" not in out.columns or out["game_date"].isna().all():
-        out["game_date"] = target_str          # the site matches this against today's ET date
-    out_path = OUT_DIR / out_name
+    out_path = OUT_DIR / "hitterspitchers_today.csv"
     out.to_csv(out_path, index=False)
 
     print(f"\nSaved: {out_path}")
 
     if not pitcher_proj.empty:
-        print("\n-- PITCHERS (all by projected strikeouts) -------------------")
+        print("\n── PITCHERS (all by projected strikeouts) ───────────────────")
         print(
             pitcher_proj.sort_values("proj_strikeouts", ascending=False)[
                 [
@@ -2448,7 +2125,7 @@ def run_projections(target_date: str | None = None,
         )
 
     if not hitter_proj.empty:
-        print("\n-- HITTERS (top 20 by projected hits) ----------------------")
+        print("\n── HITTERS (top 20 by projected hits) ──────────────────────")
         print(
             hitter_proj.sort_values("proj_hits", ascending=False)[
                 [
@@ -2463,7 +2140,7 @@ def run_projections(target_date: str | None = None,
             fallback_hitters = hitter_proj[hitter_proj["used_fallback"] == True].copy()
 
             if not real_hitters.empty:
-                print("\n-- HITTERS (top 20 by projected hits, real matches) -------")
+                print("\n── HITTERS (top 20 by projected hits, real matches) ───────")
                 print(
                     real_hitters.sort_values("proj_hits", ascending=False)[
                         [
@@ -2474,7 +2151,7 @@ def run_projections(target_date: str | None = None,
                 )
 
             if not fallback_hitters.empty:
-                print("\n-- HITTERS (fallback hitters) -----------------------------")
+                print("\n── HITTERS (fallback hitters) ─────────────────────────────")
                 print(
                     fallback_hitters.sort_values("proj_hits", ascending=False)[
                         [

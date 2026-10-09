@@ -26,22 +26,7 @@ on:
     - cron: '7 16 * * *'   # 11:07 AM ET (Standard)
     - cron: '7 21 * * *'   # 5:07 PM ET (DST)
     - cron: '7 22 * * *'   # 5:07 PM ET (Standard)
-    # Extra ticks. GitHub starts scheduled runs on a best-effort basis and has
-    # been starting these 4-6 hours late, which left the site on yesterday's
-    # slate all morning. More ticks = a fresh run lands more often; each run is
-    # idempotent. The evening runs (after 3 PM ET) also write tomorrow's slate
-    # (next_day_*.csv), which the site serves from midnight ET until the day's
-    # first run lands.
-    - cron: '23 4 * * *'   # 12:23 AM ET (DST)
-    - cron: '23 10 * * *'  # 6:23 AM ET (DST)
-    - cron: '23 12 * * *'  # 8:23 AM ET (DST)
-    - cron: '23 18 * * *'  # 2:23 PM ET (DST)
-    - cron: '23 0 * * *'   # 8:23 PM ET (DST)
   workflow_dispatch:        # allows you to trigger manually from the Actions tab
-
-concurrency:                # one run at a time; queued ticks wait instead of racing the commit
-  group: daily-update
-  cancel-in-progress: false
 
 permissions:
   contents: write           # required to commit the updated CSVs back to the repo
@@ -56,7 +41,7 @@ jobs:
     #   - backfill ~35 days of player projection snapshots (~20–30 min)
     #   - grade them all against the MLB Stats API (~5–10 min)
     # Once the pitch cache is warm and snapshots exist, daily runs are <10 min.
-    timeout-minutes: 150
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repo
@@ -76,41 +61,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Statcast caches (pitch_data_<season>.csv, written by refresh_full_history.py).
-      #   * The two PREVIOUS seasons are immutable once complete: a stable key
-      #     means they are downloaded on the first run of a season and restored
-      #     from cache on every run after that (never re-pulled daily).
-      #   * The CURRENT season is topped up incrementally each run; a rolling
-      #     key saves the updated file, restore-keys falls back to the last one.
-      #   * data/features holds the windowed multi-season feature tables so the
-      #     daily build only recomputes the current season's window.
-      - name: Resolve season
-        run: |
-          Y=$(TZ=America/New_York date +%Y)
-          echo "SEASON=$Y" >> "$GITHUB_ENV"
-          echo "PREV1=$((Y-1))" >> "$GITHUB_ENV"
-          echo "PREV2=$((Y-2))" >> "$GITHUB_ENV"
-
-      - name: Cache Statcast history seasons (previous two)
+      # Cache the 2026 pitch-level Statcast data between runs. The file is
+      # gigabyte-scale by season's end, so we don't commit it — but we do
+      # want incremental refreshes (pull only since latest cached date).
+      # The cache key changes daily so a fresh cache is written each day,
+      # but `restore-keys` lets us fall back to yesterday's cache as a base.
+      - name: Cache 2026 Statcast pitch data
         uses: actions/cache@v4
         with:
-          path: |
-            pitch_data_${{ env.PREV2 }}.csv
-            pitch_data_${{ env.PREV1 }}.csv
-          key: statcast-history-v1-${{ env.SEASON }}
-
-      - name: Cache current-season Statcast + feature tables
-        uses: actions/cache@v4
-        with:
-          path: |
-            pitch_data_${{ env.SEASON }}.csv
-            data/features
-          key: statcast-current-v1-${{ env.SEASON }}-${{ github.run_id }}
+          path: pitch_data_2026.csv
+          key: pitch-data-2026-${{ github.run_id }}
           restore-keys: |
-            statcast-current-v1-${{ env.SEASON }}-
+            pitch-data-2026-
 
       # daily_update.py is the SINGLE entry point. It runs:
-      #   0. Statcast refresh (2 history seasons + current) → windowed feature build
+      #   0. 2026 Statcast refresh → rebuild data/*.csv feature files
       #   1. Game-pick backfill
       #   2. Today's game model (win-probability projections)
       #   3. Game grading
@@ -134,8 +99,8 @@ jobs:
           #   2026_picks_accuracy.csv      → game projection log
           #   2026_player_accuracy.csv     → player projection vs actual log
           #   calibration.json             → live bias-correction block
-          # Statcast CSV caches + data/features are gitignored (too large for
-          # git); they live in the GitHub Actions cache instead.
+          # The pitch_data_2026.csv cache is gitignored (too large for git);
+          # it lives in the GitHub Actions cache instead.
           # Stage everything that exists — some files are only written once
           # grading has actuals, so we add them only if present, otherwise
           # `git add <missing>` exits non-zero and aborts the commit even
