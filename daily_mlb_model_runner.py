@@ -459,6 +459,11 @@ def grade_saved_picks(picks_file="mlb_pick_log.csv", output_file="mlb_pick_log_g
 
     results = pd.concat(results_list, ignore_index=True)
     results["game_date"] = pd.to_datetime(results["game_date"], errors="coerce")
+    # A suspended or postponed game appears on more than one date's schedule.
+    # Without these two lines every run multiplied those games' rows (the merge
+    # below is many-to-many), which is how the log grew from ~2,500 rows to 60,000.
+    results = results.sort_values("game_date").drop_duplicates("game_pk", keep="last")
+    picks = picks.drop_duplicates("game_pk", keep="last")
 
     picks = picks.drop(columns=["actual_winner", "home_score", "away_score", "status", "correct"], errors="ignore")
 
@@ -505,7 +510,8 @@ def season_accuracy_report(picks_file="mlb_pick_log.csv"):
             results_list.append(day_results[["game_pk", "actual_winner", "home_score", "away_score", "status"]])
 
     if results_list:
-        fresh_results = pd.concat(results_list, ignore_index=True)
+        fresh_results = pd.concat(results_list, ignore_index=True).drop_duplicates("game_pk", keep="last")
+        picks = picks.drop_duplicates("game_pk", keep="last")
         if "actual_winner" in picks.columns:
             picks = picks.drop(columns=["actual_winner", "home_score", "away_score", "status"], errors="ignore")
         picks = picks.merge(fresh_results, on="game_pk", how="left")
