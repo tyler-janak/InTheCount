@@ -771,7 +771,7 @@ def to_html(md: str, title: str = "InTheCount Technical Report") -> str:
            "@page{size:Letter;margin:0.5in}"
            "@media print{body{max-width:none;margin:0;padding:0;font-size:11px}"
            "table{display:table;font-size:10.5px;width:100%;max-width:100%;margin:10px 0 18px}""th,td{padding:3px 5px}td{overflow-wrap:normal;word-break:keep-all}""th{font-size:10px;line-height:1.2;overflow-wrap:normal;word-break:normal;hyphens:none}"
-           "figure img{max-width:100%;max-height:4.4in}figure{margin:8px auto 26px}"
+           "figure img{max-width:88%;max-height:3.4in}figure{margin:4px auto 12px}figcaption{margin-top:3px}"
            ".keep{break-inside:avoid;page-break-inside:avoid}figure,img,tr,blockquote,table{break-inside:avoid}thead{display:table-header-group}h2,h3{break-after:avoid}h2{margin-top:22px}}")
     return (f"<!doctype html><html><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,"
             f"initial-scale=1'><title>{title}</title><style>{css}</style></head><body>{body}</body></html>")

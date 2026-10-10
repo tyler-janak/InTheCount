@@ -5,8 +5,8 @@ Builds the single-document InTheCount technical report (front-office audience)
 from the files the evaluation and audit steps saved. Every number is read from
 those files at build time; nothing is typed in by hand.
 
-Order: Summary -> Data & history window -> Leakage fixes -> Model approach ->
-Player results -> Game results -> Known issues -> Close.
+Order: Summary -> Data, features and leakage -> Methodology -> Game results ->
+Player results -> Website and public ledger -> Conclusions.
 
 """
 from __future__ import annotations
@@ -214,6 +214,8 @@ def load() -> dict:
         "temp": _csv(AM / "temporal_players.csv"),
         "tenure": _csv(AM / "tenure_players.csv"),
         "shrink": _csv(AM / "shrinkage_test.csv"),
+        "picks": _csv(HERE / "2026_picks_accuracy.csv"),
+        "pacc": _csv(HERE / "2026_player_accuracy.csv"),
     }
     for g in ("pitcher", "hitter"):
         drop = {t for gg, t in EXCLUDED if gg == g}
@@ -505,8 +507,12 @@ def build(tests_override: dict | None = None) -> str:
         pass
     w("### Temporal Validation and Evaluation Protocol\n")
     w("Models train on earlier games, are chosen on a validation window that follows the training "
-      "data, and are scored once on a later test window. Every choice of model, stack weight and "
-      "calibration is made on validation; the test window is scored once. Baselines are the league average, the "
+      "data, and are scored once on a later test window. Player models train on the 2025 season (2024 supplies "
+      "history only) and the game model on the 2024 and 2025 seasons. Validation is the 2026 season through June, "
+      "and the test window is July through the end of the 2026 regular season. Every choice of model, stack weight "
+      "and calibration is made on validation; the test window is scored once. The published models are then refit "
+      "through June 2026, so their projections for earlier 2026 games are in-sample and are excluded from the "
+      "public accuracy ledger (Section 6). Baselines are the league average, the "
       "player's history-to-date average and his last-10 average for players, and always-home for games. "
       "Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the "
       "same day share weather, umpires and opponents.\n")
@@ -519,19 +525,6 @@ def build(tests_override: dict | None = None) -> str:
         {"Measure": "Brier score", "Meaning": "Mean squared error of a probability; 0.25 = always saying 50%"},
         {"Measure": "AUC", "Meaning": "Chance a random home win is rated above a random home loss; 0.5 = no ranking skill"},
         {"Measure": "Calibration", "Meaning": "Whether games given 60% are won about 60% of the time"}])))
-
-    w("### Production Pipeline and Daily Inference\n")
-    w("The same code path that builds the training tables builds each day's inputs, so a "
-      "projection is computed exactly as the evaluation scored it:\n")
-    w("1. The current season's pitches are refreshed, with a short overlap so late-arriving data is picked up.\n"
-      "2. Feature tables are rebuilt on the history window from data before today only.\n"
-      "3. Probable starters and posted lineups are read from the MLB Stats API. A hitter's batting-order slot is "
-      "used only once the lineup is posted.\n"
-      "4. The player models and the game model score the slate. Evening runs also publish the next day's games, so "
-      "the site is never a day behind.\n"
-      "5. Finished games are graded against the box score. Each projection records when its model's training data "
-      "ended, so in-sample projections never enter the public accuracy ledger. Grading results are never used for "
-      "training.\n")
 
     # ================================================================ 5 GAME
     w("## 4. Game-Level Win Probability Model Evaluation\n")
@@ -717,13 +710,118 @@ def build(tests_override: dict | None = None) -> str:
             "available before first pitch, so its numbers on those targets are optimistic rather than achievable "
             "live. How much of each gap comes from the leak was not measured separately.\n")
 
-    # ================================================================ 6 CONCLUSION
-    w("## 6. Conclusions\n")
+    # ================================================================ 6 WEBSITE
+    w("## 6. Website Deployment and Public Accuracy Ledger\n")
+    w(website(D))
+
+    # ================================================================ 7 CONCLUSION
+    w("## 7. Conclusions\n")
     w(conclusion(D))
     return "\n".join(L)
 
 
 # ---------------------------------------------------------------------------
+SEASON_START = pd.Timestamp("2026-03-01")
+SITE_PITCHER = [("proj_ip", "actual_ip", 1.0, "Innings pitched"), ("proj_strikeouts", "actual_strikeouts", 1.5, "Strikeouts"),
+                ("proj_hits_allowed", "actual_hits_allowed", 1.5, "Hits allowed"), ("proj_walks", "actual_walks", 1.0, "Walks"),
+                ("proj_runs_allowed", "actual_runs_allowed", 1.5, "Runs allowed")]
+SITE_HITTER = [("proj_pa", "actual_pa", 1.0, "Plate appearances"), ("proj_hits", "actual_hits", 1.0, "Hits"),
+               ("proj_strikeouts", "actual_strikeouts", 1.0, "Strikeouts"), ("proj_walks", "actual_walks", 1.0, "Walks"),
+               ("proj_hr", "actual_hr", 0.5, "Home runs")]
+
+
+def _game_source(v) -> str:
+    v = str(v)
+    if "through_" in v:
+        d = pd.to_datetime(v.split("through_")[-1], errors="coerce")
+        if pd.notna(d) and d < SEASON_START:
+            return "Pre-season model (frozen)"
+    return "Deployed model (live)"
+
+
+def website(D) -> str:
+    out = []
+    out.append("### Site Architecture and Daily Update Schedule\n\n")
+    out.append(
+        "The public site is a lightweight web service that reads the files the pipeline commits; it does no "
+        "modelling itself. A scheduled job runs the full pipeline several times a day: overnight to grade the "
+        "previous day and post the first slate, late morning for day-game lineups, and late afternoon once most "
+        "night-game lineups are posted. Each run commits its outputs and the service redeploys from them. The same "
+        "code path that builds the training tables builds each day's inputs, so a projection is computed exactly as "
+        "the evaluation scored it:\n\n"
+        "1. The current season's pitches are refreshed, with a short overlap so late-arriving data is picked up.\n"
+        "2. Feature tables are rebuilt on the history window from data before today only.\n"
+        "3. Probable starters and posted lineups are read from the MLB Stats API. A hitter's batting-order slot is "
+        "used only once the lineup is posted.\n"
+        "4. The player models and the game model score the slate. Evening runs also publish the next day's games, so "
+        "the site is never a day behind.\n"
+        "5. Finished games are graded against the box score. Grading results are never used for training.\n\n")
+    out.append("### Published Outputs\n\n")
+    out.append(table(pd.DataFrame([
+        {"Page": "Games", "Content": "Home and away win probability and predicted winner for every game, with both starters"},
+        {"Page": "Pitchers", "Content": "Projected innings, strikeouts, hits, walks, home runs and runs allowed for each starter"},
+        {"Page": "Hitters", "Content": "Projected plate appearances, hits, total bases, strikeouts, walks and home runs for each lineup hitter"},
+        {"Page": "Accuracy", "Content": "Season record of game picks and running accuracy; graded player projections by stat"},
+        {"Page": "Player detail", "Content": "Recent game logs and splits by opposing handedness"},
+        {"Page": "Rankings", "Content": "Season player value rankings"}])) + "\n")
+    out.append("### Public Accuracy Ledger and Season Re-run\n\n")
+    out.append(
+        "Every published number is graded against the box score and kept in a public ledger. Each row records the "
+        "model that produced it and when that model's training data ended, and any projection for a game the model "
+        "was trained on is excluded from the accuracy shown. Because the deployed models are refit through June, the "
+        "season was re-run for the ledger with pre-season models: the same pipeline trained only on games before "
+        "2026 and frozen for the whole season, as they could have been built on opening day. Every graded game "
+        "from opening day on is therefore out-of-sample. Days after the re-run are added by the deployed models "
+        "as they are published.\n\n")
+
+    pk = D.get("picks", pd.DataFrame())
+    if len(pk) and {"correct", "home_win_prob", "actual_winner", "home_team"} <= set(pk.columns):
+        g = pk[pd.to_numeric(pk["correct"], errors="coerce").notna()].copy()
+        g["p"] = pd.to_numeric(g["home_win_prob"], errors="coerce").clip(1e-6, 1 - 1e-6)
+        g["y"] = (g["actual_winner"] == g["home_team"]).astype(float)
+        g = g[g.p.notna()]
+        g["src"] = g["model_version"].map(_game_source) if "model_version" in g else "Deployed model (live)"
+        rows = []
+        order = ["Pre-season model (frozen)", "Deployed model (live)"]
+        groups = [(n, g[g.src == n]) for n in order if (g.src == n).any()]
+        for name, d in groups + ([("All graded games", g)] if len(groups) > 1 else []):
+            ll = float(-(d.y * np.log(d.p) + (1 - d.y) * np.log(1 - d.p)).mean())
+            rows.append({"Source": name, "Games": len(d), "Accuracy": 100 * pd.to_numeric(d["correct"]).mean(),
+                         "Log loss": ll, "Home team won": 100 * d.y.mean()})
+        if rows:
+            out.append("Game picks in the public ledger:\n\n")
+            out.append(table(pd.DataFrame(rows), {"Games": lambda v: f"{int(v):,}", "Accuracy": lambda v: f"{v:.1f}%",
+                                                  "Log loss": lambda v: f"{v:.4f}", "Home team won": lambda v: f"{v:.1f}%"}) + "\n")
+    pa = D.get("pacc", pd.DataFrame())
+    if len(pa) and {"played", "player_type"} <= set(pa.columns):
+        q = pa[pa["played"].astype(str).str.lower().isin({"true", "1", "1.0"})].copy()
+        if "in_sample" in q.columns:
+            q = q[pd.to_numeric(q["in_sample"], errors="coerce").fillna(0) != 1]
+        typ = q["player_type"].astype(str).str.lower()
+        rows = []
+        for kind, specs in (("pitcher", SITE_PITCHER), ("hitter", SITE_HITTER)):
+            d0 = q[typ == kind]
+            if kind == "hitter" and "actual_pa" in d0:
+                d0 = d0[pd.to_numeric(d0["actual_pa"], errors="coerce").fillna(0) > 0]
+            for pc, ac, tol, lab in specs:
+                if pc not in d0 or ac not in d0:
+                    continue
+                x = pd.DataFrame({"p": pd.to_numeric(d0[pc], errors="coerce"),
+                                  "a": pd.to_numeric(d0[ac], errors="coerce")}).dropna()
+                if x.empty:
+                    continue
+                e = x.p - x.a
+                rows.append({"Projection": f"{'Pitcher' if kind == 'pitcher' else 'Hitter'} {lab.lower()}",
+                             "Graded": len(x), "MAE": e.abs().mean(), "RMSE": float(np.sqrt((e ** 2).mean())),
+                             "Bias": e.mean(), "Within": f"{100 * (e.abs() <= tol).mean():.1f}% (±{tol:g})"})
+        if rows:
+            out.append("Out-of-sample player projections in the public ledger (MAE is the average absolute miss; "
+                       "*Within* is the share of games where the projection landed within the stated margin):\n\n")
+            out.append(table(pd.DataFrame(rows), {"Graded": lambda v: f"{int(v):,}", "MAE": lambda v: f"{v:.2f}",
+                                                  "RMSE": lambda v: f"{v:.2f}", "Bias": lambda v: f"{v:+.2f}"}) + "\n")
+    return "".join(out)
+
+
 def best_family(D) -> pd.DataFrame:
     s = D["over"]
     if s.empty:

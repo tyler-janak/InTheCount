@@ -26,7 +26,7 @@ On the test games the selected game model's log loss is 0.6827, against 0.6911 f
 
 ### Evaluation Integrity and Leakage Prevention
 
-The rebuild found and removed same-game information that had leaked into the hitter features, along with test-set model selection. Automated tests now rebuild the feature tables after changing one game's outcome and require that none of that game's features move, and require that seasons outside the history window cannot change any feature. The full suite passes (24 passed).
+The rebuild found and removed same-game information that had leaked into the hitter features, along with test-set model selection. Automated tests now rebuild the feature tables after changing one game's outcome and require that none of that game's features move, and require that seasons outside the history window cannot change any feature. The full suite passes (30 passed).
 
 ## 2. Data, Feature Engineering, and Leakage Prevention
 
@@ -152,7 +152,7 @@ The published number is (1 − w) × direct count + w × (rate × predicted inni
 
 ### Temporal Validation and Evaluation Protocol
 
-Models train on earlier games, are chosen on a validation window that follows the training data, and are scored once on a later test window. Every choice of model, stack weight and calibration is made on validation; the test window is scored once. Baselines are the league average, the player's history-to-date average and his last-10 average for players, and always-home for games. Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the same day share weather, umpires and opponents.
+Models train on earlier games, are chosen on a validation window that follows the training data, and are scored once on a later test window. Player models train on the 2025 season (2024 supplies history only) and the game model on the 2024 and 2025 seasons. Validation is the 2026 season through June, and the test window is July through the end of the 2026 regular season. Every choice of model, stack weight and calibration is made on validation; the test window is scored once. The published models are then refit through June 2026, so their projections for earlier 2026 games are in-sample and are excluded from the public accuracy ledger (Section 6). Baselines are the league average, the player's history-to-date average and his last-10 average for players, and always-home for games. Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the same day share weather, umpires and opponents.
 
 ### Evaluation Metrics and Interpretation
 
@@ -165,16 +165,6 @@ Models train on earlier games, are chosen on a validation window that follows th
 | Brier score | Mean squared error of a probability; 0.25 = always saying 50% |
 | AUC | Chance a random home win is rated above a random home loss; 0.5 = no ranking skill |
 | Calibration | Whether games given 60% are won about 60% of the time |
-
-### Production Pipeline and Daily Inference
-
-The same code path that builds the training tables builds each day's inputs, so a projection is computed exactly as the evaluation scored it:
-
-1. The current season's pitches are refreshed, with a short overlap so late-arriving data is picked up.
-2. Feature tables are rebuilt on the history window from data before today only.
-3. Probable starters and posted lineups are read from the MLB Stats API. A hitter's batting-order slot is used only once the lineup is posted.
-4. The player models and the game model score the slate. Evening runs also publish the next day's games, so the site is never a day behind.
-5. Finished games are graded against the box score. Each projection records when its model's training data ended, so in-sample projections never enter the public accuracy ledger. Grading results are never used for training.
 
 ## 4. Game-Level Win Probability Model Evaluation
 
@@ -315,7 +305,41 @@ The slot matters mostly through playing time, because a hitter's place in the or
 
 On the same test games, the rebuilt pitcher projections are within 0.6% of the original on RMSE for every target. The hitter projections improve on plate appearances (-12.1%) and are worse on walks (+2.9%), hits (+2.5%), home runs (+3.6%), strikeouts (+2.3%) and total bases (+2.8%). The original hitter features contained the opposing starter's same-game results, which are not available before first pitch, so its numbers on those targets are optimistic rather than achievable live. How much of each gap comes from the leak was not measured separately.
 
-## 6. Conclusions
+## 6. Website Deployment and Public Accuracy Ledger
+
+### Site Architecture and Daily Update Schedule
+
+The public site is a lightweight web service that reads the files the pipeline commits; it does no modelling itself. A scheduled job runs the full pipeline several times a day: overnight to grade the previous day and post the first slate, late morning for day-game lineups, and late afternoon once most night-game lineups are posted. Each run commits its outputs and the service redeploys from them. The same code path that builds the training tables builds each day's inputs, so a projection is computed exactly as the evaluation scored it:
+
+1. The current season's pitches are refreshed, with a short overlap so late-arriving data is picked up.
+2. Feature tables are rebuilt on the history window from data before today only.
+3. Probable starters and posted lineups are read from the MLB Stats API. A hitter's batting-order slot is used only once the lineup is posted.
+4. The player models and the game model score the slate. Evening runs also publish the next day's games, so the site is never a day behind.
+5. Finished games are graded against the box score. Grading results are never used for training.
+
+### Published Outputs
+
+| Page | Content |
+|:---|:---|
+| Games | Home and away win probability and predicted winner for every game, with both starters |
+| Pitchers | Projected innings, strikeouts, hits, walks, home runs and runs allowed for each starter |
+| Hitters | Projected plate appearances, hits, total bases, strikeouts, walks and home runs for each lineup hitter |
+| Accuracy | Season record of game picks and running accuracy; graded player projections by stat |
+| Player detail | Recent game logs and splits by opposing handedness |
+| Rankings | Season player value rankings |
+
+### Public Accuracy Ledger and Season Re-run
+
+Every published number is graded against the box score and kept in a public ledger. Each row records the model that produced it and when that model's training data ended, and any projection for a game the model was trained on is excluded from the accuracy shown. Because the deployed models are refit through June, the season was re-run for the ledger with pre-season models: the same pipeline trained only on games before 2026 and frozen for the whole season, as they could have been built on opening day. Every graded game from opening day on is therefore out-of-sample. Days after the re-run are added by the deployed models as they are published.
+
+Game picks in the public ledger:
+
+| Source | Games | Accuracy | Log loss | Home team won |
+|:---|---:|---:|---:|---:|
+| Pre-season model (frozen) | 2,454 | 54.3% | 0.6862 | 52.8% |
+
+
+## 7. Conclusions
 
 InTheCount turns pitch-level Statcast data into daily projections for every starting pitcher and lineup hitter, and a win probability for every game. All of it was evaluated the way it is used: models chosen on one stretch of games and scored once on a later stretch they had never seen. On that test, all 12 player projections beat both the league average and the player's own history, with intervals above zero. The gains are largest where playing time drives the result: hitter plate appearances +30.6% against the league average, pitcher innings pitched +19.1% against the league average and pitcher strikeouts +13.6% against the league average. Knowing who starts, where a hitter bats and how deep a starter usually goes is the information a simple average cannot carry.
 

@@ -330,6 +330,18 @@ def _project_past_date(date_str: str, sleep_seconds: float = 0.2) -> Optional[pd
         print(f"  [team-PA hitter] {date_str} load failed: {type(e).__name__}: {e}")
         team_pa_bundle, rate_models = None, None
 
+    # Per-opportunity rate models for the published rate x opportunity blend,
+    # loaded exactly as the live run (hitterspitchers_today.run_projections)
+    # loads them, so a back-filled date is scored the way the site scores today.
+    pitcher_rate_models, hitter_rate_models = {}, {}
+    if getattr(hpt, "RATE_ENSEMBLE_BLEND_GLOBAL", 0) > 0:
+        try:
+            pitcher_rate_models = _load("pitcher", hpt.PITCHER_RATE_TARGETS)
+            hitter_rate_models = _load("hitter", hpt.HITTER_RATE_TARGETS)
+        except Exception as e:
+            print(f"  [rate models] {date_str} load failed, direct counts only: {type(e).__name__}: {e}")
+            pitcher_rate_models, hitter_rate_models = {}, {}
+
     pitcher_proj = pd.DataFrame()
     hitter_proj = pd.DataFrame()
     if not pitchers_today.empty:
@@ -338,6 +350,7 @@ def _project_past_date(date_str: str, sleep_seconds: float = 0.2) -> Optional[pd
                 pitchers_today, pitcher_game_df, pitcher_models,
                 team_batting_ctx, target_ts, league_means,
                 two_stage_models=two_stage_pitcher,
+                pitcher_rate_models=pitcher_rate_models,
             )
         except Exception as e:
             print(f"  [score_pitchers] {date_str}: {type(e).__name__}: {e}")
@@ -349,6 +362,7 @@ def _project_past_date(date_str: str, sleep_seconds: float = 0.2) -> Optional[pd
                 hitter_models, team_pitching_ctx, target_ts, league_means,
                 team_pa_bundle=team_pa_bundle,
                 rate_models=rate_models,
+                hitter_rate_models=hitter_rate_models,
             )
         except Exception as e:
             print(f"  [score_hitters] {date_str}: {type(e).__name__}: {e}")
