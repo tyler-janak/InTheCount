@@ -1,3 +1,3 @@
 player_type,team,opponent,player_name,mlb_id,lineup_spot,pos,lineup_status,proj_pa,proj_ip,proj_outs,proj_runs_allowed,proj_hits_allowed,proj_strikeouts,proj_walks,proj_hr_allowed,proj_er_model,proj_fip,proj_war_contribution,direct_K,rate_K,direct_BB,rate_BB,direct_H,rate_H,direct_HR,rate_HR,direct_R,rate_R,proj_hits,proj_runs,proj_rbi,proj_hrrbi,proj_hr,model_trained_through,game_date
-pitcher,CWS,CLE,Sean Burke,680732,,,Probable Starter,,5.1,15,2.74,4.88,4.9,2.21,0.69,2.53,4.49,0.066,4.896,4.907,2.184,2.3,4.731,5.497,0.65,0.78,2.339,2.97,,,,,,2026-10-08,2026-10-10
-pitcher,CLE,CWS,Gavin Williams,668909,,,Probable Starter,,5.0,15,2.46,4.0,7.15,2.37,0.64,2.2,3.57,0.096,7.188,7.103,2.239,2.767,3.863,4.542,0.603,0.716,1.894,2.914,,,,,,2026-10-08,2026-10-10
+pitcher,LAD,MIL,Tarik Skubal,669373,,,Probable Starter,,5.5,16,2.24,4.57,6.62,1.1,0.58,1.91,2.91,0.167,6.581,6.663,1.094,1.12,4.521,4.785,0.591,0.546,1.69,2.411,,,,,,2026-10-08,2026-10-11
+pitcher,MIL,LAD,Jacob Misiorowski,694819,,,Probable Starter,,4.8,14,1.78,3.29,6.69,1.57,0.32,1.78,2.41,0.13,6.713,6.663,1.466,1.892,3.685,1.692,0.251,0.476,1.643,2.103,,,,,,2026-10-08,2026-10-11
