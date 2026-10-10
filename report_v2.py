@@ -187,6 +187,43 @@ def importance_figure() -> Path:
 
 
 # ---------------------------------------------------------------------------
+BASES = {"league average": "League avg", "history-to-date": "Own history", "last 10": "Last 10",
+         "batting slot": "Batting-slot avg", "last 7 starts": "Last 7 starts"}
+
+
+def deployed_game_model() -> dict:
+    """What betting_model.pkl (the deployed game model) is."""
+    import pickle
+    try:
+        with open(HERE / "betting_model.pkl", "rb") as f:
+            b = pickle.load(f)
+    except Exception:
+        return {}
+    if not isinstance(b, dict) or b.get("feature_builder") != "statcast_v2":
+        return {"candidate": "v1", "v2": False}
+    return {"candidate": b.get("candidate"), "v2": True, "trained_through": b.get("trained_through")}
+
+
+def hardest(r) -> tuple[str, float, float, float]:
+    """The baseline this projection beats by the least (name, pct, lo, hi)."""
+    best = None
+    for k, lab in BASES.items():
+        c = f"rmse_pct_better_than_{k}"
+        if c in r.index and np.isfinite(r[c]):
+            if best is None or r[c] < best[1]:
+                best = (lab, float(r[c]), float(r[f"ci_lo_vs_{k}"]), float(r[f"ci_hi_vs_{k}"]))
+    return best or ("n/a", np.nan, np.nan, np.nan)
+
+
+def ci_or(r, k):
+    c = f"rmse_pct_better_than_{k}"
+    return ci(r[c], r[f"ci_lo_vs_{k}"], r[f"ci_hi_vs_{k}"]) if c in r.index and np.isfinite(r[c]) else "n/a"
+
+
+def plural(n, word):
+    return f"{n:,} {word}" + ("" if n == 1 else "s")
+
+
 def load() -> dict:
     D = {
         "val": _json(EVAL / "data_validation" / "statcast_validation.json"),
@@ -214,8 +251,15 @@ def load() -> dict:
         "temp": _csv(AM / "temporal_players.csv"),
         "tenure": _csv(AM / "tenure_players.csv"),
         "shrink": _csv(AM / "shrinkage_test.csv"),
-        "picks": _csv(HERE / "2026_picks_accuracy.csv"),
-        "pacc": _csv(HERE / "2026_player_accuracy.csv"),
+        "blend": _csv(MET / "blend_tuning.csv"),
+        "flow": _csv(MET / "data_flow.csv"),
+        "gauc": _csv(AM / "game_auc_bootstrap.csv"),
+        "glc": _csv(AM / "game_learning_curves.csv"),
+        "lcounts": _csv(MET / "ledger_counts.csv"),
+        "lgames": _csv(MET / "ledger_games.csv"),
+        "lplayers": _csv(MET / "ledger_players.csv"),
+        "lmonthly": _csv(MET / "ledger_monthly.csv"),
+        "deployed": deployed_game_model(),
     }
     for g in ("pitcher", "hitter"):
         drop = {t for gg, t in EXCLUDED if gg == g}
@@ -295,67 +339,63 @@ def build(tests_override: dict | None = None) -> str:
       "scored once on its remainder.\n")
     if len(P):
         pi = P.set_index(["group", "target"])
-        heads = [("hitter", "PA"), ("pitcher", "IP"), ("pitcher", "K")]
         rows = []
-        for g, t in heads:
-            if (g, t) in pi.index:
+        for g in ("pitcher", "hitter"):
+            for t in (P_ORDER if g == "pitcher" else H_ORDER):
+                if (g, t) not in pi.index:
+                    continue
                 r = pi.loc[(g, t)]
-                rows.append({"Projection": tag(g, t),
-                             "vs league average": ci(r["rmse_pct_better_than_league average"], r["ci_lo_vs_league average"], r["ci_hi_vs_league average"]),
-                             "vs player's own history": ci(r["rmse_pct_better_than_history-to-date"], r["ci_lo_vs_history-to-date"], r["ci_hi_vs_history-to-date"])})
+                hn, hp, hl, hh = hardest(r)
+                rows.append({"Projection": tag(g, t), "vs league avg": ci_or(r, "league average"),
+                             "vs own history": ci_or(r, "history-to-date"),
+                             "vs strongest simple baseline": f"{ci(hp, hl, hh)} {hn.lower()}" if np.isfinite(hp) else "n/a"})
         w("### Summary of Out-of-Sample Performance\n")
-        w("Each percentage is how much smaller the projection's typical single-game miss is "
-          "than the miss of a simple benchmark. The miss is measured as RMSE (root-mean-square error) on the test "
-          "games. *League average* gives every player the league's average for that stat. *Player's own history* "
-          "gives every player his own average over all his earlier games in the history window. The 95% interval "
-          "is in parentheses.\n")
+        w("Each percentage is how much smaller the projection's typical single-game miss is than the miss of a "
+          "simple benchmark, with its 95% interval. The miss is measured as RMSE (root-mean-square error) on the "
+          "test games. *League avg* gives every player the league average for that stat; *own history* his own "
+          "average over all earlier games in the history window. The last column uses whichever simple benchmark "
+          "the projection beats by the least, out of those two, his last-10 average and the two that use "
+          "information known before the game: the average for today's batting slot (hitters) and the average "
+          "of his last 7 starts (pitchers).\n")
         w(table(pd.DataFrame(rows)))
         hc = D["hitter_comp"]
-        if len(hc) and rows and rows[0]["Projection"] == "Hitter plate appearances":
+        if len(hc):
             pa = hc[hc.target == "PA"].set_index("variant")["rmse"]
-            need = {"Production blend (published)", "Baseline: league avg", "Baseline: history avg (_std)"}
+            need = {"Production blend (published)", "Baseline: league avg", "Baseline: batting-slot avg"}
             if need <= set(pa.index):
                 w(f"For example, the projection's typical miss on a hitter's plate appearances is "
-                  f"{pa['Production blend (published)']:.3f} PA. Predicting the league average gives "
-                  f"{pa['Baseline: league avg']:.3f}, and the player's own average gives "
-                  f"{pa['Baseline: history avg (_std)']:.3f}. Those differences are the "
-                  f"{rows[0]['vs league average'].split(' ')[0]} and {rows[0]['vs player' + chr(39) + 's own history'].split(' ')[0]} "
-                  "in the first row. A positive number means the projection is better.\n")
+                  f"{pa['Production blend (published)']:.3f} PA, against {pa['Baseline: league avg']:.3f} for the "
+                  f"league average and {pa['Baseline: batting-slot avg']:.3f} for the average of today's batting "
+                  "slot. Most of the gain over the league average comes from knowing where the hitter bats; the "
+                  "gain over the slot average is what the model adds beyond that.\n")
         n_all = len(P)
+        hard = [hardest(r) for _, r in P.iterrows()]
+        n_hard = sum(1 for h in hard if np.isfinite(h[2]) and h[2] > 0)
         n_lg = int((P["ci_lo_vs_league average"] > 0).sum())
-        n_hist = int((P["ci_lo_vs_history-to-date"] > 0).sum())
-        weak = P[P["rmse_pct_better_than_history-to-date"] < 2].sort_values("rmse_pct_better_than_history-to-date")
-        w((f"All {n_all} player projections beat" if n_lg == n_all else f"{n_lg} of {n_all} player projections beat")
-          + " the league average with an interval above zero, and "
-          f"{n_hist} of {n_all} beat the player's own history-to-date average. The gains "
-          f"are largest where playing time drives the outcome and small for rare events: against the player's own "
-          f"history, {lst([tag(r.group, r.target).lower() for r in weak.itertuples()])} improve by less than 2%.\n")
+        weak = [tag(r.group, r.target).lower() for (_, r), h in zip(P.iterrows(), hard) if np.isfinite(h[1]) and h[1] < 2]
+        w((f"All {n_all}" if n_lg == n_all else f"{n_lg} of {n_all}") + " player projections beat the league "
+          f"average with an interval above zero, and {n_hard} of {n_all} beat even the strongest simple benchmark. "
+          + (f"The gain over the strongest benchmark is under 2% for {lst(weak)}, which are mostly rare events.\n" if weak else "\n"))
     gb = D["gboot"]
     gsel_name = D["gmeta"].get("selected_on_valid", "")
-    gc_ = D["gcal"]
-    sel_auc = float(gc_[(gc_.model == gsel_name) & (gc_.split == "test")].auc.iloc[0]) if len(gc_) else float("nan")
-    if len(gb):
-        v = gb[(gb.split == "valid") & gb.logloss_minus_home_rate.notna()]
-        beat = v[v.hi < 0]
-        gcm = D["gcomp"]
-        selrow = gcm[gcm.model == gsel_name] if len(gcm) else gcm
-        homerow = gcm[gcm.model == "baseline_home_rate"] if len(gcm) else gcm
-        tv_ = gb[(gb.split == "test") & gb.logloss_minus_home_rate.notna() & (gb.hi < 0) & gb.model.isin([gsel_name, "logistic", "stack_opt"])]
+    gtab = game_side_by_side(D)
+    if len(gtab):
         w("### Game-Level Predictive Performance\n")
-        w((f"On the test games the selected game model's log loss is {selrow.log_loss.iloc[0]:.4f}, against "
-           f"{homerow.log_loss.iloc[0]:.4f} for always picking the home team, and its accuracy is "
-           f"{100 * selrow.accuracy.iloc[0]:.1f}% against {100 * homerow.accuracy.iloc[0]:.1f}%. " if len(selrow) and len(homerow) else "")
-          + f"Its test AUC is {sel_auc:.3f}. "
-          + (f"The {lst([GAME_NAME[m].lower() for m in tv_.model])} improve on the home-team baseline with 95% "
-             "intervals that exclude zero on the test games. " if len(tv_) else "")
-          + "Section 4 gives the full comparison.\n")
+        w("Two views of the game model, each against always picking the home team at the rate seen in the "
+          "training seasons (log-loss difference ×1000; negative means the model is better). The test window is "
+          "the controlled evaluation; the season ledger is every 2026 regular-season game re-scored with the "
+          "frozen pre-season model, as published on the site.\n")
+        w(table(gtab))
+        w((deployment_sentence(D) + " " if deployment_sentence(D) else "") + "Section 4 gives the full comparison and Section 6 the ledger.\n")
     w("### Evaluation Integrity and Leakage Prevention\n")
     w("The rebuild found and removed same-game information that had leaked into "
       "the hitter features, along with test-set model selection. Automated tests now rebuild the feature tables "
       "after changing one game's outcome and require that none of that game's features move, and require that "
       "seasons outside the history window cannot change any feature. "
-      + (f"The full suite passes ({tests.get('summary', '').split(',')[0]})." if tests.get("returncode") == 0 else
-         "The test suite result is not available for this build.") + "\n")
+      + (f"All {tests.get('summary', '').split(',')[0].split()[0]} unit tests (pytest) pass" if tests.get("returncode") == 0 else
+         "The unit-test result is not available for this build")
+      + (f", and {int(D['qc'][D['qc'].critical].passed.sum())} of {int(D['qc'].critical.sum())} automated data and "
+         "protocol checks pass before any metric is computed." if len(D["qc"]) and "critical" in D["qc"] else ".") + "\n")
     # ================================================================ 1 DATA
     w("## 2. Data, Feature Engineering, and Leakage Prevention\n")
     val = D["val"]
@@ -376,7 +416,8 @@ def build(tests_override: dict | None = None) -> str:
       "pitches before any feature is built, so older data cannot reach a feature indirectly. Inside the window, "
       "every feature is a trailing summary of earlier games: rolling averages over the previous 7 to 30 "
       "appearances, a history-to-date average, handedness splits, true-talent rates shrunk toward a league prior, "
-      "a pitcher-vs-lineup matchup rate, opponent context and, for hitters, the posted batting-order slot. "
+      "a matchup rate between the pitcher and the opposing lineup, opponent context and, for hitters, the posted "
+      "batting-order slot. "
       "Spring-training games are excluded.\n")
     inv = D["inv"]
     if len(inv):
@@ -389,7 +430,7 @@ def build(tests_override: dict | None = None) -> str:
               "handedness": "Rates against left- and right-handed opponents",
               "team/opponent": "Opponent's recent rates against this handedness; opposing starter's form",
               "true_talent": "Rates shrunk toward the league according to sample size",
-              "matchup": "Pitcher-vs-lineup rate combining both true-talent estimates",
+              "matchup": "Expected rate for this pitcher against this lineup, from both true-talent estimates",
               "batted_ball": "Exit velocity, launch angle, hard-hit and barrel proxies",
               "velocity/pitch_mix": "Velocity and spin",
               "lineup": "Today's posted batting-order slot and the recent average slot",
@@ -409,9 +450,12 @@ def build(tests_override: dict | None = None) -> str:
         w(table(pd.DataFrame(rows), {"Pitcher": lambda v: f"{int(v)}", "Hitter": lambda v: f"{int(v)}"}))
     b = D["build"]
     if b:
-        w("Three seasons are collected. The earliest one serves as history only, because "
+        w("Three seasons are collected. For the player models the earliest one serves as history only, because "
           "its own rows have no prior seasons inside their window and would teach the model from thinner features "
-          "than it sees in use.\n")
+          "than it sees in use. The game model does use 2024 games for training. Its features look back only 10 to "
+          "14 team games, or a starter's last 10 starts, so only the first weeks of 2024 (about two months for the "
+          "starter window) have thinner features than in use; the player models' history features reach back up to "
+          "two full seasons, so for them all of 2024 would.\n")
     w("### Changes to the Modeling Pipeline\n")
     w("The original feature definitions were kept and given two extra seasons of "
       "history. The data-leakage and protocol bugs listed below were fixed. One feature was added (lineup "
@@ -446,7 +490,7 @@ def build(tests_override: dict | None = None) -> str:
       "and scored out-of-fold) compete with them. The candidate with the lowest validation RMSE is refit on all "
       "data before the test window. Each count also has a per-opportunity model (per nine innings or per plate "
       "appearance). The published number blends the direct count with rate × predicted innings or plate "
-      "appearances, using fixed weights. A neural network was tried and dropped: it was the weakest family on "
+      "appearances, with the blend weight chosen on validation. A neural network was tried and dropped: it was the weakest family on "
       "validation and the slowest to train.\n")
     w("### Game-Level Win Probability Model\n")
     w("The candidates are an isotonic-calibrated XGBoost, a random forest with and without isotonic calibration, "
@@ -492,19 +536,67 @@ def build(tests_override: dict | None = None) -> str:
         w("### Model Selection and Validation Results\n")
         w("The candidate chosen on validation for each published count:\n")
         w(table(pd.DataFrame(sel_rows), {"Validation RMSE": lambda v: f"{v:.3f}"}))
-    try:
-        import run_backtest as _rb
-        bw = [{"Projection": tag("pitcher", t), "Weight on rate model": v} for t, v in _rb.PITCHER_BLEND_WEIGHTS.items()]
-        bw = [r for r in bw if r["Projection"] in {tag("pitcher", t) for t in P_ORDER}]
-        bw += [{"Projection": tag("hitter", t), "Weight on rate model": v} for t, v in _rb.HITTER_BLEND_WEIGHTS.items()
-               if t in H_ORDER]
+    bl = D["blend"]
+    if len(bl):
+        bl = bl[[(g, t) not in EXCLUDED for g, t in zip(bl.group, bl.target)]]
+        bl = bl[bl.target.isin(P_ORDER + H_ORDER)]
         w("### Direct-Count and Rate-Based Projection Blending\n")
-        w("The published number is (1 − w) × direct count + w × (rate × predicted innings or "
-          "plate appearances). Innings and plate appearances are themselves predicted directly. The weights w are "
-          "fixed:\n")
-        w(table(pd.DataFrame(bw), {"Weight on rate model": lambda v: f"{v:.2f}"}))
-    except Exception:
-        pass
+        w("The published number is (1 − w) × direct count + w × (per-opportunity rate × predicted innings or plate "
+          "appearances); innings and plate appearances are themselves predicted directly. For each count, w was "
+          "searched from 0 to 1 in steps of 0.05 and chosen by validation RMSE, with every prediction coming from "
+          "models fit on the training window only. The test window was then scored once with the chosen w. "
+          "The previous weights had been set by hand.\n")
+        rows = []
+        for r in bl.itertuples():
+            rows.append({"Projection": tag(r.group, r.target), "Chosen w": r.chosen_w, "Previous w": r.previous_fixed_w,
+                         "Val. RMSE, w = 0": r.valid_rmse_w0, "at chosen w": r.valid_rmse_chosen, "w = 1": r.valid_rmse_w1})
+        f3 = lambda v: f"{v:.3f}"
+        w(table(pd.DataFrame(rows), {"Chosen w": lambda v: f"{v:.2f}", "Previous w": lambda v: f"{v:.2f}",
+                                     "Val. RMSE, w = 0": f3, "at chosen w": f3, "w = 1": f3}))
+        if {"test_bias_direct", "test_bias_rate", "test_bias_blend"} <= set(bl.columns):
+            rows = []
+            for r in bl.itertuples():
+                rows.append({"Projection": tag(r.group, r.target), "Bias: direct": r.test_bias_direct,
+                             "Bias: rate × opportunity": r.test_bias_rate, "Bias: blend": r.test_bias_blend,
+                             "Test RMSE: direct": r.test_rmse_direct, "Test RMSE: blend": r.test_rmse_blend})
+            w("On the test window, each part's bias (mean projected minus actual) and the RMSE of the direct count "
+              "alone and of the published blend:\n")
+            fb = lambda v: f"{v:+.3f}"
+            w(table(pd.DataFrame(rows), {"Bias: direct": fb, "Bias: rate × opportunity": fb, "Bias: blend": fb,
+                                         "Test RMSE: direct": lambda v: f"{v:.3f}", "Test RMSE: blend": lambda v: f"{v:.3f}"}))
+            worse = bl[bl.test_rmse_blend > bl.test_rmse_direct * 1.002]
+            high = bl[(bl.test_bias_rate - bl.test_bias_direct) > 0.1]
+            if len(worse):
+                txt = ("The weights chosen on validation did not carry over everywhere: on the test window the blend "
+                       "has a higher RMSE than the direct count alone for "
+                       + lst([tag(g, t).lower() for g, t in zip(worse.group, worse.target)]) + ".")
+                if len(high):
+                    txt += (" The rate × opportunity part runs high out of sample for "
+                            + lst([f"{tag(g, t).lower()} ({b_:+.2f} against {d_:+.2f} for the direct count)"
+                                   for g, t, b_, d_ in zip(high.group, high.target, high.test_bias_rate, high.test_bias_direct)])
+                            + ".")
+                txt += (" The test window was scored once, so the weights stand as chosen; re-examining the rate "
+                        "models is the next step, on validation data only.")
+                w(txt + "\n")
+    fl = D["flow"]
+    if len(fl):
+        w("### Evaluation Population and Row Counts\n")
+        n_games = int(D["gmeta"].get("n_test", 0) or 0)
+        w("The evaluation covers exactly what the site publishes: both starting pitchers and the nine "
+          "starting-lineup hitters on each side of every regular-season game. The starting pitcher is the first "
+          "pitcher of the game, so an opener counts as the starter. Bench players and pinch hitters have no "
+          "batting-order slot and are excluded, as are postseason games. Test-window counts at each step:\n")
+        rows = []
+        for r in fl.itertuples():
+            rows.append({"Group": "Pitchers" if r.group == "pitcher" else "Hitters", "Step": r.step[:1].upper() + r.step[1:],
+                         "Rows": f"{int(r.rows):,}", "Games": f"{int(r.games):,}" if np.isfinite(r.games) else "n/a"})
+        w(table(pd.DataFrame(rows)))
+        last = fl.groupby("group").tail(1).set_index("group")
+        if n_games and {"pitcher", "hitter"} <= set(last.index):
+            w(f"The game model's test window has {n_games:,} regular-season games, so the published population is "
+              f"{2 * n_games:,} pitcher-games and {18 * n_games:,} hitter-games; the final rows above are "
+              f"{int(last.loc['pitcher', 'rows']):,} and {int(last.loc['hitter', 'rows']):,}. Any shortfall is a "
+              "starter who left before his first plate appearance, so has no batting line to grade.\n")
     w("### Temporal Validation and Evaluation Protocol\n")
     w("Models train on earlier games, are chosen on a validation window that follows the training "
       "data, and are scored once on a later test window. Player models train on the 2025 season (2024 supplies "
@@ -512,8 +604,9 @@ def build(tests_override: dict | None = None) -> str:
       "and the test window is July through the end of the 2026 regular season. Every choice of model, stack weight "
       "and calibration is made on validation; the test window is scored once. The published models are then refit "
       "through June 2026, so their projections for earlier 2026 games are in-sample and are excluded from the "
-      "public accuracy ledger (Section 6). Baselines are the league average, the "
-      "player's history-to-date average and his last-10 average for players, and always-home for games. "
+      "public accuracy ledger (Section 6). Player baselines are the league average, the player's history-to-date "
+      "average, his last-10 average, the training-window average for today's batting slot (hitters) and his "
+      "last-7-starts average (pitchers); the game baseline is always picking the home team. "
       "Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the "
       "same day share weather, umpires and opponents.\n")
     w("### Evaluation Metrics and Interpretation\n")
@@ -537,13 +630,19 @@ def build(tests_override: dict | None = None) -> str:
         t = gc[gc.model.isin(keep)].copy()
         t["Model"] = t.model.map(lambda m: (GAME_NAME.get(m, m)[:-1] + ", selected)") if m == sel and GAME_NAME.get(m, m).endswith(")")
                                  else GAME_NAME.get(m, m) + (" (selected)" if m == sel else ""))
-        t["Valid log loss"] = t.model.map(lambda m: vmap.get(m, np.nan))
+        t["Validation log loss"] = t.model.map(lambda m: vmap.get(m, np.nan))
         t = t.rename(columns={"log_loss": "Test log loss", "brier": "Test Brier", "roc_auc": "Test AUC", "accuracy": "Test accuracy"})
         n_test = int(t.n.max())
         w(f"{n_test:,} regular-season test games; the home team won {100 * D['gcal'].query('split == \"test\"').win_rate.iloc[0]:.1f}% of them.\n")
-        w(table(t[["Model", "Valid log loss", "Test log loss", "Test Brier", "Test AUC", "Test accuracy"]],
-                {"Valid log loss": lambda v: f"{v:.4f}", "Test log loss": lambda v: f"{v:.4f}", "Test Brier": lambda v: f"{v:.4f}",
-                 "Test AUC": lambda v: f"{v:.3f}", "Test accuracy": lambda v: f"{100 * v:.1f}%"}))
+        ga = D["gauc"]
+        if len(ga):
+            am = ga[ga.split == "test"].set_index("model")
+            t["Test AUC"] = [f"{am.loc[m, 'auc']:.3f} ({am.loc[m, 'auc_lo']:.3f}-{am.loc[m, 'auc_hi']:.3f})"
+                             if m in am.index else ("n/a" if not np.isfinite(a) else f"{a:.3f}") for m, a in zip(t.model, t["Test AUC"])]
+        w(table(t[["Model", "Validation log loss", "Test log loss", "Test Brier", "Test AUC", "Test accuracy"]],
+                {"Validation log loss": lambda v: f"{v:.4f}", "Test log loss": lambda v: f"{v:.4f}", "Test Brier": lambda v: f"{v:.4f}",
+                 "Test AUC": lambda v: v if isinstance(v, str) else f"{v:.3f}", "Test accuracy": lambda v: f"{100 * v:.1f}%"}))
+        w("Test AUC is shown with its 95% interval, from the same resampling of whole game dates.\n")
     if len(gb):
         rows = []
         for m in dict.fromkeys([sel, "logistic", "stack_opt"]):
@@ -557,21 +656,30 @@ def build(tests_override: dict | None = None) -> str:
         w(table(pd.DataFrame(rows)))
         tv = gb[(gb.split == "test") & gb.logloss_minus_home_rate.notna() & (gb.hi < 0)]
         tv = tv[tv.model.isin([sel, "logistic", "stack_opt"])]
+        vv = gb[(gb.split == "valid") & gb.logloss_minus_home_rate.notna() & gb.model.isin([sel, "logistic", "stack_opt"])]
+        nv = int((vv.hi < 0).sum())
         w(f"On the test games, {lst(['the ' + GAME_NAME[m].lower() for m in tv.model]) if len(tv) else 'no candidate'} "
-          "improve on the home-team baseline with intervals that exclude zero. On the shorter validation window, all "
-          "three intervals include zero.\n")
-    if len(gs) and (gs.candidate == "v1_production_live_log").any() and len(gc):
-        v1 = gs[gs.candidate == "v1_production_live_log"].iloc[0]
-        ch_ = gs[gs.candidate == sel].iloc[0]
-        ov = gc[gc.role.astype(str).str.contains("overlap", na=False)]
-        v1t = gc[gc.model == "v1_production_live_log"]
-        w(f"**Deployment decision: keep the deployed model.** On validation the selected model's log loss "
-          f"({ch_.valid_log_loss:.4f}) was {v1.valid_log_loss - ch_.valid_log_loss:.4f} lower than the deployed "
-          f"model's live picks ({v1.valid_log_loss:.4f}). That passes the automatic promotion gate, but the "
-          "difference is small relative to its uncertainty"
-          + (f". On the {int(v1t.n.iloc[0])} test games both covered, the deployed model was slightly better "
-             f"({v1t.log_loss.iloc[0]:.4f} vs {ov.log_loss.iloc[0]:.4f})" if len(ov) and len(v1t) else "")
-          + ". The deployed model stays in production.\n")
+          "improve on the home-team baseline with intervals that exclude zero. On the shorter validation window "
+          + ("every interval includes zero." if nv == 0 else f"{nv} of {len(vv)} intervals exclude zero.") + "\n")
+    w("**Deployment.** " + deployment_sentence(D, detail=True) + "\n")
+    glc = D["glc"]
+    if len(glc) and (glc.axis == "logistic_C").any():
+        c = glc[glc.axis == "logistic_C"].sort_values("value")
+        bestc = c.sort_values("valid_log_loss").iloc[0]
+        w("**Regularization strength.** The logistic regression's penalty C was compared on validation (smaller C "
+          "is a stronger penalty):\n")
+        w(table(pd.DataFrame({"C": [f"{v:g}" + (" (deployed)" if p else "") for v, p in zip(c.value, c.production)],
+                              "Train log loss": c.train_log_loss, "Validation log loss": c.valid_log_loss,
+                              "Validation AUC": c.valid_auc}),
+                {"Train log loss": lambda v: f"{v:.4f}", "Validation log loss": lambda v: f"{v:.4f}",
+                 "Validation AUC": lambda v: f"{v:.3f}"}))
+        prodc = c[c.production]
+        if len(prodc):
+            gap = float(prodc.valid_log_loss.iloc[0] - bestc.valid_log_loss)
+            w(f"Validation log loss is lowest at C = {bestc.value:g}"
+              + (f", {gap:.4f} below the deployed C = {prodc.value.iloc[0]:g}; a difference that size is well inside "
+                 "sampling noise, so the deployed value was kept." if gap > 1e-6 else ", the deployed value.")
+              + " Weaker penalties fit the training games better and validation games worse.\n")
     gcal = D["gcal"]
     if len(gcal):
         s = gcal[gcal.model == sel].set_index("split")
@@ -580,14 +688,21 @@ def build(tests_override: dict | None = None) -> str:
           f"{s.loc['valid', 'cal_intercept_itl']:+.3f} on validation and {s.loc['test', 'cal_intercept_itl']:+.3f} on test, "
           f"where zero is perfect. Expected calibration error is {s.loc['valid', 'ece']:.3f} and {s.loc['test', 'ece']:.3f}. "
           f"The calibration slope is {s.loc['valid', 'cal_slope']:.2f} on validation and {s.loc['test', 'cal_slope']:.2f} "
-          "on test, where 1 is ideal; below 1, the probabilities spread further from 50% than the outcomes justify.")
+          "on test, where 1 is ideal. A slope below 1 means the probabilities spread further from 50% than the "
+          "outcomes justify; above 1, they sit too close to 50%"
+          + (", which fits the strong penalty on the logistic regression: it shrinks every coefficient toward zero "
+             "and pulls predictions toward the base rate." if sel == "logistic" and s.loc['test', 'cal_slope'] > 1 else "."))
         hi = D["ghi"]
         h = hi[(hi.model == sel) & (hi.confidence_ge == 0.75)] if len(hi) else pd.DataFrame()
         if len(h):
             r = h[h.split == "test"].iloc[0]
-            w(f" The 75%+ bucket holds only {int(r.n)} test games. The favorite won {100 * r.fav_win_rate:.0f}% "
-              f"against a mean prediction of {100 * r.mean_conf:.0f}%, but the 95% interval for that rate runs from "
-              f"{100 * r.ci_lo:.0f}% to {100 * r.ci_hi:.0f}%, so over-confidence there cannot be established.")
+            if int(r.n) >= 10:
+                w(f" The 75%+ bucket holds only {plural(int(r.n), 'test game')}. The favorite won {100 * r.fav_win_rate:.0f}% "
+                  f"against a mean prediction of {100 * r.mean_conf:.0f}%, but the 95% interval for that rate runs from "
+                  f"{100 * r.ci_lo:.0f}% to {100 * r.ci_hi:.0f}%, so over-confidence there cannot be established.")
+            else:
+                w(f" Only {plural(int(r.n), 'test game')} received a probability of 75% or more, too few to judge "
+                  "calibration at the extremes.")
         iso = pd.DataFrame()
         if len(iso):
             xv = iso[(iso.model == "xgb_isotonic minus xgb_raw") & (iso.split == "valid")].iloc[0]
@@ -601,10 +716,20 @@ def build(tests_override: dict | None = None) -> str:
     if len(gcal):
         s_ = gcal[gcal.model == sel].set_index("split")
         w("### Discrimination Performance: ROC Curve and AUC\n")
+        ga = D["gauc"]
+        am = ga.set_index(["model", "split"]) if len(ga) else None
+        def _a(sp):
+            if am is not None and (sel, sp) in am.index:
+                x = am.loc[(sel, sp)]
+                return f"{x.auc:.3f} (95% interval {x.auc_lo:.3f} to {x.auc_hi:.3f})"
+            return f"{s_.loc[sp, 'auc']:.3f}"
         w(f"The ROC curve shows how well the probabilities order games, at every "
           f"possible cut-off. AUC is the area under it, from 0.5 for no ranking skill to 1.0 for perfect ranking. The "
-          f"selected model's test AUC is {s_.loc['test', 'auc']:.3f}, against {s_.loc['valid', 'auc']:.3f} on "
-          "validation, above the 0.5 line of a model with no ranking ability.\n")
+          f"selected model's test AUC is {_a('test')}, against {_a('valid')} on validation. "
+          + (("Both intervals sit above 0.5, so the model ranks games better than chance, but modestly: single "
+              "games are close to even.") if am is not None and all((sel, sp) in am.index and am.loc[(sel, sp)].auc_lo > 0.5
+                                                                    for sp in ("valid", "test"))
+             else "The ranking is better than chance on test, but modestly: single games are close to even.") + "\n")
     w(figure(FIG / "game_roc_curve.png", "Figure 2. ROC Curve for Game-Level Win Predictions"))
 
     # ================================================================ 4 PLAYERS
@@ -620,15 +745,15 @@ def build(tests_override: dict | None = None) -> str:
         rows = []
         for t in order:
             r = x.loc[t]
-            rows.append({"Target": LABEL[t], "Actual mean": r["mean_actual"],
+            extra = "batting slot" if g == "hitter" else "last 7 starts"
+            rows.append({"Target": LABEL[t],
                          "Bias": f"{bias.loc[t, 'bias']:+.3f} ({bias.loc[t, 'bias_pct']:+.0f}%)" if t in bias.index else "n/a",
                          "RMSE": r["rmse"],
-                         "vs league": ci(r["rmse_pct_better_than_league average"], r["ci_lo_vs_league average"], r["ci_hi_vs_league average"]),
-                         "vs own history": ci(r["rmse_pct_better_than_history-to-date"], r["ci_lo_vs_history-to-date"], r["ci_hi_vs_history-to-date"]),
-                         "vs last 10": ci(r["rmse_pct_better_than_last 10"], r["ci_lo_vs_last 10"], r["ci_hi_vs_last 10"])})
+                         "vs league": ci_or(r, "league average"), "vs own history": ci_or(r, "history-to-date"),
+                         "vs last 10": ci_or(r, "last 10"), f"vs {extra}": ci_or(r, extra)})
         n = int(x["n"].max())
         w(f"**{'Starting pitchers' if g == 'pitcher' else 'Hitters'}** ({n:,} test {g}-games):\n")
-        w(table(pd.DataFrame(rows), {"Actual mean": lambda v: f"{v:.2f}", "RMSE": lambda v: f"{v:.3f}"}))
+        w(table(pd.DataFrame(rows), {"RMSE": lambda v: f"{v:.3f}"}))
     c_p, c_h = D["pitcher_comp"], D["hitter_comp"]
     if len(c_p) and len(c_h):
         mae_lose = []
@@ -650,15 +775,24 @@ def build(tests_override: dict | None = None) -> str:
         rows = []
         for g, d in (("pitcher", tp), ("hitter", th)):
             for r in d.itertuples():
-                rows.append({"Projection": tag(g, r.target), "Players": int(r.players), "Min. games": int(r.min_games),
-                             "Correlation": r.corr_total, "R²": r.r2_total, "Total bias": r.mean_error_total})
+                rows.append({"Projection": tag(g, r.target), "Players": int(r.players),
+                             "r, totals": r.corr_total, "History avg r, totals": getattr(r, "corr_total_history", np.nan),
+                             "r, per game": getattr(r, "corr_rate", np.nan),
+                             "History avg r, per game": getattr(r, "corr_rate_history", np.nan),
+                             "Summed bias per player": r.mean_error_total})
+        mins = sorted({int(x) for x in pd.concat([tp, th]).min_games})
         w("### Aggregated Player-Level Performance\n")
-        w("Each player's projections and results were summed over the "
-          "test window, for players with at least the minimum number of games. R² here is the share of "
-          "player-to-player variation in those totals that the projections explain.\n")
-        w(table(pd.DataFrame(rows), {"Players": lambda v: f"{int(v)}", "Min. games": lambda v: f"{int(v)}",
-                                     "Correlation": lambda v: f"{v:.2f}", "R²": lambda v: f"{v:.2f}",
-                                     "Total bias": lambda v: f"{v:+.2f}"}))
+        w("Each player's projections and results were summed over the test window, for players with at least "
+          + " or ".join(str(m) for m in mins) + " games (pitchers and hitters). Totals mostly reflect how many games a "
+          "player played, which every reasonable projection gets right, so the correlation of totals is high for any "
+          "method. Two columns correct for that: the same correlation for the player's own history average summed "
+          "the same way, and correlations of per-game rates (total divided by games played), which remove playing "
+          "time. The gap between the projection and the history average is the real result. *Summed bias per "
+          "player* is the projected total minus the actual total, averaged over players.\n")
+        f2 = lambda v: f"{v:.2f}"
+        w(table(pd.DataFrame(rows), {"Players": lambda v: f"{int(v)}", "r, totals": f2, "History avg r, totals": f2,
+                                     "r, per game": f2, "History avg r, per game": f2,
+                                     "Summed bias per player": lambda v: f"{v:+.2f}"}))
     w(figure(FIG / "pitcher_test_window_totals.png", "Figure 5. Predicted vs. Actual Pitcher Totals"))
     w(figure(FIG / "hitter_test_window_totals.png", "Figure 6. Predicted vs. Actual Hitter Totals"))
 
@@ -669,7 +803,8 @@ def build(tests_override: dict | None = None) -> str:
              ("Random forest (train-window fit)", "RF"), ("XGBoost (train-window fit)", "XGB"),
              ("Linear: Poisson regression (train-window fit)", "Poisson"),
              ("Stack: optimized weights (train-window fit)", "Opt. stack"),
-             ("Baseline: history avg (_std)", "History avg"), ("Baseline: league avg", "League avg")]
+             ("Baseline: history avg (_std)", "History avg"), ("Baseline: batting-slot avg", "Slot avg"),
+             ("Baseline: last-7-starts avg", "Last 7 starts"), ("Baseline: league avg", "League avg")]
     for g, c in (("pitcher", c_p), ("hitter", c_h)):
         if c.empty:
             continue
@@ -719,6 +854,75 @@ def build(tests_override: dict | None = None) -> str:
     w(conclusion(D))
     return "\n".join(L)
 
+
+
+def _diff_ci(pt, lo, hi):
+    return f"{1000 * pt:+.1f} ({1000 * lo:+.1f} to {1000 * hi:+.1f})" if np.isfinite(pt) else "n/a"
+
+
+def _auc_ci(a, lo, hi):
+    return f"{a:.3f} ({lo:.3f}-{hi:.3f})" if np.isfinite(a) else "n/a"
+
+
+def game_side_by_side(D) -> pd.DataFrame:
+    """Test-window evaluation and the season ledger, each against always-home."""
+    sel = D["gmeta"].get("selected_on_valid", "")
+    rows = []
+    gc, gb, ga = D["gcomp"], D["gboot"], D["gauc"]
+    if len(gc) and sel in set(gc.model):
+        sr = gc[gc.model == sel].iloc[0]
+        hr = gc[gc.model == "baseline_home_rate"]
+        b = gb[(gb.model == sel) & (gb.split == "test")] if len(gb) else gb
+        a = ga[(ga.model == sel) & (ga.split == "test")] if len(ga) else ga
+        rows.append({"View": f"Test window, {GAME_NAME.get(sel, sel).lower()}", "Games": int(sr.n),
+                     "Log loss": sr.log_loss, "Always home": hr.log_loss.iloc[0] if len(hr) else np.nan,
+                     "Difference ×1000 (95% CI)": _diff_ci(b.logloss_minus_home_rate.iloc[0], b.lo.iloc[0], b.hi.iloc[0]) if len(b) else "n/a",
+                     "AUC (95% CI)": _auc_ci(a.auc.iloc[0], a.auc_lo.iloc[0], a.auc_hi.iloc[0]) if len(a) else f"{sr.roc_auc:.3f}",
+                     "Accuracy": sr.accuracy})
+    lg = D["lgames"]
+    if len(lg):
+        x = lg[lg.phase == "Regular season"]
+        for src, lab in (("Pre-season model (frozen)", "Season ledger, pre-season model"),
+                         ("Deployed model (live)", "Season ledger, deployed model")):
+            r = x[x.source == src]
+            if len(r):
+                r = r.iloc[0]
+                rows.append({"View": lab, "Games": int(r.games), "Log loss": r.log_loss, "Always home": r.home_log_loss,
+                             "Difference ×1000 (95% CI)": _diff_ci(r.ll_minus_home, r.ll_minus_home_lo, r.ll_minus_home_hi),
+                             "AUC (95% CI)": _auc_ci(r.auc, r.auc_lo, r.auc_hi), "Accuracy": r.accuracy})
+    if not rows:
+        return pd.DataFrame()
+    t = pd.DataFrame(rows)
+    for c in ("Log loss", "Always home"):
+        t[c] = t[c].map(lambda v: f"{v:.4f}" if np.isfinite(v) else "n/a")
+    t["Games"] = t["Games"].map(lambda v: f"{int(v):,}")
+    t["Accuracy"] = t["Accuracy"].map(lambda v: f"{100 * v:.1f}%")
+    return t
+
+
+def deployment_sentence(D, detail=False) -> str:
+    sel = D["gmeta"].get("selected_on_valid", "")
+    dep = D.get("deployed") or {}
+    name = GAME_NAME.get(sel, sel).lower()
+    gs = D["gsel"]
+    v1 = gs[gs.candidate == "v1_production_live_log"] if len(gs) else gs
+    ch = gs[gs.candidate == sel] if len(gs) else gs
+    rule = ""
+    if detail and len(v1) and len(ch):
+        a, b = float(ch.valid_log_loss.iloc[0]), float(v1.valid_log_loss.iloc[0])
+        rule = (f" The promotion rule deploys a candidate when its validation log loss is lower than the deployed "
+                f"model's live picks on the same games; the {name} scored {a:.4f} against {b:.4f}. A gap of "
+                f"{b - a:.4f} is smaller than its sampling uncertainty, so the rule establishes that the new model is "
+                "at least as good as the one it replaced, not that it is clearly better.")
+    if dep.get("v2") and dep.get("candidate") == sel:
+        return f"The {name} is the deployed game model, refit on all completed games." + rule
+    if dep.get("v2"):
+        return (f"The deployed game model is a {GAME_NAME.get(dep.get('candidate'), dep.get('candidate'))}; the {name} "
+                "was selected on validation and is the model evaluated here." + rule)
+    if dep:
+        return (f"The {name} was selected on validation but is not yet deployed; the site still uses the earlier "
+                "model." + rule)
+    return rule.strip()
 
 # ---------------------------------------------------------------------------
 SEASON_START = pd.Timestamp("2026-03-01")
@@ -772,53 +976,73 @@ def website(D) -> str:
         "season was re-run for the ledger with pre-season models: the same pipeline trained only on games before "
         "2026 and frozen for the whole season, as they could have been built on opening day. Every graded game "
         "from opening day on is therefore out-of-sample. Days after the re-run are added by the deployed models "
-        "as they are published.\n\n")
-
-    pk = D.get("picks", pd.DataFrame())
-    if len(pk) and {"correct", "home_win_prob", "actual_winner", "home_team"} <= set(pk.columns):
-        g = pk[pd.to_numeric(pk["correct"], errors="coerce").notna()].copy()
-        g["p"] = pd.to_numeric(g["home_win_prob"], errors="coerce").clip(1e-6, 1 - 1e-6)
-        g["y"] = (g["actual_winner"] == g["home_team"]).astype(float)
-        g = g[g.p.notna()]
-        g["src"] = g["model_version"].map(_game_source) if "model_version" in g else "Deployed model (live)"
+        "as they are published. The tables below use the same population as the evaluation: starting pitchers, "
+        "starting-lineup hitters and regular-season games.\n\n")
+    lc = D["lcounts"]
+    if len(lc):
+        c = lc.set_index(["ledger", "step"])["rows"]
+        def _c(l, st):
+            return int(c.get((l, st), 0))
+        reg, post = _c("games", "regular season"), _c("games", "postseason")
+        out.append(f"The ledger holds {reg:,} graded regular-season games"
+                   + (f" ({post:,} postseason games are reported separately)" if post else "")
+                   + f", {_c('pitcher', 'regular-season games'):,} starting-pitcher games and "
+                   f"{_c('hitter', 'regular-season games'):,} lineup-hitter games.\n\n")
+    lg = D["lgames"]
+    if len(lg):
         rows = []
-        order = ["Pre-season model (frozen)", "Deployed model (live)"]
-        groups = [(n, g[g.src == n]) for n in order if (g.src == n).any()]
-        for name, d in groups + ([("All graded games", g)] if len(groups) > 1 else []):
-            ll = float(-(d.y * np.log(d.p) + (1 - d.y) * np.log(1 - d.p)).mean())
-            rows.append({"Source": name, "Games": len(d), "Accuracy": 100 * pd.to_numeric(d["correct"]).mean(),
-                         "Log loss": ll, "Home team won": 100 * d.y.mean()})
-        if rows:
-            out.append("Game picks in the public ledger:\n\n")
-            out.append(table(pd.DataFrame(rows), {"Games": lambda v: f"{int(v):,}", "Accuracy": lambda v: f"{v:.1f}%",
-                                                  "Log loss": lambda v: f"{v:.4f}", "Home team won": lambda v: f"{v:.1f}%"}) + "\n")
-    pa = D.get("pacc", pd.DataFrame())
-    if len(pa) and {"played", "player_type"} <= set(pa.columns):
-        q = pa[pa["played"].astype(str).str.lower().isin({"true", "1", "1.0"})].copy()
-        if "in_sample" in q.columns:
-            q = q[pd.to_numeric(q["in_sample"], errors="coerce").fillna(0) != 1]
-        typ = q["player_type"].astype(str).str.lower()
+        order = {"Pre-season model (frozen)": 0, "Deployed model (live)": 1, "All": 2}
+        for r in lg.sort_values(["phase", "source"], key=lambda s_: s_.map(order) if s_.name == "source" else s_,
+                                ascending=[False, True]).itertuples():
+            rows.append({"Games": f"{r.phase}: {r.source[:1].lower() + r.source[1:] if r.source != 'All' else 'all'}",
+                         "n": f"{int(r.games):,}", "Accuracy": f"{100 * r.accuracy:.1f}%", "Log loss": f"{r.log_loss:.4f}",
+                         "Always home": f"{r.home_log_loss:.4f}",
+                         "Difference ×1000 (95% CI)": _diff_ci(r.ll_minus_home, r.ll_minus_home_lo, r.ll_minus_home_hi),
+                         "AUC (95% CI)": _auc_ci(r.auc, r.auc_lo, r.auc_hi)})
+        out.append("Game picks in the public ledger, against always picking the home team at the training-season "
+                   "rate:\n\n")
+        out.append(table(pd.DataFrame(rows)) + "\n")
+    lp = D["lplayers"]
+    if len(lp):
         rows = []
-        for kind, specs in (("pitcher", SITE_PITCHER), ("hitter", SITE_HITTER)):
-            d0 = q[typ == kind]
-            if kind == "hitter" and "actual_pa" in d0:
-                d0 = d0[pd.to_numeric(d0["actual_pa"], errors="coerce").fillna(0) > 0]
-            for pc, ac, tol, lab in specs:
-                if pc not in d0 or ac not in d0:
-                    continue
-                x = pd.DataFrame({"p": pd.to_numeric(d0[pc], errors="coerce"),
-                                  "a": pd.to_numeric(d0[ac], errors="coerce")}).dropna()
-                if x.empty:
-                    continue
-                e = x.p - x.a
-                rows.append({"Projection": f"{'Pitcher' if kind == 'pitcher' else 'Hitter'} {lab.lower()}",
-                             "Graded": len(x), "MAE": e.abs().mean(), "RMSE": float(np.sqrt((e ** 2).mean())),
-                             "Bias": e.mean(), "Within": f"{100 * (e.abs() <= tol).mean():.1f}% (±{tol:g})"})
-        if rows:
-            out.append("Out-of-sample player projections in the public ledger (MAE is the average absolute miss; "
-                       "*Within* is the share of games where the projection landed within the stated margin):\n\n")
-            out.append(table(pd.DataFrame(rows), {"Graded": lambda v: f"{int(v):,}", "MAE": lambda v: f"{v:.2f}",
-                                                  "RMSE": lambda v: f"{v:.2f}", "Bias": lambda v: f"{v:+.2f}"}) + "\n")
+        for r in lp.itertuples():
+            rows.append({"Projection": f"{'Pitcher' if r.group == 'pitcher' else 'Hitter'} {r.label.lower()}",
+                         "Graded": f"{int(r.n):,}", "RMSE": f"{r.rmse:.2f}", "Bias": f"{r.bias:+.2f}",
+                         "Within": f"{100 * r.within:.0f}% (±{r.tol:g})", "History within": f"{100 * r.within_history:.0f}%",
+                         "vs league": ci(r.pct_vs_league, r.lo_vs_league, r.hi_vs_league),
+                         "vs own history": ci(r.pct_vs_history, r.lo_vs_history, r.hi_vs_history),
+                         "vs last 10": ci(r.pct_vs_last10, r.lo_vs_last10, r.hi_vs_last10)})
+        out.append("Player projections in the public ledger. *Within* is the share of games where the projection "
+                   "landed within the stated margin; *History within* is the same share for the player's own "
+                   "history average, so the two can be compared. The last three columns are the reduction in RMSE "
+                   "against each baseline, with 95% intervals.\n\n")
+        out.append(table(pd.DataFrame(rows)) + "\n")
+        if not ((lp.group == "pitcher") & (lp.target == "HR")).any():
+            out.append("Pitcher home runs allowed are not in this table: the grader did not record them for this "
+                       "ledger. It records them from this revision on.\n\n")
+    lm = D["lmonthly"]
+    if len(lm):
+        out.append("### Why the Ledger Differs from the Test Window\n\n")
+        out.append(
+            "The ledger and the test window measure different things. The pre-season models were trained on 2025 "
+            "alone and never updated, while the test-window models were refit with 2026 games through June, so "
+            "the ledger's models work from older information all season. The ledger also covers April and May, "
+            "when every player's 2026 history is thin for the model and the baselines alike. Error that falls as "
+            "the season goes on is consistent with that explanation. Month by month (regular season):\n\n")
+        gm = lm[lm.group == "game"].set_index("month")
+        pm = lm[lm.group != "game"]
+        months = sorted(set(lm.month))
+        rows = []
+        for m in months:
+            r = {"Month": pd.Timestamp(m + "-01").strftime("%B")}
+            r["Game log loss"] = f"{gm.loc[m, 'log_loss']:.4f}" if m in gm.index else "n/a"
+            for g, lab in (("pitcher", "Pitchers vs own history"), ("hitter", "Hitters vs own history")):
+                x = pm[(pm.group == g) & (pm.month == m)]
+                r[lab] = pct(float(x.pct_vs_history.mean())) if len(x) else "n/a"
+            rows.append(r)
+        out.append(table(pd.DataFrame(rows)) + "\n")
+        out.append("The player columns average the RMSE reduction against the player's own history across the "
+                   "published stats.\n\n")
     return "".join(out)
 
 
@@ -1038,13 +1262,17 @@ def conclusion(D) -> str:
     if len(P):
         pi = P.set_index(["group", "target"])
         strong = P.sort_values("rmse_pct_better_than_league average", ascending=False).head(3)
-        weak = P[P["rmse_pct_better_than_history-to-date"] < 2]
+        weak = P[[np.isfinite(hardest(r)[1]) and hardest(r)[1] < 2 for _, r in P.iterrows()]]
         out.append(
             "InTheCount turns pitch-level Statcast data into daily projections for every starting pitcher and lineup "
             "hitter, and a win probability for every game. All of it was evaluated the way it is used: models chosen "
             "on one stretch of games and scored once on a later stretch they had never seen. "
-            f"On that test, all {len(P)} player projections beat both the league average and the player's own history, "
-            "with intervals above zero. The gains are largest where playing time drives the result: "
+            + (lambda nl, nh: (f"On that test, {'all ' + str(len(P)) if nl == len(P) else str(nl) + ' of ' + str(len(P))} "
+                               f"player projections beat the league average and {nh} beat even the strongest simple "
+                               "benchmark, with intervals above zero. "))(
+                int((P["ci_lo_vs_league average"] > 0).sum()),
+                sum(1 for _, r in P.iterrows() if np.isfinite(hardest(r)[2]) and hardest(r)[2] > 0))
+            + "The gains over the league average are largest where playing time drives the result: "
             + lst([f"{tag(g, t).lower()} {pi.loc[(g, t), 'rmse_pct_better_than_league average']:+.1f}% against the league average"
                    for g, t in zip(strong.group, strong.target)])
             + ". Knowing who starts, where a hitter bats and how deep a starter usually goes is the information a "
@@ -1052,29 +1280,36 @@ def conclusion(D) -> str:
         out.append(
             "For rare events the honest answer is a small edge. "
             + (lambda x: x[:1].upper() + x[1:])(lst([tag(g, t).lower() for g, t in zip(weak.group, weak.target)]))
-            + " improve on the player's own average by less than 2%. A single game's home runs or walks are close to the "
+            + " improve on the strongest simple benchmark by less than 2%. A single game's home runs or walks are close to the "
               "limit of what any pre-game information can predict. Summed over a full window the projections still "
               "rank players well, so they are most useful for weekly and season-level decisions rather than single "
               "games.\n\n")
     bp = bias_table(D, "pitcher")
     big = bp[bp.bias_pct.abs() >= 5].sort_values("bias_pct", ascending=False) if len(bp) else bp
+    bl = D["blend"]
     if len(big):
-        out.append(
-            "The pitcher projections run high for "
-            + lst([f"{LABEL[t].lower()} ({r.bias_pct:+.0f}%)" for t, r in big.iterrows()])
-            + ". Most of that comes from the rate-times-innings part of the published blend, which points to how the "
-              "blend is weighted rather than to the underlying models.\n\n")
-    gcm, gcal = D["gcomp"], D["gcal"]
-    sel = D["gmeta"].get("selected_on_valid", "")
-    if len(gcm) and len(gcal):
-        sr = gcm[gcm.model == sel]; hr = gcm[gcm.model == "baseline_home_rate"]
-        s_ = gcal[gcal.model == sel].set_index("split")
-        if len(sr) and len(hr):
-            out.append(
-                f"The game model's probabilities are well calibrated on average (calibration-in-the-large "
-                f"{s_.loc['test', 'cal_intercept_itl']:+.3f} on test). Its test log loss of {sr.log_loss.iloc[0]:.4f} and "
-                f"accuracy of {100 * sr.accuracy.iloc[0]:.1f}% compare with {hr.log_loss.iloc[0]:.4f} and "
-                f"{100 * hr.accuracy.iloc[0]:.1f}% for always picking the home team.\n\n")
+        parts = []
+        for t, r in big.iterrows():
+            x = bl[(bl.group == "pitcher") & (bl.target == t)] if len(bl) else bl
+            if len(x) and "test_bias_rate" in x:
+                x = x.iloc[0]
+                parts.append(f"{LABEL[t].lower()} ({r.bias:+.2f} per start, {r.bias_pct:+.0f}%; the direct model is "
+                             f"{x.test_bias_direct:+.2f} and the rate × predicted-innings part {x.test_bias_rate:+.2f})")
+            else:
+                parts.append(f"{LABEL[t].lower()} ({r.bias_pct:+.0f}%)")
+        out.append("The pitcher projections run high for " + lst(parts) + ". The test-window bias table in Section 3 "
+                   "shows which part of the blend carries it.\n\n")
+    gt = game_side_by_side(D)
+    if len(gt):
+        r0 = gt.iloc[0]
+        txt = (f"The game model's test log loss is {r0['Log loss']} against {r0['Always home']} for always picking the "
+               f"home team, a difference of {r0['Difference ×1000 (95% CI)']} ×1000, with AUC {r0['AUC (95% CI)']}.")
+        if len(gt) > 1:
+            r1 = gt.iloc[1]
+            who = ("the frozen pre-season model" if "pre-season" in r1["View"] else "the deployed model's live picks")
+            txt += (f" Over the {r1['Games']} regular-season games in the season ledger, {who} score {r1['Log loss']} "
+                    f"against {r1['Always home']} ({r1['Difference ×1000 (95% CI)']} ×1000).")
+        out.append(txt + " " + deployment_sentence(D) + "\n\n")
     return "".join(out)
 
 
