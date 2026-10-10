@@ -8,38 +8,37 @@ InTheCount is a public MLB projection system. Each day it publishes a win probab
 
 ### Summary of Out-of-Sample Performance
 
-Each percentage is how much smaller the projection's typical single-game miss is than the miss of a simple benchmark, with its 95% interval. The miss is measured as RMSE (root-mean-square error) on the test games. *League avg* gives every player the league average for that stat; *own history* his own average over all earlier games in the history window. The last column uses whichever simple benchmark the projection beats by the least, out of those two, his last-10 average and the two that use information known before the game: the average for today's batting slot (hitters) and the average of his last 7 starts (pitchers).
+Each percentage is how much smaller the projection's typical single-game miss is than the miss of a simple benchmark. The miss is measured as RMSE (root-mean-square error) on the test games. *League average* gives every player the league's average for that stat. *Player's own history* gives every player his own average over all his earlier games in the history window. The 95% interval is in parentheses.
 
-| Projection | vs league avg | vs own history | vs strongest simple baseline |
-|:---|---:|---:|:---|
-| Pitcher innings pitched | +19.1% (+16.6 to +21.5) | +16.2% (+13.6 to +18.5) | +7.7% (+6.1 to +9.4) last 10 |
-| Pitcher strikeouts | +13.6% (+12.0 to +15.2) | +8.3% (+6.7 to +9.9) | +5.1% (+3.7 to +6.4) last 10 |
-| Pitcher hits | +8.0% (+6.7 to +9.5) | +7.2% (+5.4 to +8.8) | +5.3% (+3.8 to +6.6) last 10 |
-| Pitcher walks | +4.1% (+3.0 to +5.3) | +3.6% (+2.5 to +4.5) | +3.6% (+2.5 to +4.5) own history |
-| Pitcher home runs | +1.1% (+0.3 to +1.9) | +1.5% (+0.5 to +2.5) | +1.1% (+0.3 to +1.9) league avg |
-| Pitcher runs allowed | +2.0% (+1.0 to +3.0) | +2.6% (+1.2 to +3.8) | +2.0% (+1.0 to +3.0) league avg |
-| Hitter plate appearances | +30.6% (+29.5 to +31.9) | +24.6% (+23.6 to +25.6) | +23.5% (+22.7 to +24.3) last 10 |
-| Hitter hits | +4.2% (+3.8 to +4.5) | +3.4% (+3.1 to +3.7) | +3.4% (+3.1 to +3.7) own history |
-| Hitter total bases | +2.8% (+2.4 to +3.1) | +2.6% (+2.2 to +3.0) | +2.6% (+2.2 to +3.0) own history |
-| Hitter strikeouts | +4.7% (+4.3 to +5.1) | +2.1% (+1.9 to +2.4) | +2.1% (+1.9 to +2.4) own history |
-| Hitter walks | +2.5% (+2.2 to +2.8) | +1.4% (+1.2 to +1.7) | +1.4% (+1.2 to +1.7) own history |
-| Hitter home runs | +0.9% (+0.7 to +1.2) | +1.2% (+0.8 to +1.7) | +0.9% (+0.7 to +1.2) league avg |
+| Projection | vs league average | vs player's own history |
+|:---|---:|---:|
+| Hitter plate appearances | +30.6% (+29.5 to +31.9) | +24.6% (+23.6 to +25.6) |
+| Pitcher innings pitched | +19.1% (+16.6 to +21.5) | +16.2% (+13.6 to +18.5) |
+| Pitcher strikeouts | +13.6% (+12.0 to +15.2) | +8.3% (+6.7 to +9.9) |
 
-All 12 player projections beat the league average with an interval above zero, and 12 of 12 beat even the strongest simple benchmark. The gain over the strongest benchmark is under 2% for pitcher home runs, pitcher runs allowed, hitter walks and hitter home runs, which are mostly rare events.
+For example, the projection's typical miss on a hitter's plate appearances is 0.775 PA. Predicting the league average gives 1.116, and the player's own average gives 1.027. Those differences are the +30.6% and +24.6% in the first row. A positive number means the projection is better.
+
+All 12 player projections beat the league average with an interval above zero, and 12 of 12 beat the player's own history-to-date average. The gains are largest where playing time drives the outcome and small for rare events: against the player's own history, hitter home runs, hitter walks and pitcher home runs improve by less than 2%.
 
 ### Game-Level Predictive Performance
 
-Two views of the game model, each against always picking the home team at the rate seen in the training seasons (log-loss difference ×1000; negative means the model is better). The test window is the controlled evaluation; the season ledger is every 2026 regular-season game re-scored with the frozen pre-season model, as published on the site.
+On the test games the selected game model's log loss is 0.6827, against 0.6911 for always picking the home team, and its accuracy is 54.9% against 53.2%. Its test AUC is 0.571. The logistic regression and optimized stack improve on the home-team baseline with 95% intervals that exclude zero on the test games. Section 4 gives the full comparison.
 
-| View | Games | Log loss | Always home | Difference ×1000 (95% CI) | AUC (95% CI) | Accuracy |
-|:---|---:|---:|---:|---:|---:|---:|
-| Test window, logistic regression | 1,148 | 0.6827 | 0.6911 | -8.4 (-14.1 to -2.4) | 0.571 | 54.9% |
+### Three Evaluations and What Each Measures
 
-The logistic regression was selected on validation but is not yet deployed; the site still uses the earlier model. Section 4 gives the full comparison and Section 6 the ledger.
+This report uses three distinct views of the models. They answer different questions and should not be compared as if they were the same measurement.
+
+|  | Controlled test | Season ledger | Live site |
+|:---|:---|:---|:---|
+| Question answered | How accurate are the chosen models on games they never saw? | How would the site's game picks have done all season with no 2026 information? | What users see each day |
+| Game model | Logistic regression, chosen on validation (2026 through June) | Logistic regression trained only on games before 2026 (pre-season model) | Not yet the logistic regression: the site's picks still come from the earlier game model (trained on 2025 team statistics) |
+| Player models | Trained on 2025, chosen on validation, refit through June 2026 | Not included (see Section 6) | Refit through June 2026 |
+| Games scored | Regular season, July 1 to the end of the season, scored once | Every 2026 game from opening day, postseason included | Each day's slate as it is played |
+| Where reported | Sections 4 and 5 | Section 6 | Section 6 |
 
 ### Evaluation Integrity and Leakage Prevention
 
-The rebuild found and removed same-game information that had leaked into the hitter features, along with test-set model selection. Automated tests now rebuild the feature tables after changing one game's outcome and require that none of that game's features move, and require that seasons outside the history window cannot change any feature. All 30 unit tests (pytest) pass, and 38 of 38 automated data and protocol checks pass before any metric is computed.
+The rebuild found and removed same-game information that had leaked into the hitter features, along with test-set model selection. Automated tests now rebuild the feature tables after changing one game's outcome and require that none of that game's features move, and require that seasons outside the history window cannot change any feature. The full suite passes (30 passed).
 
 ## 2. Data, Feature Engineering, and Leakage Prevention
 
@@ -53,7 +52,7 @@ All modelling data is pitch-level Statcast. Every season is validated before use
 
 ### Historical Data Window and Feature Construction
 
-A projection for a game in season *S* may use the player's games from seasons *S−2* and *S−1* and from season *S* strictly before the game. The window is applied to the raw pitches before any feature is built, so older data cannot reach a feature indirectly. Inside the window, every feature is a trailing summary of earlier games: rolling averages over the previous 7 to 30 appearances, a history-to-date average, handedness splits, true-talent rates shrunk toward a league prior, a matchup rate between the pitcher and the opposing lineup, opponent context and, for hitters, the posted batting-order slot. Spring-training games are excluded.
+A projection for a game in season *S* may use the player's games from seasons *S−2* and *S−1* and from season *S* strictly before the game. The window is applied to the raw pitches before any feature is built, so older data cannot reach a feature indirectly. Inside the window, every feature is a trailing summary of earlier games: rolling averages over the previous 7 to 30 appearances, a history-to-date average, handedness splits, true-talent rates shrunk toward a league prior, a pitcher-vs-lineup matchup rate, opponent context and, for hitters, the posted batting-order slot. Spring-training games are excluded.
 
 ### Feature Architecture and Input Variables
 
@@ -67,13 +66,13 @@ Number of model inputs in each feature group:
 | Handedness splits | 16 | 16 | Rates against left- and right-handed opponents |
 | Opponent context | 8 | 23 | Opponent's recent rates against this handedness; opposing starter's form |
 | True talent | 4 | 4 | Rates shrunk toward the league according to sample size |
-| Matchup | 8 | 0 | Expected rate for this pitcher against this lineup, from both true-talent estimates |
+| Matchup | 8 | 0 | Pitcher-vs-lineup rate combining both true-talent estimates |
 | Batted-ball quality | 0 | 22 | Exit velocity, launch angle, hard-hit and barrel proxies |
 | Stuff | 4 | 0 | Velocity and spin |
 | Lineup slot | 0 | 2 | Today's posted batting-order slot and the recent average slot |
 | Park | 1 | 1 | Park factor |
 
-Three seasons are collected. For the player models the earliest one serves as history only, because its own rows have no prior seasons inside their window and would teach the model from thinner features than it sees in use. The game model does use 2024 games for training. Its features look back only 10 to 14 team games, or a starter's last 10 starts, so only the first weeks of 2024 (about two months for the starter window) have thinner features than in use; the player models' history features reach back up to two full seasons, so for them all of 2024 would.
+Three seasons are collected. The earliest one serves as history only, because its own rows have no prior seasons inside their window and would teach the model from thinner features than it sees in use.
 
 ### Changes to the Modeling Pipeline
 
@@ -97,7 +96,7 @@ The cutoff for every feature is the first pitch of the game being predicted. The
 
 ### Player Projection Model Architecture
 
-For every target, three model families are fit: a random forest, a Poisson-loss XGBoost and a Poisson regression. Two stacks of these (equal weights, and weights optimized on validation and scored out-of-fold) compete with them. The candidate with the lowest validation RMSE is refit on all data before the test window. Each count also has a per-opportunity model (per nine innings or per plate appearance). The published number blends the direct count with rate × predicted innings or plate appearances, with the blend weight chosen on validation. A neural network was tried and dropped: it was the weakest family on validation and the slowest to train.
+For every target, three model families are fit: a random forest, a Poisson-loss XGBoost and a Poisson regression. Two stacks of these (equal weights, and weights optimized on validation and scored out-of-fold) compete with them. The candidate with the lowest validation RMSE is refit on all data before the test window. Each count also has a per-opportunity model (per nine innings or per plate appearance). The published number blends the direct count with rate × predicted innings or plate appearances, using fixed weights. A neural network was tried and dropped: it was the weakest family on validation and the slowest to train.
 
 ### Game-Level Win Probability Model
 
@@ -146,9 +145,26 @@ The candidate chosen on validation for each published count:
 | Hitter walks | Optimized stack | RF 0.11, XGB 0.80, Poisson 0.09 | 0.541 |
 | Hitter home runs | Optimized stack | RF 0.00, XGB 0.62, Poisson 0.38 | 0.322 |
 
+### Direct-Count and Rate-Based Projection Blending
+
+The published number is (1 − w) × direct count + w × (rate × predicted innings or plate appearances). Innings and plate appearances are themselves predicted directly. The weights w are fixed:
+
+| Projection | Weight on rate model |
+|:---|---:|
+| Pitcher strikeouts | 0.50 |
+| Pitcher walks | 0.25 |
+| Pitcher hits | 0.20 |
+| Pitcher home runs | 0.30 |
+| Pitcher runs allowed | 0.30 |
+| Hitter hits | 0.55 |
+| Hitter home runs | 0.50 |
+| Hitter walks | 0.50 |
+| Hitter strikeouts | 0.50 |
+| Hitter total bases | 0.55 |
+
 ### Temporal Validation and Evaluation Protocol
 
-Models train on earlier games, are chosen on a validation window that follows the training data, and are scored once on a later test window. Player models train on the 2025 season (2024 supplies history only) and the game model on the 2024 and 2025 seasons. Validation is the 2026 season through June, and the test window is July through the end of the 2026 regular season. Every choice of model, stack weight and calibration is made on validation; the test window is scored once. The published models are then refit through June 2026, so their projections for earlier 2026 games are in-sample and are excluded from the public accuracy ledger (Section 6). Player baselines are the league average, the player's history-to-date average, his last-10 average, the training-window average for today's batting slot (hitters) and his last-7-starts average (pitchers); the game baseline is always picking the home team. Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the same day share weather, umpires and opponents.
+Models train on earlier games, are chosen on a validation window that follows the training data, and are scored once on a later test window. Player models train on the 2025 season (2024 supplies history only) and the game model on the 2024 and 2025 seasons. Validation is the 2026 season through June, and the test window is July through the end of the 2026 regular season. Every choice of model, stack weight and calibration is made on validation; the test window is scored once. The published models are then refit through June 2026, so their projections for earlier 2026 games are in-sample and are excluded from the public accuracy ledger (Section 6). Baselines are the league average, the player's history-to-date average and his last-10 average for players, and always-home for games. Intervals throughout are 95% bootstrap intervals that resample whole game dates, because players on the same day share weather, umpires and opponents.
 
 ### Evaluation Metrics and Interpretation
 
@@ -167,12 +183,10 @@ Models train on earlier games, are chosen on a validation window that follows th
 1,148 regular-season test games; the home team won 53.2% of them.
 
 | Model | Validation log loss | Test log loss | Test Brier | Test AUC | Test accuracy |
-|:---|---:|---:|---:|---:|---:|
+|:---|:---|---:|---:|:---|---:|
 | Logistic regression (selected) | 0.6893 | 0.6827 | 0.2448 | 0.571 | 54.9% |
 | Optimized stack | 0.6905 | 0.6828 | 0.2449 | 0.569 | 55.1% |
-| Always home (base rate) | n/a | 0.6911 | 0.2490 | n/a | 53.2% |
-
-Test AUC is shown with its 95% interval, from the same resampling of whole game dates.
+| Always home (base rate) | – | 0.6911 | 0.2490 | – | 53.2% |
 
 **Against always-home** (log loss minus the always-home log loss, ×1000; negative is better):
 
@@ -181,35 +195,21 @@ Test AUC is shown with its 95% interval, from the same resampling of whole game 
 | Logistic regression | -2.6 (-8.2 to +2.6) | -8.4 (-14.1 to -2.4) |
 | Optimized stack | -1.5 (-7.5 to +4.2) | -8.2 (-13.9 to -2.2) |
 
-On the test games, the logistic regression and the optimized stack improve on the home-team baseline with intervals that exclude zero. On the shorter validation window every interval includes zero.
+On the test games, the logistic regression and the optimized stack improve on the home-team baseline with intervals that exclude zero. On the shorter validation window, all three intervals include zero.
 
-**Deployment.** The logistic regression was selected on validation but is not yet deployed; the site still uses the earlier model. The promotion rule deploys a candidate when its validation log loss is lower than the deployed model's live picks on the same games; the logistic regression scored 0.6893 against 0.6922. A gap of 0.0029 is smaller than its sampling uncertainty, so the rule establishes that the new model is at least as good as the one it replaced, not that it is clearly better.
-
-**Regularization strength.** The logistic regression's penalty C was compared on validation (smaller C is a stronger penalty):
-
-| C | Train log loss | Validation log loss | Validation AUC |
-|:---|---:|---:|---:|
-| 0.0001 | 0.6857 | 0.6899 | 0.540 |
-| 0.0003 | 0.6828 | 0.6893 | 0.541 |
-| 0.001 (deployed) | 0.6808 | 0.6893 | 0.541 |
-| 0.003 | 0.6799 | 0.6896 | 0.541 |
-| 0.01 | 0.6793 | 0.6898 | 0.540 |
-| 0.1 | 0.6788 | 0.6905 | 0.537 |
-| 1 | 0.6787 | 0.6909 | 0.535 |
-
-Validation log loss is lowest at C = 0.0003, 0.0001 below the deployed C = 0.001; a difference that size is well inside sampling noise, so the deployed value was kept. Weaker penalties fit the training games better and validation games worse.
+**Deployment status.** The site's daily picks still come from the earlier game model (trained on 2025 team statistics); the logistic regression has not replaced it yet. On validation the logistic regression's log loss (0.6893) was 0.0029 lower than the deployed model's live picks (0.6922). On the 738 test games for which the deployed model's live pick was logged, the logistic regression was also slightly better (0.6886 vs 0.6898). Both gaps are small relative to their sampling uncertainty.
 
 ### Probability Calibration and Reliability
 
-The selected model's average level is right: calibration-in-the-large is -0.026 on validation and +0.003 on test, where zero is perfect. Expected calibration error is 0.015 and 0.015. The calibration slope is 0.82 on validation and 1.23 on test, where 1 is ideal. A slope below 1 means the probabilities spread further from 50% than the outcomes justify; above 1, they sit too close to 50%, which fits the strong penalty on the logistic regression: it shrinks every coefficient toward zero and pulls predictions toward the base rate.
- Only 1 test game received a probability of 75% or more, too few to judge calibration at the extremes.
+The selected model's average level is right: calibration-in-the-large is -0.026 on validation and +0.003 on test, where zero is perfect. Expected calibration error is 0.015 and 0.015. The calibration slope is 0.82 on validation and 1.23 on test, where 1 is ideal; below 1, the probabilities spread further from 50% than the outcomes justify.
+ The 75%+ bucket holds only 1 test games. The favorite won 100% against a mean prediction of 76%, but the 95% interval for that rate runs from 21% to 100%, so over-confidence there cannot be established.
 
 
 <figure><img class="narrow" src="../figures/game_probability_buckets.png" alt="Figure 1. Predicted vs. Observed Win Rate by Probability Bucket"><figcaption>Figure 1. Predicted vs. Observed Win Rate by Probability Bucket</figcaption></figure>
 
 ### Discrimination Performance: ROC Curve and AUC
 
-The ROC curve shows how well the probabilities order games, at every possible cut-off. AUC is the area under it, from 0.5 for no ranking skill to 1.0 for perfect ranking. The selected model's test AUC is 0.571, against 0.541 on validation. The ranking is better than chance on test, but modestly: single games are close to even.
+The ROC curve shows how well the probabilities order games, at every possible cut-off. AUC is the area under it, from 0.5 for no ranking skill to 1.0 for perfect ranking. The selected model's test AUC is 0.571, against 0.541 on validation, above the 0.5 line of a model with no ranking ability.
 
 <figure><img class="narrow" src="../figures/game_roc_curve.png" alt="Figure 2. ROC Curve for Game-Level Win Predictions"><figcaption>Figure 2. ROC Curve for Game-Level Win Predictions</figcaption></figure>
 
@@ -219,25 +219,25 @@ The primary measure is the reduction in single-game RMSE versus each baseline, w
 
 **Starting pitchers** (2,330 test pitcher-games):
 
-| Target | Bias | RMSE | vs league | vs own history | vs last 10 | vs last 7 starts |
+| Target | Actual mean | Bias | RMSE | vs league | vs own history | vs last 10 |
 |:---|---:|---:|---:|---:|---:|---:|
-| Innings pitched | +0.111 (+2%) | 1.203 | +19.1% (+16.6 to +21.5) | +16.2% (+13.6 to +18.5) | +7.7% (+6.1 to +9.4) | n/a |
-| Strikeouts | +0.141 (+3%) | 2.180 | +13.6% (+12.0 to +15.2) | +8.3% (+6.7 to +9.9) | +5.1% (+3.7 to +6.4) | n/a |
-| Hits | +0.280 (+6%) | 2.111 | +8.0% (+6.7 to +9.5) | +7.2% (+5.4 to +8.8) | +5.3% (+3.8 to +6.6) | n/a |
-| Walks | +0.013 (+1%) | 1.237 | +4.1% (+3.0 to +5.3) | +3.6% (+2.5 to +4.5) | +4.5% (+3.1 to +6.0) | n/a |
-| Home runs | +0.084 (+12%) | 0.833 | +1.1% (+0.3 to +1.9) | +1.5% (+0.5 to +2.5) | +4.7% (+3.4 to +5.8) | n/a |
-| Runs allowed | +0.289 (+13%) | 1.898 | +2.0% (+1.0 to +3.0) | +2.6% (+1.2 to +3.8) | +4.0% (+2.8 to +5.2) | n/a |
+| Innings pitched | 4.79 | +0.111 (+2%) | 1.203 | +19.1% (+16.6 to +21.5) | +16.2% (+13.6 to +18.5) | +7.7% (+6.1 to +9.4) |
+| Strikeouts | 4.64 | +0.141 (+3%) | 2.180 | +13.6% (+12.0 to +15.2) | +8.3% (+6.7 to +9.9) | +5.1% (+3.7 to +6.4) |
+| Hits | 4.70 | +0.280 (+6%) | 2.111 | +8.0% (+6.7 to +9.5) | +7.2% (+5.4 to +8.8) | +5.3% (+3.8 to +6.6) |
+| Walks | 1.74 | +0.013 (+1%) | 1.237 | +4.1% (+3.0 to +5.3) | +3.6% (+2.5 to +4.5) | +4.5% (+3.1 to +6.0) |
+| Home runs | 0.68 | +0.084 (+12%) | 0.833 | +1.1% (+0.3 to +1.9) | +1.5% (+0.5 to +2.5) | +4.7% (+3.4 to +5.8) |
+| Runs allowed | 2.31 | +0.289 (+13%) | 1.898 | +2.0% (+1.0 to +3.0) | +2.6% (+1.2 to +3.8) | +4.0% (+2.8 to +5.2) |
 
 **Hitters** (22,765 test hitter-games):
 
-| Target | Bias | RMSE | vs league | vs own history | vs last 10 | vs batting slot |
+| Target | Actual mean | Bias | RMSE | vs league | vs own history | vs last 10 |
 |:---|---:|---:|---:|---:|---:|---:|
-| Plate appearances | +0.012 (+0%) | 0.775 | +30.6% (+29.5 to +31.9) | +24.6% (+23.6 to +25.6) | +23.5% (+22.7 to +24.3) | n/a |
-| Hits | +0.001 (+0%) | 0.784 | +4.2% (+3.8 to +4.5) | +3.4% (+3.1 to +3.7) | +7.1% (+6.7 to +7.6) | n/a |
-| Total bases | +0.040 (+3%) | 1.577 | +2.8% (+2.4 to +3.1) | +2.6% (+2.2 to +3.0) | +6.5% (+5.9 to +7.1) | n/a |
-| Strikeouts | +0.017 (+2%) | 0.813 | +4.7% (+4.3 to +5.1) | +2.1% (+1.9 to +2.4) | +6.0% (+5.6 to +6.3) | n/a |
-| Walks | -0.013 (-4%) | 0.531 | +2.5% (+2.2 to +2.8) | +1.4% (+1.2 to +1.7) | +5.6% (+5.2 to +6.1) | n/a |
-| Home runs | +0.010 (+9%) | 0.322 | +0.9% (+0.7 to +1.2) | +1.2% (+0.8 to +1.7) | +5.4% (+4.9 to +6.1) | n/a |
+| Plate appearances | 3.74 | +0.012 (+0%) | 0.775 | +30.6% (+29.5 to +31.9) | +24.6% (+23.6 to +25.6) | +23.5% (+22.7 to +24.3) |
+| Hits | 0.76 | +0.001 (+0%) | 0.784 | +4.2% (+3.8 to +4.5) | +3.4% (+3.1 to +3.7) | +7.1% (+6.7 to +7.6) |
+| Total bases | 1.24 | +0.040 (+3%) | 1.577 | +2.8% (+2.4 to +3.1) | +2.6% (+2.2 to +3.0) | +6.5% (+5.9 to +7.1) |
+| Strikeouts | 0.86 | +0.017 (+2%) | 0.813 | +4.7% (+4.3 to +5.1) | +2.1% (+1.9 to +2.4) | +6.0% (+5.6 to +6.3) |
+| Walks | 0.30 | -0.013 (-4%) | 0.531 | +2.5% (+2.2 to +2.8) | +1.4% (+1.2 to +1.7) | +5.6% (+5.2 to +6.1) |
+| Home runs | 0.11 | +0.010 (+9%) | 0.322 | +0.9% (+0.7 to +1.2) | +1.2% (+0.8 to +1.7) | +5.4% (+4.9 to +6.1) |
 
 On mean absolute error (MAE) the projections beat every simple baseline except for home runs (pitcher), runs allowed (pitcher) and home runs (hitter). MAE rewards predicting the median, which is zero for rare events, so it is not used as the primary measure for a projected mean.
 
@@ -251,22 +251,22 @@ Single games are mostly noise. A hitter projected for 1.1 hits gets 0, 1, 2 or 3
 
 ### Aggregated Player-Level Performance
 
-Each player's projections and results were summed over the test window, for players with at least 5 or 20 games (pitchers and hitters). Totals mostly reflect how many games a player played, which every reasonable projection gets right, so the correlation of totals is high for any method. Two columns correct for that: the same correlation for the player's own history average summed the same way, and correlations of per-game rates (total divided by games played), which remove playing time. The gap between the projection and the history average is the real result. *Summed bias per player* is the projected total minus the actual total, averaged over players.
+Each player's projections and results were summed over the test window, for players with at least the minimum number of games. R² here is the share of player-to-player variation in those totals that the projections explain.
 
-| Projection | Players | r, totals | History avg r, totals | r, per game | History avg r, per game | Summed bias per player |
-|:---|---:|---:|---:|---:|---:|---:|
-| Pitcher strikeouts | 183 | 0.94 | n/a | n/a | n/a | +1.31 |
-| Pitcher walks | 183 | 0.85 | n/a | n/a | n/a | +0.14 |
-| Pitcher hits | 183 | 0.93 | n/a | n/a | n/a | +3.40 |
-| Pitcher home runs | 183 | 0.70 | n/a | n/a | n/a | +1.11 |
-| Pitcher innings pitched | 183 | 0.98 | n/a | n/a | n/a | +1.08 |
-| Pitcher runs allowed | 183 | 0.82 | n/a | n/a | n/a | +3.69 |
-| Hitter hits | 414 | 0.95 | n/a | n/a | n/a | -0.13 |
-| Hitter home runs | 414 | 0.83 | n/a | n/a | n/a | +0.41 |
-| Hitter total bases | 414 | 0.94 | n/a | n/a | n/a | +1.65 |
-| Hitter walks | 414 | 0.92 | n/a | n/a | n/a | -0.74 |
-| Hitter strikeouts | 414 | 0.96 | n/a | n/a | n/a | +0.96 |
-| Hitter plate appearances | 414 | 1.00 | n/a | n/a | n/a | +0.30 |
+| Projection | Players | Min. games | Correlation | R² | Total bias |
+|:---|---:|---:|---:|---:|---:|
+| Pitcher strikeouts | 183 | 5 | 0.94 | 0.88 | +1.31 |
+| Pitcher walks | 183 | 5 | 0.85 | 0.72 | +0.14 |
+| Pitcher hits | 183 | 5 | 0.93 | 0.85 | +3.40 |
+| Pitcher home runs | 183 | 5 | 0.70 | 0.39 | +1.11 |
+| Pitcher innings pitched | 183 | 5 | 0.98 | 0.96 | +1.08 |
+| Pitcher runs allowed | 183 | 5 | 0.82 | 0.54 | +3.69 |
+| Hitter hits | 414 | 20 | 0.95 | 0.91 | -0.13 |
+| Hitter home runs | 414 | 20 | 0.83 | 0.68 | +0.41 |
+| Hitter total bases | 414 | 20 | 0.94 | 0.88 | +1.65 |
+| Hitter walks | 414 | 20 | 0.92 | 0.83 | -0.74 |
+| Hitter strikeouts | 414 | 20 | 0.96 | 0.93 | +0.96 |
+| Hitter plate appearances | 414 | 20 | 1.00 | 0.99 | +0.30 |
 
 <figure><img class="wide" src="../figures/pitcher_test_window_totals.png" alt="Figure 5. Predicted vs. Actual Pitcher Totals"><figcaption>Figure 5. Predicted vs. Actual Pitcher Totals</figcaption></figure>
 
@@ -342,16 +342,24 @@ The public site is a lightweight web service that reads the files the pipeline c
 
 ### Public Accuracy Ledger and Season Re-run
 
-Every published number is graded against the box score and kept in a public ledger. Each row records the model that produced it and when that model's training data ended, and any projection for a game the model was trained on is excluded from the accuracy shown. Because the deployed models are refit through June, the season was re-run for the ledger with pre-season models: the same pipeline trained only on games before 2026 and frozen for the whole season, as they could have been built on opening day. Every graded game from opening day on is therefore out-of-sample. Days after the re-run are added by the deployed models as they are published. The tables below use the same population as the evaluation: starting pitchers, starting-lineup hitters and regular-season games.
+Every published number is graded against the box score and kept in a public ledger. Each game pick records the model that produced it and when that model's training data ended, and any pick for a game the model was trained on is excluded from the accuracy shown. Because the deployed models are refit through June, the game picks were re-run for the ledger with the pre-season model: the same pipeline trained only on games before 2026 and used for every 2026 game, as it could have been built on opening day. Every graded game pick from opening day on is therefore out-of-sample. Days after the re-run are added by the deployed game model as they are published.
+
+Game picks in the public ledger:
+
+| Source | Games | Accuracy | Log loss | AUC |
+|:---|---:|---:|---:|---:|
+| Pre-season model | 2,454 | 54.3% | 0.6862 | 0.557 |
+
+The player-projection ledger is not shown here. Its rows were written by the daily pipeline before each projection was stamped with its model's training end date, so they cannot be confirmed as out-of-sample. Player accuracy in this report is the controlled test in Section 5.
 
 
 ## 7. Conclusions
 
-InTheCount turns pitch-level Statcast data into daily projections for every starting pitcher and lineup hitter, and a win probability for every game. All of it was evaluated the way it is used: models chosen on one stretch of games and scored once on a later stretch they had never seen. On that test, all 12 player projections beat the league average and 12 beat even the strongest simple benchmark, with intervals above zero. The gains over the league average are largest where playing time drives the result: hitter plate appearances +30.6% against the league average, pitcher innings pitched +19.1% against the league average and pitcher strikeouts +13.6% against the league average. Knowing who starts, where a hitter bats and how deep a starter usually goes is the information a simple average cannot carry.
+InTheCount turns pitch-level Statcast data into daily projections for every starting pitcher and lineup hitter, and a win probability for every game. All of it was evaluated the way it is used: models chosen on one stretch of games and scored once on a later stretch they had never seen. On that test, all 12 player projections beat both the league average and the player's own history, with intervals above zero. The gains are largest where playing time drives the result: hitter plate appearances +30.6% against the league average, pitcher innings pitched +19.1% against the league average and pitcher strikeouts +13.6% against the league average. Knowing who starts, where a hitter bats and how deep a starter usually goes is the information a simple average cannot carry.
 
-For rare events the honest answer is a small edge. Pitcher home runs, pitcher runs allowed, hitter walks and hitter home runs improve on the strongest simple benchmark by less than 2%. A single game's home runs or walks are close to the limit of what any pre-game information can predict. Summed over a full window the projections still rank players well, so they are most useful for weekly and season-level decisions rather than single games.
+For rare events the honest answer is a small edge. Pitcher home runs, hitter walks and hitter home runs improve on the player's own average by less than 2%. A single game's home runs or walks are close to the limit of what any pre-game information can predict. Summed over a full window the projections still rank players well, so they are most useful for weekly and season-level decisions rather than single games.
 
-The pitcher projections run high for runs allowed (+13%), home runs (+12%) and hits (+6%). The test-window bias table in Section 3 shows which part of the blend carries it.
+The pitcher projections run high for runs allowed (+13%), home runs (+12%) and hits (+6%). Most of that comes from the rate-times-innings part of the published blend, which points to how the blend is weighted rather than to the underlying models.
 
-The game model's test log loss is 0.6827 against 0.6911 for always picking the home team, a difference of -8.4 (-14.1 to -2.4) ×1000, with AUC 0.571. The logistic regression was selected on validation but is not yet deployed; the site still uses the earlier model.
+The game model's probabilities are well calibrated on average (calibration-in-the-large +0.003 on test). Its test log loss of 0.6827 and accuracy of 54.9% compare with 0.6911 and 53.2% for always picking the home team.
 
