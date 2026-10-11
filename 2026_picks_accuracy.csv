@@ -2452,4 +2452,4 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-07,849833,CLE,CWS,Daniel Espino,Sean Newcomb,CWS,0.5725838134380938,0.4274161865619061,2026-10-07T20:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,3.0,9.0,Final,0.0
 2026-10-07,849838,TB,NYY,Nick Martinez,Max Fried,NYY,0.5315323277438572,0.4684676722561428,2026-10-08T00:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,3.0,4.0,Final,0.0
 2026-10-08,849832,CLE,CWS,Parker Messick,Hagen Smith,CWS,0.534646871321348,0.465353128678652,2026-10-09T00:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,9.0,Final,0.0
-2026-10-10,849831,CWS,CLE,Sean Burke,Gavin Williams,CLE,0.5192183256149292,0.4807816743850708,2026-10-11T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CWS,0.0,0.0,Pre-Game,0.0
+2026-10-10,849831,CWS,CLE,Sean Burke,Gavin Williams,CLE,0.5192183256149292,0.4807816743850708,2026-10-11T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CWS,0.0,0.0,In Progress,0.0
