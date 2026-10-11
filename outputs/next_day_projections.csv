@@ -1,3 +1,4 @@
 player_type,team,opponent,player_name,mlb_id,lineup_spot,pos,lineup_status,proj_pa,proj_ip,proj_outs,proj_runs_allowed,proj_hits_allowed,proj_strikeouts,proj_walks,proj_hr_allowed,proj_er_model,proj_fip,proj_war_contribution,direct_K,rate_K,direct_BB,rate_BB,direct_H,rate_H,direct_HR,rate_HR,direct_R,rate_R,proj_hits,proj_runs,proj_rbi,proj_hrrbi,proj_hr,model_trained_through,game_date
-pitcher,LAD,MIL,Tarik Skubal,669373,,,Probable Starter,,5.5,16,2.24,4.57,6.62,1.1,0.58,1.91,2.91,0.167,6.581,6.663,1.094,1.12,4.521,4.785,0.591,0.546,1.69,2.411,,,,,,2026-10-08,2026-10-11
-pitcher,MIL,LAD,Jacob Misiorowski,694819,,,Probable Starter,,4.8,14,1.78,3.29,6.69,1.57,0.32,1.78,2.41,0.13,6.713,6.663,1.466,1.892,3.685,1.692,0.251,0.476,1.643,2.103,,,,,,2026-10-08,2026-10-11
+pitcher,LAD,MIL,Yoshinobu Yamamoto,808967,,,Probable Starter,,5.72,17,2.21,3.96,6.29,1.6,0.63,2.15,3.43,0.153,6.327,6.258,1.541,1.777,3.864,4.355,0.65,0.586,1.997,2.508,,,,,,2026-10-08,2026-10-12
+pitcher,MIL,LAD,Logan Henderson,701656,,,Probable Starter,,4.95,15,2.3,4.1,5.06,1.51,0.74,2.0,4.17,0.116,5.078,5.045,1.461,1.645,4.043,4.306,0.791,0.624,1.921,2.17,,,,,,2026-10-08,2026-10-12
+pitcher,TB,CLE,Drew Rasmussen,656876,,,Probable Starter,,5.39,16,2.52,4.6,6.25,1.48,0.84,2.26,3.88,0.116,6.117,6.378,1.453,1.571,4.522,4.892,0.801,0.925,2.215,2.364,,,,,,2026-10-08,2026-10-12
