@@ -1,1 +1,2 @@
-model_trained_through,game_date
+player_type,team,opponent,player_name,mlb_id,lineup_spot,pos,lineup_status,proj_pa,proj_ip,proj_outs,proj_runs_allowed,proj_hits_allowed,proj_strikeouts,proj_walks,proj_hr_allowed,proj_er_model,proj_fip,proj_war_contribution,direct_K,rate_K,direct_BB,rate_BB,direct_H,rate_H,direct_HR,rate_HR,direct_R,rate_R,proj_hits,proj_runs,proj_rbi,proj_hrrbi,proj_hr,model_trained_through,game_date
+pitcher,TB,CLE,Freddy Peralta,642547,,,Probable Starter,,4.9,15,2.64,4.28,5.28,2.21,0.86,2.52,4.83,0.053,5.22,5.349,2.104,2.522,4.234,4.473,0.834,0.918,2.372,2.851,,,,,,2026-10-08,2026-10-13
