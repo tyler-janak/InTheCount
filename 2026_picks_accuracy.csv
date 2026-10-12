@@ -2454,5 +2454,5 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-08,849832,CLE,CWS,Parker Messick,Hagen Smith,CWS,0.534646871321348,0.465353128678652,2026-10-09T00:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,9.0,Final,0.0
 2026-10-10,849831,CWS,CLE,Sean Burke,Gavin Williams,CLE,0.5192183256149292,0.4807816743850708,2026-10-11T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CLE,2.0,0.0,Final,1.0
 2026-10-11,849809,LAD,MIL,Tarik Skubal,Jacob Misiorowski,MIL,0.5148585438728333,0.4851414561271667,2026-10-12T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,2.0,1.0,Final,1.0
-2026-10-12,849812,LAD,MIL,Yoshinobu Yamamoto,Logan Henderson,MIL,0.5148585438728333,0.4851414561271667,2026-10-12T21:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,3.0,2.0,In Progress,1.0
+2026-10-12,849812,LAD,MIL,Yoshinobu Yamamoto,Logan Henderson,MIL,0.5148585438728333,0.4851414561271667,2026-10-12T21:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,LAD,3.0,4.0,In Progress,0.0
 2026-10-12,849820,CLE,TB,Foster Griffin,Drew Rasmussen,TB,0.5269255042076111,0.4730744957923889,2026-10-13T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CLE,0.0,0.0,Pre-Game,0.0
