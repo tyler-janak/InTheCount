@@ -103,7 +103,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-03,824299,STL,DET,Michael McGreevy,Framber Valdez,DET,0.5183401027924164,0.4816598972075836,2026-04-03T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,4.0,0.0,Final,1.0
 2026-04-03,824377,PHI,COL,Aaron Nola,Michael Lorenzen,PHI,0.4994316800946065,0.5005683199053934,2026-04-03T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,1.0,10.0,Final,1.0
 2026-04-03,824458,CHC,CLE,Cade Horton,Joey Cantillo,CLE,0.5064308321386861,0.4935691678613139,2026-04-03T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,4.0,1.0,Final,1.0
-2026-04-03,824621,TOR,CWS,Dylan Cease,Grant Taylor,TOR,0.4470459351051042,0.5529540648948957,2026-04-03T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-03,824621,TOR,CWS,Dylan Cease,Grant Taylor,TOR,0.4470459351051042,0.5529540648948957,2026-04-03T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CWS,5.0,4.0,Final,0.0
 2026-04-03,824786,SD,BOS,Michael King,Sonny Gray,BOS,0.5266370680457224,0.4733629319542776,2026-04-03T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,5.0,2.0,Final,1.0
 2026-04-03,825026,HOU,ATH,Cristian Javier,Jeffrey Springs,HOU,0.4281976918519305,0.5718023081480694,2026-04-04T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATH,11.0,4.0,Final,0.0
@@ -116,7 +115,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-04,823730,TB,MIN,Steven Matz,Mick Abel,MIN,0.5441251457766968,0.4558748542233032,2026-04-04T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,1.0,7.0,Final,0.0
 2026-04-04,824054,SEA,LAA,Emerson Hancock,Jack Kochanowicz,SEA,0.4340539312002409,0.5659460687997591,2026-04-05T01:38:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAA,1.0,0.0,Final,0.0
 2026-04-04,824132,MIL,KC,Chad Patrick,Luinder Avila,MIL,0.4829187952352694,0.5170812047647306,2026-04-04T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,2.0,5.0,Final,1.0
-2026-04-04,824134,MIL,KC,Logan Henderson,Seth Lugo,MIL,0.4467140261346934,0.5532859738653065,2026-04-04T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-04,824134,MIL,KC,Logan Henderson,Seth Lugo,MIL,0.4467140261346934,0.5532859738653065,2026-04-04T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,KC,8.0,2.0,Final,0.0
 2026-04-04,824295,STL,DET,Dustin May,Jack Flaherty,DET,0.5355822393736112,0.4644177606263888,2026-04-04T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,11.0,6.0,Completed Early,1.0
 2026-04-04,824378,PHI,COL,Jesús Luzardo,Brennan Bernardino,PHI,0.4679130124916811,0.532086987508319,2026-04-05T00:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,1.0,2.0,Final,1.0
@@ -135,7 +133,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-05,824296,STL,DET,Kyle Leahy,Keider Montero,DET,0.5690656190323363,0.4309343809676637,2026-04-05T23:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,3.0,5.0,Final,0.0
 2026-04-05,824379,PHI,COL,Taijuan Walker,Tomoyuki Sugano,PHI,0.4828635708180686,0.5171364291819314,2026-04-05T19:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,COL,4.0,1.0,Final,0.0
 2026-04-05,824459,CHC,CLE,Edward Cabrera,Slade Cecconi,CLE,0.5276768701360979,0.4723231298639021,2026-04-05T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,0.0,1.0,Final,0.0
-2026-04-05,824460,CHC,CLE,Shota Imanaga,Parker Messick,CLE,0.5565687826156945,0.4434312173843054,2026-04-05T17:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-05,824460,CHC,CLE,Shota Imanaga,Parker Messick,CLE,0.5565687826156945,0.4434312173843054,2026-04-05T17:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,6.0,5.0,Final,1.0
 2026-04-05,824620,TOR,CWS,Eric Lauer,Davis Martin,TOR,0.4535962815513637,0.5464037184486363,2026-04-05T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CWS,3.0,0.0,Final,0.0
 2026-04-05,824781,SD,BOS,Walker Buehler,Ranger Suarez,BOS,0.5470658541798887,0.4529341458201112,2026-04-05T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,6.0,8.0,Final,0.0
@@ -413,7 +410,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-26,823068,SEA,STL,Emerson Hancock,Michael McGreevy,STL,0.5127467847695923,0.4872532152304076,2026-04-26T18:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SEA,2.0,3.0,Final,0.0
 2026-04-26,823230,MIA,SF,Max Meyer,Landen Roupp,SF,0.5298621471087295,0.4701378528912705,2026-04-26T20:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,6.0,3.0,Final,1.0
 2026-04-26,823635,COL,NYM,Jose Quintana,Nolan McLean,NYM,0.5707552243735231,0.4292447756264769,2026-04-26T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,COL,1.0,3.0,Final,0.0
-2026-04-26,823637,COL,NYM,Chase Dollander,Kodai Senga,COL,0.4976590207791329,0.5023409792208671,2026-04-26T17:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-26,823637,COL,NYM,Chase Dollander,Kodai Senga,COL,0.4976590207791329,0.5023409792208671,2026-04-26T17:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,COL,0.0,3.0,Final,1.0
 2026-04-26,823797,PIT,MIL,Carmen Mlodzinski,Kyle Harrison,MIL,0.5130639948494522,0.4869360051505478,2026-04-26T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,5.0,0.0,Final,1.0
 2026-04-26,823959,CHC,LAD,Shota Imanaga,Justin Wrobleski,LAD,0.5044586185144717,0.4955413814855283,2026-04-26T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,6.0,0.0,Final,1.0
@@ -461,7 +457,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-29,824930,DET,ATL,Tarik Skubal,JR Ritchie,ATL,0.5449221084357695,0.4550778915642305,2026-04-29T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,4.0,3.0,Final,1.0
 2026-04-29,825015,KC,ATH,Michael Wacha,Luis Severino,ATH,0.5438635003143663,0.4561364996856337,2026-04-30T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATH,5.0,2.0,Final,1.0
 2026-04-30,823391,STL,PIT,Hunter Dobbins,Paul Skenes,PIT,0.545063300111997,0.454936699888003,2026-04-30T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,5.0,10.0,Final,0.0
-2026-04-30,823471,SF,PHI,Adrian Houser,Tim Mayza,PHI,0.5074625744549695,0.4925374255450305,2026-04-30T21:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-30,823471,SF,PHI,Adrian Houser,Tim Mayza,PHI,0.5074625744549695,0.4925374255450305,2026-04-30T21:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,6.0,5.0,Final,1.0
 2026-04-30,823472,SF,PHI,Logan Webb,Cristopher Sánchez,PHI,0.541439409158199,0.458560590841801,2026-04-30T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,3.0,2.0,Final,1.0
 2026-04-30,823634,WSH,NYM,Miles Mikolas,Freddy Peralta,NYM,0.5450167405345739,0.454983259465426,2026-04-30T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,WSH,4.0,5.0,Final,0.0
@@ -469,7 +464,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-04-30,823795,AZ,MIL,Michael Soroka,Brandon Woodruff,MIL,0.5087211666691225,0.4912788333308775,2026-04-30T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,13.0,1.0,Final,1.0
 2026-04-30,824524,COL,CIN,Michael Lorenzen,Andrew Abbott,CIN,0.519751701545021,0.4802482984549789,2026-04-30T16:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,6.0,4.0,Final,1.0
 2026-04-30,824848,HOU,BAL,Peter Lambert,Chris Bassitt,HOU,0.4988897674039542,0.5011102325960457,2026-04-30T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,10.0,3.0,Final,0.0
-2026-04-30,824850,HOU,BAL,Lance McCullers Jr.,Brandon Young,BAL,0.5507896156310329,0.4492103843689671,2026-04-30T16:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-04-30,824850,HOU,BAL,Lance McCullers Jr.,Brandon Young,BAL,0.5507896156310329,0.4492103843689671,2026-04-30T16:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,HOU,5.0,11.0,Final,0.0
 2026-04-30,824929,DET,ATL,Framber Valdez,Bryce Elder,ATL,0.60948740429573,0.39051259570427,2026-04-30T16:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,2.0,5.0,Final,0.0
 2026-04-30,825016,KC,ATH,Noah Cameron,Jeffrey Springs,ATH,0.5676023218903047,0.4323976781096953,2026-04-30T19:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATH,6.0,3.0,Final,1.0
@@ -564,7 +558,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-05-07,823551,TEX,NYY,MacKenzie Gore,Paul Blackburn,NYY,0.5936548343891177,0.4063451656108823,2026-05-07T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,9.0,2.0,Final,1.0
 2026-05-07,823870,BAL,MIA,Cade Povich,Max Meyer,MIA,0.5590860909019831,0.4409139090980168,2026-05-07T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIA,4.0,3.0,Final,1.0
 2026-05-07,824117,CLE,KC,Slade Cecconi,Seth Lugo,KC,0.5376190001804746,0.4623809998195254,2026-05-07T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,8.0,Final,0.0
-2026-05-07,824362,NYM,COL,Christian Scott,Jose Quintana,NYM,0.4964980107189628,0.5035019892810372,2026-05-07T19:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-05-07,824362,NYM,COL,Christian Scott,Jose Quintana,NYM,0.4964980107189628,0.5035019892810372,2026-05-07T19:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,COL,6.0,2.0,Final,0.0
 2026-05-07,824681,CIN,CHC,Rhett Lowder,Shota Imanaga,CHC,0.6355486312006874,0.3644513687993126,2026-05-07T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,8.0,3.0,Final,1.0
 2026-05-07,824767,TB,BOS,Griffin Jax,Jake Bennett,TB,0.4824690711295204,0.5175309288704796,2026-05-07T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,4.0,8.0,Final,1.0
@@ -779,7 +772,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-05-23,824030,TEX,LAA,Nathan Eovaldi,Walbert Ureña,TEX,0.4499037208742358,0.5500962791257642,2026-05-24T02:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAA,5.0,2.0,Final,0.0
 2026-05-23,824109,SEA,KC,George Kirby,Stephen Kolek,SEA,0.4977005971020188,0.5022994028979811,2026-05-23T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,KC,5.0,0.0,Final,0.0
 2026-05-23,824516,STL,CIN,Kyle Leahy,Chase Petty,STL,0.4799924950047189,0.520007504995281,2026-05-23T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,7.0,6.0,Final,0.0
-2026-05-23,824518,STL,CIN,Andre Pallante,Chris Paddack,CIN,0.5056724257908598,0.4943275742091402,2026-05-23T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-05-23,824518,STL,CIN,Andre Pallante,Chris Paddack,CIN,0.5056724257908598,0.4943275742091402,2026-05-23T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,1.0,8.0,Final,0.0
 2026-05-23,824674,HOU,CHC,Kai-Wei Teng,Colin Rea,CHC,0.5567071139702446,0.4432928860297553,2026-05-23T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,HOU,0.0,3.0,Final,0.0
 2026-05-23,824760,MIN,BOS,Taj Bradley,Jovani Morán,BOS,0.5101613467917667,0.4898386532082333,2026-05-23T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,2.0,4.0,Final,0.0
@@ -797,7 +789,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-05-24,824676,HOU,CHC,Peter Lambert,Shota Imanaga,CHC,0.5570169461904889,0.4429830538095111,2026-05-24T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,HOU,5.0,8.0,Final,0.0
 2026-05-24,824759,MIN,BOS,Bailey Ober,Sonny Gray,BOS,0.5412791889742141,0.4587208110257859,2026-05-24T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,5.0,6.0,Final,0.0
 2026-05-24,824839,DET,BAL,Framber Valdez,Brandon Young,BAL,0.5371357301686303,0.4628642698313697,2026-05-24T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,5.0,3.0,Final,1.0
-2026-05-24,824840,DET,BAL,Troy Melton,Trevor Rogers,BAL,0.5387336697833254,0.4612663302166746,2026-05-24T22:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-05-24,824840,DET,BAL,Troy Melton,Trevor Rogers,BAL,0.5387336697833254,0.4612663302166746,2026-05-24T22:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,1.0,4.0,Final,0.0
 2026-05-24,824921,WSH,ATL,Foster Griffin,Martín Pérez,ATL,0.5611789772848861,0.4388210227151139,2026-05-24T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,WSH,1.0,2.0,Final,0.0
 2026-05-24,825081,COL,AZ,Jose Quintana,Ryne Nelson,AZ,0.6152480176765766,0.3847519823234234,2026-05-24T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,9.0,1.0,Final,1.0
@@ -1112,7 +1103,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-06-17,824668,COL,CHC,Sean Sullivan,Javier Assad,CHC,0.5549318460344107,0.4450681539655893,2026-06-18T00:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,8.0,6.0,Final,1.0
 2026-06-17,824746,TOR,BOS,Braydon Fisher,Jake Bennett,BOS,0.5059136062033425,0.4940863937966575,2026-06-17T22:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TOR,0.0,3.0,Final,0.0
 2026-06-17,824912,SF,ATL,Adrian Houser,Grant Holmes,ATL,0.590505760047326,0.409494239952674,2026-06-17T18:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,2.0,7.0,Final,0.0
-2026-06-17,824912,SF,ATL,Adrian Houser,Grant Holmes,ATL,0.590505760047326,0.409494239952674,2026-06-17T18:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,2.0,7.0,Final,0.0
 2026-06-17,824913,SF,ATL,Carson Whisenhunt,JR Ritchie,ATL,0.5765361266948638,0.4234638733051362,2026-06-17T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,5.0,7.0,Final,0.0
 2026-06-17,824992,PIT,ATH,Braxton Ashcraft,Aaron Civale,ATH,0.5210618921994593,0.4789381078005407,2026-06-18T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,4.0,12.0,Final,0.0
 2026-06-17,825072,LAA,AZ,Sam Aldegheri,Eduardo Rodriguez,AZ,0.5401270076860831,0.4598729923139169,2026-06-17T19:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,8.0,1.0,Final,1.0
@@ -1201,7 +1191,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-06-24,823284,ATL,SD,Martín Pérez,JP Sears,SD,0.5124011274950229,0.4875988725049771,2026-06-25T00:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,5.0,2.0,Final,1.0
 2026-06-24,823367,SEA,PIT,Bryan Woo,Braxton Ashcraft,PIT,0.5322978289910926,0.4677021710089074,2026-06-24T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,11.0,1.0,Final,1.0
 2026-06-24,823611,CHC,NYM,Shota Imanaga,Sean Manaea,NYM,0.5065747875037937,0.4934252124962063,2026-06-24T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,5.0,10.0,Final,0.0
-2026-06-24,823613,CHC,NYM,Javier Assad,Nolan McLean,NYM,0.5066447467802287,0.4933552532197712,2026-06-24T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-06-24,823613,CHC,NYM,Javier Assad,Nolan McLean,NYM,0.5066447467802287,0.4933552532197712,2026-06-24T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,3.0,10.0,Final,0.0
 2026-06-24,823691,LAD,MIN,Shohei Ohtani,Joe Ryan,LAD,0.4927368602496926,0.5072631397503073,2026-06-24T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,3.0,4.0,Final,1.0
 2026-06-24,823850,TEX,MIA,Jacob deGrom,Eury Pérez,MIA,0.5371705241754452,0.4628294758245548,2026-06-24T16:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIA,4.0,2.0,Final,1.0
@@ -1369,7 +1358,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-07,822881,LAA,TEX,José Soriano,Jacob deGrom,TEX,0.5871732568341939,0.4128267431658061,2026-07-08T00:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TEX,8.0,3.0,Final,1.0
 2026-07-07,822956,NYY,TB,Will Warren,Ian Seymour,TB,0.6140648805114527,0.3859351194885473,2026-07-07T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,6.0,4.0,Final,1.0
 2026-07-07,823035,MIL,STL,Robert Gasser,Hunter Dobbins,STL,0.5080181402787912,0.4919818597212088,2026-07-07T23:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,2.0,10.0,Final,0.0
-2026-07-07,823062,MIL,STL,Jacob Misiorowski,Matt Svanson,MIL,0.4905764550845199,0.50942354491548,2026-07-07T18:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-07,823062,MIL,STL,Jacob Misiorowski,Matt Svanson,MIL,0.4905764550845199,0.50942354491548,2026-07-07T18:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,3.0,4.0,Final,1.0
 2026-07-07,823203,TOR,SF,Spencer Miles,Trevor McDonald,SF,0.5695794293370867,0.4304205706629133,2026-07-08T01:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TOR,3.0,9.0,Final,0.0
 2026-07-07,823280,AZ,SD,Zac Gallen,Germán Márquez,AZ,0.4810411410268153,0.5189588589731846,2026-07-08T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,4.0,1.0,Final,0.0
@@ -1431,7 +1419,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-11,823198,COL,SF,Kyle Freeland,Tyler Mahle,SF,0.5403358479326618,0.4596641520673382,2026-07-11T20:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,4.0,2.0,Final,1.0
 2026-07-11,823276,TOR,SD,Trey Yesavage,Walker Buehler,TOR,0.4957609910579668,0.5042390089420332,2026-07-12T00:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,8.0,7.0,Final,0.0
 2026-07-11,823356,MIL,PIT,Shane Drohan,Bubba Chandler,MIL,0.4816907130365038,0.5183092869634962,2026-07-11T20:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,3.0,2.0,Final,0.0
-2026-07-11,823357,MIL,PIT,Brandon Sproat,Braxton Ashcraft,PIT,0.5062427391244803,0.4937572608755197,2026-07-11T16:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-11,823357,MIL,PIT,Brandon Sproat,Braxton Ashcraft,PIT,0.5062427391244803,0.4937572608755197,2026-07-11T16:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,7.0,6.0,Final,1.0
 2026-07-11,823603,BOS,NYM,Eduardo Rivera,Freddy Peralta,BOS,0.4975270653928266,0.5024729346071733,2026-07-11T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,0.0,4.0,Final,1.0
 2026-07-11,823682,LAA,MIN,Ryan Johnson,Joe Ryan,MIN,0.5826863239343287,0.4173136760656712,2026-07-11T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,5.0,3.0,Final,1.0
@@ -1467,7 +1454,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-17,824332,CIN,COL,Brady Singer,Gabriel Hughes,COL,0.5615298185484514,0.4384701814515486,2026-07-18T00:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,2.0,7.0,Final,0.0
 2026-07-17,824655,MIN,CHC,Bailey Ober,Colin Rea,CHC,0.535053685910064,0.464946314089936,2026-07-18T00:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,2.0,5.0,Final,0.0
 2026-07-17,824737,TB,BOS,Mason Englert,Eduardo Rivera,BOS,0.5057053997407781,0.4942946002592219,2026-07-17T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,5.0,3.0,Final,1.0
-2026-07-17,824766,TB,BOS,Griffin Jax,Jake Bennett,BOS,0.5304739225821985,0.4695260774178015,2026-07-17T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-17,824766,TB,BOS,Griffin Jax,Jake Bennett,BOS,0.5304739225821985,0.4695260774178015,2026-07-17T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,10.0,0.0,Final,1.0
 2026-07-17,824901,TEX,ATL,Cal Quantrill,Chris Sale,ATL,0.6089531413220323,0.3910468586779677,2026-07-17T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,15.0,1.0,Final,1.0
 2026-07-17,824981,WSH,ATH,Cade Cavalli,Gage Jump,WSH,0.4611001247797518,0.5388998752202482,2026-07-18T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,WSH,4.0,23.0,Final,1.0
@@ -1481,7 +1467,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-18,824169,BAL,HOU,Trevor Rogers,Spencer Arrighetti,HOU,0.5242609056277175,0.4757390943722824,2026-07-18T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,2.0,4.0,Final,0.0
 2026-07-18,824331,CIN,COL,Rhett Lowder,Tomoyuki Sugano,CIN,0.4990700571763011,0.5009299428236988,2026-07-18T19:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,COL,10.0,3.0,Final,0.0
 2026-07-18,824412,PIT,CLE,Mason Montgomery,Logan Allen,PIT,0.4740305618157581,0.5259694381842419,2026-07-18T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,3.0,Final,0.0
-2026-07-18,824414,PIT,CLE,Jared Jones,Gavin Williams,CLE,0.5186711879262215,0.4813288120737785,2026-07-18T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-18,824414,PIT,CLE,Jared Jones,Gavin Williams,CLE,0.5186711879262215,0.4813288120737785,2026-07-18T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,1.0,7.0,Final,0.0
 2026-07-18,824657,MIN,CHC,Taj Bradley,Matthew Boyd,CHC,0.5340099610914176,0.4659900389085823,2026-07-18T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,6.0,2.0,Final,1.0
 2026-07-18,824738,TB,BOS,Ian Seymour,Patrick Sandoval,BOS,0.5275405761317481,0.4724594238682519,2026-07-18T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,7.0,6.0,Final,1.0
@@ -1492,7 +1477,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-19,823113,SF,SEA,Robbie Ray,Logan Gilbert,SEA,0.5731293234317254,0.4268706765682746,2026-07-19T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SEA,6.0,3.0,Final,1.0
 2026-07-19,823439,NYM,PHI,Nolan McLean,Alan Rangel,PHI,0.5182002436141455,0.4817997563858545,2026-07-19T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYM,1.0,6.0,Final,0.0
 2026-07-19,823521,LAD,NYY,Will Klein,Ryan Yarbrough,NYY,0.5256785042011077,0.4743214957988922,2026-07-19T23:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,2.0,1.0,Final,1.0
-2026-07-19,823523,LAD,NYY,Yoshinobu Yamamoto,Cam Schlittler,NYY,0.5294115450384117,0.4705884549615883,2026-07-19T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-19,823523,LAD,NYY,Yoshinobu Yamamoto,Cam Schlittler,NYY,0.5294115450384117,0.4705884549615883,2026-07-19T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,2.0,8.0,Final,0.0
 2026-07-19,823764,MIA,MIL,Eury Pérez,Robert Gasser,MIL,0.5450367840798166,0.4549632159201834,2026-07-19T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,3.0,1.0,Final,1.0
 2026-07-19,824007,DET,LAA,Casey Mize,Ryan Johnson,DET,0.4624016579248508,0.5375983420751491,2026-07-19T20:07:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAA,3.0,2.0,Final,0.0
@@ -1538,7 +1522,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-22,823110,CIN,SEA,Brady Singer,Emerson Hancock,SEA,0.5587222978063155,0.4412777021936844,2026-07-22T19:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,3.0,5.0,Final,0.0
 2026-07-22,823438,LAD,PHI,Eric Lauer,Aaron Nola,PHI,0.5114925872568736,0.4885074127431263,2026-07-22T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,5.0,9.0,Final,0.0
 2026-07-22,823518,PIT,NYY,Mitch Keller,Gerrit Cole,NYY,0.5636525652101629,0.436347434789837,2026-07-22T17:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,3.0,5.0,Final,0.0
-2026-07-22,823519,PIT,NYY,Bubba Chandler,Max Fried,NYY,0.5713400224503261,0.4286599775496739,2026-07-22T23:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-22,823519,PIT,NYY,Bubba Chandler,Max Fried,NYY,0.5713400224503261,0.4286599775496739,2026-07-22T23:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,2.0,0.0,Final,1.0
 2026-07-22,823761,NYM,MIL,Christian Scott,Logan Henderson,MIL,0.6174946025550437,0.3825053974449562,2026-07-22T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,4.0,3.0,Final,1.0
 2026-07-22,824004,STL,LAA,Hunter Dobbins,Reid Detmers,LAA,0.5663985992595053,0.4336014007404947,2026-07-22T20:07:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,0.0,1.0,Final,0.0
@@ -1548,12 +1531,10 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-22,824408,MIN,CLE,Bailey Ober,Slade Cecconi,CLE,0.5592646724503373,0.4407353275496627,2026-07-22T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,6.0,10.0,Final,0.0
 2026-07-22,824650,DET,CHC,Keider Montero,Colin Rea,CHC,0.5497725806691107,0.4502274193308893,2026-07-23T00:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,1.0,5.0,Final,0.0
 2026-07-22,824732,BAL,BOS,Kyle Bradish,Eduardo Rivera,BOS,0.5630258684542432,0.4369741315457568,2026-07-22T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,1.0,5.0,Final,0.0
-2026-07-22,824735,BAL,BOS,Dean Kremer,Jake Bennett,BOS,0.569898748114985,0.430101251885015,2026-07-22T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-22,824735,BAL,BOS,Dean Kremer,Jake Bennett,BOS,0.569898748114985,0.430101251885015,2026-07-22T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,6.0,3.0,Final,1.0
 2026-07-22,824896,SD,ATL,Michael King,Martín Pérez,ATL,0.5483498125690205,0.4516501874309795,2026-07-22T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,7.0,6.0,Final,1.0
 2026-07-22,825055,ATH,AZ,Gage Jump,Merrill Kelly,AZ,0.5631754235383978,0.4368245764616022,2026-07-22T19:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,15.0,5.0,Final,1.0
 2026-07-23,822785,TB,TOR,Casey Legumina,Shane Bieber,TB,0.4638146263858796,0.5361853736141203,2026-07-23T19:07:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TOR,3.0,1.0,Final,0.0
-2026-07-23,823042,AZ,STL,Brandon Pfaadt,Michael McGreevy,AZ,0.4910017021646241,0.5089982978353759,2026-07-23T21:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-23,823042,AZ,STL,Brandon Pfaadt,Michael McGreevy,AZ,0.4910017021646241,0.5089982978353759,2026-07-23T21:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,6.0,10.0,Final,1.0
 2026-07-23,824247,KC,DET,Randy Dobnak,Troy Melton,DET,0.6157641385412161,0.3842358614587838,2026-07-23T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,4.0,3.0,Final,1.0
 2026-07-23,824406,MIN,CLE,Taj Bradley,Gavin Williams,CLE,0.5679462932299248,0.4320537067700751,2026-07-23T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,1.0,3.0,Final,0.0
@@ -1626,7 +1607,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-28,824003,HOU,LAA,Peter Lambert,Reid Detmers,LAA,0.533131486251627,0.466868513748373,2026-07-29T01:38:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,HOU,2.0,3.0,Final,0.0
 2026-07-28,824243,BAL,DET,Dean Kremer,Troy Melton,DET,0.5340689582391694,0.4659310417608305,2026-07-28T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,DET,14.0,0.0,Final,1.0
 2026-07-28,824489,CLE,CIN,Gavin Williams,Caleb Ferguson,CIN,0.5252453606173936,0.4747546393826064,2026-07-28T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,2.0,0.0,Final,1.0
-2026-07-28,824490,CLE,CIN,Slade Cecconi,Chase Burns,CIN,0.5435008278327468,0.4564991721672532,2026-07-28T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-28,824490,CLE,CIN,Slade Cecconi,Chase Burns,CIN,0.5435008278327468,0.4564991721672532,2026-07-28T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,6.0,Final,0.0
 2026-07-28,824569,NYY,CWS,Gerrit Cole,Anthony Kay,CWS,0.5199786742549204,0.4800213257450796,2026-07-28T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,2.0,3.0,Final,0.0
 2026-07-28,824976,BOS,ATH,Jake Bennett,Gage Jump,BOS,0.4611957638201929,0.5388042361798071,2026-07-29T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATH,4.0,3.0,Final,0.0
@@ -1637,7 +1617,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-07-29,823273,COL,SD,Gabriel Hughes,Kyle Hart,SD,0.5743513055759852,0.4256486944240147,2026-07-29T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,3.0,1.0,Final,1.0
 2026-07-29,823351,AZ,PIT,Eduardo Rodriguez,Jared Jones,PIT,0.5478277763569683,0.4521722236430316,2026-07-29T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,0.0,3.0,Final,0.0
 2026-07-29,823596,ATL,NYM,AJ Smith-Shawver,Sean Manaea,NYM,0.5050438298949039,0.494956170105096,2026-07-29T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYM,3.0,2.0,Final,1.0
-2026-07-29,823598,ATL,NYM,Chris Sale,Christian Scott,ATL,0.4852296288762903,0.5147703711237097,2026-07-29T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-07-29,823598,ATL,NYM,Chris Sale,Christian Scott,ATL,0.4852296288762903,0.5147703711237097,2026-07-29T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,0.0,1.0,Final,1.0
 2026-07-29,823677,KC,MIN,Randy Dobnak,Joe Ryan,MIN,0.5904877636929612,0.4095122363070388,2026-07-29T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,KC,0.0,4.0,Final,0.0
 2026-07-29,823837,PHI,MIA,Jesús Luzardo,Ryan Gusto,PHI,0.4911655668118908,0.5088344331881092,2026-07-29T16:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIA,8.0,6.0,Final,0.0
@@ -1746,7 +1725,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-08-06,824080,MIN,KC,Bailey Ober,Michael Wacha,KC,0.5316604740524832,0.4683395259475168,2026-08-06T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIN,3.0,4.0,Final,0.0
 2026-08-06,824401,NYM,CLE,Nolan McLean,Foster Griffin,CLE,0.5267316383980123,0.4732683616019877,2026-08-06T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYM,6.0,13.0,Final,0.0
 2026-08-06,824481,ATH,CIN,Mason Barnett,Andrew Abbott,CIN,0.558164779442005,0.4418352205579949,2026-08-06T16:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,6.0,5.0,Final,1.0
-2026-08-06,824664,TOR,CHC,Dylan Cease,David Peterson,CHC,0.5651491954590261,0.4348508045409739,2026-08-06T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-08-06,824664,TOR,CHC,Dylan Cease,David Peterson,CHC,0.5651491954590261,0.4348508045409739,2026-08-06T18:20:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,3.0,2.0,Final,1.0
 2026-08-06,824729,CWS,BOS,Luis Castillo,Ranger Suarez,BOS,0.6090090069037067,0.3909909930962932,2026-08-06T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,12.0,11.0,Final,1.0
 2026-08-06,824804,LAA,BAL,Ryan Johnson,Brandon Young,BAL,0.5592509591880449,0.4407490408119551,2026-08-06T16:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAA,1.0,4.0,Final,0.0
@@ -1898,7 +1876,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-08-17,824077,ATH,KC,Mason Barnett,Michael Wacha,KC,0.5497708658363651,0.4502291341636348,2026-08-17T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,KC,9.0,5.0,Final,1.0
 2026-08-17,824320,LAD,COL,Blake Snell,Tomoyuki Sugano,LAD,0.4273221161241072,0.5726778838758928,2026-08-18T00:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,5.0,11.0,Final,1.0
 2026-08-17,824478,STL,CIN,Andre Pallante,Rhett Lowder,STL,0.4843319395020452,0.5156680604979548,2026-08-17T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CIN,6.0,5.0,Final,0.0
-2026-08-17,824514,STL,CIN,Quinn Mathews,Kent Emanuel,STL,0.4938148967392974,0.5061851032607025,2026-08-17T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-08-17,824514,STL,CIN,Quinn Mathews,Kent Emanuel,STL,0.4938148967392974,0.5061851032607025,2026-08-17T17:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,1.0,2.0,Final,1.0
 2026-08-17,824641,CWS,CHC,Luis Castillo,Shota Imanaga,CHC,0.5635527694977027,0.4364472305022973,2026-08-18T00:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,7.0,5.0,Final,1.0
 2026-08-17,824725,AZ,BOS,Mitch Bratt,Alec Gamboa,BOS,0.5370886846192551,0.4629113153807449,2026-08-17T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,11.0,1.0,Final,1.0
@@ -1939,7 +1916,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-08-20,824153,LAA,HOU,Grayson Rodriguez,Peter Lambert,HOU,0.5760065939767979,0.4239934060232021,2026-08-21T00:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAA,3.0,18.0,Final,0.0
 2026-08-20,824395,SF,CLE,Landen Roupp,Gavin Williams,CLE,0.603249203016403,0.396750796983597,2026-08-20T17:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,2.0,Final,1.0
 2026-08-20,824474,STL,CIN,Michael McGreevy,Brady Singer,STL,0.4879723863625848,0.5120276136374151,2026-08-20T16:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,9.0,10.0,Final,1.0
-2026-08-20,824589,ATL,CWS,Grant Holmes,Anthony Kay,CWS,0.5550840492169318,0.4449159507830682,2026-08-20T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-08-20,824589,ATL,CWS,Grant Holmes,Anthony Kay,CWS,0.5550840492169318,0.4449159507830682,2026-08-20T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,0.0,2.0,Final,0.0
 2026-08-20,824802,NYY,BAL,Gerrit Cole,Kyle Bradish,NYY,0.4989115197674832,0.5010884802325168,2026-08-20T22:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,1.0,6.0,Final,1.0
 2026-08-21,822857,LAA,TEX,Reid Detmers,MacKenzie Gore,TEX,0.5118334842024204,0.4881665157975796,2026-08-22T00:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TEX,2.0,1.0,Final,1.0
@@ -2056,7 +2032,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-08-29,823176,AZ,SF,Mitch Bratt,Yunior Marte,AZ,0.4961002979986926,0.5038997020013074,2026-08-30T02:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,7.0,2.0,Final,0.0
 2026-08-29,823177,AZ,SF,Merrill Kelly,Matt Wilkinson,SF,0.517338979760186,0.482661020239814,2026-08-29T20:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,AZ,1.0,7.0,Final,0.0
 2026-08-29,823501,BOS,NYY,Alec Gamboa,Max Fried,BOS,0.4837389156614238,0.5162610843385762,2026-08-29T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,9.0,2.0,Final,0.0
-2026-08-29,823539,BOS,NYY,Jake Bennett,Carlos Rodón,NYY,0.526700936269243,0.473299063730757,2026-08-29T17:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-08-29,823539,BOS,NYY,Jake Bennett,Carlos Rodón,NYY,0.526700936269243,0.473299063730757,2026-08-29T17:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,0.0,6.0,Final,0.0
 2026-08-29,823582,HOU,NYM,Bennett Sousa,Nolan McLean,NYM,0.5420246651018602,0.4579753348981398,2026-08-29T20:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYM,6.0,2.0,Final,1.0
 2026-08-29,823665,CWS,MIN,Erick Fedde,Bailey Ober,MIN,0.5170815548290154,0.4829184451709846,2026-08-29T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CWS,2.0,3.0,Final,0.0
@@ -2091,7 +2066,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-08-31,824473,SD,CIN,Michael King,Brady Singer,SD,0.4868508103177488,0.5131491896822512,2026-08-31T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SD,0.0,5.0,Final,1.0
 2026-08-31,824635,MIL,CHC,Kyle Harrison,Clay Holmes,CHC,0.5100247803785833,0.4899752196214166,2026-08-31T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CHC,17.0,3.0,Final,1.0
 2026-08-31,824719,SEA,BOS,George Kirby,Payton Tolle,BOS,0.6316000244460749,0.3683999755539251,2026-08-31T22:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,9.0,8.0,Final,1.0
-2026-08-31,824911,SF,ATL,Anthony Molina,Bryce Elder,ATL,0.6374572397290169,0.3625427602709831,2026-08-31T22:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-08-31,824911,SF,ATL,Anthony Molina,Bryce Elder,ATL,0.6374572397290169,0.3625427602709831,2026-08-31T22:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,SF,3.0,7.0,Final,0.0
 2026-08-31,825040,PHI,AZ,Aaron Nola,Brandon Pfaadt,AZ,0.5015325281727143,0.4984674718272857,2026-09-01T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,1.0,2.0,Final,0.0
 2026-09-01,822687,ATL,WSH,AJ Smith-Shawver,Jake Irvin,WSH,0.5020680077386006,0.4979319922613994,2026-09-01T22:45:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,WSH,9.0,5.0,Final,1.0
@@ -2145,7 +2119,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-09-04,824146,AZ,HOU,Merrill Kelly,Cristian Javier,HOU,0.5317765107340807,0.4682234892659193,2026-09-05T00:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,HOU,3.0,1.0,Final,1.0
 2026-09-04,824311,STL,COL,Andre Pallante,Ryan Feltner,STL,0.4925668443618157,0.5074331556381844,2026-09-05T00:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,STL,6.0,7.0,Final,1.0
 2026-09-04,824387,DET,CLE,Andrew Sears,Foster Griffin,CLE,0.5732745365403213,0.4267254634596786,2026-09-04T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,4.0,3.0,Final,1.0
-2026-09-04,824424,DET,CLE,Keider Montero,Logan Allen,CLE,0.5640500941933784,0.4359499058066216,2026-09-04T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-09-04,824424,DET,CLE,Keider Montero,Logan Allen,CLE,0.5640500941933784,0.4359499058066216,2026-09-04T18:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,7.0,6.0,Final,1.0
 2026-09-04,824471,MIL,CIN,Shane Drohan,Rhett Lowder,MIL,0.4337994957016471,0.5662005042983529,2026-09-04T22:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIL,7.0,10.0,Final,1.0
 2026-09-04,824554,MIN,CWS,Zebby Matthews,Erick Fedde,CWS,0.5226917893893557,0.4773082106106443,2026-09-04T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CWS,4.0,1.0,Final,1.0
@@ -2374,7 +2347,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-09-22,823328,STL,PIT,Andre Pallante,Jared Jones,PIT,0.5828769244814137,0.4171230755185863,2026-09-22T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PIT,2.0,0.0,Final,1.0
 2026-09-22,823412,MIL,PHI,Dustin May,Zack Wheeler,MIL,0.4810213508311636,0.5189786491688364,2026-09-22T22:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,PHI,6.0,4.0,Final,0.0
 2026-09-22,823494,TB,NYY,Drew Rasmussen,Max Fried,NYY,0.5231696265456866,0.4768303734543134,2026-09-22T23:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,1.0,6.0,Final,0.0
-2026-09-22,823543,TB,NYY,Nick Martinez,Carlos Rodón,NYY,0.5171173675718185,0.4828826324281815,2026-09-22T17:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-09-22,823543,TB,NYY,Nick Martinez,Carlos Rodón,NYY,0.5171173675718185,0.4828826324281815,2026-09-22T17:05:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,NYY,2.0,0.0,Final,1.0
 2026-09-22,823897,SD,LAD,Michael King,Brock Stewart,LAD,0.5763518925162661,0.4236481074837339,2026-09-23T02:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,LAD,7.0,0.0,Final,1.0
 2026-09-22,824061,CWS,KC,Anthony Kay,Daniel Lynch IV,CWS,0.4752532478222821,0.5247467521777178,2026-09-22T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CWS,11.0,14.0,Final,1.0
@@ -2397,7 +2369,6 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-09-23,824625,MIA,CHC,Ryan Gusto,Kevin Gausman,CHC,0.6087480098161665,0.3912519901838335,2026-09-23T23:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,MIA,2.0,3.0,Final,0.0
 2026-09-23,824710,CLE,BOS,Foster Griffin,Sonny Gray,BOS,0.5274993291625142,0.4725006708374858,2026-09-23T23:10:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BOS,1.0,0.0,Final,1.0
 2026-09-23,824784,TOR,BAL,CJ Van Eyk,Trey Gibson,BAL,0.5175177548201291,0.4824822451798709,2026-09-23T22:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,4.0,2.0,Final,1.0
-2026-09-23,824785,TOR,BAL,Max Scherzer,Chris Bassitt,BAL,0.5129811844127242,0.4870188155872758,2026-09-23T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,,,,Postponed,
 2026-09-23,824785,TOR,BAL,Max Scherzer,Chris Bassitt,BAL,0.5129811844127242,0.4870188155872758,2026-09-23T17:35:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,BAL,4.0,2.0,Final,1.0
 2026-09-23,824868,CIN,ATL,Andrew Abbott,Chris Sale,ATL,0.6726864124451767,0.3273135875548233,2026-09-23T23:15:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATL,3.0,2.0,Final,1.0
 2026-09-23,824951,LAA,ATH,Walbert Ureña,Jeffrey Springs,ATH,0.5005721099231979,0.4994278900768021,2026-09-24T01:40:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,ATH,7.0,3.0,Final,1.0
@@ -2481,3 +2452,5 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-07,849833,CLE,CWS,Daniel Espino,Sean Newcomb,CWS,0.5725838134380938,0.4274161865619061,2026-10-07T20:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,3.0,9.0,Final,0.0
 2026-10-07,849838,TB,NYY,Nick Martinez,Max Fried,NYY,0.5315323277438572,0.4684676722561428,2026-10-08T00:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,TB,3.0,4.0,Final,0.0
 2026-10-08,849832,CLE,CWS,Parker Messick,Hagen Smith,CWS,0.534646871321348,0.465353128678652,2026-10-09T00:00:00Z,,,,,,,,,,,v2:logistic:through_2025-09-28,CLE,5.0,9.0,Final,0.0
+2026-10-10,849831,CWS,CLE,Sean Burke,Gavin Williams,CLE,0.5192183256149292,0.4807816743850708,2026-10-11T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CLE,2.0,0.0,Final,1.0
+2026-10-11,849809,LAD,MIL,Tarik Skubal,Jacob Misiorowski,MIL,0.5148585438728333,0.4851414561271667,2026-10-12T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,LAD,0.0,1.0,In Progress,0.0
