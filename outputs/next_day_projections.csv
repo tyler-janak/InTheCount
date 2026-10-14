@@ -1,3 +1,2 @@
 player_type,team,opponent,player_name,mlb_id,lineup_spot,pos,lineup_status,proj_pa,proj_ip,proj_outs,proj_runs_allowed,proj_hits_allowed,proj_strikeouts,proj_walks,proj_hr_allowed,proj_er_model,proj_fip,proj_war_contribution,direct_K,rate_K,direct_BB,rate_BB,direct_H,rate_H,direct_HR,rate_HR,direct_R,rate_R,proj_hits,proj_runs,proj_rbi,proj_hrrbi,proj_hr,model_trained_through,game_date
-pitcher,MIL,LAD,Robert Gasser,688107,,,Probable Starter,,4.9,15,2.61,4.86,4.18,1.54,0.81,2.54,4.73,0.05,4.211,4.144,1.466,1.745,4.731,5.389,0.791,0.84,2.372,2.946,,,,,,2026-10-08,2026-10-14
-pitcher,LAD,MIL,Blake Snell,605483,,,Probable Starter,,4.42,13,2.11,3.89,5.71,2.15,0.23,1.78,2.91,0.103,5.693,5.729,2.091,2.344,3.853,4.015,0.251,0.187,1.718,1.941,,,,,,2026-10-08,2026-10-14
+pitcher,LAD,MIL,Tyler Glasnow,607192,,,Probable Starter,,5.07,15,2.29,3.71,6.38,2.22,0.6,1.97,3.68,0.127,6.532,6.237,2.192,2.284,3.855,3.117,0.596,0.604,1.859,2.221,,,,,,2026-10-08,2026-10-15
