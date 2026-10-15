@@ -2459,4 +2459,4 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-13,849813,CLE,TB,Parker Messick,Freddy Peralta,TB,0.5269255042076111,0.4730744957923889,2026-10-14T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,3.0,1.0,Final,1.0
 2026-10-14,849811,MIL,LAD,Robert Gasser,Blake Snell,LAD,0.5064858794212341,0.4935141205787658,2026-10-15T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,2.0,6.0,Final,0.0
 2026-10-15,849810,MIL,LAD,,Tyler Glasnow,LAD,0.5064858794212341,0.4935141205787658,2026-10-16T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,,,,Scheduled,
-2026-10-15,849818,TB,CLE,Griffin Jax,Gavin Williams,TB,0.4859083890914917,0.5140916109085083,2026-10-15T17:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,0.0,0.0,Pre-Game,1.0
+2026-10-15,849818,TB,CLE,Griffin Jax,Gavin Williams,TB,0.4859083890914917,0.5140916109085083,2026-10-15T17:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,0.0,0.0,In Progress,1.0
