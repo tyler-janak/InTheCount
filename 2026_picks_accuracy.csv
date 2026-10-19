@@ -2461,4 +2461,4 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-15,849810,MIL,LAD,Shane Drohan,Tyler Glasnow,LAD,0.5064858794212341,0.4935141205787658,2026-10-16T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,4.0,6.0,Final,0.0
 2026-10-15,849818,TB,CLE,Griffin Jax,Gavin Williams,TB,0.4859083890914917,0.5140916109085083,2026-10-15T17:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,CLE,3.0,2.0,Final,0.0
 2026-10-17,849816,TB,CLE,Nick Martinez,Shawn Armstrong,TB,0.4859083890914917,0.5140916109085083,2026-10-18T00:08:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,3.0,7.0,Final,1.0
-2026-10-18,849817,TB,CLE,Drew Rasmussen,Parker Messick,TB,0.4859083890914917,0.5140916109085083,2026-10-18T21:08:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,1.0,3.0,In Progress,1.0
+2026-10-18,849817,TB,CLE,Drew Rasmussen,Parker Messick,TB,0.4859083890914917,0.5140916109085083,2026-10-18T21:08:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,1.0,3.0,Final,1.0
