@@ -1,3 +1,1 @@
-player_type,team,opponent,player_name,mlb_id,lineup_spot,pos,lineup_status,proj_pa,proj_ip,proj_outs,proj_runs_allowed,proj_hits_allowed,proj_strikeouts,proj_walks,proj_hr_allowed,proj_er_model,proj_fip,proj_war_contribution,direct_K,rate_K,direct_BB,rate_BB,direct_H,rate_H,direct_HR,rate_HR,direct_R,rate_R,proj_hits,proj_runs,proj_rbi,proj_hrrbi,proj_hr,model_trained_through,game_date
-pitcher,TB,MIL,Drew Rasmussen,656876,,,Probable Starter,,5.39,16,2.52,4.6,6.27,1.48,0.85,2.26,3.89,0.116,6.157,6.385,1.453,1.571,4.522,4.892,0.804,0.946,2.22,2.364,,,,,,2026-10-08,2026-10-24
-pitcher,MIL,TB,Logan Henderson,701656,,,Probable Starter,,4.96,15,2.36,4.33,5.26,1.47,0.74,2.0,4.06,0.115,5.268,5.251,1.449,1.523,4.33,4.314,0.791,0.622,1.931,2.174,,,,,,2026-10-08,2026-10-24
+model_trained_through,game_date
