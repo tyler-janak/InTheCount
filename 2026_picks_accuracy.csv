@@ -2464,4 +2464,4 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-18,849817,TB,CLE,Drew Rasmussen,Parker Messick,TB,0.4859083890914917,0.5140916109085083,2026-10-18T21:08:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,1.0,3.0,Final,1.0
 2026-10-19,849815,CLE,TB,Shawn Armstrong,Freddy Peralta,TB,0.5269255042076111,0.4730744957923889,2026-10-20T00:08:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,7.0,3.0,Final,1.0
 2026-10-23,849805,TB,MIL,Nick Martinez,Jacob Misiorowski,MIL,0.508000373840332,0.49199962615966797,2026-10-24T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,3.0,2.0,Final,1.0
-2026-10-24,849802,TB,MIL,Drew Rasmussen,Logan Henderson,MIL,0.508000373840332,0.49199962615966797,2026-10-25T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,0.0,0.0,Pre-Game,0.0
+2026-10-24,849802,TB,MIL,Drew Rasmussen,Logan Henderson,MIL,0.508000373840332,0.49199962615966797,2026-10-25T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,0.0,0.0,In Progress,0.0
