@@ -2467,4 +2467,4 @@ game_date,game_pk,away_team,home_team,away_starter,home_starter,predicted_winner
 2026-10-24,849802,TB,MIL,Drew Rasmussen,Logan Henderson,MIL,0.508000373840332,0.49199962615966797,2026-10-25T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,5,4,Final,1.0
 2026-10-26,849804,MIL,TB,Robert Gasser,Freddy Peralta,TB,0.5316976308822632,0.4683023691177368,2026-10-27T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,MIL,1,10,Final,0.0
 2026-10-27,849803,MIL,TB,Dustin May,Griffin Jax,TB,0.5316976308822632,0.4683023691177368,2026-10-28T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,TB,4,3,Final,1.0
-2026-10-28,849799,MIL,TB,Jacob Misiorowski,,TB,0.5316976308822632,0.4683023691177368,2026-10-29T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,,,,Scheduled,
+2026-10-28,849799,MIL,TB,Jacob Misiorowski,Drew Rasmussen,TB,0.5316976308822632,0.4683023691177368,2026-10-29T00:00:00Z,,,,,,,,,,,v1:2025_model_data_snapshot,,,,Pre-Game,
